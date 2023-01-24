@@ -1,0 +1,628 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}  
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}  
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+	}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 1 -- Rappels de théorie de la mesure et de probabilités discrètes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Théorie de la mesure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Mesure image]
+	Soit $(\Omega,\cA,\P)$ un espace de probabilité, $(E,\cE)$ un espace mesurable et $X$ une v.a. à valeurs dans $E$. 
+	Rappelons que $P_X$ est définie par $P_X(B) = \P(X^{-1}(B))$ pour tout $B \in \cE$. Montrer que $P_X$ est une mesure sur $(E,\cE)$.
+\end{exo}
+
+\begin{comment}
+
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Fonction de répartition]
+	Soit $X$ une v.a. réelle et $F$ sa fonction de répartition, i.e. $F(x) = \P(X \leq x)$ pour tout $x \in \R$. 
+	\begin{enumerate}
+		\item Montrer que $F$ est croissante.
+		%%
+		\item Montrer que $F$ est continue à droite.
+		%%
+		\item Montrer que $\displaystyle \lim_{x \to -\infty} F(x) = 0$
+		et $\displaystyle \lim_{x \to \infty} F(x) = 1$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Si $x \leq y$, alors $\{ X \leq x \} \subset \{X \leq y\}$ et donc $F(x) = \P(X \leq x) \leq \P(X \leq y) = F(y)$.
+	%%
+	\item Pour $x \in \R$ et $(y_n)_{n\geq0}$ une suite décroissante convergeant vers $x$, on a
+	\[
+	F(x) 
+	= \P(X \leq x) 
+	= \P \Biggl( \bigcap_{n\geq0} \{ X \leq y_n \} \Biggr)
+	= \lim_{n\to\infty} \P(X \leq y_n)
+	= \lim_{n\to\infty} F(y_n),
+	\]
+	car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est continue à droite.
+	%%
+	\item Soit $(y_n)_{n\geq0}$ une suite décroissante tendant vers $-\infty$. Alors 
+	\[
+	\lim_{n\to\infty} F(y_n)
+	= \lim_{n\to\infty} \P(X \leq y_n)
+	= \P \Biggl( \bigcap_{n\geq0} ]-\infty,y_n] \Biggr)
+	= \P(\varnothing)
+	=0,
+	\]
+	en utilisant de nouveau la continuité décroissante de $\P$.
+	D'autre part, si $(y_n)_{n\geq0}$ est une suite croissante tendant vers $\infty$, alors
+	\[
+	\lim_{n\to\infty} F(y_n)
+	= \lim_{n\to\infty} \P(X \leq y_n)
+	= \P \Biggl( \bigcup_{n\geq0} \{ X \leq y_n \} \Biggr)
+	= \P(X < \infty)
+	= 1,
+	\]
+	en utilisant que la suite d'événements $\{ X \leq y_n \}$ est croissante.
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Limites supérieures et inférieures d'ensembles] 
+	On considère un ensemble $\Omega$ et $(A_n)_{n\geq 1}$, $(B_n)_{n\geq 1}$ des suites de sous-ensembles de $\Omega$. 
+	%%
+	\begin{enumerate} 
+		\item Décrire avec des mots les ensembles suivants
+		\[
+		\liminf_{n \to \infty} A_n \coloneqq \bigcup_{n\geq 1}\bigcap_{k\geq n}A_k 
+		\qquad \text{et} \qquad
+		\limsup_{n \to \infty} A_n \coloneqq \bigcap_{n\geq 1}\bigcup_{k\geq n}A_k.
+		\]
+		%%
+		\item Montrer que les propriétés suivantes sont vérifiées.
+		\begin{enumerate}
+			\item $\displaystyle \liminf_{n \to \infty} A_n \subset \limsup_{n \to \infty} A_n$.
+			\item $\displaystyle \bigl(\limsup_{n \to \infty} A_n \bigr)^c= \liminf_{n \to \infty} (A_n)^c$
+			\item $\displaystyle \limsup_{n \to \infty} (A_n \cup B_n) = \limsup_{n \to \infty} A_n \cup \limsup_{n \to \infty} B_n$.
+			\item $\displaystyle \limsup_{n \to \infty} (A_n \cap B_n) \subset \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Y a-t-il toujours égalité ?
+		\end{enumerate}
+		%%
+		\item Calculer $\liminf_{n\to\infty} A_n$ et $\limsup_{n\to\infty} A_n$  dans les cas suivants.
+		\begin{enumerate}
+			\item $A_{2n}=B$ et $A_{2n+1}=C$, où $B,C \subset \Omega$ sont fixés.
+			%\item $A_n=]- \infty,a_n]$, où $a_{2p}=1+1/(2p)$ et $a_{2p+1}=-1-1/(2p+1)$,
+			\item $A_{2n}=]0,3+1/(2n)[$ et $A_{2n+1}=]-1-1/(3n),2]$.
+			%\item $A_n= p_n \N$, où $(p_n)_{n \geq 1}$ est la suite des nombres premiers. % et $p_n \N$ est l'ensemble des multiples de $p_n$,
+%			\item $A_n= [ \sin(n)-1, \sin(n)+1]$.
+		\end{enumerate}
+		%%
+		\item Supposons à présent que $\Omega$ est muni d'une tribu $\cA$ et d'une mesure de probabilité $\P$ et que $(A_n)_{n\geq 1} \in \cA^{\N^*}$. 
+		Montrer que les propriétés suivantes sont vérifiées.
+		\begin{enumerate}
+			\item $\displaystyle \P\bigl(\liminf_{n\to\infty}A_n\bigr) \leq \liminf_{n\to\infty}\P(A_n)$.
+			\item $\displaystyle \P\bigl(\limsup_{n\to\infty}A_n\bigr) \geq \limsup_{n\to\infty}\P(A_n)$.
+		\end{enumerate}
+		%%
+		\emph{Rappel.} Pour $(a_n)_{n\geq 0} \in \overline{\R}^\N$, on définit 
+		$\displaystyle \limsup_{n\to\infty} a_n = \lim_{n\to\infty} \sup_{k\geq n} a_{k}$
+		et 
+		$\displaystyle \liminf_{n\to\infty} a_n = \lim_{n\to\infty} \inf_{k\geq n} a_{k}$.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}  
+\item L'ensemble $\liminf_{n\to\infty}A_n$ est l'ensemble des \'el\'ements qui appartiennent \`a tous les $A_n$ \`a partir d'un certain rang, ou, en d'autres mots, l'ensemble $\liminf_{n\to\infty}A_n$ est l'ensemble des \'el\'ements qui appartiennent \`a tous les $A_n$ à l'exception d'un nombre fini d'entre eux.
+
+L'ensemble $\limsup_{n\to\infty}A_n$ est l'ensemble des \'el\'ements qui appartiennent \`a une infinit\'e de $A_n$. 
+%%
+\item 
+\begin{enumerate}
+\item Soit $x \in \liminf_{n \to \infty} A_n$. Alors $x$ appartient à tous les $A_n$, sauf un nombre fini d'entre eux. En particulier, $x$ appartient à une infinité de $A_n$ et donc $x \in \limsup_{n \to \infty} A_n$. Cela montre l'inclusion.
+%%
+\item On procède par égalité directe en utilisant la définition ensembliste :
+\[ 
+\bigl(\limsup_{n \to \infty} A_n \bigr)^c
+= \biggl( \bigcap_{n\geq 1}\bigcup_{k\geq n}A_k \biggr)^c
+= \bigcup_{n\geq 1} \biggl( \bigcup_{k\geq n}A_k \biggr)^c
+= \bigcup_{n\geq 1}\bigcap_{k\geq n}(A_k)^c
+= \liminf_{n \to \infty} (A_n)^c.
+\]
+%%
+\item Cette égalité provient du fait qu'un élément appartient à une infinité de $A_n \cup B_n$ si et seulement si il appartienent à une infinité de $A_n$ ou bien à une infinité de $B_n$.
+%%
+\item Si $x \in \limsup_{n \to \infty} (A_n \cap B_n)$, alors $x$ appartient à une infinité de $A_n \cap B_n$. Alors $x$ appartient à une infinité de $A_n$ et une infinité de $B_n$ donc $x \in \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Cela montre l'inclusion.
+
+Il n'y a pas forcément égalité. Par exemple on peut considérer $A_{2n} = B_{2n+1} = \Omega$ et $B_{2n} = A_{2n+1} =\varnothing$. Alors $\limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n = \Omega$, mais $\limsup_{n \to \infty} (A_n \cap B_n) = \varnothing$.
+
+\end{enumerate}
+%%
+\item 
+\begin{enumerate}
+\item On a $\limsup A_n = B \cup C$ et $\liminf A_n=  B \cap C$.
+\item On a $\limsup A_n = [-1,3]$ et $ \liminf A_n = ]0,2]$.
+\end{enumerate}
+%%
+\item $\displaystyle \P\bigl(\liminf_{n\to\infty}A_n\bigr) \leq \liminf_{n\to\infty}\P(A_n)$.
+$\displaystyle \P\bigl(\limsup_{n\to\infty}A_n\bigr) \geq \limsup_{n\to\infty}\P(A_n)$.
+\begin{enumerate}
+\item On commence par utiliser la définition de $\liminf_{n\to\infty}A_n$ :
+\[
+\P\bigl(\liminf_{n\to\infty}A_n\bigr) 
+= \P \biggl(\bigcup_{n\geq 1} \bigcap_{k\geq n} A_k \biggr)
+= \lim_{n\to\infty} \uparrow \P \biggl( \bigcap_{k\geq n} A_k \biggr),
+\]
+en utilisant que l'union sur $n$ est croissante.
+Ensuite on remarque que, pour tout $n\geq0$ et pour tout $m\geq n$, 
+\[ \P \biggl(\bigcap_{k\geq n} A_k \biggr) \leq \P(A_m)\] 
+et donc
+\[
+\P \biggl(\bigcap_{k\geq n} A_k\biggr) \leq \inf_{m\geq n}\P(A_m). 
+\]
+En revenant au début, on en déduit que 
+\[
+\P\bigl(\liminf_{n\to\infty}A_n\bigr) 
+\leq \lim_{n\to\infty} \uparrow \inf_{m\geq n}\P(A_m)
+= \liminf_{n\to\infty} \P(A_n).
+\]
+%%
+\item On peut procéder de la même manière : on a
+\[
+\P\bigl(\limsup_{n\to\infty}A_n\bigr) 
+= \P \biggl(\bigcap_{n\geq 1} \bigcup_{k\geq n} A_k \biggr)
+= \lim_{n\to\infty} \downarrow \P \biggl( \bigcup_{k\geq n} A_k \biggr),
+\]
+en utilisant que l'intersection sur $n$ est décroissante.
+Puis on remarque que 
+\[
+\P \biggl(\bigcup_{k\geq n} A_k\biggr) \geq \sup_{m\geq n} \P(A_m). 
+\] 
+et on en déduit que 
+\[
+\P\bigl(\limsup_{n\to\infty}A_n\bigr) 
+\geq \lim_{n\to\infty} \downarrow \sup_{m\geq n} \P(A_m)
+= \limsup_{n\to\infty} \P(A_n).
+\]
+Une autre méthode est d'utiliser le r\'esultat montré en 4.(a) et raisonner en passant au compl\'ementaire avec 2.(b). 
+\end{enumerate}
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Probabilités discrètes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo}
+	Soit une urne contenant 2 boules blanches et une boule noire. 
+	Dans les deux cas suivants, modéliser l'espace de probabilité correspondant à l'expérience décrite et déterminer  la probabilité de tirer au hasard 2 boules de couleurs différentes.
+	\begin{enumerate}
+		\item On effectue un premier tirage, puis après remise et mélange de la boule dans l'urne, on procéde à un deuxième tirage. 
+		\item On considère maintenant le cas d'un tirage sans remise : on choisit au hasard une boule, sans la replacer dans l'urne, on effectue un deuxième tirage.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item On peut prendre $\Omega = \{ B,N \}^2$, où l'issue $(x,y) \in \Omega$ correspond à une première boule tirée de couleur $x$ et une deuxième de couleur $y$.
+Puis on prend $\cA = \cP(\Omega)$ et 
+\[
+	\P = \frac{4}{9} \delta_{(B,B)} + \frac{2}{9} \delta_{(B,N)} + \frac{2}{9} \delta_{(N,B)} + \frac{1}{9} \delta_{(B,B)}
+\]
+Alors $A = \{(B,N),(N,B)\}$ est l'événement `\textit{tirer au hasard 2 boules de couleurs différentes}' et on a $\P(A) = \frac{4}{9}$.
+\item On prend les mêmes $\Omega$ et $\cA$ mais
+\[
+\P = \frac{1}{3} \delta_{(B,B)} + \frac{1}{3} \delta_{(B,N)} + \frac{1}{3} \delta_{(N,B)}
+\]
+et donc $\P(A) = \frac{2}{3}$.
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Pierre et Mathilde parlent de leur progéniture. Vous arrivez au moment où Mathilde apprend à Pierre qu'elle a deux enfants dont un prénommé Xavier.
+	
+	Pierre : \textit{Tu as donc également une fille et, en disant cela, je n'ai qu'une chance sur 3 de me tromper.}
+	
+	Mathilde : \textit{Sais-tu également que Xavier est mon aîné ?}
+	
+	Pierre : \textit{Alors là, je ne peux plus rien dire.}
+	
+	Pouvez-vous expliquer le contenu de cette conversation à l'aide d'un modèle probabiliste. 
+\end{exo}
+
+\begin{comment}
+L'expérience peut être modélisée par 
+$\Omega = \{ F,G \}^2$ (où la première coordonnée correspond au premier enfant et la deuxième au deuxième, avec $F$ pour fille et $G$ pour garçon), $\cA = \cP(\Omega)$ et 
+\[
+\P = \frac{1}{4} \delta_{(F,F)} + \frac{1}{4} \delta_{(F,G)} + \frac{1}{4} \delta_{(G,F)} + \frac{1}{4} \delta_{(G,G)}.
+\]
+Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde à une fille}' et $B = \{ (G,G), (F,G), (G,F) \}$ l'événement `\textit{Mathilde à un garçon}'.
+La première chose que calcule Pierre est
+\[
+	\Ppsq{A}{B} = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(\{ (F,G), (G,F) \})}{\P(\{ (G,G), (F,G), (G,F) \})} = \frac{2/4}{3/4} = \frac{2}{3}.
+\]
+Soit $C = \{ (G,G), (G,F) \}$ l'événement `\textit{l'aîné de Mathilde est un garçon}'. La deuxième chose que calcule Pierre est
+\[
+\Ppsq{A}{C} = \frac{\P(A\cap C)}{\P(C)} = \frac{\P(\{ (G,F) \})}{\P(\{ (G,G), (G,F) \})} = \frac{1/4}{2/4} = \frac{1}{2},
+\]
+ce qui ne permet plus à Pierre de parier avantageusement sur le fait que le deuxième enfant de Mathilde est une fille ou un garçon.
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Les pièges du conditionnement]
+	Un test de dépistage d'une maladie est mis au point par un laboratoire pharmaceutique qui se propose d'en déterminer l'efficacité. 
+	Il estime pour cela la probabilité $\alpha$ (resp. $\beta)$ que le test soit positif (resp. négatif) alors que la personne considérée est malade (resp. saine) en testant un échantillon de personnes malades (resp. saines) au sein d'une population donnée. 
+%	On suppose $\alpha$ et $\beta$ proche de 1 (par exemple $\alpha=\beta=0{,}99$). 
+	Le résultat de cette d'étude donne $\alpha=\beta=0{,}99$.
+	En outre, on sait que la proportion de personnes malades dans la population est de $p=1/1000$.
+	Proposer des indicateurs d'efficacité du test et les évaluer.
+\end{exo}
+
+\begin{comment}
+	On modélise l'expérience aléatoire d'un individu aléatoirement choisi qui prend le test pour savoir s'il est malade ou non.
+	Les deux indicateurs d'efficacité sont la probabilité que l'individu soit malade sachant que le test est positif et la probabilité que l'individu soit sain sachant que le test est négatif. On aimerait que ces deux quantités soit aussi proche de 1 que possible.
+	
+	
+	Deux caractéristiques de l'individu nous intéressent : le fait qu'il soit sain (noté $S$) ou malade (noté $M$) et le fait que son test soit positif (noté $P$) ou négatif (noté $N$).
+	Ainsi on considère l'espace $\Omega = \{ (M,P),(M,N),(S,P),(S,N) \}$ muni de $\cA = \cP(\Omega)$ et 
+	\[
+	\P = p \alpha \delta_{(M,P)} + p (1-\alpha) \delta_{(M,N)} + (1-p) (1-\beta) \delta_{(S,P)} + (1-p) \beta \delta_{(S,N)} .
+	\]
+	On pose $A = $ `\textit{l'individu est malade}' et $B = $ `\textit{le test est positif}', de sorte que nos indicateurs sont  $\Ppsq{A}{B}$ et $\Ppsq{A^c}{B^c}$.
+	
+	On peut les évaluer avec la formule de Bayes par exemple :
+	\[
+		\Ppsq{A}{B} = \frac{\P(A) \Ppsq{B}{A}}{\P(B)} 
+		= \frac{p \alpha}{\P(\{ (M,P), (S,P)\})}
+		= \frac{p \alpha}{p \alpha + (1-p)(1-\beta)}
+		\simeq 0.09
+	\]
+	et 
+	\[
+	\Ppsq{A^c}{B^c} = \frac{\P(A^c) \Ppsq{B^c}{A^c}}{\P(B^c)} 
+	= \frac{(1-p) \beta}{\P(\{ (M,N), (S,N)\})}
+	= \frac{(1-p) \beta}{(1-p) \beta + p(1-\alpha)}
+	\simeq 0.99999.
+	\]
+	Tel quel, ce test de dépistage produit énormément de faux positif : quand on reçoit un test positif, on a 91\% de chance d'être en fait en bonne santé.
+	Cependant le test détecte efficacement les malades car il y a très peu de faux négatif : quand on reçoit un test négatif, on a seulement 0.001\% de chance d'être en fait malade.
+	
+	On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de vue sanitaire il est important de réduire au maximum le nombre de faux négatifs pour isoler les personne malades, ce qui est le cas ici. Le problème est juste qu'on isolera en grande majorité des personnes saines, mais peu de personnes malades passeront à travers les mailles.
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo} On consdère un ensemble de familles ayant $0,$ $1$ ou 2 enfants. La probabilité pour une famille d'avoir $0,$ $1$ ou 2 enfants est supposée égale à $1/4,$ $1/2,$ $1/4.$ Vous rencontrez le petit Luc dans la rue, qui appartient à l'une de ces famille. Calculez la probabilité qu'il soit fils unique s'il vous dit :
+	\begin{enumerate}
+		\item qu'il n'a pas de frère.
+		\item qu'il n'a pas de s\oe ur.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Plus de limites supérieures et inférieures] 
+	On considère un ensemble $\Omega$ et $(A_n)_{n\geq 1}$ une suite de sous-ensembles de $\Omega$. 
+	Si $A\subset \Omega$, on note $\1_A$ sa fonction indicatrice ($\1_A(x)=1$ si $x \in A$ et $\1_A(x)=0$ sinon).
+	%%
+	\begin{enumerate} 
+		\item Relier les fonctions indicatrices $\1_{\liminf_{n\to\infty}A_n}$ et $\1_{\limsup_{n\to\infty}A_n}$ aux limites supérieures et inférieures des fonctions $\1_{A_n}$. 
+		%%
+		\item Montrer que les propriétés suivantes sont vérifiées.
+		\begin{enumerate}
+			\item $\displaystyle \limsup_{n \to \infty} A_n=  \Big\{ \sum_{n \geq 0} \1_{A_n}= \infty \Big\}
+			\quad \text{et} \quad
+			\liminf_{n \to \infty} A_n=  \Big\{ \sum_{n \geq 0} \1_{ (A_n)^c}< \infty \Big\}$.
+			\item $\displaystyle \limsup_{n\to\infty} A_n \cap \liminf_{n\to\infty} B_n 
+			\subset \limsup_{n\to\infty} (A_n \cap B_n)$.
+			Y a-t-il toujours égalité ?
+		\end{enumerate}
+		%%
+		\item Calculer $\liminf_{n\to\infty} A_n$ et $\limsup_{n\to\infty} A_n$  dans les cas suivants.
+		\begin{enumerate}
+			\item $A_n = ]- \infty,a_n]$, où $a_{2k}=1+1/(2k)$ et $a_{2k+1}=-1-1/(2k+1)$.
+			\item $A_n= p_n \N$, où $(p_n)_{n \geq 1}$ est la suite des nombres premiers. % et $p_n \N$ est l'ensemble des multiples de $p_n$,
+			\item $A_n= [ \sin(n)-1, \sin(n)+1]$.
+		\end{enumerate}
+		%%
+		\item Soit $(a_n)_{n\geq 0} \in \overline{\R}^\N$, montrer que
+		\[
+		\Bigl] -\infty, \limsup_{n\to\infty} a_n \Bigr[ 
+		\subset \limsup_{n\to\infty}\, ]-\infty, a_n[\,
+		\subset \limsup_{n\to\infty}\, ]-\infty, a_n] 
+		\subset \Bigl]-\infty,\limsup_{n\to\infty} a_n \Bigr].
+		\]
+		Écrire une relation similaire avec la limite inférieure.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}  
+\item On a l'égalité
+\begin{equation} \label{liminf} 
+\1_{\liminf_{n\to\infty}A_n}= \liminf_{n\to\infty}\1_{A_n}. 
+\end{equation}
+En effet, si $\1_{\liminf_{n\to\infty}A_n}(x) = 1$, alors $x\in\liminf_{n\to\infty}A_n$ et donc
+il existe $n_0 \geq 0$ tel que, pour tout $n \geq n_0$, $x\in A_n$.
+Ainsi on a $\1_{A_n}(x) = 1$ pour tout $n \geq n_0$, donc $\lim_{n\to\infty} \1_{A_n}(x)=1$ et en particulier $\liminf_{n\to\infty} \1_{A_n}(x)=1$.
+D'autre part, si $\liminf_{n\to\infty} \1_{A_n}(x)=0$ alors $x\notin\liminf_{n\to\infty}A_n$ et donc il existe une infinité de $n$ tels que $x \notin A_n$, i.e. $\1_{A_n}(x) = 0$. Donc 0 est valeur d'adhérence de la suite $\1_{A_n}(x)$ et c'est forcément la plus petite (car $\1_{A_n}(x) \geq 0$), donc $\liminf_{n\to\infty} \1_{A_n}(x)=0$. Cela montre \eqref{liminf}
+
+L'égalité  
+\[
+\1_{\limsup_{n\to\infty} A_n} = \limsup_{n\to\infty} \1_{A_n}
+\] 
+se démontre de façon similaire à \eqref{liminf} ou en passant au complémentaire dans \eqref{liminf}  en utilisant la question 2(b) de l'Exercice 3.
+%%
+\item 
+\begin{enumerate}
+\item L'ensemble $\{ \sum_{n \geq 0} \1_{A_n}= \infty\}$ est l'ensemble des éléments  appartenant à une infinité de $A_n$, c'est donc $\limsup_{n\to\infty} A_n$.
+
+L'ensemble $\{ \sum_{n \geq 0} \1_{ (A_n)^c}< \infty\}$ est l'ensemble des éléments qui n'appartiennent à tous les $A_n$ sauf un nombre fini, c'est donc $\liminf_{n\to\infty} A_n$.
+%%
+\item $\displaystyle \limsup_{n\to\infty} A_n \cap \liminf_{n\to\infty} B_n 
+\subset \limsup_{n\to\infty} (A_n \cap B_n)$.
+Y a-t-il toujours égalité ?
+\end{enumerate}
+%%
+\item 
+\begin{enumerate}
+\item On a $\limsup A_n = ]-\infty,1]$ et $ \liminf A_n = ]-\infty,-1[$.
+\item On a $ \liminf A_n =\limsup A_n = \{0\}$.
+\item On a $\limsup A_n = ]-2,2[$ et $\liminf A_n = \{0\}$. 
+En effet, $(\sin(n))_{n\in\mathbb{N}}$ est dense dans $[-1,1]$ (voir ci-dessous), donc pour tout $0<x<2$, il existe une infinité d'entiers $n$ tels que $\sin(n)>x-1$ et aussi une infinité de $n$ tels que  $\sin(n)<x-1$. 
+La première famille montre que $x \in \limsup A_n$ et la deuxième famille que $x \notin \liminf A_n$. 
+Il est ensuite facile de vérifier que $\pm 2 \notin \limsup A_n$ (car $ \pi$ est irrationnel donc on n'a jamais $\sin(n) \in \{-1,1\}$) et $0 \in \liminf A_n$.
+
+Vérifions à présent que $(\sin(n))_{n\in\mathbb{N}}$ est dense dans $[-1,1]$.
+Tout d'abord le sous-groupe additif $\mathbb{Z}+ 2 \pi \mathbb{Z}$ de $\mathbb{R}$ n'est pas monogène car $\pi$ est irrationel (si $\mathbb{Z}+ 2 \pi \mathbb{Z} = a\Z$, alors, comme $1 \in a\Z$, on a $a \in \Q$ et on en déduit que $\pi \in \Q$), donc dense dans $\mathbb{R}$.
+Montrons que $\N + 2\pi\Z$ est dense dans $\mathbb{R}$.
+On sait qu'il existe $(p_n)_{n\in\N}, (q_n)_{n\in\N} \in \Z^\N$ tels que $p_n + 2\pi q_n \to \pi$.
+Par irrationnalité de $\pi$, on voit que $(p_n)_{n\in\N}$ ne peut pas être bornée.
+Elle admet donc une sous-suite $(p_{\varphi(n)})_{n\in\N}$ qui tend vers $+\infty$ ou $-\infty$.
+Comme $-p_n - 2\pi (q_n-1) \to \pi$, on peut supposer que $p_{\varphi(n)} \to \infty$.
+Soit $x \in \R$, il existe $(p_n')_{n\in\N}, (q_n')_{n\in\N} \in \Z^\N$ tels que $p_n' + 2\pi q_n' \to x$. 
+Pour chaque $n \in \N$, il existe $\psi(n)$ tel que $p_n' + 2 p_{\varphi(\psi(n))} \geq 0$.
+Et on a $p_n' + 2 p_{\varphi(\psi(n))} + 2 \pi (q_n' + 2q_n -1) \to x$ donc on a bien approché $x$ par des éléments de $\N + 2\pi\Z$.
+Enfin, on remarque que $\{\sin(n) : n \in \N \} = \sin(\N + 2\pi\Z)$ qui est dense dans $[-1,1]$ car $\sin \colon \R \to [-1,1]$ est continue et surjective.
+\end{enumerate}
+%%
+\item Posons $L = \limsup_{n\to\infty} a_n$. Rappelons que $L$ est la plus grande valeur d'adhérence de $(a_n)_{n\geq 0}$.
+Soit $x < L$. Alors il existe une infinité de $n$ tels que $x < a_n$ (en considérant une sous-suite de $(a_n)_{n\geq 0}$ convergeant vers $L$, on sait quelle sera strictement supérieure à $x$ à partir d'un certain rang).
+Mais cela veut exactement dire que $x \in \limsup_{n\to\infty} ]-\infty,a_n[$.
+On a donc montré l'inclusion
+\[
+] -\infty, L[\,
+\subset \limsup_{n\to\infty}\, ]-\infty, a_n[.
+\]
+L'inclusion
+\[
+\limsup_{n\to\infty}\, ]-\infty, a_n[\,
+\subset \limsup_{n\to\infty}\, ]-\infty, a_n].
+\]
+découle simplement du fait que $]-\infty, a_n[\,
+\subset\, ]-\infty, a_n]$.
+Finalement, soit $x \in \limsup_{n\to\infty}\, ]-\infty, a_n]$. Alors il existe une infinité de $n$ tels que $x \leq a_n$.
+Il existe donc une sous-suite infinie de $(a_n)_{n\geq 0}$ dans $[x,\infty]$, qui est compact, cette limite a donc au moins une valeur d'adhérence $\ell \in [x,\infty]$. Mais $\ell$ est aussi valeur d'adhérence de $(a_n)_{n\geq 0}$ donc $\ell \leq L$ (car $L$ est la plus grande !).
+Donc $x \leq \ell \leq L$.
+On a donc montré l'inclusion
+\[
+\limsup_{n\to\infty}\, ]-\infty, a_n ] 
+\subset ]-\infty,L],
+\]
+ce qui conclut la preuve de la suite d'inclusion.
+
+Pour la limite inférieure, on a 
+\[
+\Bigl] -\infty, \liminf_{n\to\infty} a_n \Bigr[ 
+\subset \liminf_{n\to\infty}\, ]-\infty, a_n[\, 
+\subset \liminf_{n\to\infty}\, ]-\infty, a_n] 
+\subset \Bigl]-\infty,\liminf_{n\to\infty} a_n \Bigr].
+\]
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo} Un article du journal Le Monde était consacré au suicide dans les prisons. On y apprenait notamment que le taux de suicide y est d'environ $1/1000$ et que parmi les détenus s'étant suicidés, on trouvait une population ayant déja fait une tentative de suicide 15 fois plus importante que des détenus n'ayant jamais attenté à leur vie. Le Monde concluait à la nécessité de surveiller de près les détenus ayant déjà fait une tentative de suicide.
+	\begin{enumerate}
+		\item Donner un modèle probabiliste prenant en compte les éventualités précisées plus haut (tentative de suicide, suicide). Exprimer dans ce modèle la conclusion du quotidien.
+		%%
+		\item Proposer un moyen d'évaluer - à l'aide des renseignements fournis - la justesse de la conclusion précédente, puis faire cette évaluation.
+	\end{enumerate}
+\end{exo}
+
+\end{document}
