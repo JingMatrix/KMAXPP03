@@ -189,7 +189,7 @@
 %%%%%%
 
 \begin{exo}[Fonction de répartition]
-	Soit $X$ une v.a. réelle et $F$ sa fonction de répartition, i.e. $F(x) = \P(X \leq x)$ pour tout $x \in \R$.
+	Soit $X$ une v.a. probabilité sur $(\Omega, \mathcal{A}, \mathbb{P})$ et $F$ sa fonction de répartition, i.e., $F(x) = \P(X \leq x)$ pour tout $x \in \R$.
 	\begin{enumerate}
 		\item Montrer que $F$ est croissante.
 		      %%
@@ -410,7 +410,7 @@ $\Omega = \{ F,G \}^2$ (où la première coordonnée correspond au premier enfan
 \[
 	\P = \frac{1}{4} \delta_{(F,F)} + \frac{1}{4} \delta_{(F,G)} + \frac{1}{4} \delta_{(G,F)} + \frac{1}{4} \delta_{(G,G)}.
 \]
-Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde à une fille}' et $B = \{ (G,G), (F,G), (G,F) \}$ l'événement `\textit{Mathilde à un garçon}'.
+Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a une fille}' et $B = \{ (G,G), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a un garçon}'.
 La première chose que calcule Pierre est
 \[
 	\Ppsq{A}{B} = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(\{ (F,G), (G,F) \})}{\P(\{ (G,G), (F,G), (G,F) \})} = \frac{2/4}{3/4} = \frac{2}{3}.
