@@ -148,7 +148,7 @@
 }
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -189,7 +189,8 @@
 %%%%%%
 
 \begin{exo}[Fonction de répartition]
-	Soit $X$ une v.a. probabilité sur $(\Omega, \mathcal{A}, \mathbb{P})$ et $F$ sa fonction de répartition, i.e., $F(x) = \P(X \leq x)$ pour tout $x \in \R$.
+    Soit $(\Omega,\cA,\P)$ un espace de probabilité.
+	Soit $X$ une v.a. réelle et $F$ sa fonction de répartition, i.e. $F(x) = \P(X \leq x)$ pour tout $x \in \R$.
 	\begin{enumerate}
 		\item Montrer que $F$ est croissante.
 		      %%
