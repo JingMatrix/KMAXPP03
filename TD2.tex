@@ -1,0 +1,673 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+\newcommand{\emphb}[1]{\emph{{\color{DarkSlateBlue}#1}}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 2 -- Variables aléatoires, lois et espérance}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Variables aléatoires}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo} Soient $X$, $Y$ et $Z$ des v.a. réelles définies sur un espace de probabilité $(\Omega,\cA,\P)$.
+	\begin{enumerate}
+		\item On suppose que $X=Y$ p.s. Montrer que $X$ et $Y$ ont la m\^eme loi. Que dire de la réciproque ?
+		%%
+		\item On suppose que $X$ et $Y$ ont la m\^eme loi. 
+		\begin{enumerate}
+			\item Soit $f:\R\to\R$ une fonction borélienne. Montrer que les variables aléatoires $f(X)$ et $f(Y)$ ont la m\^eme loi.
+			%%
+			\item Montrer que les variables aléatoires $XZ$ et $YZ$ n'ont pas nécessairement la m\^eme loi. 
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate} 
+\item Si $X=Y$ p.s.~alors $\Ec{f(X)}=\Ec{f(Y)}$ pour toute fonction borélienne $f \colon \R\to\R_+$, ce qui montre que $X$ et $Y$ ont la m\^eme loi. 
+
+La réciproque est fausse. Considérons une variable aléatoire $X$ de loi normale $\cN(0,1)$ (c'est-à-dire de densité $\e^{-x^2/2}/\sqrt{2\pi}$ par rapport à la mesure de Lebesgue). Posons $Y=-X$. 
+Alors $Y$ est une variable aléatoire $X$ de loi normale $\cN(0,1)$. 
+En effet, soit $g\colon\R\to\R_+$ une fonction borélienne, on a
+\[
+\Ec{g(Y)}
+=\int_{-\infty}^\infty g(-x)\e^{-x^2/2}\diff x
+=\int_{-\infty}^\infty g(x)\e^{-x^2/2}\diff x.
+\] 
+Donc $X$ et $Y$ ont la m\^eme loi mais ne sont pas égales p.s. 
+%%
+\item 
+\begin{enumerate}
+\item Pour toute fonction borélienne $g:\R\to\R_+$, la fonction $g\circ f$ est borélienne. Comme $X$ et $Y$ ont la m\^eme loi, on a 
+\[
+\Ec{g\circ f(X)} =\Ec{g\circ f(Y)},
+\] 
+ce qui montre que $f(X)$ et $f(Y)$ ont la m\^eme loi. 
+%%
+\item On reprend les variables $X$ et $Y$ de la question 1. 
+Soit $Z=X$. 
+Alors $XZ=X^2$ et $YZ=-X^2$. 
+La loi de $X^2$ est une mesure de probabilité sur $\R_+$ (différente de la mesure de Dirac $\delta_0$) et la loi de $-X^2$ est une mesure de probabilité sur $\R_-$ donc $XZ$ et $YZ$ n'ont pas la m\^eme loi.
+\end{enumerate}
+\end{enumerate} 
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Formule de transfert}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit $X$ une v.a. de loi de Poisson de paramètre $\lambda > 0$, i.e. de loi $\sum_{k=0}^\infty e^{-\lambda} \frac{\lambda^k}{k!} \delta_k$.
+	\begin{enumerate}
+		\item Calculer $\E[X]$.
+		\item Pour tout $t \in \R$, calculer $\E[e^{-tX}]$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. réelle de densité $p_X \colon x \mapsto c(x\1_{[0,1]}(x) + (2-x)\1_{]1,2]}(x))$ par rapport à la mesure de Lebesgue.
+	Déterminer la valeur de la constante $c$ et calculer $\mathbb{E}[X^p]$ pour tout $p \geq 0$.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Rappelons que $\int_\R e^{-x^2/2} \diff x = \sqrt{2\pi}$, voir l'exercice \ref{exo:gaussienne} pour se rappeler la démonstration.
+	Soit $X$ une v.a. de loi gaussienne standard, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. 
+	Calculer $\E[X]$ et $\E[X^2]$.
+\end{exo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Calcul de loi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\emphb{Méthode.} Pour déterminer la loi d'une v.a. $Y$, on pourra utiliser la méthode suivante, présentée plus en détails en Section 1.3.3 des notes de cours : considérer une fonction $f \colon \R \to \R_+$ mesurable quelconque et écrire $\E[f(Y)]$ sous la forme $\int_\R f(y) \diff \mu(y)$. Alors on peut en conclure que $P_Y = \mu$.
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $X$ une v.a. de loi gaussienne standard, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. 
+	\begin{enumerate}
+		\item Montrer que $\mathbb{P}(X=0)=0$. 
+		\item On pose alors $Y = 1/X^2$ (qui est bien définie p.s.). Déterminer la loi de $Y$.
+		
+		
+		%%
+		\item Pour $m \in \R$ et $\sigma > 0$, on pose $Z = \sigma X + m$. Déterminer la loi de $Z$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+Soit $f \colon \R_+\to\R_+$ une fonction mesurable. On a par symétrie 
+\[
+\Ec{f \left( \frac{1}{X^2} \right)}
+=\frac{1}{\sqrt{2\pi}}\int_\R f\left(\frac{1}{x^2}\right)\e^{-x^2/2}\diff x
+=\frac{2}{\sqrt{2\pi}}\int_{\R_+^*}f\left(\frac{1}{x^2}\right)\e^{-x^2/2}\diff x.
+\] 
+Et $x\in\R_+^*\mapsto x^{-2}\in\R_+^*$ est un $\cC^1$ difféomorphisme de Jacobien $-2x^{-3}$ donc d'après la formule du changement de variables, on a 
+\[
+\int_{\R_+^*}f\left(\frac{1}{x^2}\right)\e^{-x^2/2}\diff x
+=\int_{\R_+^*}f(u)\e^{-1/(2u)}(2u^{3/2})^{-1}\diff u.
+\] 
+Donc la loi de $1/X^2$ est $\frac{1}{\sqrt{2\pi u^3}}\e^{-1/(2u)}\1_{\{u>0\}}\diff u$.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi exponentielle de paramètre $1$, i.e. de loi 
+	$e^{-x} \1_{[0,\infty)}(x) \diff x$.
+	\begin{enumerate}
+		\item Montrer que $\mathbb{P}(X=0)=0$. 
+		\item On pose alors $Y=\min (X,\frac{1}{X})$ (qui est bien définie p.s.). Déterminer la loi de $Y$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Transformation de loi discrète]
+	Soit $X$ une v.a. réelle de loi discrète $\sum_{i\in \cI} p_i \delta_{x_i}$, avec $\cI \subset \N$, %$p_i > 0$ et $x_i \in \R$ pour $i \in \cI$.
+	$(p_i)_{i\in\cI} \in (\R_+^*)^\cI$ et $(x_i)_{i\in\cI} \in \R^\cI$.
+	Soit $f \colon \R \to \R$ mesurable.
+	Quelle est la loi de $f(X)$ ?
+\end{exo}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Modélisation continue}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo} 
+	On considère une source lumineuse ponctuelle située au point $(-1,0)$ dans le plan. 
+	On suppose que la source émet un rayon lumineux en direction de l'axe des ordonnées en faisant un angle aléatoire $\Theta$ avec l'axe des abscisses, où $\Theta$ est tiré uniformément sur $]-\pi/2,\pi/2[$. 
+	Déterminer la loi de l'ordonnée du point d'impact du rayon avec l'axe des ordonnées.
+\end{exo} 
+
+\begin{comment}
+On commence par faire un dessin.
+\begin{figure}[h]
+	
+\end{figure}
+Le point d'impact du rayon lumineux sur l'axe des ordonnées est $Y=\tan(t)$. 
+Or $\phi \colon t\in\,]-\pi/2,\pi/2[\,\mapsto\tan(t)\in\R$ est un $C^1$-difféomorphisme de Jacobien $1+\tan^2(t)$. 
+Donc, pour $f\colon\R\to\R_+$ mesurable, on a, d'après la formule du changement de variables, 
+\[\frac{1}{\pi}\int_{-\pi/2}^{\pi/2}f(\tan(t))\diff t=\frac{1}{\pi}\int_{-\infty}^{+\infty}f(y)\frac{dy}{1+y^2}.\] 
+La variable aléatoire $Y$ suit donc la loi de Cauchy.
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Paradoxe de Bertrand]
+	On s'intéresse à la loi de la longueur d'une corde tirée ``au hasard'' sur un cercle de rayon $1$. 
+	Dans chacun des cas suivants, formaliser et calculer cette loi puis en déduire la probabilité que la corde soit plus longue que $\sqrt{3}$, c'est-à-dire que la longueur d'un côté d'un triangle équilatéral inscrit.
+	\begin{enumerate}
+		\item On choisit les deux extrémités de la corde au hasard sur le cercle.
+		%%
+		\item On choisit le centre de la corde au hasard sur le disque unité.
+		%%
+		\item On choisit au hasard la direction du rayon orthogonal à la corde, puis le centre de la corde uniformément sur ce rayon.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item On identifie le cercle à $[0,2\pi[$, donc on prend ici $\Omega \coloneqq [0,2\pi[^2$ muni de la tribu $\cA \coloneqq \cB([0,2\pi[^2)$ et de la mesure de probabilité $\P(\diff \omega) = \frac{1}{4 \pi^2} \diff \theta \diff \theta'$, où on note $\omega = (\theta,\theta')$ pour $\omega \in \Omega$.
+La longueur de la corde est alors (faire un dessin)
+\[
+X(\omega) = 2 \abs{ \sin \left( \frac{\theta - \theta'}{2} \right)}.
+\]
+Déterminons la loi de $X$. 
+Soit $f \colon \R \to \R_+$ mesurable.
+On a
+\begin{align*}
+\Ec{f(X)}
+& = \int_0^{2\pi} \int_0^{2\pi} 
+f \left( 2 \abs{ \sin \left( \frac{\theta - \theta'}{2} \right)} \right)
+\frac{1}{4 \pi^2} \diff \theta \diff \theta' \\
+& = \int_0^{2\pi} \diff v \int_{v-2\pi}^v \diff u 
+f \left( 2 \abs{\sin \left( \frac{u}{2} \right)} \right) \frac{1}{4 \pi^2} 
+\end{align*}
+avec le changement de variable $\varphi \colon (\theta,\theta') \mapsto (\theta - \theta',\theta)$ de $]0,2\pi[^2 \to \{ (u,v) : v \in ]0,2\pi[, u \in ]v-2\pi,v[ \}$ et de jacobien $1$.
+Or, on a, par $2 \pi$-périodicité de $u \mapsto \abs{\sin(u/2)}$,
+\begin{align*}
+\int_{v-2\pi}^v f \left( 2 \abs{\sin \left( \frac{u}{2} \right)} \right) \diff u
+= \int_{-\pi}^{\pi} f \left( 2 \abs{\sin \left( \frac{u}{2} \right)} \right) \diff u
+= 2 \int_0^{\pi} f \left( 2 \abs{\sin \left( \frac{u}{2} \right)} \right) \diff u,
+\end{align*}
+par parité de $u \mapsto \abs{\sin(u/2)}$. 
+On obtient donc
+\begin{align*}
+\Ec{f(X)}
+= \frac{1}{\pi} \int_0^{\pi} f \left( 2 \sin \left( \frac{u}{2} \right) \right) \diff u 
+= \frac{1}{\pi} \int_0^2 f(x) \left( 1 - \frac{x^2}{4} \right)^{-1/2} \diff x,
+\end{align*}
+avec le changement de variable $u = 2 \arcsin(x/2)$.
+La loi de $X$ est donc
+\[
+\frac{1}{\pi} \left( 1 - \frac{x^2}{4} \right)^{-1/2} \1_{x \in [0,2]} \diff x.
+\]
+%%
+\item On prend à présent $\Omega \coloneqq \{ (x,y) \in \R^2 : x^2 + y^2 \leq 1 \}$ le disque unité muni de la tribu $\cA \coloneqq \cB(\Omega)$ et de la mesure de probabilité $\P(\diff \omega) = \frac{1}{\pi} \diff x \diff y$, où on note $\omega = (x,y)$ pour $\omega \in \Omega$.
+La corde n'est bien définie que pour $\omega \neq (0,0)$ mais $\omega = (0,0)$ arrive avec probabilité nulle (et dans ce cas on peut malgré tout définir la longueur de la corde comme étant 2).
+La longueur de la corde est (encore faire un dessin)
+\[
+X(\omega) = 2 \sqrt{1-x^2-y^2}.
+\]
+Déterminons la loi de $X$. 
+Soit $f \colon \R \to \R_+$ mesurable.
+On a, avec un passage en coordonnées polaires,
+\begin{align*}
+\Ec{f(X)}
+& = \frac{1}{\pi} \int_{\R^2} 	f \left( 2 \sqrt{1-x^2-y^2} \right)
+\1_{x^2 + y^2 \leq 1} \diff x \diff y \\
+& = \frac{1}{\pi} \int_0^{2\pi} \int_0^\infty f \left( 2 \sqrt{1-r^2} \right)
+\1_{r^2 \leq 1} r \diff r \diff \theta \\
+& = 2 \int_0^1 f \left( 2 \sqrt{1-r^2} \right) r \diff r 
+= \frac{1}{2} \int_0^2 f(u) u \diff u,
+\end{align*}
+avec le changement de variable $u = 2 \sqrt{1-r^2}$ (pour lequel on a $r \diff r = \frac{u}{4} \diff u$).
+La loi de $X$ est donc
+\[
+\frac{1}{2} x \1_{x \in [0,2]} \diff x.
+\]
+%%
+\item On prend $\Omega \coloneqq [0,2\pi[ \times [0,1]$ muni de la tribu $\cA \coloneqq \cB(\Omega)$ et de la mesure de probabilité $\P(\diff \omega) = \frac{1}{2\pi} \diff \theta \diff r$, où on note $\omega = (\theta,r)$ pour $\omega \in \Omega$.
+La longueur de la corde est (c'est une configuration analogue à la question 2.)
+\[
+X(\omega) = 2 \sqrt{1-r^2}.
+\]
+Déterminons la loi de $X$. 
+Soit $f \colon \R \to \R_+$ mesurable.
+On a
+\begin{align*}
+\Ec{f(X)}
+& = \frac{1}{2\pi} \int_0^{2\pi} \int_0^1 f \left( 2 \sqrt{1-r^2} \right) \diff r \diff \theta  \\
+& = \int_0^1 f \left( 2 \sqrt{1-r^2} \right) \diff r \\
+& = \int_0^2 f(u) \frac{u}{4} \left( 1 - \frac{u^2}{4} \right)^{-1/2} \diff u,
+\end{align*}
+avec le changement de variable $u = 2 \sqrt{1-r^2}$.
+La loi de $X$ est donc
+\[
+\frac{x}{4} \left( 1 - \frac{x^2}{4} \right)^{-1/2} \1_{x \in [0,2]} \diff x.
+\]
+\end{enumerate}
+%%
+%\emph{Conclusion.} Bertrand s'intéressait à la probabilité que la corde soit plus longue que $\sqrt{3}$, c'est-à-dire la longueur d'un côté d'un triangle équilatéral inscrit.
+%Sans formaliser les espaces de probabilité, il a calculé cette probabilité dans les 3 cas étudiés ici : elle est de $1/3$ dans le cas 1., $1/4$ dans le cas 2. et $1/2$ dans le cas 3.
+%Il y voyait un paradoxe mais il n'y en a pas : il y a plusieurs manières de ``tirer une corde au hasard sur le cercle'', qui se précisent en définissant l'espace de probabilité sur lequel on travaille et il est normal que selon l'espace de probabilité, le résultat diffère.
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soient $X$ et $Y$ deux v.a. réelles définies sur $(\Omega, \cA, \mathbb{P})$.
+	\begin{enumerate}
+		\item Supposons que, pour tout $t \in \R$, $\mathbb{P}(Y < t \leq X)=0$. 
+		Montrer que $\mathbb{P}(Y < X)=0$.
+		\item Supposons maintenant que $X$ et $Y$ ont m\^eme loi. Montrer
+		que, si $X \geq Y$ p.s., alors $X=Y$ p.s.
+		
+		\emph{Indication}. Considérer $\Omega' = \{X \geq Y\}$ et remarquer que 
+		\[
+		\mathbb{P}(\{X \geq t\} \setminus \{Y \geq t\})=
+		\mathbb{P}([\{X \geq t\} \cap \Omega'] \setminus [\{Y \geq t\}\cap \Omega']).
+		\]
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi de Cauchy, i.e. de loi $\frac{1}{\pi (1+x^2)} \diff x$.
+	\begin{enumerate}
+		\item Montrer que $\mathbb{P}(X=0)=0$ et $\mathbb{P}(X<0)= \frac{1}{2}$.
+		\item On pose $Y=1/X$ (qui est bien définie p.s.). Déterminer la loi de $Y$.
+		\item Que dire de $\mathbb{E}[Y]$ ?
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi exponentielle de paramètre $1$, i.e. de loi 
+	$e^{-x} \1_{[0,\infty)}(x) \diff x$. Déterminer la loi de $\lfloor X \rfloor$ (la partie entière de $X$).
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Quelques propriétés de la gaussienne] \label{exo:gaussienne}
+	\begin{enumerate}
+		\item On veut montrer que $\int_\R e^{-x^2/2} \diff x = \sqrt{2\pi}$. Pour cela, calculer l'intégrale 
+		\[
+		\int_{\R^2} e^{-(x^2+y^2)/2} \diff x \diff y
+		\]
+		à l'aide d'un changement de variables polaire. 
+		En déduire la formule désirée.
+		%%
+		\item Soit $X$ une v.a. de loi gaussienne standard, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. Montrer par récurrence que
+		\[
+		\forall n \in \N, \quad 
+		\Ec{X^{2n}} = \frac{(2n)!}{2^n n!}
+		\quad \text{et} \quad 
+		\Ec{X^{2n+1}} = 0.
+		\]
+		%%
+		\item Soit $X$ une v.a. de loi gaussienne standard. Montrer que, pour tout $x >0$,
+		\[
+		\frac{1}{\sqrt{2 \pi}} \left( \frac{1}{x} - \frac{1}{x^3} \right) e^{{-x^2}/{2}}
+		\leq \P(X > x)
+		\leq \frac{1}{x \sqrt{2 \pi}} e^{{-x^2}/{2}}.
+		\]
+		\emph{Indication.} On pourra vérifier que
+		\[
+		\frac{1}{x} e^{{-x^2}/{2}} 
+		= \int_x^{\infty} e^{{-t^2}/{2}} \left( 1 + \frac{1}{t^2} \right) \diff t
+		\qquad \text{et} \qquad 
+		\left( \frac{1}{x} - \frac{1}{x^3} \right) e^{{-x^2}/{2}} 
+		= \int_x^{\infty} e^{{-t^2}/{2}} \left( 1 - \frac{3}{t^4} \right) \diff t.
+		\]
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Tribu engendrée par une variable aléatoire]
+	Soit $(\Omega,\cA,\P)$ un espace de probabilités et $X$ une variable aléatoire définie sur $(\Omega,\cA,\P)$ à valeurs dans $(\R,\cB(\R))$.
+	On note
+	\[
+	\sigma(X) \coloneqq \{ X^{-1}(B) : B\in\cB(\R) \}.
+	\]
+	%%
+	\begin{enumerate}
+		\item Montrer que $\sigma(X)$ est la plus petite tribu $\cA$ sur $\Omega$ telle que $X$ soit mesurable de $(\Omega,\cA)$ dans $(\R,\cB(\R))$.
+		La tribu $\sigma(X)$ est appelée la \emph{tribu engendrée par la 
+			variable aléatoire~$X$}.
+		%%
+		\item Soit $Y$ une v.a. qui soit $\sigma(X)$-mesurable, i.e. $Y$ est une application mesurable de $(\Omega,\sigma(X))$ dans $(\R,\cB(\R))$.
+		Montrer qu'il existe une fonction $f \colon \R\to\R$ borélienne telle que $Y=f(X)$.
+		
+		\emph{Indication.} 
+		%%
+		\item Expliciter $\sigma(X)$ et la loi de $X$
+		dans les cas suivants ($\lambda$ est la mesure de Lebesgue) :
+		\begin{enumerate}
+			\item $(\Omega,\cA,\P) \coloneqq ([0,1],\cB([0,1]),\lambda)$ et
+			$X(\omega) \coloneqq 2 \omega \1_{[0,1/2]}(\omega) + \1_{]1/2,1]}(\omega)$ pour $\omega\in [0,1]$.
+			%%
+			\item $X \coloneqq a \1_A + b \1_B$, où $A,B \in \cA$ et $a,b \in \R^*$.
+			%%
+			\item $(\Omega,\cA,\P) \coloneqq ([-1,1],\cB([-1,1]),\lambda/2)$ et
+			$X(\omega) \coloneqq \omega^2$ pour $\omega\in [0,1]$.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item La famille $\sigma(X)$ est une tribu : c'est la tribu réciproque de $\cB(\R)$ par $X$ (voir TD 1).
+
+Il est clair que $\sigma(X)$ rend $X$ mesurable (car  pour tout $B \in \cB(\R)$, on a bien $X^{-1}(B) \in \sigma(X)$). 
+D'autre part, toute tribu rendant $X$ mesurable contient $\sigma(X)$, car elle doit contenir les ensembles de la forme $X^{-1}(B)$ pour $B \in \cB(\R)$. 
+Donc $\sigma(X)$ est bien la plus petite tribu sur $\Omega$ rendant $X$ mesurable.
+%%
+\item La fonction $Y$ est mesurable de $(\Omega,\sigma(X))$ dans $(\R,\cB(\R))$, donc il existe $(Y_n)_{n\in\N}$ une suite de fonctions étagées (pour $\sigma(X)$) telles que $Y = \lim_{n\to\infty} Y_n$.
+Pour $n \in\N$, $Y_n$ est de la forme
+\[
+Y_n = \sum_{i=1}^{k_n} c_{i,n} \1_{X^{-1}(B_{i,n})},
+\]
+avec $c_{i,n} \in \R$ et $B_{i,n} \in \cB(\R)$.
+Alors, on remarque que $Y_n = f_n \circ X$, où l'on a posé
+\[
+f_n \coloneqq \sum_{i=1}^{k_n} c_{i,n} \1_{B_{i,n}},
+\]
+qui est bien une fonction borélienne de $\R \to \R$.
+On pose alors 
+\[
+f(x) \coloneqq 
+\left\{ \begin{array}{l}  
+\lim_{n\to\infty} f_n(x) \text{ si la limite existe dans } \R, \\ 
+0 \mbox{ sinon}. \end{array} 
+\right.
+\]
+La fonction $f$ est mesurable car elle s'écrit
+\[
+f(x) 
+= \1_{-\infty< \liminf_{n\to\infty} f_n (x) = \limsup_{n\to\infty} f_n (x)< \infty}
+\limsup_{n\to\infty} f_n (x)
+\]
+et $\liminf_{n\to\infty} f_n$ et $\limsup_{n\to\infty} f_n$ sont mesurables.
+%%
+En outre, pour tout $\omega \in \Omega$, on a
+\[
+f_n (X(\omega)) = Y_n(\omega) \xrightarrow[n\to\infty]{} Y(\omega),
+\]
+donc $Y= f \circ X$.
+%%
+\item 
+\begin{enumerate}
+\item Soit $A \in \cB([0,1])$. On a $A = X^{-1}(\frac{1}{2}A) \in \sigma(X)$, car $\frac{1}{2}A \subset [0,\frac{1}{2}]$.
+Donc $\cB([0,1]) \subset \sigma(X)$ et ainsi $\cB([0,1]) = \sigma(X)$ (l'inclusion réciproque revient exactement à dire que $X$ est mesurable de $([0,1],\cB([0,1]),\lambda) \to (\R,\cB(\R),\lambda)$).
+La loi de $X$ est $\frac{1}{2} \lambda + \frac{1}{2} \delta_1$.
+%%
+\item \emph{Cas 1 : $a \neq b$ et $a + b \neq 0$.} Alors $X$ peut prendre uniquement les 4 valeurs distinctes suivantes : $0$, $a$, $b$ et $a+b$.
+Comme $\cB(\R)$ est engendrée par $\cC \coloneqq \{ \{0\}, \{a\}, \{b\}, \{a+b\}\} \cup \cB(\R \setminus \{0,a,b,a+b\})$, $\sigma(X)$ est engendrée par les images réciproques d'éléments de $\cC$.
+Comme les éléments de $\cB(\R \setminus \{0,a,b,a+b\})$ ont pour image réciproque $\varnothing$ et $0$, $a$, $b$ et $a+b$ ont pour images réciproques $A^c\cap B^c$, $A \cap B^c$, $A^c \cap B$ et $A \cap B$, on en déduit que
+\[
+\sigma (X) = \{ \varnothing, A, B, A^c,B^c, A\cap B, A\cup B, A^c\cap B, A^c\cup B, A\cap B^c, A\cup B^c, A^c\cap B^c, A^c\cup B^c, A\Delta B, (A \Delta B)^c, \Omega \},
+\]
+où $A \Delta B \coloneqq A\cup B \setminus A\cap B$ est la différence symétrique entre $A$ et $B$ ($\sigma(X)$ contient les $2^4$ ensembles que l'on peut former à partir de la partition à 4 éléments : $A^c\cap B^c$, $A \cap B^c$, $A^c \cap B$ et $A \cap B$).
+La loi de $X$ est
+\[
+\Pr{A^c\cap B^c} \delta_0
++ \Pr{A \cap B^c} \delta_a 
++ \Pr{A^c \cap B} \delta_b
++ \Pr{A \cap B} \delta_{a+b}.
+\]
+
+\emph{Cas 2 : $a = b$.} Alors, on a $X = a 1_{A \Delta B} + 2a 1_{A\cap B}$.
+Comme précédemment, $\sigma(X)$ est engendrée par $A^c\cap B^c$, $A \Delta B$, $A \cap B$, donc on obtient
+\[
+\sigma (X) = \{ \varnothing, A^c\cap B^c, A \Delta B, A \cap B, A\cup B, A^c\cup B^c, (A \Delta B)^c, \Omega \}.
+\]
+La loi de $X$ est
+\[
+\Pr{A^c\cap B^c} \delta_0
++ \Pr{A \Delta B} \delta_a 
++ \Pr{A \cap B} \delta_{2a}.
+\]
+
+\emph{Cas 3 : $a + b = 0$.} Alors, on a $X$ ne peut prendre que les 3 valeurs suivantes : $0$, $a$ et $-a$, donc $\sigma(X)$ est engendrée par $(A \Delta B)^c$, $A \cap B^c$ et $A^c \cap B$, donc on obtient
+\[
+\sigma (X) = \{ \varnothing, (A \Delta B)^c, A \cap B^c, A^c \cap B, A \Delta B, A^c \cup B, A \cap B^b, \Omega \}.
+\]
+La loi de $X$ est
+\[
+\Pr{(A \Delta B)^c} \delta_0
++ \Pr{A \cap B^c} \delta_a 
++ \Pr{A^c \cap B} \delta_{-a}.
+\]
+%%
+\item Pour $A \in \cB([-1,1])$, on a $X^{-1}(A) = A \cup (-A)$, donc
+\[
+\sigma(X) 
+= \{A \cup (-A) : A \in \cB([-1,1])\},
+\]
+qui est aussi l'ensemble des boréliens de $[-1,1]$ symétriques par rapport à 0.
+Pour $f \colon \R \to \R_+$ boréliennes, on a
+\[
+\Ec{f(X)} = \int_{-1}^1 f(\omega^2) \frac{\diff \omega}{2}
+= \int_0^1 f(\omega^2) \diff \omega
+= \int_0^1 f(x) \frac{\diff x}{2 \sqrt{x}}
+\]
+donc $X$ a pour loi $(2\sqrt{x})^{-1} \1_{x \in ]0,1]} \diff x$.
+\end{enumerate}
+\end{enumerate}
+\end{comment}
+
+
+
+\end{document}
