@@ -148,7 +148,7 @@
 }
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -180,9 +180,6 @@
 	Rappelons que $P_X$ est définie par $P_X(B) = \P(X^{-1}(B))$ pour tout $B \in \cE$. Montrer que $P_X$ est une mesure de probabilité sur $(E,\cE)$.
 \end{exo}
 
-\begin{comment}
-
-\end{comment}
 
 %%%%%%
 \separationexos
@@ -606,12 +603,42 @@ On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de v
 \separationexos
 %%%%%%
 
-\begin{exo} Un article du journal Le Monde était consacré au suicide dans les prisons. On y apprenait notamment que le taux de suicide y est d'environ $1/1000$ et que parmi les détenus s'étant suicidés, on trouvait une population ayant déja fait une tentative de suicide 15 fois plus importante que des détenus n'ayant jamais attenté à leur vie. Le Monde concluait à la nécessité de surveiller de près les détenus ayant déjà fait une tentative de suicide.
+\begin{exo} Un article du journal Le Monde était consacré au suicide dans les prisons. On y apprenait notamment que le taux de suicide y est d'environ $1/1000$ par an et que, parmi les détenus s'étant suicidés, on trouvait une population ayant déja fait une tentative de suicide au cours des années précédentes 15 fois plus importante que des détenus n'ayant jamais attenté à leur vie. Le Monde concluait à la nécessité de surveiller de près les détenus ayant déjà fait une tentative de suicide.
 	\begin{enumerate}
-		\item Donner un modèle probabiliste prenant en compte les éventualités précisées plus haut (tentative de suicide, suicide). Exprimer dans ce modèle la conclusion du quotidien.
-		      %%
-		\item Proposer un moyen d'évaluer - à l'aide des renseignements fournis - la justesse de la conclusion précédente, puis faire cette évaluation.
+		\item Donner un modèle probabiliste prenant en compte les éventualités précisées plus haut (tentative de suicide, suicide). 
+		%%
+		\item Exprimer dans ce modèle la conclusion du quotidien et évaluer la justesse de cette conclusion en fonction de la proportion de personnes ayant déja fait une tentative de suicide.
 	\end{enumerate}
 \end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Chaque individu à deux caractéristiques: le fait qu'il soit décédé d'un suicide cette année (noté $S$) ou pas (noté $\overline{S}$) et le fait qu'au cours des années précédentes, il ait déjà fait une tentative (noté $T$) ou pas (noté $\overline{T}$). 
+    Alors on prend $\Omega = \{ (S,T),(S,\overline{T}),(\overline{S},T),(\overline{S},\overline{T}) \}$ muni de $\cA = \cP(\Omega)$ et d'une mesure de probabilité $\P$ à déterminer.
+    On note $A_S = \{ (S,T),(S,\overline{T})\}$ l'évenement `\textit{l'individu s'est suicidé}' et $A_T = \{ (S,T),(\overline{S},T)\}$ l'évenement `\textit{l'individu a fait une tentative de suicide au cours des années précédentes}'.
+    Le texte nous permet de dire que
+    \[
+        \P(A_S) = \frac{1}{1000}
+        \qquad \text{et} \qquad 
+        \Ppsq{A_T}{A_S} = 15 \cdot \Ppsq{A_T^c}{A_S}.
+    \]
+    %%
+	\item Dans ce modèle, la conclusion du quotidien se formule $\Ppsq{A_S}{A_T} > \Ppsq{A_S}{A_T^c}$. 
+    Notons $p = \P(A_T)$ la proportion de personnes ayant déja fait une tentative de suicide.
+    On a
+    \begin{align*}
+    \Ppsq{A_S}{A_T} > \Ppsq{A_S}{A_T^c}
+    & \quad \Leftrightarrow \quad 
+    \frac{\Ppsq{A_T}{A_S} \P(A_S)}{\P(A_T)} > \frac{\Ppsq{A_T^c}{A_S} \P(A_S)}{\P(A_T^c)} \\
+    & \quad \Leftrightarrow \quad 
+    \frac{15 \cdot \Ppsq{A_T}{A_S}}{\P(A_T)} > \frac{\Ppsq{A_T^c}{A_S}}{\P(A_T^c)} \\
+    & \quad \Leftrightarrow \quad 
+    \frac{15}{p} > \frac{1}{1-p} \\
+    & \quad \Leftrightarrow \quad 
+    p < \frac{15}{16}.
+    \end{align*}
+    Dès que la proportion $p$ est inférieure à $15/16$ (ce qui est probablement le cas), la conclusion du journal est correcte.
+    \end{enumerate}
+\end{comment}
 
 \end{document}
