@@ -203,15 +203,29 @@
 	\item Si $x \leq y$, alors $\{ X \leq x \} \subset \{X \leq y\}$ et donc $F(x) = \P(X \leq x) \leq \P(X \leq y) = F(y)$.
 	      %%
 	\item Pour $x \in \R$ et $(y_n)_{n\geq0}$ une suite décroissante convergeant vers $x$, on a
-	      \[
-		      F(x)
-		      = \P(X \leq x)
-		      = \P \Biggl( \bigcap_{n\geq0} \{ X \leq y_n \} \Biggr)
-		      = \lim_{n\to\infty} \P(X \leq y_n)
-		      = \lim_{n\to\infty} F(y_n),
-	      \]
-	      car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est continue à droite.
-	      %%
+	\[
+		F(x)
+		= \P(X \leq x)
+		= \P \Biggl( \bigcap_{n\geq0} \{ X \leq y_n \} \Biggr)
+		= \lim_{n\to\infty} \P(X \leq y_n)
+		= \lim_{n\to\infty} F(y_n),
+	\]
+	car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est continue à droite.
+	
+	\emph{Remarque.} On utilise ici l'implication suivante : si pour toute suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$, $F(y_n) \to F(x)$, alors 
+	\begin{equation}\label{eq:lim_droite}
+	F(y) \xrightarrow[\substack{y \to x\\y\geq x}]{} F(x).
+	\end{equation}
+	Cela se montre par contraposée. Supposons que la convergence \eqref{eq:lim_droite} est fausse. Cela signifie : 
+	\[
+	\exists \varepsilon > 0, \forall \delta > 0, \exists y \in \,]x,x+\delta], \abs{F(x) - F(y)} > \varepsilon.
+	\]
+	On fixe un tel $\varepsilon > 0$.
+	On construit par récurrence une suite $(y_n)_{n\geq0}$ décroissante telle que $y_n \to 0$ et $\abs{F(x) - F(y_n)} > \varepsilon$ pour tout $n \geq 0$. On initie en considérant $\delta =1$ : il existe alors $y_0 \in \,]x,x+1]$ telle que $\abs{F(x) - F(y_0)} > \varepsilon$. Supposons que $y_n$ est définie, on considère alors $\delta = \min(n^{-1},y_n-x) > 0$ : on en déduit qu'il existe $y_{n+1} \in \,]x,x+\delta]$ tel que $\abs{F(x) - F(y_{n+1})} > \varepsilon$ et on a à la fois $y_{n+1} \leq y_n$ et $x < y_{n+1} \leq x + n^{-1}$.
+	Ainsi la suite construite est bien décroissante et converge vers $x$.
+	On a donc montré : il existe une suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$ telle que $F(y_n)$ ne converge pas vers $F(x)$.
+	On a donc montré la contraposée du résultat désiré.
+	%%
 	\item Soit $(y_n)_{n\geq0}$ une suite décroissante tendant vers $-\infty$. Alors
 	      \[
 		      \lim_{n\to\infty} F(y_n)
@@ -403,6 +417,9 @@
 \end{exo}
 
 \begin{comment}
+Expliquons d'abord la discussion avec des mots. Dans sa première réponse, Pierre tente d'évaluer la probabilité que Mathilde ait une fille, sachant qu'elle a deux enfants dont un garçon, et il dit que cette probabilité vaut $2/3$. Il apprend ensuite que le garçon de Mathilde est son aîné. Il réévalue la probabilité que Mathilde ait une fille, sachant cette nouvelle information, et obtient $1/2$ (il ne peut plus parier sur une option plus probable que l'autre, donc ``il ne peut plus rien dire'').
+
+
 L'expérience peut être modélisée par
 $\Omega = \{ F,G \}^2$ (où la première coordonnée correspond au premier enfant et la deuxième au deuxième, avec $F$ pour fille et $G$ pour garçon), $\cA = \cP(\Omega)$ et
 \[

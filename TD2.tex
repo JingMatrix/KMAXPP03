@@ -393,6 +393,36 @@ P_Y(\diff y) = \frac{1}{\sqrt{2\pi y^3}}e^{-1/(2y)}\1_{[0,\infty[}(y) \diff y.
 	Quelle est la loi de $f(X)$ ?
 \end{exo}
 
+\begin{comment}
+    On pose $Y = f(X)$.
+    
+    \emph{Méthode 1.} Soit $g \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
+    \[
+    \Ec{g(Y)}
+    = \Ec{g(f(X))}
+    = \int_\R g(f(x)) \diff P_X(x)
+    = \sum_{i\in \cI} p_i g(f(x_i))
+    = \int_\R g(y) \diff \left( \sum_{i\in \cI} p_i \delta_{f(x_i)} \right)(y),
+    \] 
+    en réécrivant la somme comme une intégrale par rapport à une autre mesure discrète.
+    Cela montre que
+    \[
+    P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)}.
+    \]
+    
+    
+    \emph{Méthode 2.} La v.a. $Y$ est à valeurs dans l'ensemble dénombrable $\{f(x_i), i\in\cI\}$, donc sa loi est discrète et est caractérisée par sa valeur sur les singletons. On calcule donc, pour tout $i \in \cI$,
+    \[
+    \Pp{Y = f(x_i)} = \Pp{f(X) = f(x_i)} = \Pp{ X \in \{ x_j : j\in\cI, f(x_j) = f(x_i) \}} = \sum_{j \in \cI \text{ tq } f(x_j) = f(x_i)} p_j
+    \] 
+    et cela montre que
+    \[
+    P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)},
+    \]
+    car ces mesure coïncident sur les singletons $\{f(x_i)\}$.
+\end{comment}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Modélisation continue}
