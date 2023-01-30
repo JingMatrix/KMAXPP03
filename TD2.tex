@@ -250,18 +250,18 @@ On obtient $c$ en utilisant que l'intégrale de $p_X$ doit être égale à 1 : o
 \[
 	\int_\R p_X(x) \diff x 
 	= c \left( \int_0^1 x \diff x + \int_1^2 (2-x) \diff x \right)
-	= c \left( \frac{1}{2} + \frac{3}{2} \right)
-	= 2c
+	= c \left( \frac{1}{2} + \frac{1}{2} \right)
+	= c
 \]
-et donc $c = 1/2$.
+et donc $c = 1$.
 
 Soit $p \geq 0$. Par le théorème de transfert,
 \begin{align*}
 	\E[X^p] & = \int_\R x^p p_X(x) \diff x
-	= \frac{1}{2} \left( \int_0^1 x^{p+1} \diff x + \int_1^2 (2x^p-x^{p+1}) \diff x \right) \\
-	& = \frac{1}{2} \left( \left[ \frac{x^{p+2}}{p+2} \right]_0^1 + \left[ \frac{2x^{p+1}}{p+1} - \frac{x^{p+2}}{p+2} \right]_1^2 \right)
-	= \frac{1}{2} \left( \frac{1}{p+2} + \frac{2\cdot 2^{p+1}}{p+1} - \frac{2^{p+2}}{p+2} - \frac{2}{p+1} + \frac{1}{p+2} \right) \\
-	& = \frac{2^{p+2}-2}{2(p+1)(p+2)} = \frac{2^{p+1}-1}{(p+1)(p+2)}.
+	= \int_0^1 x^{p+1} \diff x + \int_1^2 (2x^p-x^{p+1}) \diff x \\
+	& = \left[ \frac{x^{p+2}}{p+2} \right]_0^1 + \left[ \frac{2x^{p+1}}{p+1} - \frac{x^{p+2}}{p+2} \right]_1^2
+	= \frac{1}{p+2} + \frac{2\cdot 2^{p+1}}{p+1} - \frac{2^{p+2}}{p+2} - \frac{2}{p+1} + \frac{1}{p+2} \\
+	& = \frac{2^{p+2}-2}{(p+1)(p+2)}.
 \end{align*}
 \end{comment}
 
