@@ -231,6 +231,9 @@ La loi de $X^2$ est $\delta_1$ et la loi de $-X^2$ est $\delta_{-1}$ donc $XZ$ e
 %	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+On trouve $\E[e^{-tX}] = e^{\lambda (e^{-t}-1)}$.
+\end{comment}
 
 %%%%%%
 \separationexos
@@ -366,19 +369,26 @@ P_Y(\diff y) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(y-m)^2/(2\sigma^2)} \diff y.
 Soit $f \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
 \[
 \Ec{f(Y)}
-= \Ec{f \left( \frac{1}{X^2} \right)}
-= \frac{1}{\sqrt{2\pi}} \int_\R f\left(\frac{1}{x^2}\right) e^{-x^2/2} \diff x
-= \frac{2}{\sqrt{2\pi}} \int_0^\infty f\left(\frac{1}{x^2}\right) e^{-x^2/2} \diff x,
+= \Ec{f \left( \min \left( X,\frac{1}{X} \right)\right)}
+= \int_0^\infty f\left( \min \left( x,\frac{1}{x} \right)\right) e^{-x} \diff x
 \] 
-où l'on utilise la parité de la fonction intégrée dans la dernière égalité.
-Et $x\in\R_+^*\mapsto x^{-2}\in\R_+^*$ est un $\cC^1$ difféomorphisme, donc avec le changement de variables $y=x^{-2}$, on a 
+On sépare alors les cas $x \leq 1$ et $x > 1$ :
 \[
 \Ec{f(Y)}
-= \frac{2}{\sqrt{2\pi}} \int_0^\infty f(y) e^{-1/(2y)} \frac{1}{2y^{3/2}} \diff y.
+= \int_0^1 f(x) e^{-x} \diff x
++ \int_1^\infty f\left( \frac{1}{x} \right) e^{-x} \diff x
+= \int_0^1 f(x) e^{-x} \diff x
++ \int_0^1 f(y) e^{-1/y} \frac{1}{y^2} \diff y,
+\] 
+en utilisant le changement de variables $y=1/x$ dans la 2ème intégrale.
+On a donc
+\[
+\Ec{f(Y)}
+= \int_0^1 f(y) \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \diff y.
 \] 
 Donc la loi de $Y$ est 
 \[
-P_Y(\diff y) = \frac{1}{\sqrt{2\pi y^3}}e^{-1/(2y)}\1_{[0,\infty[}(y) \diff y.
+P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y) \diff y.
 \]
 \end{comment}
 
