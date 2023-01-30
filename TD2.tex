@@ -191,7 +191,7 @@
 
 \begin{comment}
 \begin{enumerate} 
-\item Si $X=Y$ p.s.~alors, pour toute fonction mesurable $f \colon \R\to\R_+$, $f(X)=f(Y)$ p.s. et donc $\Ec{f(X)}=\Ec{f(Y)}$, ce qui montre que $X$ et $Y$ ont la m\^eme loi : en effet, pour tout $B \in \cB(\R)$, en prenant $f = \1_B$, on a
+\item Si $X=Y$ p.s.~alors, pour toute fonction mesurable $f \colon \R\to\R_+$, $f(X)=f(Y)$ p.s. et donc $\Ec{f(X)}=\Ec{f(Y)}$ (car les intégrales par rapport à $\P$ de deux fonctions égales $\P$-presque partout sont égales), ce qui montre que $X$ et $Y$ ont la m\^eme loi : en effet, pour tout $B \in \cB(\R)$, en prenant $f = \1_B$, on a
 \[
 	P_X(B) = \Ec{f(X)} = \Ec{f(Y)} = P_Y(B).
 \]
@@ -654,6 +654,26 @@ On peut alors calculer
 	$e^{-x} \1_{[0,\infty)}(x) \diff x$. Déterminer la loi de $\lfloor X \rfloor$ (la partie entière de $X$).
 \end{exo}
 
+\begin{comment}
+    Soit $Y = \lfloor X \rfloor$.
+    Soit $f \colon \R \to \R_+$ une fonction mesurable.
+    Par le théorème de transfert,
+    \[
+    \Ec{f(Y)} = \Ec{f(\lfloor X \rfloor)}
+    = \int_0^\infty f(\lfloor x \rfloor) e^{-x} \diff x
+    = \sum_{k=0}^\infty \int_k^{k+1} f(k) e^{-x} \diff x
+    = \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) f(k).
+    \]
+    On peut y reconnaître l'intégrale suivante
+    \[
+    \Ec{f(Y)} 
+    = \int_\R f(y) \diff \left( \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k \right) (y)
+    \]
+    et donc
+    \[
+    P_Y = \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k.
+    \]
+\end{comment}
 
 %%%%%%
 \separationexos
