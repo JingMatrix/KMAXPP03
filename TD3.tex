@@ -1,0 +1,684 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 3 -- Moments, fonction de répartition, fonction caractéristique}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Moments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}[Moments de la loi exponentielle]\label{exo:moment_exponentielle}
+	Soit $X$ une v.a. de loi exponentielle de paramètre $\lambda > 0$, i.e. de loi 
+	$\lambda e^{-\lambda x} \1_{[0,\infty)}(x) \diff x$.
+	Calculer les moments de $X$.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Moments et queue de distribution]
+	\begin{enumerate}
+		\item Soit $X$ une v.a. positive et $p > 0$. Montrer que
+		\[
+		\E[X^p] 
+		= \int_0^\infty \P(X > x) p x^{p-1} \diff x 
+		= \int_0^\infty \P(X \geq x) p x^{p-1} \diff x.
+		\]
+		\item Soit $X$ une v.a. de loi de Pareto de paramètres de forme $a >0$ et de location $b > 0$, i.e. telle que $\P(X \geq x) = (b/x)^a$ pour tout $x \geq b$. Déterminer l'ensemble des $p>0$ tels que $\E[X^p] < \infty$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Fonction de répartition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $F\colon \R \to \R$ la fonction définie par
+	\[
+	\forall x \in \R, \quad 
+	F(x) = \frac{1}{4} \1_{[0,1[}(x) + \frac{x}{2} \1_{[1,2[}(x) +
+	\1_{[2, +\infty[}(x).
+	\]
+	\begin{enumerate}
+		\item Montrer que $F$ est la fonction de répartition d'une unique
+		mesure de probabilité $P$ sur $\mathbb{R}$.
+		\item Calculer $P(\{1/2\}), \, P(\{1\}), \, P(\{2\}), \,
+		P(]1/2,3/2[)$.
+		\item Déterminer $P$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi exponentielle de paramètre $1$.
+	On pose $Y = \min (X,\frac{1}{X})$. Calculer la fonction de répartition de $Y$ et en déduire la loi de $Y$.
+	
+	\emph{Remarque.} La loi de $Y$ avait été calculée par une autre méthode dans l'exercice 6 du TD 2.
+\end{exo}
+
+\begin{comment}
+Soit $f \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
+\[
+\Ec{f(Y)}
+= \Ec{f \left( \min \left( X,\frac{1}{X} \right)\right)}
+= \int_0^\infty f\left( \min \left( x,\frac{1}{x} \right)\right) e^{-x} \diff x
+\] 
+On sépare alors les cas $x \leq 1$ et $x > 1$ :
+\[
+\Ec{f(Y)}
+= \int_0^1 f(x) e^{-x} \diff x
++ \int_1^\infty f\left( \frac{1}{x} \right) e^{-x} \diff x
+= \int_0^1 f(x) e^{-x} \diff x
++ \int_0^1 f(y) e^{-1/y} \frac{1}{y^2} \diff y,
+\] 
+en utilisant le changement de variables $y=1/x$ dans la 2ème intégrale.
+On a donc
+\[
+\Ec{f(Y)}
+= \int_0^1 f(y) \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \diff y.
+\] 
+Donc la loi de $Y$ est 
+\[
+P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y) \diff y.
+\]
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Fonction caractéristique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}[Régularité de la fonction caractéristique]\label{exo:reg_fc_carac}
+	Soit $X$ une v.a. réelle.
+	\begin{enumerate}
+		\item Montrer que $\phi_X$ est continue sur $\R$.
+		\item Soit $n \in \N^*$. Supposons que le moment d'ordre $n$ de $X$ soit fini. Montrer que $\phi_X$ est de classe $\cC^n$ sur $\R$ et 
+		\[
+		\forall k \in \llbracket 0,n \rrbracket, \quad
+		\forall \theta \in \R, \quad 
+		\phi_X^{(k)}(\theta) = \ii^k \E \left[ X^k e^{\ii\theta X} \right].
+		\]
+	\end{enumerate}
+	\emph{Indication.} On pourra utiliser les résultats de continuité et dérivabilité d'intégrales à paramètre, rappelés en Section 1.3.2 des notes de cours.
+\end{exo}
+
+\begin{comment} 
+	\begin{enumerate}
+	\item Montrer que $\phi_X$ est continue sur $\R$.
+	\item Cela se montre par récurrence à partir du théorème de dérivation sous l'espérance (Théorème \ref{thm:dérivabilité_espérance}) en utilisant la domination 
+	\[
+	\abs{\frac{\partial^k e^{\ii\theta X}}{\partial \theta^k}} 
+	= \abs{\ii^k X^k \exp(\ii \theta X)} 
+	\leq \lvert X \rvert^k
+	\] 
+	qui est intégrable pour $1 \leq k \leq n$.
+	\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Fonction caractéristique de la gaussienne] 
+	\begin{enumerate}
+		\item Soit $X$ une v.a. de loi $\cN(0,1)$, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. Soit $\phi_X$ sa fonction caractéristique.
+		\begin{enumerate}
+			\item À l'aide de l'exercice \ref{exo:reg_fc_carac} et d'une intégration par partie, montrer que $\phi_X'(\theta) = - \theta \phi_X(\theta)$ pour tout $\theta \in \R$.
+			\item En déduire $\phi_X$.
+		\end{enumerate}
+		\item Soit $\sigma > 0$ et $m \in \R$. 
+		Soit $Z$ une v.a. de loi $\cN(m,\sigma^2)$, i.e. de loi $\frac{1}{\sigma\sqrt{2\pi}} e^{-(x-m)^2/(2\sigma^2)} \diff x$. Déterminer la fonction caractéristique de $Z$.
+		
+		\emph{Indication.} On a vu à l'exercice 5 du TD2 qu'on peut écrire $Z = \sigma X + m$ avec $X$ de loi $\cN(0,1)$.
+	\end{enumerate}
+\end{exo}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit $X$ une v.a. réelle et $F_X$ sa fonction de répartition.
+	Soit $a < b$.
+	Exprimer en terme de $F_X$ les probabilités suivantes : $\P(X < a)$, $\P(X = a)$, $\P(X>a)$, $\P(a \leq X \leq b)$ et $\P(a < X < b)$.
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a.r. de loi uniforme sur $[0,1]$ (on note $X\sim \cU(0,1)$). On pose $Y=\min (X,1-X)$.
+	\begin{enumerate}
+		\item Déterminer et tracer la fonction de répartition $F_Y$ de $Y$.
+		\item Déterminer la loi de $Y$, puis celle de $2Y$.
+		\item Calculer $\mathbb{E}[Y]$ et $\Var(Y)$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Retour vers l'exponentielle]
+	Soit $X$ une v.a. de loi exponentielle de paramètre $\lambda > 0$. 
+	\begin{enumerate}
+		\item Calculer sa fonction caractéristique $\phi_X$.
+		\item En développant $\phi_X$ en série entière en 0 et en utilisant que $\phi_X^{(k)}(0) = \ii^k \E[X^k]$ par l'exercice \ref{exo:reg_fc_carac}, obtenir les moments de $X$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}
+	Soit $F \colon \R \to \R$ la fonction définie par 
+	\[
+	\forall x \in \R, \quad 
+	F(x) = \begin{cases}
+	0 & \text{ si } x < 0, \\
+	\frac{2}{3} (1 - e^{-2x}) & \text{ si } 0 \leq x < \ln 2, \\
+	1 - \frac{2}{3} \, e^{-2x} &  \text{ si }  x \geq \ln 2.    
+	\end{cases}
+	\]
+	\begin{enumerate}
+		\item Expliquer pourquoi $F$ est la fonction de répartition d'une v.a. réelle $X$, et déterminer la loi de $X$.
+		\item Calculer l'espérance et la variance de $X$. 
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Montrer qu'il existe une v.a. réelle $X$ de fonction de répartition
+	$F(t)= 1/(1+ e^{-t}), t \in \mathbb{R}$. 
+	Déterminer la loi de $X$. 
+	On pose $X_1= e^X$, $X_2=X \, \1_{\{0 \leq X \leq 1\}}$ et $X_3 = \1_{\{0 \leq X \leq 1\}}$. 
+	Trouver les lois des $X_i$, $i=1,2,3$.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+%\begin{exo}
+%	\begin{enumerate}
+%		\item Soit $\lambda > 0$. 
+%		Soit $X$ une va. de loi $\frac{\lambda}{2} e^{-\lambda |x|} \diff x$.
+%		Calculer la fonction de caractéristique  de $X$.
+%		%%
+%		\item On admet la formule d'inversion de Fourier : 
+%		
+%		Soit $Y$ une v.a. de loi de Cauchy standard, i.e. de loi $\frac{1}{\pi(1+x^2)} \diff x$. Calculer la fonction caractéristique de~$Y$.
+%	\end{enumerate}
+%\end{exo}
+
+
+\begin{exo} 
+	Soit $X$ une v.a. réelle.
+	On dit que $X$ est symétrique si et seulement si $X$ et $-X$ ont même loi.
+	Montrer $X$ est symétrique si et seulement si sa fonction caractéristique ne prend que des valeurs réelles. 
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Les moments ne caractérisent pas une loi de probabilité]
+	\begin{enumerate}
+		\item Soit $X$ une v.a. de loi $\cN(0,1)$.
+		On pose $Z=e^X$. 
+		Calculer la densité $p_Z$ de $Z$.
+		
+		\emph{Remarque.} La loi de $Z$ s'appelle loi log-normale.
+		%%
+		\item Pour $a\in [-1,1]$,
+		soit $p_a(x)=p_Z(x)(1+a\sin (2\pi \log x))$.
+		Montrer que $p_a$ est une densité de probabilité et
+		que, si $Z_a$ est une v.a. de densité $p_a$,
+		alors les lois $P_Z$ et $P_{Z_a}$ sont distinctes (si $a \neq 0$).
+		%%
+		\item Montrer que $Z$ et $Z_a$ admettent des moments de tous ordres et qu'ils sont tous égaux.	Conclusion ?
+	\end{enumerate}
+\end{exo}
+
+
+
+
+
+%\begin{exo}
+%	Soit $X$ une v.a.r. Déterminer pour quels $q \in [1, \infty]$, $X
+%	\in L^q((\Omega,\cA, \mathbb{P})$ dans le cas où
+%	\begin{enumerate}
+%		\item[i)] $X \sim \cN(0,1)$
+%		\item[ii)] $X \sim \gamma(p,\lambda)$, $p, \lambda >0$, i.e. $\mathbb{P}(X \in dx) =
+%		\frac{\lambda^p}{\Gamma(p)} \, x^{p-1} e^{-\lambda x} \1_{[0,
+%			\infty[}(x) \, dx$.
+%		\item[iii)] $\mathbb{P}(X \in dx) = p \, \1_{[1,
+%			\infty[}(x) \, \frac{dx}{x^{p+1}}$, $p \geq 1$.
+%	\end{enumerate}
+%\end{exo}
+
+%\begin{exo}
+%	Soit $X$ une v.a.r. telle que, pour tout $t \geq 10$,
+%	$\mathbb{P} ( |X| \geq t ) \leq c/t^\alpha$
+%	pour une constante $c >0$ et $\alpha >1$. Montrer que $X$ admet un
+%	moment d'ordre $n$, pour tout $n \in \mathbb{N}^*$, $n < \alpha$.
+%\end{exo}
+
+
+%\begin{exo}\textbf{(Tribu produit)}
+%Soient $({\Omega}_1,{\mathcal A}_1)$ et $({\Omega}_2,{\mathcal A}_2)$ deux espaces mesurables.
+%On pose, pour $i=1,2$ :
+%$$ \begin{array}{llcl}X_i :& {\Omega}_1 \times  {\Omega}_2 & \rightarrow & ({\Omega}_i, \mathcal{A}_i) \\
+%~~&({\omega}_1,{\omega}_2) & \mapsto & {\omega}_i \end{array}
+%$$
+%et on munit  ${\Omega}_1 \times  {\Omega}_2$ de la tribu ${\mathcal A}_1 \otimes {\mathcal A}_2 = \sigma (\{A_1 \times A_2, A_1 \in {\mathcal A}_1, A_2 \in {\mathcal A}_2 \})$.\\
+%
+%Montrer que  ${\mathcal A}_1 \otimes {\mathcal A}_2 = \sigma
+%(X_1,X_2)$.
+%\end{exo}
+
+
+%\begin{exo}\textbf{(Introduction à la convergence p.s.)}
+%On considère une suite $(Y_n)_{n\geq 0}$ de variables aléatoires sur
+%un espace probabilisé $(\Omega,\mathcal A,\mathbb{P})$ à valeurs dans
+%$({\mathbb R}^+,\cB ({\mathbb R}^+))$.
+%
+%\begin{enumerate}
+%
+%\item Montrer que si $\displaystyle \forall k \in {\mathbb N}^{\ast}, Y_k \leq \frac{1}{k^2}$   $\mathbb{P}$ p.s.,
+%alors $\displaystyle \sum_{k=1}^{+\infty} Y_k$ converge $\mathbb{P}$ p.s.
+%
+%\item On définit les ensembles $A_{m,n} = \{Y_0 + Y_1 + \cdots + Y_m \geq n\}$.\\
+%
+%Parmi les quatre évènements $\underset {n=0}{\overset
+%{+\infty}{\bigcap}}\underset {m=0}{\overset
+%{+\infty}{\bigcup}}A_{m,n}$, $\underset {m=0}{\overset
+%{+\infty}{\bigcap}}\underset {n=0}{\overset
+%{+\infty}{\bigcup}}A_{m,n}$, $\underset {n=0}{\overset
+%{+\infty}{\bigcup}}\underset {m=0}{\overset
+%{+\infty}{\bigcap}}A_{m,n}$, $\underset {m=0}{\overset
+%{+\infty}{\bigcup}}\underset {n=0}{\overset
+%{+\infty}{\bigcap}}A_{m,n}$, lequel correspond à l'évènement $\{\sum
+%Y_k$  diverge $\}$ ? A quoi correspondent les trois autres ?
+%
+%\item Montrer que si $\sum Y_k$ diverge $\mathbb{P}$ p.s., alors
+%$\forall n \in \mathbb N$, $\displaystyle \lim_{m\rightarrow
+%+\infty} \mathbb{P}(\{Y_0 + Y_1 + \cdots + Y_m \geq n\})= 1$.
+%\end{enumerate}
+%\end{exo}
+
+
+
+%\begin{exo}	
+%	\begin{enumerate}
+%		\item On lance une pièce de monnaie 2 fois. On considère le cas général oèu la piéce peut-être pipée: la probabilité d'obtenir 'pile' vaut $p\in [0,1].$ On s'intéresse aux événements suivants
+%		
+%		$A :$ \textit{'Le premier lancer donne pile'}
+%		
+%		$B :$ \textit{'Le deuxième  lancer donne pile'}
+%		
+%		$C :$ \textit{'Les  deux  lancers donnent le même résultat'}
+%		
+%		Proposer un modèle probabiliste, puis étudier l'indépendance des événements $A,$ $B$ et $C$ (deux à deux, puis mutuelle). Interpéter.
+%		
+%		\item On tire trois élèves $E_1,$ $E_2,$ $E_3$ dans la promotion et on s'interroge sur leur date de naissance ; on choisira donc comme modèle $\Omega=\{1,2,....,365\}^3,$ $F={\mathcal P}(\Omega)$ et ${\mathbb P}$ la probabilité uniforme (on négligera les années bissextiles). On considère les événements 
+%		
+%		$A:$\textit{'$E_1$ et $E_2$ ont le même anniversaire'}, 
+%		
+%		$B:$\textit{'$E_1$ et $E_3$ ont le même anniversaire'},
+%		
+%		$C:$\textit{'$E_3$ et $E_2$ ont le même anniversaire'}.
+%		
+%		Montrer que les eévénements $A,B$ et $C$ sont indépendants mais pas dans leur ensemble.
+%		
+%		\item Montrer que les événements $A_1,...,A_n$ sont indépendants si et seulement si les événements $A_1^c,...,A_n^c$  le sont.
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}
+%	Soient $X$ et $Y$ deux variables aléatoires indépendantes de même
+%	loi uniforme sur $[0,1]$. On note $m = \min (X,Y)$ et $M = \max (X,Y)$.
+%	\begin{enumerate}
+%		\item Déterminer la loi du vecteur aléatoire $(m,M)$.
+%		\item En déduire la loi de $m$ et celle de $M$.
+%		\item Les deux variables $m$ et $M$ sont-elles indépendantes ? Justifiez
+%		précisément. 
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}
+%	\textbf{Lois de variables aléatoires vectorielles.}\\
+%	\emph{\underline{Préliminaire}: étant données deux $\vec{\text{v.a.}}$ $X$ et $Y$, on note $P_X$, $P_Y$ et $P_{(X,Y)}$ les lois de
+%		$X$, $Y$ et $(X,Y)$ respectivement. On verra bientôt la caractérisation suivante:
+%		$$
+%		\text{$X$ et $Y$ sont indépendants} \qquad \text{ ssi }  
+%		\qquad  P_{(X,Y)} =  P_X \otimes P_Y.
+%		$$
+%		On prendra pour l'instant cette caractérisation comme définition de l'indépendance.}
+%	\begin{enumerate}
+%		\item  Soit $(X,Y)$ un couple aléatoire de densité
+%		$$f(x,y)=ke^{-\frac{x^2 + y^2}{2}}{\mathbb I}_{{\mathbb R}_+^2 \cup {\mathbb R}_-^2}(x,y).$$
+%		\begin{itemize}
+%			\item[a)]Déterminer $k$.
+%			\item[b)]Calculer les lois marginales de $X$ et de $Y$. Les v.a.r. $X$ et $Y$ sont-elles indépendantes ?
+%			\item[c)]Calculer $\text{Cov}(X,Y)$.	
+%			%\item[d)]Déterminer les lois de $Z=X+Y$ et de $U=X-Y$ en fonction de
+%			%$$\Psi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}} dt .$$
+%		\end{itemize}
+%		%\item Soit $(X,Y)$ un couple aléatoire de densité
+%		%$$f(x,y)=a\min (1,\frac{1}{x^2},\frac{1}{y^6}).$$
+%		%\begin{itemize}
+%		%\item[a)]Déterminer $a$, puis calculer les lois marginales de $X$ et $Y$. $X$ et $Y$ sont-elles indépendantes ?
+%		%\item[b)] $X$, $Y$, $(X,Y)$, $\min (|X|,|Y|)$ et $\min (X,Y)$ sont-elles intégrables ?
+%		%\end{itemize}
+%		\item Soit $X,Y,Z$ des variables aléatoires réelles indépendantes de même loi $\text{Exp}(1)$.
+%		On pose $S=X+Y+Z$.
+%		\begin{itemize}
+%			\item[a)]Déterminer la loi du vecteur aléatoire $\displaystyle (\frac{X}{S},\frac{Y}{S},S)$.
+%			\item[b)]En déduire la loi de $S$, puis que la loi du vecteur $\displaystyle (\frac{X}{S},\frac{Y}{S})$
+%			est uniforme sur un domaine qu'on aura précisé.
+%			\item[c)]Que peut-on dire des variables $\displaystyle (\frac{X}{S},\frac{Y}{S})$ et $S$ ?
+%		\end{itemize}
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}
+%	Soient $n \in \mathbb{N}^\ast$ et $p_1,p_2, p_3 \in [0,1]$ tels que
+%	$p_1+p_2+p_3=1$. Que modélise un couple aléatoire $(X,Y)$ de loi
+%	$$
+%	\mathbb{P}(X =i, Y=j)= \frac{n!}{i! j! (n-i-j)!}  p_1^i p_2^j
+%	p_3^{n-i-j} \1_{i+j \leq n},
+%	$$
+%	oèu $i,j \in \{0, \dots, n \}$ ? Déterminer les lois marginales, i.e.
+%	les lois de $X$ et de $Y$.
+%\end{exo}
+
+
+%\begin{exo}
+%	Soit $U$ et $V$ deux v.a. indépendantes de loi uniforme sur $]-1/2;1/2[.$
+%	\begin{enumerate}
+%		\item Montrer que $X=U+V$ admet une densité que l'on calculera.
+%		\item Montrer que la fonction caractéristique de $X$ vaut 
+%		$$\varphi_X(u)= \frac{2(1- \cos u)}{u^2}.$$
+%	\end{enumerate}
+%\end{exo}
+
+
+
+%\begin{exo}
+%	Soit $X$ et $Y$ deux v.a. indépendantes de densité
+%	$$ \frac{1}{\sqrt{2 \pi}} e^{-\frac{x^2}{2}}.$$
+%	\begin{enumerate}
+%		\item Soit $Z=\sqrt{X^2+Y^2}$ et $W= \frac{X}{Y}$ si $Y \neq 0$ et $W=0$ si $Y=0.$
+%		Calculer la loi de $(Z,W).$
+%		\item Même question avec $Z=\sqrt{X^2+Y^2}$ et $W=arctan(\frac{X}{Y},$ $-\frac{\pi}{2} < W \leq \frac{\pi}{2}.$
+%	\end{enumerate}
+%\end{exo}
+
+%\begin{exo}[Méthode de Box-Muller de simulation des gaussiennes]
+%	Soient $U_1$ et $U_2$ deux v.a. indépendantes de loi uniforme sur $[0,1].$
+%	Soit $\theta = 2 \pi U_1$ et $S=-\ln (U_2.)$
+%	\begin{enumerate}
+%		\item Calculer la loi de $S$ ainsi que celle de $R=\sqrt{2S}.$
+%		\item Soit $X=R \cos \theta$ et $Y= R\sin \theta.$ Montrer que $X$ et $Y$ sont indépendantes de loi normale centrée réduite.
+%	\end{enumerate}
+%\end{exo}
+%
+%
+%
+%\begin{exo}
+%	Soit $X$ et $Y$ deux v.a. de variance finie non nulle et
+%	$$Z=\frac{1}{\sigma_Y} Y - \frac{\rho_{X,Y}}{\sigma_X}X,$$
+%	o\` u $\rho{X,Y}= cov (X,Y)/(\sigma_X \sigma_Y).$
+%	Montrer que $\sigma_Z^2= 1-\rho_{X,Y}^2.$ En déduire que si $\rho_{X,Y}= 1 $ ou $-1$ $Y$ est une fonction affine non constante de $X.$ 
+%\end{exo}
+%
+%
+%
+%\begin{exo}[Lois de variables aléatoires vectorielles]
+%	\begin{enumerate}
+%		\item  Soit $(X,Y)$ un couple aléatoire de densité
+%		
+%		$$f(x,y)=ke^{-\frac{x^2 + y^2}{2}}{\mathbb I}_{{\mathbb R}_+^2 \cup {\mathbb R}_-^2}(x,y).$$
+%		
+%		\begin{itemize}
+%			
+%			\item[a)]Déterminer $k$.
+%			\item[b)]Calculer les lois marginales de $X$ et de $Y$. Les v.a.r. $X$ et $Y$ sont-elles indépendantes ?
+%			\item[c)]Calculer $\text{Cov}(X,Y)$.
+%			
+%			%\item[d)]Déterminer les lois de $Z=X+Y$ et de $U=X-Y$ en fonction de
+%			
+%			%$$\Psi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}} dt .$$
+%			
+%		\end{itemize}
+%		
+%		%\item Soit $(X,Y)$ un couple aléatoire de densité
+%		
+%		%$$f(x,y)=a\min (1,\frac{1}{x^2},\frac{1}{y^6}).$$
+%		
+%		%\begin{itemize}
+%		
+%		%\item[a)]Déterminer $a$, puis calculer les lois marginales de $X$ et $Y$. $X$ et $Y$ sont-elles indépendantes ?
+%		
+%		%\item[b)] $X$, $Y$, $(X,Y)$, $\min (|X|,|Y|)$ et $\min (X,Y)$ sont-elles intégrables ?
+%		
+%		%\end{itemize}
+%		
+%		\item Soit $X,Y,Z$ des variables aléatoires réelles indépendantes de même loi $\text{Exp}(1)$.\\
+%		
+%		On pose $S=X+Y+Z$.
+%		
+%		\begin{itemize}
+%			\item[a)]Déterminer la loi du vecteur aléatoire $\displaystyle (\frac{X}{S},\frac{Y}{S},S)$.
+%			\item[b)]En déduire la loi de $S$, puis que la loi du vecteur $\displaystyle (\frac{X}{S},\frac{Y}{S})$
+%			est uniforme sur un domaine qu'on aura précisé.
+%			\item[c)]Que peut-on dire des variables $\displaystyle (\frac{X}{S},\frac{Y}{S})$ et $S$ ?
+%		\end{itemize}
+%		
+%	\end{enumerate}
+%\end{exo}
+%
+%
+%\begin{exo}
+%	Soient $X$ et $Y$ deux variables aléatoires indépendantes de même
+%	loi uniforme sur $[0,1]$. On note $m = \min (X,Y)$ et $M = \max (X,Y)$.
+%	\begin{enumerate}
+%		\item Déterminer la loi du vecteur aléatoire $(m,M)$.
+%		\item En déduire la loi de $m$ et celle de $M$.
+%		\item Les deux variables $m$ et $M$ sont-elles indépendantes ? Justifiez
+%		précisément. 
+%	\end{enumerate}
+%\end{exo}
+
+\end{document}
