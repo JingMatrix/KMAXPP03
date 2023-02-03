@@ -149,7 +149,7 @@
 	}
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -199,6 +199,32 @@
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+\item Comme $X^p$ est une v.a. positive, par le résultat vu en cours (Proposition 1.3.16),
+\[
+\E[X^p] 
+= \int_0^\infty \P(X^p > x) x \diff x 
+= \int_0^\infty \P(X > x^{1/p}) x \diff x.
+\]
+On fait alors le changement de variable $y =x^{1/p}$ et on obtient
+\[
+\E[X^p] 
+= \int_0^\infty \P(X^p > x) x \diff x 
+= \int_0^\infty \P(X > y) p y^{p-1} \diff y.
+\]
+La formule avec $\P(X \geq y)$ s'obtient de la même manière à partir de l'autre formule vue en cours (toujours dans la Proposition 1.3.16).
+%%
+\item Soit $p>0$. Par la question 1, on a l'équivalence 
+\begin{align*}
+\E[X^p] < \infty
+\quad & \Leftrightarrow \quad \int_0^b 1 \cdot p x^{p-1} \diff x 
++ \int_b^\infty \left( \frac{b}{x} \right)^a \cdot p x^{p-1} \diff x < \infty.\\
+& \Leftrightarrow \quad \int_b^\infty x^{p-1-a} \diff x < \infty \\
+& \Leftrightarrow \quad p < a.
+\end{align*}
+\end{enumerate}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Fonction de répartition}
@@ -214,11 +240,44 @@
 	\begin{enumerate}
 		\item Montrer que $F$ est la fonction de répartition d'une unique
 		mesure de probabilité $P$ sur $\mathbb{R}$.
-		\item Calculer $P(\{1/2\}), \, P(\{1\}), \, P(\{2\}), \,
-		P(]1/2,3/2[)$.
+		\item Calculer $P(\{1/2\})$, $P(\{1\})$, $P(\{2\})$, $P(]1/2,3/2[)$.
 		\item Déterminer $P$.
 	\end{enumerate}
 \end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item La fonction $F$ est croissante, continue à droite, $\lim_{x\to\infty} F(x) = 1$ et $\lim_{x\to-\infty} F(x) = 0$ donc $F$ est la fonction de répartition d'une mesure de probabilité $P$ sur $\R$ (Théorème 1.4.4).
+Cette mesure est unique car la fonction de répartition caractérise la loi (Théorème 1.4.3).
+%%
+\item On a 
+\[
+P(\{1/2\}) = P(]-\infty,1/2]) - P(]-\infty,1/2[) = F(1/2) - F(1/2-),
+\]
+où $F(1/2-)$ désigne la limite à gauche de $F$ en $1/2$ (bien définie car $F$ croissante). En effet, pour tout $x \in \R$, on a
+\[ 
+P(]-\infty,x[)
+= P \Biggl( \bigcup_{n\geq 1} \!\uparrow \, ]-\infty,x-1/n] \Biggr)
+= \lim_{n\to\infty} \uparrow P(]-\infty,x-1/n])
+= \lim_{n\to\infty} \uparrow F(x-1/n) = F(x-).
+\]
+On en déduit que $P(\{1/2\}) = 0$ car $F$ est continue en $1/2$.
+
+Similairement $P(\{1\}) = F(1) - F(1-) = 1/2 - 1/4 = 1/4$ et 
+$P(\{2\}) = F(2) - F(2-) = 0$. 
+Finalement
+\[
+P(]1/2,3/2[) = P(]-\infty,3/2[) - P(]-\infty,1/2]) = F(3/2-) - F(1/2) = 3/4 - 1/4 = 1/2.
+\]
+%%
+\item La fonction $F$ est $\cC^1$ sur $\R \setminus \{0,1,2\}$, donc par la Proposition 1.4.5, avec $F'$ qui est définie Lebesgue-presque partout, on a 
+\begin{align*}
+\diff P(x) 
+& = F'(x) \diff x + (F(0)-F(0-)) \diff \delta_0(x) + (F(1)-F(1-)) \diff \delta_1(x) + (F(2)-F(2-)) \diff \delta_2(x) \\
+& = \frac{1}{2} \1_{]1,2[}(x) \diff x + \frac{1}{4} \diff \delta_0(x) + \frac{1}{4} \diff \delta_1(x).
+\end{align*}
+\end{enumerate}
+\end{comment}
 
 %%%%%%
 \separationexos
@@ -232,29 +291,36 @@
 \end{exo}
 
 \begin{comment}
-Soit $f \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
+Rappelons que $Y$ est définie p.s., on peut la définir partout en choisissant $Y = 0$ quand $X = 0$ (ça ne change pas sa loi).
+Remarquons alors que si $X \leq 1$, alors $Y = X$ et si $X > 1$, alors $Y = 1/X$.
+On a donc, pour $y \in [0,1]$,
+\begin{align*}
+	F_Y(y) & = \P(Y \leq y) \\
+	& = \P(Y \leq y, X \leq 1) + \P (Y \leq y, X > 1) \\
+	& = \P(X \leq y, X \leq 1) + \P (1/X \leq y, X > 1) \\
+	& = \P(X \leq y) + \P (X \geq 1/y) \\
+	& = \int_0^y e^{-x} \diff x + \int_{1/y}^\infty e^{-x} \diff x \\
+	& = 1 - e^{-y} + e^{-1/y}.
+\end{align*}
+Comme $\P(Y \leq 0) = 0$ et $\P(Y>1) = 0$, on en déduit que
 \[
-\Ec{f(Y)}
-= \Ec{f \left( \min \left( X,\frac{1}{X} \right)\right)}
-= \int_0^\infty f\left( \min \left( x,\frac{1}{x} \right)\right) e^{-x} \diff x
-\] 
-On sépare alors les cas $x \leq 1$ et $x > 1$ :
-\[
-\Ec{f(Y)}
-= \int_0^1 f(x) e^{-x} \diff x
-+ \int_1^\infty f\left( \frac{1}{x} \right) e^{-x} \diff x
-= \int_0^1 f(x) e^{-x} \diff x
-+ \int_0^1 f(y) e^{-1/y} \frac{1}{y^2} \diff y,
-\] 
-en utilisant le changement de variables $y=1/x$ dans la 2ème intégrale.
-On a donc
-\[
-\Ec{f(Y)}
-= \int_0^1 f(y) \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \diff y.
-\] 
+F_Y(y) 
+= \begin{cases}
+0 & \text{si } y < 0, \\
+1 - e^{-y} + e^{-1/y} & \text{si } y \in [0,1] \\
+1 & \text{si } y >1.
+\end{cases}
+\]
+La fonction $F$ est $\cC^1$ sur $\R \setminus \{0,1\}$, donc par la Proposition 1.4.5, avec $F'$ qui est définie Lebesgue-presque partout, on a 
+\begin{align*}
+\diff P(x) 
+& = F'(x) \diff x + (F(0)-F(0-)) \diff \delta_0(x) + (F(1)-F(1-)) \diff \delta_1(x) \\
+& = \frac{1}{2} \1_{]1,2[}(x) \diff x.
+\end{align*}
+
 Donc la loi de $Y$ est 
 \[
-P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y) \diff y.
+P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,1[}(y) \diff y.
 \]
 \end{comment}
 
@@ -267,7 +333,7 @@ P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y)
 	Soit $X$ une v.a. réelle.
 	\begin{enumerate}
 		\item Montrer que $\phi_X$ est continue sur $\R$.
-		\item Soit $n \in \N^*$. Supposons que le moment d'ordre $n$ de $X$ soit fini. Montrer que $\phi_X$ est de classe $\cC^n$ sur $\R$ et 
+		\item Soit $n \in \N^*$. Supposons que le moment d'ordre $n$ de $X$ est fini. Montrer que $\phi_X$ est de classe $\cC^n$ sur $\R$ et 
 		\[
 		\forall k \in \llbracket 0,n \rrbracket, \quad
 		\forall \theta \in \R, \quad 
@@ -279,14 +345,40 @@ P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y)
 
 \begin{comment} 
 	\begin{enumerate}
-	\item Montrer que $\phi_X$ est continue sur $\R$.
-	\item Cela se montre par récurrence à partir du théorème de dérivation sous l'espérance (Théorème \ref{thm:dérivabilité_espérance}) en utilisant la domination 
+	\item On veut appliquer le théorème de continuité sous l'intégrale (Théorème 1.3.6). Notons qu'il est énoncé pour une fonction à valeurs réelles mais il se généralise aisément aux fonctions à valeurs complexes en considérant les parties réelles et imaginaires.
+	On vérifie les hypothèses :
+	\begin{itemize}
+	\item pour tout $t \in \R$, l’application $x \in \R \mapsto e^{\ii \theta x}$ est mesurable;
+	\item presque sûrement, l’application $\theta \in \R \mapsto e^{\ii \theta X}$ est continue sur $\R$;
+	\item pour tout $t \in \R$, $\abs{e^{\ii \theta X}} \leq 1$ p.s. et $\E[1] < \infty$.
+	\end{itemize}
+	Donc la fonction $\phi_X \colon \theta \mapsto \E[e^{\ii \theta X}]$ est continue sur $\R$.
+	\item Montrons par récurrence sur $n \geq 0$, la proposition $P_n$ suivante : si le moment d'ordre $n$ de $X$ est fini, alors $\phi_X$ est de classe $\cC^n$ sur $\R$ et 
 	\[
-	\abs{\frac{\partial^k e^{\ii\theta X}}{\partial \theta^k}} 
-	= \abs{\ii^k X^k \exp(\ii \theta X)} 
-	\leq \lvert X \rvert^k
-	\] 
-	qui est intégrable pour $1 \leq k \leq n$.
+	\forall k \in \llbracket 0,n \rrbracket, \quad
+	\forall \theta \in \R, \quad 
+	\phi_X^{(k)}(\theta) = \ii^k \E \left[ X^k e^{\ii\theta X} \right].
+	\]
+	L'initiation pour $n = 0$ a été faite en question 1, il faut donc pouver l'hérédité.
+	Soit $n \geq 1$.
+	Supposons que la $P_{n-1}$ soit vraie et montrons $P_n$.
+	Supposons que le moment d'ordre $n$ de $X$ est fini.
+	Alors le moment d'ordre $n-1$ de $X$ est fini (cf Proposition 1.3.13), donc $\phi_X$ est de classe $\cC^{n-1}$ et 
+	\[
+	\forall k \in \llbracket 0,n-1 \rrbracket, \quad
+	\forall \theta \in \R, \quad 
+	\phi_X^{(k)}(\theta) = \ii^k \E \left[ X^k e^{\ii\theta X} \right].
+	\]
+	On va montrer que $\phi_X^{(n-1)}$ est dérivable par le théorème de dérivabilité sous l'intégrale (Théorème 1.3.7). On vérifie les hypothèses
+	\begin{itemize}
+	\item pour tout $t \in \R$, l’application $x \in \R \mapsto (\ii x)^{n-1} e^{\ii \theta x}$ est mesurable;
+	\item presque sûrement, l’application $\theta \in \R \mapsto (\ii X)^{n-1} e^{\ii \theta X}$ est dérivable;
+	\item on a $\lvert \frac{\partial}{\partial \theta} (\ii X)^{n-1} e^{\ii \theta X} \rvert = \lvert (\ii X)^n e^{\ii \theta X} \rvert \leq \abs{X}^n$ et $\E[\abs{X}^n] < \infty$ par hypothèse.
+	\end{itemize}
+	Donc la fonction $\phi_X^{(n-1)} \colon \theta \in \R \mapsto \E[(\ii X)^{n-1} e^{\ii \theta X}]$ est dérivable sur $\R$ et
+	$\phi_X^{(n)} (\theta) = \ii^n \E[ X^n e^{\ii\theta X}]$ pour tout $\theta \in \R$.
+	
+	Il reste à montrer que $\phi_X^{(n)}$ est continue. Pour cela on procède comme en question 1, avec la domination $\lvert (\ii X)^n e^{\ii \theta X} \rvert \leq \abs{X}^n$.
 	\end{enumerate}
 \end{comment}
 
@@ -309,7 +401,41 @@ P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y)
 	\end{enumerate}
 \end{exo}
 
-
+\begin{comment}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item La v.a. $X$ a un moment d'ordre 1 fini donc par l'exercice \ref{exo:reg_fc_carac}, pour tout $\theta \in \R$,
+\[
+	\phi_X'(\theta) = \E \left[ \ii X e^{\ii\theta X} \right]
+	= \int_\R \ii x e^{\ii\theta x} \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x,
+\]
+par le théorème de transfert.
+On intègre $x e^{-x^2/2}$ par parties, ce qui donne
+\[
+\phi_X'(\theta)
+= - \left[ \ii e^{\ii\theta x} \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \right]_{-\infty}^\infty
++ \int_\R \ii^2 \theta e^{\ii\theta x} \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x
+= 0 - \theta \E \left[ e^{\ii\theta X} \right]
+= - \theta \phi_X(\theta).
+\]
+\item Les solutions de l'équation différentielle $\phi_X'(\theta) = - \theta \phi_X(\theta)$ sont de la forme $\phi_X(\theta) = C e^{-\theta^2/2}$ avec $C \in \R$.
+En utilisant que $\phi_X(0) = \E[1] = 1$ on obtient $C = 1$. Donc
+\[
+	\forall \theta \in \R, \quad \phi_X(\theta) = e^{-\theta^2/2}.
+\]
+\end{enumerate}
+\item Pour $\theta \in \R$, on a 
+\[
+\phi_Z(\theta) 
+= \E \left[ e^{\ii\theta Z} \right] 
+= \E \left[ e^{\ii\theta (\sigma X + m)} \right] 
+= e^{\ii\theta m} \E \left[ e^{\ii\theta \sigma X} \right] 
+= e^{\ii\theta m} \phi_X(\sigma\theta)
+= e^{\ii\theta m-\sigma^2 \theta^2/2}.
+\]
+\end{enumerate}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Compléments}
@@ -373,6 +499,19 @@ P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y)
 \separationexos
 %%%%%%
 
+
+
+\begin{exo} 
+	Soit $X$ une v.a. réelle.
+	On dit que $X$ est symétrique si et seulement si $X$ et $-X$ ont même loi.
+	Montrer $X$ est symétrique si et seulement si sa fonction caractéristique ne prend que des valeurs réelles. 
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
 \begin{exo}
 	Montrer qu'il existe une v.a. réelle $X$ de fonction de répartition
 	$F(t)= 1/(1+ e^{-t}), t \in \mathbb{R}$. 
@@ -397,17 +536,6 @@ P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y)
 %	\end{enumerate}
 %\end{exo}
 
-
-\begin{exo} 
-	Soit $X$ une v.a. réelle.
-	On dit que $X$ est symétrique si et seulement si $X$ et $-X$ ont même loi.
-	Montrer $X$ est symétrique si et seulement si sa fonction caractéristique ne prend que des valeurs réelles. 
-\end{exo}
-
-
-%%%%%%
-\separationexos
-%%%%%%
 
 \begin{exo}[Les moments ne caractérisent pas une loi de probabilité]
 	\begin{enumerate}
