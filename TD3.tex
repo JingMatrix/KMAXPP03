@@ -230,7 +230,7 @@ La formule avec $\P(X \geq y)$ s'obtient de la même manière à partir de l'aut
 \partie{Fonction de répartition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{exo}
+\begin{exo} \label{exo:fc_rép}
 	Soit $F\colon \R \to \R$ la fonction définie par
 	\[
 	\forall x \in \R, \quad 
@@ -311,17 +311,12 @@ F_Y(y)
 1 & \text{si } y >1.
 \end{cases}
 \]
-La fonction $F$ est $\cC^1$ sur $\R \setminus \{0,1\}$, donc par la Proposition 1.4.5, avec $F'$ qui est définie Lebesgue-presque partout, on a 
+La fonction $F_Y$ est $\cC^1$ sur $\R \setminus \{0,1\}$, donc par la Proposition 1.4.5, avec $F'$ qui est définie Lebesgue-presque partout, on a 
 \begin{align*}
-\diff P(x) 
-& = F'(x) \diff x + (F(0)-F(0-)) \delta_0(\diff x) + (F(1)-F(1-)) \delta_1(\diff x) \\
-& = \left( e^{-x} + e^{-1/x} \frac{1}{x^2} \right) \1_{[0,1[}(x) \diff x.
+\diff P_Y(x) 
+& = F'(x) \diff x + (F(0)-F(0-)) \diff \delta_0(x) + (F(1)-F(1-)) \diff \delta_1(x) \\
+& = \left( e^{-x} + e^{-1/x} \frac{1}{x^2} \right) \1_{[0,1[}(x)  \diff x.
 \end{align*}
-
-Donc la loi de $Y$ est 
-\[
-P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,1[}(y) \diff y.
-\]
 \end{comment}
 
 
@@ -419,7 +414,7 @@ On intègre $x e^{-x^2/2}$ par parties, ce qui donne
 = 0 - \theta \E \left[ e^{\ii\theta X} \right]
 = - \theta \phi_X(\theta).
 \]
-\item Les solutions de l'équation différentielle $\phi_X'(\theta) = - \theta \phi_X(\theta)$ sont de la forme $\phi_X(\theta) = C e^{-\theta^2/2}$ avec $C \in \R$.
+\item Les solutions de l'équation différentielle $\phi_X'(\theta) = - \theta \phi_X(\theta)$ sont de la forme $\phi_X(\theta) = C e^{-\theta^2/2}$ avec $C \in \R$ (obtenues en intégrant $\frac{\phi_X'}{\phi_X} (\theta) = - \theta$).
 En utilisant que $\phi_X(0) = \E[1] = 1$ on obtient $C = 1$. Donc
 \[
 	\forall \theta \in \R, \quad \phi_X(\theta) = e^{-\theta^2/2}.
@@ -447,6 +442,14 @@ En utilisant que $\phi_X(0) = \E[1] = 1$ on obtient $C = 1$. Donc
 	Soit $a < b$.
 	Exprimer en terme de $F_X$ les probabilités suivantes : $\P(X < a)$, $\P(X = a)$, $\P(X>a)$, $\P(a \leq X \leq b)$ et $\P(a < X < b)$.
 \end{exo}
+
+\begin{comment}
+On a vu à l'exercice \ref{exo:fc_rép} que
+\[ 
+\P(X < a) = P_X(]-\infty,a[) = F_X(a-).
+\]
+Puis $\P(X = a) = F_X(a) - F_X(a-)$, $\P(X>a) = 1 - F(a)$, $\P(a \leq X \leq b) = F(b) - F(a-)$ et $\P(a < X < b) = F(b-) - F(a)$.
+\end{comment}
 
 
 %%%%%%
