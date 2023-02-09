@@ -172,7 +172,6 @@
 
 \titre{TD 4 -- Vecteurs aléatoires et indépendance}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Vecteurs aléatoires, loi jointe, lois marginales}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -280,7 +279,7 @@ Donc $(P,Q)$ est une v.a. continue de densité
 %%%%%%
 
 
-\begin{exo} On tire un point $(X,Y)$ au hasard dans le disque unité de $\R^2$.
+\begin{exo} On tire un point $(X,Y)$ uniformément au hasard dans le disque unité de $\R^2$.
 	\begin{enumerate}
 		\item Quelle est la loi jointe de $(X,Y)$ ?
 		\item Déterminer les lois marginales de $(X,Y)$.
@@ -417,24 +416,15 @@ Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a.
 \partie{Indépendance}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{exo}	
-	On tire trois élèves $E_1$, $E_2$ et $E_3$ dans la promotion et on s'interroge sur leur date de naissance.
-	On considère les événements 
-	\begin{align*}
-	A & = \text{``$E_1$ et $E_2$ ont le même anniversaire''}, \\
-	B & = \text{``$E_1$ et $E_3$ ont le même anniversaire''}, \\
-	C & = \text{``$E_3$ et $E_2$ ont le même anniversaire''}.
-	\end{align*}
-	Modéliser l'expérience (on négligera les années bissextiles) et montrer que les événements $A,B$ et $C$ sont deux à deux indépendants mais pas indépendants dans leur ensemble.
-\end{exo}
-
-%%%%%%
-\separationexos
-%%%%%%
 
 \begin{exo} 
 	Soit $(\Omega, \cA,\P)$ un espace de probabilité et $A_1,\dots,A_n \in \cA$.
-	Montrer que les événements $A_1,\dots,A_n$ sont indépendants si et seulement si les v.a. $\1_{A_1},\dots\1_{A_n}$ sont indépendantes.
+	Montrer que les propositions suivantes sont équivalentes :
+	\begin{enumerate}[label=(\roman*)]
+		\item les événements $A_1,\dots,A_n$ sont indépendants;
+		\item pour tous $C_1 \in \{A_1, A_1^c\},\dots,C_n \in \{A_n, A_n^c\}$, les événements $C_1,\dots,C_n$ sont indépendants;
+		\item les variables aléatoires $\1_{A_1},\dots\1_{A_n}$ sont indépendantes.
+	\end{enumerate}
 \end{exo}
 
 \begin{comment}
@@ -464,11 +454,13 @@ Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a.
 
 
 \begin{exo}
-	Considérons l'expérience consistant à lancer deux dés à 6 faces équilibrés. Soit $X$ la somme des dés, $Y$ la différence absolue entre les dés
+	Considérons l'expérience consistant à lancer deux dés à 6 faces équilibrés. Soit $X$ la somme des dés, $Y$ la différence absolue entre les dés,
 	et $Z = \1_A$ où $A$ est l'événement ``le 1er dé donne un résultat pair''.
 	\begin{enumerate}
 		\item Modéliser l'expérience et spécifier $X$, $Y$ et $Z$ dans ce cadre.
 		\item Pour chaque paire de v.a. parmi $X$, $Y$ et $Z$, justifier si elles sont indépendantes ou non.
+
+        \emph{Indication.} Pour montrer l'indépendance, on pourra utiliser que des v.a. discrètes $X_1$ et $X_2$ sont indépendantes ssi, pour tous $x_1,x_2 \in \R$, $\P(X_1=x_1,X_2=x_2) = \P(X_1=x_1)\P(X_2=x_2)$. Ce résultat, déjà vu en probabilités discrètes, sera rappelé au prochain cours.
 	\end{enumerate}
 \end{exo}
 
@@ -504,21 +496,16 @@ Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a.
 %%%%%%
 
 
-\begin{exo}
-	Soient $n \in \N^*$ et $p_1,p_2, p_3 \in [0,1]$ tels que
-	$p_1+p_2+p_3=1$. 
-	On considère $(X,Y)$ à valeurs dans $\llbracket 0,n\rrbracket^2$, de loi déterminée par
-	\[
-	\forall i,j \in \llbracket 0,n\rrbracket, \quad 
-	\mathbb{P}(X=i,Y=j)
-	= \frac{n!}{i! j! (n-i-j)!} p_1^i p_2^j p_3^{n-i-j} \1_{i+j \leq n},
-	\]
-	\begin{enumerate}
-		\item Que modélise $(X,Y)$ ?
-		\item Déterminer les lois marginales de $(X,Y)$.
-	\end{enumerate}
+\begin{exo}	
+	On tire trois élèves $E_1$, $E_2$ et $E_3$ dans la promotion et on s'interroge sur leur date de naissance.
+	On considère les événements 
+	\begin{align*}
+	A & = \text{``$E_1$ et $E_2$ ont le même anniversaire''}, \\
+	B & = \text{``$E_1$ et $E_3$ ont le même anniversaire''}, \\
+	C & = \text{``$E_3$ et $E_2$ ont le même anniversaire''}.
+	\end{align*}
+	Modéliser l'expérience (on négligera les années bissextiles) et montrer que les événements $A,B$ et $C$ sont deux à deux indépendants mais pas indépendants dans leur ensemble.
 \end{exo}
-
 
 %%%%%%
 \separationexos
@@ -549,6 +536,26 @@ Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a.
 	A_n = \bigcup_{k=1}^{2^{n-1}} {\biggl]} \frac{2k-2}{2^n},\frac{2k-1}{2^n} \biggr].
 	\]
 	Montrer que $A_1,\dots,A_n$ sont indépendants.
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soient $n \in \N^*$ et $p_1,p_2, p_3 \in [0,1]$ tels que
+	$p_1+p_2+p_3=1$. 
+	On considère $(X,Y)$ à valeurs dans $\llbracket 0,n\rrbracket^2$, de loi déterminée par
+	\[
+	\forall i,j \in \llbracket 0,n\rrbracket, \quad 
+	\mathbb{P}(X=i,Y=j)
+	= \frac{n!}{i! j! (n-i-j)!} p_1^i p_2^j p_3^{n-i-j} \1_{i+j \leq n},
+	\]
+	\begin{enumerate}
+		\item Que modélise $(X,Y)$ ?
+		\item Déterminer les lois marginales de $(X,Y)$.
+	\end{enumerate}
 \end{exo}
 
 %%%%%%
@@ -619,6 +626,7 @@ De plus $Y$ est $\cC$-mesurable (car $\sigma(Y)$ est la plus petite tribu sur $\
 Donc $Y$ est constante p.s. par la question 2.
 \end {enumerate}
 \end{comment}
+
 
 
 \end{document}
