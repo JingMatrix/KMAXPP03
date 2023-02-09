@@ -1,0 +1,624 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 4 -- Vecteurs aléatoires et indépendance}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Vecteurs aléatoires, loi jointe, lois marginales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo} Soit $(X,Y)$ une v.a. de loi $\1_{[0,1]^2}(x,y) \diff x \diff y$.
+	Déterminer la loi de $(XY,X/Y)$.
+	
+	\emph{Remarque.} On peut voir $(X,Y)$ comme un point tiré uniformément sur le carré $[0,1]^2$, mais aussi $X$ et $Y$ comme des v.a. indépendantes de loi uniforme sur $[0,1]$.
+\end{exo}
+
+\begin{comment}
+Notons $P=XY$ et $Q=X/Y$.
+Soit $f \colon \R^2 \to \R_+$ mesurables. On a, par le théorème de transfert,
+\begin{align*}
+\Ec{f(P,Q)} 
+= \Ec{f(XY,X/Y)} 
+& = \int_{\R^2} f(xy,x/y) \1_{[0,1]^2}(x,y) \diff x \diff y \\
+& = \int_{(\R_+^*)^2} f(xy,x/y) \1_{]0,1[^2}(x,y) \diff x \diff y,
+\end{align*}
+où on a utilisé que $\1_{[0,1]^2} = \1_{]0,1[^2}$ Lebesgue-p.p. pour ensuite restreindre l'intégrale à $x,y > 0$.
+On veut à présent faire le changement de variables $(p,q) = (xy,x/y)$. Tentons de l'inverser : pour $x,y >0$, on a
+\[
+\begin{cases}
+p = xy \\
+q = x/y
+\end{cases}
+\quad \Leftrightarrow \quad 
+\begin{cases}
+pq = x^2 \\
+p/q = y^2
+\end{cases}
+\quad \Leftrightarrow \quad 
+\begin{cases}
+x = \sqrt{pq} \\
+y = \sqrt{p/q}.
+\end{cases}
+\]
+Cela nous pousse à introduire 
+\[
+\varphi \colon (p,q) \in (\R_+^*)^2 \longmapsto \left( \sqrt{pq},{\textstyle\sqrt{p/q}} \right) \in (\R_+^*)^2
+\]
+de sorte qu'une fois le changement de variable avec $\varphi$ effectué on obtienne $f(p,q)$ dans l'intégrale.
+Vérifions que $\varphi$ est un $\cC^1$-difféomorphisme : 
+\begin{itemize}
+\item $\varphi$ est bijective car son inverse est $(x,y) \in (\R_+^*)^2 \mapsto (xy,x/y) \in (\R_+^*)^2$.
+\item $\varphi$ a des dérivées partielles qui sont continues sur $(\R_+^*)^2$ et donc elle est $\cC^1$ : en effet, sa matrice jacobienne est
+\[
+\left( 
+\begin{array}{ccc}
+\frac{\partial \varphi_1}{\partial p}(p,q) & \frac{\partial \varphi_1}{\partial q}(p,q) \\
+\frac{\partial \varphi_2}{\partial p}(p,q) &  \frac{\partial \varphi_2}{\partial q}(p,q)
+\end{array}
+\right)
+= \left( 
+\begin{array}{ccc}
+\frac{\sqrt{q}}{2\sqrt{p}} & \frac{\sqrt{p}}{2\sqrt{q}}\\
+\frac{1}{2 \sqrt{pq}} &  -\frac{\sqrt{p}}{2q^{3/2}}
+\end{array}
+\right).
+\]
+\item Le Jacobien de $\varphi$ est
+\[
+\mathrm{Jac}_\varphi(p,q) = - \frac{1}{4q} - \frac{1}{4q} = -\frac{1}{2q} \neq 0.
+\]
+\end{itemize}
+Cela montre que $\varphi$ est un $\cC^1$-difféomorphisme, donc par formule de changement de variables
+\begin{align*}
+\Ec{f(P,Q)} 
+& = \int_{(\R_+^*)^2} f(p,q) \1_{]0,1[^2}(\sqrt{pq},{\textstyle\sqrt{p/q}}) \cdot \abs{\mathrm{Jac}_\varphi(p,q)} \diff p \diff q.
+\end{align*}
+Notons que pour $p,q>0$, 
+\[
+(\sqrt{pq},{\textstyle\sqrt{p/q}}) \in {]}0,1{[}^2
+\quad \Leftrightarrow \quad 
+\begin{cases}
+\sqrt{pq} < 1 \\
+\sqrt{p/q} < 1
+\end{cases}
+\quad \Leftrightarrow \quad 
+\begin{cases}
+pq < 1 \\
+p/q < 1
+\end{cases}
+\quad \Leftrightarrow \quad 
+\begin{cases}
+pq < 1 \\
+p < q.
+\end{cases}
+\]
+Donc
+\begin{align*}
+\Ec{f(P,Q)} 
+= \int_{(\R_+^*)^2} f(p,q) \1_{\{pq<1,\, p < q\}} \frac{1}{2q} \diff p \diff q 
+= \int_{\R^2} f(p,q) \1_{\{pq<1,\, 0 < p < q\}} \frac{1}{2q} \diff p \diff q.
+\end{align*}
+Donc $(P,Q)$ est une v.a. continue de densité 
+\[
+(p,q) \in \R^2 \longmapsto \frac{1}{2q} \1_{\{pq<1,\, 0 < p < q\}}.
+\]\newpage
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} On tire un point $(X,Y)$ au hasard dans le disque unité de $\R^2$.
+	\begin{enumerate}
+		\item Quelle est la loi jointe de $(X,Y)$ ?
+		\item Déterminer les lois marginales de $(X,Y)$.
+		\item Soit $S$ la surface du disque centré en $(0,0)$ et dont $(X,Y)$ est sur le bord. Déterminer la loi de~$S$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item La loi de $(X,Y)$ est la mesure de Lebesgue restreinte au disque unité $\{ (x,y) \in \R^2 : x^2+y^2 \leq 1 \}$, que l'on normalise pour avoir masse totale 1.
+Pour cela il faut la diviser par l'aire du disque unité, c'est-à-dire par $\pi$.
+Donc on a $\diff P_{(X,Y)}(x,y) = \frac{1}{\pi} \1_{\{ x^2+y^2 \leq 1 \}} \diff x \diff y$.
+\item Comme $(X,Y)$ est continue, on sait par le cours que $X$ et $Y$ sont continues et leurs densités sont données par 
+\[
+	p_X(x) = \int_\R \frac{1}{\pi} \1_{\{ x^2+y^2 \leq 1 \}} \diff y
+	\qquad \text{et} \qquad 
+	p_Y(y) = \int_\R \frac{1}{\pi} \1_{\{ x^2+y^2 \leq 1 \}} \diff x.
+\]
+Puis on remarque que $p_X(x) = 0$ si $\abs{x} > 1$ et, pour $\abs{x} \leq 1$,
+\[
+p_X(x) = \int_\R \frac{1}{\pi} \1_{\{ \abs{y} \leq \sqrt{1-x^2} \}} \diff y
+= \frac{2 \sqrt{1-x^2}}{\pi}.
+\]
+Donc $X$ a pour loi $\frac{2}{\pi} \sqrt{1-x^2} \1_{[-1,1]}(x) \diff x$ et $Y$ a le même loi.
+\item Le rayon de ce disque est $\sqrt{X^2+Y^2}$ donc $S=\pi(X^2+Y^2)$. 
+Pour $f \colon \R \to \R_+$ mesurable, on a
+\[
+	\Ec{f(S)} = \Ec{f(\pi(X^2+Y^2))} 
+	= \int_{\R^2} f\left(\pi(x^2+y^2)\right) \frac{1}{\pi} \1_{\{ x^2+y^2 \leq 1 \}} \diff x \diff y
+\]
+Ici, on veut faire un changement de variable, mais il y a le choix : on veut introduire la variable $s = \pi(x^2+y^2)$, mais il y a une autre variable de libre.
+
+On peut par exemple choisir de laisser $x$ inchangé, i.e. faire le changement $(x,s) = (x,\pi(x^2+y^2))$. 
+Cela revient à faire un changement de variable en dimension 1. 
+En effet par Fubini-Tonelli, on a
+\[
+	\Ec{f(S)} 
+	=  \frac{1}{\pi} \int_{-1}^1 \left( \int_{-1}^1 f\left(\pi(x^2+y^2)\right) \1_{\{ x^2+y^2 \leq 1 \}} \diff y \right) \diff x,
+\]
+donc on peut faire le changement $s = \pi(x^2+y^2)$ dans l'intégrale centrale, où $x$ est considéré comme fixé.
+Cependant ce changement n'est pas bijectif, mais comme la fonction intégrée est paire en $y$ et en $x$, on a
+\begin{align*}
+\Ec{f(S)} 
+& = \frac{4}{\pi} \int_0^1 \left( \int_0^1 f\left(\pi(x^2+y^2)\right) \1_{\{ x^2+y^2 \leq 1 \}} \diff y \right) \diff x  \\
+& = \frac{4}{\pi} \int_0^1 \left( \int_{\pi x^2}^{\pi} f(s) \1_{\{ s/\pi \leq 1 \}} \frac{1}{2 \pi \sqrt{(s/\pi) - x^2}} \diff s \right) \diff x
+\end{align*}
+où on a utilisé $s = \pi(x^2+y^2) \Leftrightarrow y = \sqrt{(s/\pi) - x^2}$.
+Puis on rééchange les intégrales, en utilisant que $s \geq \pi x^2 \Leftrightarrow x \leq \sqrt{s/\pi}$, et on intègre en $x$
+\begin{align*}
+\Ec{f(S)} 
+& = \frac{2}{\pi^2} \int_0^{\pi} f(s) \left( \int_{0}^{\sqrt{s/\pi}} \frac{1}{\sqrt{(s/\pi) - x^2}} \diff x \right) \diff s \\
+& = \frac{2}{\pi^2} \int_0^{\pi} f(s) \left[ \sin^{-1} \left( \frac{x}{\sqrt{s/\pi}} \right) \right]_{x=0}^{\sqrt{s/\pi}} \diff s \\
+& = \frac{2}{\pi^2} \int_0^{\pi} f(s) \left( \frac{\pi}{2} - 0 \right) \diff s \\
+& = \int_0^{\pi} f(s) \frac{1}{\pi} \diff s.
+\end{align*}
+Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a. uniforme sur $[0,\pi]$.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Variables aléatoires entièrement corrélées]
+	Soit $X,Y \in L^2(\Omega,\cA,\P)$.
+	\begin{enumerate}
+		\item Montrer que $\sigma_X = 0$ si et seulement si il existe $a \in \R$ tel que $X = a$ p.s.
+		\item Posons $Z = \sigma_X^2 Y - \Cov(X,Y) X$. 
+		Montrer que $\sigma_Z^2 = \sigma_X^2 ( \sigma_X^2 \sigma_Y^2 - \Cov(X,Y)^2)$.
+		\item En déduire que $\abs{\Cov(X,Y)} = \sigma_X \sigma_Y$ si et seulement si 
+		\[
+			\exists a,c \in \R, Y = cX+ a \text{ p.s.} 
+			\qquad \text{ou} \qquad
+			\exists a \in \R, X = a \text{ p.s.}
+		\]
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+	\begin{enumerate}
+		\item $(\Rightarrow)$ Si $\sigma_X = 0$, alors $\E[(X-\E[X])^2] = 0$, mais comme $(X-\E[X])^2 \geq 0$, cela implique que $(X-\E[X])^2 = 0$ $\P$-presque partout (c'est-à-dire p.s.). 
+		Donc $X = \E[X]$ p.s. et $a = \E[X]$ est une constante.
+		
+		$(\Leftarrow)$ S'il existe $a \in \R$ tel que $X = a$ p.s., alors $\E[X] = \E[a] = a$ et donc 
+		\[
+		\sigma_X^2 = \Ec{(X-\E[X])^2}= \E[(a-a)^2] = 0.
+		\]
+		%%
+		\item Notons $C = \Cov(X,Y)$ pour simplifier les formule. On a
+		\begin{align*}
+		\sigma_Z^2 
+		& = \Ec{(Z-\E[Z])^2} \\
+		& = \Ec{(\sigma_X^2 (Y-\E[Y]) - C (X-\E[X]))^2} \\
+		& = \sigma_X^4 \Ec{(Y-\E[Y])^2} + C^2 \Ec{(X-\E[X])^2}
+		- 2 \sigma_X^2 C \Ec{(Y-\E[Y]) (X-\E[X])} \\
+		& = \sigma_X^4 \sigma_Y^2 + C^2 \sigma_X^2
+		- 2 \sigma_X^2 C^2 \\
+		& = \sigma_X^2 \left( \sigma_X^2 \sigma_Y^2 - C^2 \right).
+		\end{align*}
+		%%
+		\item $(\Rightarrow)$ Si $\abs{\Cov(X,Y)} = \sigma_X \sigma_Y$, alors $\sigma_Z^2 = 0$, donc il existe $b \in \R$ tel que $Z=b$ p.s. par la question~1. Donc $\sigma_X^2 Y = \Cov(X,Y) X + b$ p.s.
+		Alors on a deux cas :
+		\begin{itemize}
+		\item Soit $\sigma_X^2 > 0$ et on a $Y = cX+a$ p.s. avec $a=b/\sigma_X^2$ et $c = \Cov(X,Y)/\sigma_X^2$.
+		%%
+		\item Soit $\sigma_X^2 = 0$ et alors $X$ est constante p.s. par la question 1.
+		\end{itemize}
+		
+		$(\Leftarrow)$ On distingue les deux cas
+		\begin{itemize}
+		\item Si $Y = cX+a$ p.s. alors 
+		\[
+		\Cov(X,Y) 
+		= \Ec{(X-\E[X])(cX+a-\E[cX+a]) }
+		= c \Ec{(X-\E[X])^2} 
+		= c\sigma_X^2
+		\]
+		et 
+		\[
+		\sigma_Y^2 
+		= \Ec{(cX+a-\E[cX+a])^2}
+		= c^2 \Ec{(X-\E[X])^2} 
+		= c^2 \sigma_X^2
+		\]
+		donc $\abs{\Cov(X,Y)} = \sigma_X \sigma_Y$.
+		%%
+		\item Si $X = a$ p.s. alors $X - \E[X] = 0$ p.s. donc $\sigma_X = 0$ et $\Cov(X,Y) = 0$ donc $\abs{\Cov(X,Y)} = \sigma_X \sigma_Y$.
+		\end{itemize}
+	\end{enumerate}
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Indépendance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}	
+	On tire trois élèves $E_1$, $E_2$ et $E_3$ dans la promotion et on s'interroge sur leur date de naissance.
+	On considère les événements 
+	\begin{align*}
+	A & = \text{``$E_1$ et $E_2$ ont le même anniversaire''}, \\
+	B & = \text{``$E_1$ et $E_3$ ont le même anniversaire''}, \\
+	C & = \text{``$E_3$ et $E_2$ ont le même anniversaire''}.
+	\end{align*}
+	Modéliser l'expérience (on négligera les années bissextiles) et montrer que les événements $A,B$ et $C$ sont deux à deux indépendants mais pas indépendants dans leur ensemble.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $(\Omega, \cA,\P)$ un espace de probabilité et $A_1,\dots,A_n \in \cA$.
+	Montrer que les événements $A_1,\dots,A_n$ sont indépendants si et seulement si les v.a. $\1_{A_1},\dots\1_{A_n}$ sont indépendantes.
+\end{exo}
+
+\begin{comment}
+
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(\Omega,\cA,\P)$ un espace de probabilité. 
+	\begin{enumerate}
+		\item Soit $A \in \cA$.
+		Montrer que $\P(A) \in \{0,1\}$ si et seulement si, pour tout $B \in \cA$, $A$ et $B$ sont indépendants.
+		%%
+		\item Soit $A,B,C \in \cA$. Supposons $A,B,C$ indépendants.
+		Montrer que $A$ est indépendant de $B \cup C$ et de $B \setminus C.$
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}
+	Considérons l'expérience consistant à lancer deux dés à 6 faces équilibrés. Soit $X$ la somme des dés, $Y$ la différence absolue entre les dés
+	et $Z = \1_A$ où $A$ est l'événement ``le 1er dé donne un résultat pair''.
+	\begin{enumerate}
+		\item Modéliser l'expérience et spécifier $X$, $Y$ et $Z$ dans ce cadre.
+		\item Pour chaque paire de v.a. parmi $X$, $Y$ et $Z$, justifier si elles sont indépendantes ou non.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+%i.e. $Y(i,j) = \abs{i-j}$ pour $(i,j) \in \Omega$, 
+%On a $\P(Y=1) = \P(B) = 1/2$.
+%	
+%\begin{align*}
+%\P(X=0,Y=1) = \P(\{(2,2),(4,4),(6,6)\}) = \frac{3}{36} = \frac{6}{36} \cdot \frac{1}{2} = \P(X=0) \cdot \P(Y=1).
+%\end{align*}
+%
+%\begin{align*}
+%\P(X=1,Y=1) = \P(\{(2,1),(2,3),(4,3),(4,5),(6,5)\}) = \frac{5}{36} = \frac{10}{36} \cdot \frac{1}{2} = \P(X=1) \cdot \P(Y=1).
+%\end{align*}
+%
+%\begin{align*}
+%\P(X=2,Y=1) = \P(\{(2,4),(4,2),(4,6),(6,4)\}) = \frac{4}{36} = \frac{8}{36} \cdot \frac{1}{2} = \P(X=2) \cdot \P(Y=1).
+%\end{align*}
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit $(X,Y)$ une v.a. à valeurs dans $\R^2$. On a vu en cours que si $(X,Y)$ est continue alors $X$ et $Y$ sont continues. Que dire de la réciproque ?
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}
+	Soient $n \in \N^*$ et $p_1,p_2, p_3 \in [0,1]$ tels que
+	$p_1+p_2+p_3=1$. 
+	On considère $(X,Y)$ à valeurs dans $\llbracket 0,n\rrbracket^2$, de loi déterminée par
+	\[
+	\forall i,j \in \llbracket 0,n\rrbracket, \quad 
+	\mathbb{P}(X=i,Y=j)
+	= \frac{n!}{i! j! (n-i-j)!} p_1^i p_2^j p_3^{n-i-j} \1_{i+j \leq n},
+	\]
+	\begin{enumerate}
+		\item Que modélise $(X,Y)$ ?
+		\item Déterminer les lois marginales de $(X,Y)$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} Soit $(X,Y)$ une v.a. de loi $\1_{[0,1]^2}(x,y) \diff x \diff y$.
+	Déterminer la loi de $(X+Y,XY)$.
+\end{exo}
+
+%\begin{comment}
+%Notons $S=X+Y$ et $P=XY$.
+%Soit $f \colon \R^2 \to \R_+$ mesurables. On a, par le théorème de transfert,
+%\[
+%\Ec{f(S,P)} 
+%= \Ec{f(X+Y,XY)} 
+%= \int_{\R^2} f(x+y,xy) \1_{[0,1]^2}(x,y) \diff x \diff y.
+%\]
+%On veut faire le changement de variables $(s,p) = (x+y,xy)$. Mais $(x,y) \mapsto (x+y,xy)$ n'est pas injective sur ${]}0,1{[}^2$ car $(x,y)$ et $(y,x)$ ont la même image.
+%\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	On considère $\Omega = [0,1]$ muni de $\cA = \cB([0,1])$ et $\P$ la mesure de Lebesgue sur $[0,1]$. Pour tout $n \geq 1$, on définit
+	\[
+	A_n = \bigcup_{k=1}^{2^{n-1}} {\biggl]} \frac{2k-2}{2^n},\frac{2k-1}{2^n} \biggr].
+	\]
+	Montrer que $A_1,\dots,A_n$ sont indépendants.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $D$ le quart supérieur droit du disque unité de $\R^2$.
+	Soit $(X,Y)$ de loi $cxy \1_D(x,y) \diff x \diff y$, où $c$ est une constante.
+	\begin{enumerate}
+		\item Déterminer $c$.
+		\item Déterminer les marginales de $(X,Y)$.
+		\item Soit $(R,\Theta)$ les coordonnées polaires de $(X,Y)$. Déterminer la loi de $(R,\Theta)$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $(\Omega, \cA,\P)$ un espace de probabilité. Soit $X$ une v.a. réelle.
+	\begin{enumerate}
+		\item Soit $A \in \cA$. Montrer que si $A$ et $A$ sont indépendants alors $\P(A) \in \{0,1\}$.
+		%%
+		\item Soit $\mathcal{C}$ une sous-tribu de $\cA$ telle que pour tout $C \in \mathcal{C}$, $\P(C) \in \{0,1\}$. 
+		Montrer que si $X$ est $\mathcal{C}$-mesurable, alors $X$ est constante p.s.
+		
+		\emph{Indication.} On pourra utiliser la fonction de répartition de $X$ et considérer $x_0 \coloneqq \inf \{x \in \R : F_X(x)=1\}$.
+		%%
+		\item Soit $f \colon \R \rightarrow \R$ mesurable et $Y= f(X)$. 
+		Montrer que si $X$ et $Y$ sont indépendantes, alors $Y$ est constante p.s.
+		
+		\emph{Indication.} On pourra montrer que la tribu $\cC = \sigma(Y)$ et la v.a. $Y$ satisfont les hypothèses de la question 2. Rappelons du TD2 que $\sigma(Y) = \{ Y^{-1}(B) : B\in\cB(\R) \}$ est la tribu engendrée par $Y$, qui est la plus petite tribu sur $\Omega$ rendant $Y$ mesurable.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item On a $\P(A \cap A)= \P(A)^2= \P(A)$. D'où $\P(A)=0$ ou $\P(A)=1$.
+%%
+\item Pour tout $x \in \R$, $\{X \leq x\} \in \mathcal{C}$ et donc $F(x) = \Pr{X \leq x}=0$ ou $1$. 
+Comme $\lim_{x \rightarrow \infty} F(x)=1$ et $\lim_{x \rightarrow -\infty} F(x)=0$, on a $x_0 \coloneqq \inf  \{x \in \R : F(x)=1\} \in (- \infty, \infty)$. 
+Comme $F$ est croissante, si $a<x_0<b$, on a $F(a)=0$ et $F(b)=1$. 
+En particulier, $ \P( x_0-1/n < X \leq x_0+1/n)=1$ pour $n \geq 1$. 
+Or:
+\[ 
+\{x_0\}= \bigcap_{n \geq 1} \left] x_0- \frac{1}{n}, x_{0}+ \frac{1}{n} \right].
+\]
+Cette intersection \'etant d\'ecroissante et $\P$ \'etant finie, on a donc 
+\[ 
+\P(X=x_0)
+= \lim_{n \to \infty} \P \left( \left] x_0- \frac{1}{n}, x_0+ \frac{1}{n} \right] \right)
+=1.
+\]
+Ainsi, $X=x_0$ p.s.
+%%
+\item Notons $\mathcal{C}= \sigma(Y)$. 
+Soit $C \in \cC$. On a $C = Y^{-1}(B)$ pour $B\in\cB(\R)$.
+Donc 
+\[
+C = \{Y \in B\} = \{f(X) \in B\} = \{ X \in f^{-1}(B) \}.
+\]
+Mais par indépendance de $X$ et $Y$, les événement $\{Y \in B\}$ et $\{ X \in f^{-1}(B) \}$ sont indépendants.
+Donc $C$ est ind\'ependant de lui-m\^eme, et donc $\P(C) \in \{0,1\}$ par la question 1. 
+Donc la tribu $\cC$ satisfait : pour tout $C \in \mathcal{C}$, $\P(C) \in \{0,1\}$. 
+De plus $Y$ est $\cC$-mesurable (car $\sigma(Y)$ est la plus petite tribu sur $\Omega$ rendant $Y$ mesurable).
+Donc $Y$ est constante p.s. par la question 2.
+\end {enumerate}
+\end{comment}
+
+
+\end{document}
