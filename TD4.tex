@@ -312,13 +312,13 @@ Donc $(P,Q)$ est une v.a. continue de densité
 
 	      On peut par exemple choisir de laisser $x$ inchangé, i.e. faire le changement $(x,s) = (x,\pi(x^2+y^2))$.
 	      Cela revient à faire un changement de variable en dimension 1.
-	      En effet par Fubini-Tonelli, on a
+	      En effet, par Fubini-Tonelli, on a
 	      \[
 		      \Ec{f(S)}
 		      =  \frac{1}{\pi} \int_{-1}^1 \left( \int_{-1}^1 f\left(\pi(x^2+y^2)\right) \1_{\{ x^2+y^2 \leq 1 \}} \diff y \right) \diff x,
 	      \]
 	      donc on peut faire le changement $s = \pi(x^2+y^2)$ dans l'intégrale centrale, où $x$ est considéré comme fixé.
-	      Cependant ce changement n'est pas bijectif, mais comme la fonction intégrée est paire en $y$ et en $x$, on a
+	      Cependant, ce changement n'est pas bijectif, mais comme la fonction intégrée est paire en $y$ et en $x$, on a
 	      \begin{align*}
 		      \Ec{f(S)}
 		       & = \frac{4}{\pi} \int_0^1 \left( \int_0^1 f\left(\pi(x^2+y^2)\right) \1_{\{ x^2+y^2 \leq 1 \}} \diff y \right) \diff x                          \\
@@ -344,7 +344,7 @@ Donc $(P,Q)$ est une v.a. continue de densité
 \begin{exo}[Variables aléatoires entièrement corrélées]
 	Soit $X,Y \in L^2(\Omega,\cA,\P)$.
 	\begin{enumerate}
-		\item Montrer que $\sigma_X = 0$ si et seulement si il existe $a \in \R$ tel que $X = a$ p.s.
+		\item Montrer que $\sigma_X = 0$ si et seulement s'il existe $a \in \R$ tel que $X = a$ p.s.
 		\item Posons $Z = \sigma_X^2 Y - \Cov(X,Y) X$.
 		      Montrer que $\sigma_Z^2 = \sigma_X^2 ( \sigma_X^2 \sigma_Y^2 - \Cov(X,Y)^2)$.
 		\item En déduire que $\abs{\Cov(X,Y)} = \sigma_X \sigma_Y$ si et seulement si
@@ -608,7 +608,7 @@ Donc
 \[
 	C = \{Y \in B\} = \{f(X) \in B\} = \{ X \in f^{-1}(B) \}.
 \]
-Mais par indépendance de $X$ et $Y$, les événement $\{Y \in B\}$ et $\{ X \in f^{-1}(B) \}$ sont indépendants.
+Mais par indépendance de $X$ et $Y$, les événements $\{Y \in B\}$ et $\{ X \in f^{-1}(B) \}$ sont indépendants.
 Donc $C$ est ind\'ependant de lui-m\^eme, et donc $\P(C) \in \{0,1\}$ par la question 1.
 Donc la tribu $\cC$ satisfait : pour tout $C \in \mathcal{C}$, $\P(C) \in \{0,1\}$.
 De plus $Y$ est $\cC$-mesurable (car $\sigma(Y)$ est la plus petite tribu sur $\Omega$ rendant $Y$ mesurable).
