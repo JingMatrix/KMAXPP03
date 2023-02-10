@@ -261,15 +261,17 @@ Notons que pour $p,q>0$,
 		p < q.
 	\end{cases}
 \]
+
+De plus, $ 0 < p = xy < 1$.
 Donc
 \begin{align*}
 	\Ec{f(P,Q)}
 	= \int_{(\R_+^*)^2} f(p,q) \1_{\{pq<1,\, p < q\}} \frac{1}{2q} \diff p \diff q
-	= \int_{\R^2} f(p,q) \1_{\{pq<1,\, 0 < p < q\}} \frac{1}{2q} \diff p \diff q.
+	= \int_{\R^2} f(p,q) \1_{\{0 < p < q < \frac{1}{p}\}} \frac{1}{2q} \diff p \diff q.
 \end{align*}
 Donc $(P,Q)$ est une v.a. continue de densité
 \[
-	(p,q) \in \R^2 \longmapsto \frac{1}{2q} \1_{\{pq<1,\, 0 < p < q\}}.
+	(p,q) \in \R^2 \longmapsto \frac{1}{2q} \1_{\{0 < p < q < \frac{1}{p}\}}.
 \]\newpage
 \end{comment}
 
