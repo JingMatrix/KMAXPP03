@@ -426,8 +426,78 @@ Donc $(P,Q)$ est une v.a. continue de densité
 \end{exo}
 
 \begin{comment}
+(i) $\Rightarrow$ (ii). Supposons $A_1,\dots,A_n$ indépendants. 
+Considérons tout d'abord le cas $C_1 = A_1^c$ et $C_i = A_i$ pour tout $2 \leq i \leq n$.
+Soit $1 \leq i_1 < \dots < i_k \leq n$. 
+Si $i_1 \geq 2$, alors on a
+\[
+\P(C_{i_1} \cap \dots \cap C_{i_k}) 
+= \P(A_{i_1} \cap \dots \cap A_{i_k}) 
+= \P(A_{i_1}) \cdots \P(A_{i_k})
+= \P(C_{i_1}) \cdots \P(C_{i_k})
+\]
+car $A_2,\dots,A_n$ sont indépendants.
+Si $i_1 = 1$, on a 
+\begin{align*}
+\P(C_{i_1} \cap \dots \cap C_{i_k}) 
+& = \P(A_1^c \cap A_{i_2} \cap \dots \cap A_{i_k}) \\
+& = \P(A_{i_2} \cap \dots \cap A_{i_k}) - \P(A_1 \cap A_{i_2} \cap \dots \cap A_{i_k}) \\
+& = \P(A_{i_2}) \cdots \P(A_{i_k}) - \P(A_1) \P(A_{i_2}) \cdots \P(A_{i_k}) & \text{(par indép. des $A_i$)} \\
+& = (1-\P(A_1)) \P(A_{i_2}) \cdots \P(A_{i_k}) \\
+& = \P(A_1^c) \P(A_{i_2}) \cdots \P(A_{i_k}) \\
+& = \P(C_{i_1}) \cdots \P(C_{i_k}).
+\end{align*}
+On a donc montré que $C_1,\dots,C_n$ sont indépendants dans ce premier cas.
+Par symétrie des rôles, cela montre aussi que $A_1,\dots,A_{i-1},A_i^c,A_{i+1},\dots, A_n$ sont indépendants pour chaque $i \in \llbracket 1,n \rrbracket$.
+Puis, par récurrence, on en déduit que l'on peut remplacer n'importe quel nombre d'événements $A_i$ par leur complémentaire et ils restent indépendants. Cela montre (ii).
 
+(ii) $\Rightarrow$ (iii). Supposons (ii). Soit $B_1,\dots,B_n \in \cB(\R)$. Il suffit de montrer que
+\begin{equation} \label{eq:goal}
+	\P(\1_{A_1} \in B_1, \dots, \1_{A_n} \in B_n)
+	= \P(\1_{A_1} \in B_1) \cdots \P(\1_{A_n} \in B_n).
+\end{equation}
+Comme $\1_{A_i}$ prend ses valeurs dans $\{0,1\}$, on a les quatre cas suivants :
+\[
+	\{\1_{A_i} \in B_i \}
+	= \begin{cases}
+	\varnothing & \text{si } B_i \cap \{0,1\} = \varnothing, \\
+	A_i & \text{si } B_i \cap \{0,1\} = \{1\}, \\
+	A_i^c & \text{si } B_i \cap \{0,1\} = \{0\}, \\
+	\Omega  & \text{si } B_i \cap \{0,1\} = \{0,1\}.
+	\end{cases}
+\]
+Si pour l'un des $i \in \llbracket 1,n \rrbracket$, on a $B_i \cap \{0,1\} = \varnothing$, alors les deux côtés de \eqref{eq:goal} sont égaux à 0 donc \eqref{eq:goal} est vraie.
+Supposons à présent que, pour tout $i \in \llbracket 1,n \rrbracket$, on a $B_i \cap \{0,1\} \neq \varnothing$.
+Notons $1 \leq i_1 < \dots < i_k \leq n$ les indices $i$ tels que $B_i \cap \{0,1\} \neq \{0,1\}$ et notons alors $C_i = B_i \cap \{0,1\} \in \{A_i,A_i^c\}$.
+Alors,
+\begin{align*}
+\P(\1_{A_1} \in B_1, \dots, \1_{A_n} \in B_n)
+& = \P(C_{i_1} \cap \dots \cap C_{i_k}) & \text{(on peut oublier les $\Omega$)} \\
+& = \P(C_{i_1}) \cdots \P(C_{i_k}) & \text{(par indép. de $C_{i_1}, \dots, C_{i_k}$)}  \\
+& = \P(\1_{A_1} \in B_1) \cdots \P(\1_{A_n} \in B_n)
+& \text{(on peut remettre les $\Omega$)}
+\end{align*}
+ce qui montre \eqref{eq:goal} dans ce cas-ci.
+
+
+(iii) $\Rightarrow$ (i). Supposons que les variables aléatoires $\1_{A_1},\dots\1_{A_n}$ sont indépendantes.
+Soit $1 \leq i_1 < \dots < i_k \leq n$, on veut montrer que 
+\[
+\P(A_{i_1} \cap \dots \cap A_{i_k}) 
+= \P(A_{i_1}) \cdots \P(A_{i_k}).
+\]
+Pour cela on pose $B_i = \{1\}$ si $i \in \{i_1,\dots,i_k\}$ et $B_i = \{0,1\}$ sinon.
+Alors
+\begin{align*}
+\P(A_{i_1} \cap \dots \cap A_{i_k}) 
+& = \P(\1_{A_1} \in B_1, \dots, \1_{A_n} \in B_n) \\
+& = \P(\1_{A_1} \in B_1) \cdots \P(\1_{A_n} \in B_n) 
+& \text{(car $\1_{A_1},\dots\1_{A_n}$ sont indép.)} \\
+& = \P(A_{i_1}) \cdots \P(A_{i_k}),
+\end{align*}
+ce qui montre (i).
 \end{comment}
+
 
 %%%%%%
 \separationexos
@@ -460,20 +530,71 @@ Donc $(P,Q)$ est une v.a. continue de densité
 \end{exo}
 
 \begin{comment}
-%i.e. $Y(i,j) = \abs{i-j}$ pour $(i,j) \in \Omega$, 
-%On a $\P(Y=1) = \P(B) = 1/2$.
-%	
-%\begin{align*}
-%\P(X=0,Y=1) = \P(\{(2,2),(4,4),(6,6)\}) = \frac{3}{36} = \frac{6}{36} \cdot \frac{1}{2} = \P(X=0) \cdot \P(Y=1).
-%\end{align*}
-%
-%\begin{align*}
-%\P(X=1,Y=1) = \P(\{(2,1),(2,3),(4,3),(4,5),(6,5)\}) = \frac{5}{36} = \frac{10}{36} \cdot \frac{1}{2} = \P(X=1) \cdot \P(Y=1).
-%\end{align*}
-%
-%\begin{align*}
-%\P(X=2,Y=1) = \P(\{(2,4),(4,2),(4,6),(6,4)\}) = \frac{4}{36} = \frac{8}{36} \cdot \frac{1}{2} = \P(X=2) \cdot \P(Y=1).
-%\end{align*}
+\begin{enumerate}
+	\item On prend $\Omega = \llbracket 1,6 \rrbracket^2$ muni de $\cA = \cP(\Omega)$ et de la mesure uniforme $\P$, i.e. $\P(B) = \abs{B}/36$ pour $B \in \cA$.
+	Alors $X(i,j) = i+j$ et $Y(i,j) = \abs{i-j}$ pour $(i,j) \in \Omega$. Puis
+	\[
+		B = \{(i,j) \in \Omega : i \text{ est pair}\}
+	\]
+	et $Z=\1_B$.
+	%%
+	\item Notons tout d'abord que $Z$ ne prend que les valeurs 0 et 1 donc sa loi est caractérisée par $\P(Z=1) = \P(B) = 1/2$ (en énumérant les éléments de $B$).
+	
+	Montrons que $X$ et $Y$ ne sont pas indépendants. Pour cela, on considère les événements $\{X=2\}$ et $\{Y=5\}$ : on a
+	\begin{align*}
+	\P(X=2) & = \P(\{(1,1)\})= \frac{1}{36}, \\
+	\P(Y=5) & = \P(\{(1,6),(6,1)\}) = \frac{1}{18}, \\
+	\P(X=2,Y=5) & = \P(\varnothing) = 0,
+	\end{align*}
+	donc $\P(X=2,Y=5) \neq \P(X=2)\P(Y=5)$, donc $X$ et $Y$ ne sont pas indépendants.
+	
+	Montrons que $X$ et $Z$ ne sont pas indépendants. Pour cela, on considère les événements $\{X=2\}$ et $\{Z=1\}$ : on a
+	\begin{align*}
+	\P(X=2,Z=1) & = \P(\{(1,1)\} \cap B) = \P(\varnothing) = 0
+	\neq \frac{1}{36} \cdot \frac{1}{2} = \P(X=2)\P(Z=1),
+	\end{align*}
+	donc $X$ et $Z$ ne sont pas indépendants.
+	
+	Montrons que $Y$ et $Z$ sont indépendants. Il suffit de vérifier que pour tous $y,z \in \R$, 
+	\begin{equation} \label{eq:Y_Z}
+	\P(Y=y,Z=z) = \P(Y=y)\P(Z=z). 
+	\end{equation}
+	On peut se restreindre à $y \in \{0,\dots,5\}$ et $z \in \{0,1\}$, car pour les autres valeurs on a les deux côtés de \eqref{eq:Y_Z} sont nuls.
+	En outre, pour un certain $y$, si on montre \eqref{eq:Y_Z} pour $z=1$ alors \eqref{eq:Y_Z} est aussi vraie pour $z=0$ : en effet, si $\{Y=y\}$ et $A$ sont indépendants, alors $\{Y=y\}$ et $A^c$ sont indépendants aussi.
+	Donc on considère uniquement $z=1$.
+	Pour $y=0$, on a 
+	\begin{align*}
+	& \P(Y=0) = \P(\{(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)\}) = \frac{6}{36}, \\
+	& \P(Y=0,Z=1) 
+	= \P(\{(2,2),(4,4),(6,6)\}) 
+	= \frac{3}{36} 
+	= \frac{6}{36} \cdot \frac{1}{2} 
+	= \P(Y=0) \cdot \P(Z=1).
+	\end{align*}
+	Pour $y=1$, on a 
+	\begin{align*}
+	& \P(Y=1) 
+	= \P(\{(1,2),(2,1),(2,3),(3,2),(3,4),(4,3),(4,5),(5,4),(5,6),(6,5)\}) 
+	= \frac{10}{36}, \\
+	& \P(Y=1,Z=1) 
+	= \P(\{(2,1),(2,3),(4,3),(4,5),(6,5)\}) 
+	= \frac{5}{36} 
+	= \frac{10}{36} \cdot \frac{1}{2} 
+	= \P(Y=1) \cdot \P(Z=1).
+	\end{align*}
+	Pour $y=2$, on a 
+	\begin{align*}
+	& \P(Y=2) 
+	= \P(\{(1,3),(2,4),(4,2),(3,1),(3,5),(4,6),(5,3),(6,4)\}) 
+	= \frac{8}{36}, \\
+	& \P(Y=2,Z=1) 
+	= \P(\{(2,4),(4,2),(4,6),(6,4)\}) 
+	= \frac{4}{36} 
+	= \frac{8}{36} \cdot \frac{1}{2} 
+	= \P(Y=2) \cdot \P(Z=1).
+	\end{align*}
+	On continue de même pour $y=3,4$ et $5$.
+\end{enumerate}
 \end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -483,6 +604,14 @@ Donc $(P,Q)$ est une v.a. continue de densité
 \begin{exo}
 	Soit $(X,Y)$ une v.a. à valeurs dans $\R^2$. On a vu en cours que si $(X,Y)$ est continue alors $X$ et $Y$ sont continues. Que dire de la réciproque ?
 \end{exo}
+
+\begin{comment}
+La réciproque est fausse ! Prenons $X$ une v.a. réelle continue et $Y=X$. Alors $(X,Y)$ est à valeurs dans $\Delta = \{(x,x) : x\in \R\}$ qui est une partie de $\R^2$ de mesure de Lebesgue nulle. Donc $(X,Y)$ ne peut pas être continue : si $(X,Y)$ était continue alors 
+\[
+	\P((X,Y) \in \Delta) = \int_\Delta p_{(X,Y)}(x,y) \diff x \diff y = 0,
+\]
+alors que $\P((X,Y) \in \Delta) = 1$ dans notre cas.
+\end{comment}
 
 %%%%%%
 \separationexos
