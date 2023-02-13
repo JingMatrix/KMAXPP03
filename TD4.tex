@@ -184,7 +184,7 @@
 
 \begin{comment}
 Notons $P=XY$ et $Q=X/Y$.
-Soit $f \colon \R^2 \to \R_+$ mesurables. On a, par le théorème de transfert,
+Soit $f \colon \R^2 \to \R_+$ mesurable. On a, par le théorème de transfert,
 \begin{align*}
 	\Ec{f(P,Q)}
 	= \Ec{f(XY,X/Y)}
@@ -192,7 +192,7 @@ Soit $f \colon \R^2 \to \R_+$ mesurables. On a, par le théorème de transfert,
 	 & = \int_{(\R_+^*)^2} f(xy,x/y) \1_{]0,1[^2}(x,y) \diff x \diff y,
 \end{align*}
 où on a utilisé que $\1_{[0,1]^2} = \1_{]0,1[^2}$ Lebesgue-p.p. pour ensuite restreindre l'intégrale à $x,y > 0$.
-On veut à présent faire le changement de variables $(p,q) = (xy,x/y)$. Tentons de l'inverser : pour $x,y >0$, on a
+On veut à présent faire le changement de variables $(p,q) = (xy,x/y)$. Tentons de l'inverser : pour $x,y >0$ et $p,q > 0$, on a
 \[
 	\begin{cases}
 		p = xy \\
@@ -336,6 +336,25 @@ Donc $(P,Q)$ est une v.a. continue de densité
 		       & = \int_0^{\pi} f(s) \frac{1}{\pi} \diff s.
 	      \end{align*}
 	      Donc $S$ a pour loi $\frac{1}{\pi} \1_{[0,\pi]}(s) \diff s$, c'est donc une v.a. uniforme sur $[0,\pi]$.
+
+        \medskip
+
+       \emph{Autre méthode (suggérée par quelqu'un en TD).} On va calculer la fonction de répartition de $S = \pi(X^2+Y^2)$. Comme $S \in [0,\pi]$ p.s., on sait que $F_S(a) = 0$ pour $a < 0$ et $F_S(a) = 1$ pour $a > \pi$.
+       Considérons $a \in [0,\pi]$.
+       On a 
+       \[
+        F_S(a) = \P(S \leq a) = \P\left(\sqrt{X^2+Y^2} \leq \sqrt{\frac{a}{\pi}}\right)
+        = \P \left( (X,Y) \in D \left(\sqrt{\frac{a}{\pi}}\right)\right),
+       \]
+       où $D(r)$ est le disque fermé centré en l'origine et de rayon $r$. Alors, en notant $\lambda_2$ la mesure de Lebesgue sur $\R^2$ et en utilisant que $D(\sqrt{a/\pi})$ est inclus dans $D(1)$, on a
+       \[
+        F_S(a)
+        = P_{(X,Y)} \left( D \left(\sqrt{\frac{a}{\pi}}\right)\right)
+        = \frac{1}{\pi} \lambda_2\left( D \left(\sqrt{\frac{a}{\pi}}\right)\right)
+        = \frac{1}{\pi} \cdot \pi \left(\sqrt{\frac{a}{\pi}}\right)^2 = \frac{a}{\pi}.
+       \]
+       On a donc déterminé $F_S(a)$. 
+       Elle coïncide avec la fonction de répartition de la loi uniforme sur $[0,\pi]$, donc $S$ a la loi uniforme sur $[0,\pi]$.
 \end{enumerate}
 \end{comment}
 
@@ -520,7 +539,7 @@ ce qui montre (i).
 
 \begin{exo}
 	Considérons l'expérience consistant à lancer deux dés à 6 faces équilibrés. Soit $X$ la somme des dés, $Y$ la différence absolue entre les dés,
-	et $Z = \1_B$ où $B$ est l'événement ``le 1er dé donne un résultat pair''.
+	et $Z = \1_A$ où $A$ est l'événement ``le 1er dé donne un résultat pair''.
 	\begin{enumerate}
 		\item Modéliser l'expérience et spécifier $X$, $Y$ et $Z$ dans ce cadre.
 		\item Pour chaque paire de v.a. parmi $X$, $Y$ et $Z$, justifier si elles sont indépendantes ou non.
@@ -531,14 +550,14 @@ ce qui montre (i).
 
 \begin{comment}
 \begin{enumerate}
-	\item On prend $\Omega = \llbracket 1,6 \rrbracket^2$ muni de $\cA = \cP(\Omega)$ et de la mesure uniforme $\P$, i.e. $\P(A) = \abs{A}/36$ pour $A \in \cA$.
+	\item On prend $\Omega = \llbracket 1,6 \rrbracket^2$ muni de $\cA = \cP(\Omega)$ et de la mesure uniforme $\P$, i.e. $\P(B) = \abs{B}/36$ pour $B \in \cA$.
 	Alors $X(i,j) = i+j$ et $Y(i,j) = \abs{i-j}$ pour $(i,j) \in \Omega$. Puis
 	\[
-		B = \{(i,j) \in \Omega : i \text{ est pair}\}
+		A = \{(i,j) \in \Omega : i \text{ est pair}\}
 	\]
-	et $Z=\1_B$.
+	et $Z=\1_A$.
 	%%
-	\item Notons tout d'abord que $Z$ ne prend que les valeurs 0 et 1 donc sa loi est caractérisée par $\P(Z=1) = \P(B) = 1/2$ (en énumérant les éléments de $B$).
+	\item Notons tout d'abord que $Z$ ne prend que les valeurs 0 et 1 donc sa loi est caractérisée par $\P(Z=1) = \P(A) = 1/2$ (en énumérant les éléments de $A$).
 	
 	Montrons que $X$ et $Y$ ne sont pas indépendants. Pour cela, on considère les événements $\{X=2\}$ et $\{Y=5\}$ : on a
 	\begin{align*}
@@ -550,7 +569,7 @@ ce qui montre (i).
 	
 	Montrons que $X$ et $Z$ ne sont pas indépendants. Pour cela, on considère les événements $\{X=2\}$ et $\{Z=1\}$ : on a
 	\begin{align*}
-	\P(X=2,Z=1) & = \P(\{(1,1)\} \cap B) = \P(\varnothing) = 0
+	\P(X=2,Z=1) & = \P(\{(1,1)\} \cap A) = \P(\varnothing) = 0
 	\neq \frac{1}{36} \cdot \frac{1}{2} = \P(X=2)\P(Z=1),
 	\end{align*}
 	donc $X$ et $Z$ ne sont pas indépendants.
@@ -636,16 +655,86 @@ alors que $\P((X,Y) \in \Delta) = 1$ dans notre cas.
 	Déterminer la loi de $(X+Y,XY)$.
 \end{exo}
 
-%\begin{comment}
-%Notons $S=X+Y$ et $P=XY$.
-%Soit $f \colon \R^2 \to \R_+$ mesurables. On a, par le théorème de transfert,
-%\[
-%\Ec{f(S,P)} 
-%= \Ec{f(X+Y,XY)} 
-%= \int_{\R^2} f(x+y,xy) \1_{[0,1]^2}(x,y) \diff x \diff y.
-%\]
-%On veut faire le changement de variables $(s,p) = (x+y,xy)$. Mais $(x,y) \mapsto (x+y,xy)$ n'est pas injective sur ${]}0,1{[}^2$ car $(x,y)$ et $(y,x)$ ont la même image.
-%\end{comment}
+\begin{comment}
+Notons $S=X+Y$ et $P=XY$.
+Soit $f \colon \R^2 \to \R_+$ mesurable. On a, par le théorème de transfert,
+\[
+\Ec{f(S,P)} 
+= \Ec{f(X+Y,XY)} 
+= \int_{\R^2} f(x+y,xy) \1_{[0,1]^2}(x,y) \diff x \diff y
+= \int_{]0,1[^2} f(x+y,xy) \diff x \diff y,
+\]
+en utilisant que $\1_{[0,1]^2} = \1_{]0,1[^2}$ Lebesgue-p.p.
+On veut faire le changement de variables $(s,p) = (x+y,xy)$. Mais $(x,y) \mapsto (x+y,xy)$ n'est pas injective sur ${]}0,1{[}^2$ car $(x,y)$ et $(y,x)$ ont la même image.
+On va donc d'abord découper l'intégrale en deux, selon si $x < y$ ou $y < x$ (notons que l'ensemble $y=x$ à mesure de Lesbesgue nulle) :
+\begin{align*}
+\Ec{f(S,P)} 
+& = \int_{]0,1[^2} f(x+y,xy) \1_{x<y} \diff x \diff y + \int_{]0,1[^2} f(x+y,xy) \1_{y<x} \diff x \diff y \\
+& = 2 \int_{]0,1[^2} f(x+y,xy) \1_{x<y} \diff x \diff y,
+\end{align*}
+où l'on a fait le changement de variable $(x,y) \mapsto (y,x)$ dans la seconde intégrale.
+On définit l'ouvert $V = \{ (x,y) : 0< x < y < 1 \}$.
+Pour $(x,y) \in V$, si $(s,p) = (x+y,xy)$, alors on a $s= x + \frac{p}{x}$ et $s= \frac{p}{y} + y$. Dans les deux cas, on a les solutions
+\[
+x = \frac{s \pm \sqrt{s^2 - 4p}}{2} 
+\quad \text{et} \quad 
+y = \frac{s \pm \sqrt{s^2 - 4p}}{2},
+\]
+car $s^2 - 4p = (x-y)^2 > 0$. Comme $x < y$, on en déduit que 
+\[
+x = \frac{s - \sqrt{s^2 - 4p}}{2} 
+\quad \text{et} \quad 
+y = \frac{s + \sqrt{s^2 - 4p}}{2}.
+\]
+On pose donc $U = \{(s,p) : s>0,p>0, s^2-4p>0, s + \sqrt{s^2 - 4p} < 2\}$ qui est un ouvert et 
+\[
+\varphi \colon (s,p) \in U \longmapsto \left( \frac{s - \sqrt{s^2 - 4p}}{2},\frac{s + \sqrt{s^2 - 4p}}{2} \right) \in V,
+\]
+où l'on a vérifié que $(s,p) \in U$ garantit que $\varphi(s,p)$ est bien défini et dans $V$.
+Vérifions que $\varphi$ est un $\cC^1$-difféomorphisme :
+\begin{itemize}
+	\item $\varphi$ est bijective car son inverse est $(x,y) \in V \mapsto (x+y,xy) \in U$.
+	
+	Vérifions d'abord que $(x+y,xy) \in U$. 
+	Il est clair que $x+y > 0$ et $xy > 0$. On a $(x+y)^2-4xy = (x-y)^2 > 0$.
+	Et $x+y + \sqrt{(x+y)^2 - 4xy} = x+y + \abs{x-y} = 2y < 2$ (où on a utilisé que $x<y$).
+	
+	Le fait que c'est bien l'inverse se montre en vérifant que $\varphi(x+y,xy) = (x,y)$.
+	%%
+	\item $\varphi$ a des dérivées partielles qui sont continues sur $U$ et donc elle est $\cC^1$ : en effet, sa matrice jacobienne est
+	\[
+	\left(
+	\begin{array}{ccc}
+	\frac{\partial \varphi_1}{\partial s}(s,p) & \frac{\partial \varphi_1}{\partial p}(s,p) \\
+	\frac{\partial \varphi_2}{\partial s}(s,p) & \frac{\partial \varphi_2}{\partial p}(s,p)
+	\end{array}
+	\right)
+	= \left(
+	\begin{array}{ccc}
+	\frac{1}{2}- \frac{s}{2\sqrt{s^2 - 4p}} 
+	& \frac{1}{\sqrt{s^2 - 4p}}  \\
+	\frac{1}{2}+ \frac{s}{2\sqrt{s^2 - 4p}} 
+	& -\frac{1}{\sqrt{s^2 - 4p}}
+	\end{array}
+	\right).
+	\]
+	\item Le Jacobien de $\varphi$ est
+	\[
+	\mathrm{Jac}_\varphi(p,q) = -\frac{1}{\sqrt{s^2 - 4p}} \neq 0.
+	\]
+\end{itemize}
+Cela montre que $\varphi$ est un $\cC^1$-difféomorphisme, donc par formule de changement de variables
+\begin{align*}
+\Ec{f(S,P)} 
+= 2 \int_V f(x+y,xy) \diff x \diff y 
+= 2 \int_U f(s,p) \abs{\mathrm{Jac}_\varphi(s,p)} \diff s \diff p
+= \int_{\R^2} f(s,p) \frac{2 \1_U(s,p)}{\sqrt{s^2 - 4p}} \diff s \diff p.
+\end{align*}
+Donc la loi de $(S,P)$ est
+\[
+\frac{2 \1_U(s,p)}{\sqrt{s^2 - 4p}} \diff s \diff p.
+\]
+\end{comment}
 
 %%%%%%
 \separationexos
