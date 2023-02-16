@@ -1,0 +1,705 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 5 -- Indépendance de variables aléatoires}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Indépendance de variables aléatoires}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Espérances successives]
+	Supposons que $X$ et $Y$ sont indépendantes. Soit $F \colon \R \times \R \rightarrow \R_+$ une fonction mesurable. 
+	Montrer que $\Ec{F(X,Y)}= \Ec{g(Y)}$, o\`u $g \colon \R \rightarrow \R$ est la fonction d\'efinie par $g(y)=\Ec{F(X,y)}$ pour $y \in \R$.
+\end{exo}
+
+
+\begin{comment}
+Comme $X$ et $Y$ sont indépendantes, $P_{(X,Y)}= P_{X}\otimes P_{Y}$. Par le théorème de transfert, on a 
+\begin{align*}
+\Ec{F(X,Y)} 
+& = \int_{\R \times \R} F(x,y) \diff P_{(X,Y)}(x,y) \\
+& = \int_{\R \times \R} F(x,y) \diff P_{X}(x) \diff P_{Y}(y) \\
+& = \int_{\R} \left( \int_{\R} F(x,y)P_{X}(\diff x)\right) \diff P_{Y}(y) \\
+& = \int_{\R} g(y) \diff P_{Y}(y) \\
+& = \Ec{g(Y)},
+\end{align*}
+où l'on a utilisé Fubini--Tonelli, puis la définition de $g$ et finalement le théorème de transfert.
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Covariance et indépendance]
+	\begin{enumerate}
+		\item Soit $X$ et $Y$ deux v.a. réelles ne pouvant prendre chacune que deux valeurs distinctes.
+		Montrer que $X$ et $Y$ sont indépendantes si et seulement si $\Cov(X,Y) = 0$.
+		
+		\emph{Indication.} Si $x_1,x_2$ sont les valeurs possibles de $X$ et $y_1,y_2$ les valeurs possibles de $Y$, on montrera que $\E[(X-x_i)(Y-y_j)] = \E[X-x_i] \E[Y-y_j]$ pour tous $i,j \in \{1,2\}$.
+		%%
+		\item Soit $X$ une v.a. de loi $\cN(0,1)$. Montrer que $\Cov(X,X^2) = 0$. Qu'en conclure?
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Indépendance et calcul de lois}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}[Méthode de Box-Muller de simulation des gaussiennes]
+	\begin{enumerate}
+		\item Soit $U$ une v.a. uniforme sur $[0,1]$. Pour $\lambda > 0$, déterminer la loi de $-\frac{1}{\lambda} \ln U$.
+		\item Soit $\Theta$ une v.a. uniforme sur $[0,2\pi]$ et $Z$ une v.a. de loi exponentielle de paramètre 1/2. Déterminer la loi de $(\sqrt{Z} \cos \Theta, \sqrt{Z} \sin \Theta)$.
+		\item En déduire une méthode pour simuler deux v.a. indépendantes de loi gaussienne standard à partir de deux v.a. $U_1$ et $U_2$ indépendantes de loi uniforme sur $[0,1]$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Soit par changement de variable soit par calcul de fonction de répartition, on trouve que $-\frac{1}{\lambda} \ln U$ suit une loi exponentielle de paramètre $\lambda$.
+%%
+\item Soit $f:\R^2\to\R_+$ une fonction bor\'elienne. On a 
+\begin{align*}
+\Ec{f\left(\sqrt{Z}\cos\Theta,\sqrt{Z}\sin\Theta\right)}
+&=\frac{1}{4\pi}\int_0^{2\pi} \int_0^\infty 
+f(\sqrt{z}\cos\theta,\sqrt{z}\sin\theta)e^{-z/2}\diff z\diff \theta \\ 
+&=\frac{1}{2\pi}\int_0^{2\pi} \int_0^\infty f(r\cos\theta,r\sin\theta)e^{-r^2/2}r\diff z\diff \theta,
+\end{align*}
+en utilisant le changement de varibale $z \mapsto r=z^2$.
+Puis d'apr\`es la formule du passage en coordonn\'ees polaires, on a 
+\[
+\frac{1}{2\pi}\int_0^\infty\int_0^{2\pi}f(r\cos\theta,r\sin\theta)e^{-r^2/2}r\diff r\diff \theta
+=\frac{1}{2\pi}\int_{\R^2}f(x,y)e^{-(x^2+y^2)/2}\diff x\diff y.
+\] 
+La loi de $(\sqrt{Z}\cos\Theta,\sqrt{Z}\sin\Theta)$ est donc $(2\pi)^{-1}e^{-(x^2+y^2)/2}\diff x\diff y$.
+Les variables $\sqrt{Z}\cos\Theta$ et $\sqrt{Z}\sin\Theta$ sont ind\'ependantes et de loi $\cN(0,1)$. 
+%%
+\item Par la question 1., $Z = - 2 \ln U_1$ suit une loi exponentielle de paramètre $1/2$. De plus, $\Theta = 2\pi U_2$ suit la loi uniforme sur $[0,2\pi]$, et $Z$ et $\Theta$ sont indépendantes (en tant que fonctions mesurables de v.a. indépendantes).
+Donc
+\[
+	X = \sqrt{- 2 \ln U_1} \cos (2\pi U_2)
+	\qquad \text{et} \qquad 
+	Y = \sqrt{- 2 \ln U_1} \sin (2\pi U_2)
+\]
+sont des v.a. indépendantes de loi gaussienne standard par la question 2.
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Somme de v.a. gaussiennes] 
+	Rappelons que la fonction caractéristique de la loi gaussienne $\cN(m,\sigma^2)$ est $\theta \in \R \mapsto \exp(\ii m \theta + \frac{1}{2} \sigma^2 \theta^2)$.
+	 
+	Soit $X_1,\dots,X_n$ des v.a. indépendantes telles que $X_k \sim \cN(m_k,\sigma_k^2)$. En calculant sa fonction caractéristique, déterminer la loi de $X_1 + \dots + X_n$.
+\end{exo}
+
+\begin{comment}
+	Voir la fin du Chapitre 2 dans les notes de cours.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Minimum de v.a. exponentielles] 
+	\begin{enumerate}
+		\item Calculer la fonction de répartition de la loi exponentielle de paramètre $\lambda > 0$.
+		\item Soit $X_1,\dots,X_n$ des v.a. indépendantes de lois exponentielles de paramètres $\lambda_1,\dots,\lambda_n$. Déterminer la loi de $\min(X_1,\dots,X_n)$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+
+\end{comment}
+
+
+\partie{Compléments}
+
+
+\begin{exo} 
+	Soit $X$ et $Y$ des v.a. réelles. pour chacune des lois jointes suivantes, déterminer si $X$ et $Y$ sont indépendantes. Si elles le sont, trouver leurs lois marginales.
+	\begin{enumerate}
+		\item $\displaystyle \diff P_{(X,Y)}(x,y) = \frac{1}{4\pi} (2+4x+y+2xy)e^{-(x^2+y^2)/2} \diff x \diff y$;
+		\item $\displaystyle \diff P_{(X,Y)}(x,y) = e^{-y} \1_{0<x<y} \diff x \diff y$;
+		\item $\displaystyle P_{(X,Y)} = \sum_{k,\ell \in \N} \frac{1}{2} e^{-2}(e-1)^3 (k+\ell) e^{-(k+\ell)} \delta_{(k,\ell)}$;
+		\item $\displaystyle P_{(X,Y)} = \sum_{k,\ell \in \N} \frac{1}{2} e^{-2} \frac{2^{k-\ell}}{k!} \delta_{(k,\ell)}$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Deux personnes ont rendez-vous à 14h00 mais elles sont peu ponctuelles: les instants d'arrivées $X$ et $Y$ sont deux v.a. indépendantes uniformément réparties dans $[14,15]$. 
+	Calculer la loi de la durée d'attente du premier.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Trouver un exemple de v.a. réelles $X,Y,Z$ où $X$ est indépendante de $Y$, de $Z$ mais pas de $(Y,Z)$.
+\end{exo}
+
+
+\begin{comment}
+On prend $X$ et $Y$ indépendantes de loi de Bernoulli de paramètre $1/2$ et $Z \coloneqq \1_{X=Y}$. Alors on a
+\[
+\Pp{Z=1,X=1} = \Pp{Y=1,X=1} = \Pp{Y=1} \Pp{X=1} = \frac{1}{2} \Pp{X=1} = \Pp{Z=1} \Pp{X=1},
+\]
+donc $X$ et $Z$ sont indépendantes (ce sont des indicatrices donc ce calcul suffit !).
+Mais on a
+\[
+\Pp{(Y,Z)=(1,1),X=1} = \Pp{(Y,Z)=(1,1)} \neq \Pp{(Y,Z)=(1,1)} \Pp{X=1},
+\]
+car $(Y,Z)=(1,1) \Rightarrow X=1$.
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $\mu$ et $\nu$ deux mesures de probabilité sur $(\R,\cB(\R))$. Construire explicitement un espace de probabilité $(\Omega,\cA,\P)$ et deux v.a. réelles indépendantes $X$ et $Y$ telles que $P_X = \mu$ et $P_Y = \nu$.
+\end{exo}
+
+
+\begin{comment}
+Il suffit de prendre $(\Omega,\cA,\P) = (\R^2,\cB(\R^2),\mu\otimes\nu)$, $X \colon (x,y) \in \Omega \mapsto x$ et $Y \colon (x,y) \in \Omega \mapsto y$.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soient $X,Y,Z$ des v.a. réelles indépendantes de même loi.
+	\begin{enumerate}
+		\item Supposons que leur loi commune n'a pas d'atome. Calculer $\P(X<Y<Z)$.
+		\item Montrer que le résultat de la question précédente n'est plus forcément vrai si leur loi peut avoir un atome.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} Sur un espace de probabilit\'e $(\Omega,\cA,\P)$, on se donne $X_1,\dots,X_n$ des variables al\'eatoires indépendantes uniformes sur $[0,1]$. 
+	%%
+	\begin{enumerate}
+		\item Construire, à l'aide des événements $A_\sigma=\{X_{\sigma_1}<\dots<X_{\sigma_n}\}$ pour $\sigma\in \cS_n$, $n$ variables al\'eatoires $Y_1,\dots,Y_n$ sur $(\Omega,\cA,\P)$ telles que 
+		\[
+		Y_1(\omega) \leq \dots \leq Y_n(\omega)
+		\quad \text{et} \quad
+		\{Y_1(\omega),\dots,Y_n(\omega)\}=\{X_1(\omega),\dots,X_n(\omega)\}
+		\]
+		pour presque tout $\omega\in\Omega$. 
+		%%
+		\item D\'eterminer les lois des variables al\'eatoires $(Y_1,\dots,Y_n)$ et $(Y_1/Y_2,\dots,Y_{n-1}/Y_n)$. 
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $i\in\{1,\ldots,n\}$. On peut d\'efinir pour presque tout $\omega\in\Omega$, 
+\[
+Y_i(\omega) 
+= \sum_{\sigma\in\cS_n} X_{\sigma_i}(\omega) 
+\1_{\{X_{\sigma_1}(\omega)<\dots<X_{\sigma_n}(\omega)\}}.
+\] 
+En effet, la mesure de Lebesgue des hyperplans de $\R^n$ o\`u deux coordonn\'ees sont \'egales est nulle. Ainsi, les variables al\'eatoires $Y_1,\ldots,Y_n$ sont bien d\'efinies.  
+%%
+\item Soit $f\colon [0,1]^n\to\R_+$ une fonction bor\'elienne. 
+On a 
+\begin{align*}
+\E[f(Y_1,\dots,Y_n)]
+&= \sum_{\sigma\in\cS_n} \int_{\{0\leq x_{\sigma_1}<\dots<x_{\sigma_n}\leq1\}} f(x_{\sigma_1},\dots,x_{\sigma_n}) \diff x_1 \cdots dx_n\\ 
+&= n! \int_{\{0\leq x_1<\dots<x_n\leq1\}} f(x_1,\dots,x_n) \diff x_1\cdots dx_n.
+\end{align*}
+La loi de $(Y_1,\dots,Y_n)$ est donc 
+\[
+n!\1_{\{0\leq x_1<\dots<x_n\leq1\}} \diff x_1\cdots dx_n.
+\]  
+Soit maintenant $g \colon ]0,1[^{n-1}\to\R_+$ une fonction bor\'elienne. 
+On a
+\[
+\E\left[ g\left(\frac{Y_1}{Y_2},\dots,\frac{Y_{n-1}}{Y_n}\right) \right]
+= n! \int_{\{0<x_1<\dots<x_n<1\}} 
+g\left(\frac{x_1}{x_2},\dots,\frac{x_{n-1}}{x_n}\right)\diff x_1 \cdots dx_n.
+\]
+Et $\phi \colon (x_1,\dots,x_n)\in\{0<x_1<\dots<x_n<1\} \mapsto \left(\frac{x_1}{x_2},\dots,\frac{x_{n-1}}{x_n},x_n\right) \in ]0,1[^n$ est un $C^1$-diff\'eomorphisme de jacobien \'egal \`a $(x_2\cdots x_n)^{-1}$. Ainsi, d'apr\`es la formule de changements de variables puis le th\'eor\`eme de Fubini-Tonelli, on a 
+\begin{align*}
+\E\left[ g\left(\frac{Y_1}{Y_2},\dots,\frac{Y_{n-1}}{Y_n}\right) \right]
+&= n! \int_{]0,1[^n} g(u_1,\dots,u_{n-1}) u_2u_3^2\cdots u_{n-1}^{n-2}u_n^{n-1}
+\diff u_1 \cdots \diff u_n\\ 
+&= (n-1)! \int_{]0,1[^{n-1}} g(u_1,\dots,u_{n-1}) u_2u_3^2\cdots u_{n-1}^{n-2}
+\diff u_1 \cdots \diff u_{n-1}.
+\end{align*}
+Donc la loi de $(Y_1/Y_2,\dots,Y_{n-1}/Y_n)$ est 
+\[
+(n-1)! u_2 u_3^2 \cdots u_{n-1}^{n-2} \1_{]0,1[^{n-1}}(u_1,\dots,u_{n-1})
+\diff u_1 \cdots \diff u_{n-1}.
+\] 
+\emph{Remarque.} Les variables aléatoires $Y_1/Y_2,\dots,Y_{n-1}/Y_n$ sont ind\'ependantes, et chaque $Y_i/Y_{i+1}$ a pour loi $iy^{i-1}\1_{]0,1[}(y) \diff y$.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}[Convolution de mesures finies]
+	Soit $\mu,\nu$ des mesures finies sur $(\R,\cB(\R))$. 
+	La \emph{convolution} de $\mu$ et de $\nu$, not\'ee $\mu *\nu$, est %la mesure image de $\mu \otimes\nu$ par l'application $(x,y)\in \R^n \times \R^n \mapsto x+y$, c'est-\`a-dire que 
+	la mesure sur $(\R,\cB(\R))$ définie par : pour toute fonction mesurable positive $f$ sur $\R$, 
+	\[
+	\int_{\R} f \diff (\mu*\nu) \coloneqq \int_{\R}\int_{\R} f(x+y) \diff\mu(x)\diff\nu(y).
+	\]
+	\begin{enumerate}
+		\item Montrer que $\mu*\nu$ est bien définie et que c'est une mesure finie, dont on explicitera la masse totale.
+		%%
+		\item Soit $\mu,\nu,\rho$ trois mesures finies sur $(\R,\cB(\R))$. 
+		Montrer les points suivants 
+		\begin{enumerate}
+			\item $\mu* \delta_0 = \mu$;
+			%%
+			\item $\mu*\nu = \nu *\mu$;
+			%%
+			\item $(\mu*\nu)*\rho = \mu*(\nu*\rho)$.
+		\end{enumerate}
+		%%
+		\item \DSB{(Convolution et indépendance)}~
+		Soit $X$ et $Y$ des v.a. réelles indépendantes. Montrer que la loi de $X+Y$ est $P_X * P_Y$.
+	\end{enumerate}
+\end{exo}
+
+
+
+%\begin{exo}
+%	Soient $X$ et $Y$ deux variables aléatoires indépendantes de même
+%	loi uniforme sur $[0,1]$. On note $m = \min (X,Y)$ et $M = \max (X,Y)$.
+%	\begin{enumerate}
+%		\item Déterminer la loi du vecteur aléatoire $(m,M)$.
+%		\item En déduire la loi de $m$ et celle de $M$.
+%		\item Les deux variables $m$ et $M$ sont-elles indépendantes ? Justifiez
+%		précisément. 
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}[Lois de variables aléatoires vectorielles]
+%	\begin{enumerate}
+%		\item  Soit $(X,Y)$ un couple aléatoire de densité
+%		$$f(x,y)=ke^{-\frac{x^2 + y^2}{2}}\1_{{\mathbb R}_+^2 \cup {\mathbb R}_-^2}(x,y).$$
+%		\begin{itemize}
+%			\item[a)]Déterminer $k$.
+%			\item[b)]Calculer les lois marginales de $X$ et de $Y$. Les v.a.r. $X$ et $Y$ sont-elles indépendantes ?
+%			\item[c)]Calculer $\text{Cov}(X,Y)$.	
+%			\item[d)]Déterminer les lois de $Z=X+Y$ et de $U=X-Y$ en fonction de
+%			$$\Psi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x e^{-\frac{t^2}{2}} dt .$$
+%		\end{itemize}
+%		\item Soit $(X,Y)$ un couple aléatoire de densité
+%		$$f(x,y)=a\min (1,\frac{1}{x^2},\frac{1}{y^6}).$$
+%		\begin{itemize}
+%		\item[a)]Déterminer $a$, puis calculer les lois marginales de $X$ et $Y$. $X$ et $Y$ sont-elles indépendantes ?
+%		\item[b)] $X$, $Y$, $(X,Y)$, $\min (|X|,|Y|)$ et $\min (X,Y)$ sont-elles intégrables ?
+%		\end{itemize}
+%		\item Soit $X,Y,Z$ des variables aléatoires réelles indépendantes de même loi $\text{Exp}(1)$.
+%		On pose $S=X+Y+Z$.
+%		\begin{itemize}
+%			\item[a)]Déterminer la loi du vecteur aléatoire $\displaystyle (\frac{X}{S},\frac{Y}{S},S)$.
+%			\item[b)]En déduire la loi de $S$, puis que la loi du vecteur $\displaystyle (\frac{X}{S},\frac{Y}{S})$
+%			est uniforme sur un domaine qu'on aura précisé.
+%			\item[c)]Que peut-on dire des variables $\displaystyle (\frac{X}{S},\frac{Y}{S})$ et $S$ ?
+%		\end{itemize}
+%	\end{enumerate}
+%\end{exo}
+
+
+
+%\begin{exo}
+%	Soit $U$ et $V$ deux v.a. indépendantes de loi uniforme sur $]-1/2;1/2[.$
+%	\begin{enumerate}
+%		\item Montrer que $X=U+V$ admet une densité que l'on calculera.
+%		\item Montrer que la fonction caractéristique de $X$ vaut 
+%		$$\varphi_X(u)= \frac{2(1- \cos u)}{u^2}.$$
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}
+%	Deux joueurs $A$ et $B$ jouent une suite de parties indépendantes. Lors de chacune d'elles, ils ont respectivement les probabilités $p$ pour $A$ et $q=1-p$ pour $B$ de gagner. Le vainqueur final est celui des deux joueurs qui le premier obtient 2 victoires de plus que son adversaire. Quelle est la probabilité que $A$ soit vainqueur.
+%\end{exo}
+
+
+%\begin{exo}
+%	{\bf Inégalité de Hoeffding}
+%	\begin{enumerate} 
+%		\item Préliminaire
+%		Soit $Y$ une v.a. centrée telle qu'il existe $c<d $ vérifiant ${\mathbb P}[ c \leq Y\leq d]=1.$
+%		\begin{enumerate}
+%			\item Montrer que $c\leq 0 \leq d.$
+%			\item Montrer que pour tout $s \in {\mathbb R}^+,$ en utilisant la convexité de $x \mapsto e^{sx}$ 
+%			$${\mathbb E}[e^{sY} ]\leq \frac{d}{d-c} e^{sc}+ \frac{-c}{d-c} e^{sd}= f(s).$$
+%			\item On pose $u= s(d-c),$ $\psi(u) =\ln f (s),$
+%			en utilisant un développement de Taylor Lagrange montrer que $\psi(u)\leq \frac{u^2}{8}.$
+%			\item En déduire que ${\mathbb E}[ e^{sY}] \leq e^{\frac{s^2(d-c)^2}{8}}.$
+%		\end{enumerate}
+%		\item Soient $(X_i)_{i=1}^n$ v.a. indépendantes telles que pour tout $k=1,...,n$ il existe $a_k \leq b_k$ deux nombres réels tels que 
+%		$$a_k \leq X_k \leq b_k.$$
+%		On note $S_n=X_1+...+X_n.$
+%		\begin{enumerate}
+%			\item Montrer que ${\mathbb P}[ S_n- {\mathbb E}[ S_n] \geq t] \leq {\mathbb E}[ e^{s( S_n- {\mathbb E}[ S_n] )-st}].$
+%			\item Montrer que ${\mathbb P}[ S_n- {\mathbb E}[ S_n] \geq t] \leq e^{-st + s^2\sum_{k=1}^n \frac{(b_k-a_k)^2}{8}}.$
+%			\item En optimisant en $s$ montrer que
+%			$${\mathbb P}[ S_n- {\mathbb E}[ S_n] \geq t]\leq e^{ -\frac{2t^2}{\sum_{k=1}^n (b_k-a_k)^2}}.$$
+%			\item Par la même méthode en déduire une majoration de ${\mathbb P}[ S_n- {\mathbb E}[ S_n] \leq -t].$
+%			\item En déduire une majoration de ${\mathbb P}[\left| S_n- {\mathbb E}[ S_n] \right|\geq t].$
+%			\item Comparer avec la majoration obtenue avec l'inégalité de Bienaymé-Tchebitchev
+%		\end{enumerate}
+%	\end{enumerate}
+%\end{exo}
+%
+%\begin{exo}
+%	
+%	Soient $U$ et $X=(X_1,...,X_n)$ deux v.a. indépendantes, $U$ à valeurs dans $\{1,....,n\}$ et $X$ ayant une densité par rapport à la mesure de lebesgue sur ${\mathbb R}^n.$ On note $X_U(\omega)= X_{U(\omega)}(\omega).$
+%	\begin{enumerate}
+%		\item Montrer que $X_U$ est une v.a.
+%		\item Montrer que $X_U$ admet une densité par rapport à la mesure de Lebesgue.
+%		\item Etudier le cas où $U$ suit une loi uniforme sur $\{1,...,n\}$ et les $X_i$ sont indépedantes de même loi.
+%	\end{enumerate}
+%\end{exo}
+
+%\begin{exo}\textbf{(Introduction à la convergence p.s.)}
+%On considère une suite $(Y_n)_{n\geq 0}$ de variables aléatoires sur
+%un espace probabilisé $(\Omega,\mathcal A,\mathbb{P})$ à valeurs dans
+%$({\mathbb R}^+,\cB ({\mathbb R}^+))$.
+%
+%\begin{enumerate}
+%
+%\item Montrer que si $\displaystyle \forall k \in {\mathbb N}^{\ast}, Y_k \leq \frac{1}{k^2}$   $\mathbb{P}$ p.s.,
+%alors $\displaystyle \sum_{k=1}^{+\infty} Y_k$ converge $\mathbb{P}$ p.s.
+%
+%\item On définit les ensembles $A_{m,n} = \{Y_0 + Y_1 + \cdots + Y_m \geq n\}$.\\
+%
+%Parmi les quatre évènements $\underset {n=0}{\overset
+%{+\infty}{\bigcap}}\underset {m=0}{\overset
+%{+\infty}{\bigcup}}A_{m,n}$, $\underset {m=0}{\overset
+%{+\infty}{\bigcap}}\underset {n=0}{\overset
+%{+\infty}{\bigcup}}A_{m,n}$, $\underset {n=0}{\overset
+%{+\infty}{\bigcup}}\underset {m=0}{\overset
+%{+\infty}{\bigcap}}A_{m,n}$, $\underset {m=0}{\overset
+%{+\infty}{\bigcup}}\underset {n=0}{\overset
+%{+\infty}{\bigcap}}A_{m,n}$, lequel correspond à l'évènement $\{\sum
+%Y_k$  diverge $\}$ ? A quoi correspondent les trois autres ?
+%
+%\item Montrer que si $\sum Y_k$ diverge $\mathbb{P}$ p.s., alors
+%$\forall n \in \mathbb N$, $\displaystyle \lim_{m\rightarrow
+%+\infty} \mathbb{P}(\{Y_0 + Y_1 + \cdots + Y_m \geq n\})= 1$.
+%\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo}\textbf{(Intervalle de confiance d'une proportion)}\\
+%	Pour modéliser le résultat d'un sondage ayant deux réponses (oui ou non) ou le lancé d'une 
+%	pièce par exemple, on considère sur $(\Omega, \cA)$, une famille $(\P_p)_{p \in [0,1]}$ de mesures de probabilité
+%	et une suite $(X_n)_n$ de v.a. telle que, pour chaque $p \in [0,1]$, sous la probabilité $\P_p$,
+%	$(X_n)_n$ est i.i.d. de loi $P_p$ de Bernoulli $B(1,p)$. Remarque : $(\Omega, \cA,(\P_p)_{p \in [0,1]})$
+%	est dit \emph{un modèle statistique}.
+%	
+%	$(X_1, \dots, X_n)$ est alors un $n$-échantillon de loi $B(1,p)$, avec $p$ inconnu, à estimer.
+%	\begin{enumerate}
+%		\item \label{majoration} Majorer $\P_p( |\bar{X}_n - p | \geq \varepsilon) $ à l'aide de l'inégalité de Bienaymé-Tchebychev.
+%		\item En utilisant en outre $\max_{p \in [0,1]} p(1-p) = 1/4$, montrer que, pour tout $\alpha \in ]0,1[$,
+%		$$
+%		\P_p \left(|\bar{X}_n - p | \geq \frac{1}{2 \sqrt{n \alpha}} \right) \leq \alpha.
+%		$$
+%		L'intervalle aléatoire $I_n \equiv \left]\bar{X}_n - \frac{1}{2 \sqrt{n \alpha}},  \bar{X}_n + \frac{1}{2 \sqrt{n \alpha}}\right[$
+%		satisfait alors 
+%		$$
+%		\P_p( p \in I_n ) \geq 1-\alpha.
+%		$$
+%		On dit que c'est un intervalle de confiance pour $p$ de risque $\alpha$. 
+%		\item \textbf{Question supplémentaire.} On va construire ici un intervalle de confiance plus précis, sans utiliser la majoration $p(1-p) \leq 1/4$. 
+%		Montrer que $ |\bar{X}_n - p | \geq \sqrt{\frac{p(1-p)}{n \alpha}}$ équivaut à $(n \alpha + 1) \, p^2 + (-2 \, n \alpha \, \bar{X}_n -1) \, p 
+%		+ n \alpha \bar{X}_n^2 \geq 0$ ou encore à $p \notin I_n = ]a_n, b_n[$ où $a_n$ et $b_n$ sont les racines (aléatoires)
+%		du trinôme précédent. En déduire que $I_n$ est un intervalle de confiance de $p$ de risque $\alpha$ et l'expliciter. 
+%	\end{enumerate}
+%\end{exo}
+
+
+%\begin{exo} \label{exo indep piles et faces}
+%	Soit $(X_n)_{n\geq1}$ une suite de variables al\'eatoires ind\'ependantes de loi de Bernoulli de paramètre $p \in \,]0,1[$.
+%	Soit $N$ une variable aléatoire de loi de Poisson de param\`etre $\lambda >0$, c'est-à-dire vérifiant
+%	\[
+%	\forall k \in \N, \quad \Pp{N=k} = \frac{\lambda^k}{k!} e^{-\lambda}.
+%	\]
+%	On suppose que $N$ est indépendante de $(X_n)_{n\geq1}$.
+%	On pose 
+%	\[
+%	P \coloneqq \sum_{i=1}^N X_i
+%	\quad \text{et} \quad 
+%	F \coloneqq N-P=\sum_{i=1}^N(1-X_i),
+%	\]
+%	avec $P=F=0$ sur $\{N=0\}$. Les variables al\'eatoires $P$ et $F$ repr\'esentent respectivement le nombre de piles et de faces dans un jeu de pile ou face de param\`etre $p$ \`a $N$ lancers.
+%	%%
+%	\begin{enumerate}
+%		\item D\'eterminer la loi du couple $(P,N)$.
+%		%%
+%		\item En d\'eduire les lois de $P$ et $F$ et montrer que $P$ et $F$ sont ind\'ependantes.
+%	\end{enumerate}
+%\end{exo}
+%
+%
+%\begin{comment}
+%\begin{enumerate}
+%\item On a $\P(P=0,N=0) = \P(N=0) = e^{-\lambda}$, et pour $n\geq1$ et $0\leq k\leq n$, 
+%\begin{align*}
+%\P(P=k,N=n) 
+%& = \P\left(N=n,\sum_{i=1}^nX_i=k\right)
+%= \P(N=n)\P\left(\sum_{i=1}^nX_i=k\right) 
+%= e^{-\lambda}\frac{\lambda^n}{n!} \binom{n}{k}p^k(1-p)^{n-k}\\ 
+%& = e^{-\lambda}\frac{(\lambda p)^k}{k!}\frac{(\lambda(1-p))^{n-k}}{(n-k)!}.
+%\end{align*}
+%%%
+%\item On a pour $k,l\geq0$, 
+%\[
+%\P(P=k,F=l)
+%=\P(P=k,N=k+l)
+%=\left(e^{-\lambda p}\frac{(\lambda p)^k}{k!}\right)
+%\left(e^{-\lambda(1-p)}\frac{(\lambda(1-p))^l}{l!}\right).
+%\] 
+%Donc les variables al\'eatoires $P$ et $F$ sont ind\'ependantes et de lois respectives les lois de Poisson de param\`etres $\lambda p$ et $\lambda(1-p)$. 
+%
+%\emph{Remarque.} On utilise en fait ici le petit résultat suivant. Soit $X$ et $Y$ deux variables aléatoires à valeurs respectivement dans des espaces dénombrables $I$ et $J$ telles que pour tous $i \in I$ et $j \in J$, on ait $\P(X=i,Y=j)=p_i q_j$. 
+%Alors $X$ et $Y$ sont indépendantes et on a, pour tout $i \in I$, $\P(X = i) = p_i/c$ où $c \coloneqq \sum_{i \in I} p_i$ et, pour tout $j \in J$, $\P(Y = j) = c q_j $. 
+%
+%Montrons ce résultat. Soit $j \in J$, on a
+%\[
+%\P(Y = j) 
+%= \sum_{i\in I} \P(X=i,Y=j) 
+%= \sum_{i\in I} p_i q_j
+%= q_j c.
+%\]
+%Comme $\sum_{j\in J} \P(Y=j) = 1$, on en déduit que $\sum_{j\in J} q_j = 1/c$
+%Puis de la même manière, on a, pour $i \in I$
+%\[
+%\P(X = i) 
+%= \sum_{j\in J} \P(X=i,Y=j) 
+%= p_i \sum_{j\in J} q_j
+%= p_i / c.
+%\]
+%Alors, l'hypothèse se réécrit $\P(X=i,Y=j)=\P(X=i) \P(Y=j)$ pour tous $i \in I$ et $j \in J$, ce qui montre l'indépendance entre $X$ et $Y$ (car on est sur un espace dénombrable donc les $P_{(X,Y)} (\{(i,j)\})$ caractérisent $P_{(X,Y)}$).
+%\end{enumerate}
+%\end{comment}
+%
+%
+%\begin{exo}
+%	Soit $(X_n)_{n\geq1}$ une suite de variables al\'eatoires r\'eelles ind\'ependantes  de même loi et $N$ une variable al\'eatoire \`a valeurs dans $\N$ ind\'ependante de la suite $(X_n)_{n\geq1}$. 
+%	Soit $f\colon \R\to\R_+$ une fonction mesurable. Montrer que
+%	\[
+%	\Ec{\sum_{i=1}^N f(X_i)} = \Ec{N} \Ec{f(X_1)},
+%	\]
+%	où l'on adopte la convention qu'une somme vide est nulle.
+%\end{exo}
+%
+%\begin{comment}
+%On a 
+%\begin{align*}
+%\Ec{\sum_{i=1}^N f(X_i)}
+%&=\Ec{\sum_{n\geq1}\1_{\{N=n\}}\sum_{i=1}^nf(X_i)}
+%=\sum_{n\geq1} \Ec{\1_{\{N=n\}}\sum_{i=1}^nf(X_i)} 
+%=\sum_{n\geq1} \P(N=n) \Ec{\sum_{i=1}^nf(X_i)}\\ 
+%&=\sum_{n\geq1} \P(N=n) n \Ec{f(X_1)}
+%=\E[N] \Ec{f(X_1)},
+%\end{align*} 
+%où l'on a utilisé que $N$ est indépendante de $(X_1,\dots,X_n)$.
+%\end{comment}
+\end{document}
