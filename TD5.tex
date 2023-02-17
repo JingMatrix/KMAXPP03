@@ -203,19 +203,117 @@ où l'on a utilisé Fubini--Tonelli, puis la définition de $g$ et finalement le
 %%%%%%
 
 
-\begin{exo}[Covariance et indépendance]
+\begin{exo}[Covariance et indépendance] Soit $X$ et $Y$ deux v.a. réelles.
 	\begin{enumerate}
-		\item Soit $X$ et $Y$ deux v.a. réelles ne pouvant prendre chacune que deux valeurs distinctes.
+        \item Pour $a_1,a_2,b_1,b_2 \in \R$, montrer que 
+        $\Cov(a_1X+a_2,b_1Y+b_2) = a_1 b_1 \Cov(X,Y)$.
+        %%
+		\item Supposons que $X$ et $Y$ ne peuvent prendre chacune que deux valeurs distinctes.
 		Montrer que $X$ et $Y$ sont indépendantes si et seulement si $\Cov(X,Y) = 0$.
 		
-		\emph{Indication.} Si $x_1,x_2$ sont les valeurs possibles de $X$ et $y_1,y_2$ les valeurs possibles de $Y$, on montrera que $\E[(X-x_i)(Y-y_j)] = \E[X-x_i] \E[Y-y_j]$ pour tous $i,j \in \{1,2\}$.
+		\emph{Indication.} On pourra montrer qu'il existe $a_1,b_1 \in \R^*$ et $a_2,b_2 \in \R$ tels que $a_1X+a_2$ et $b_1Y+b_2$ sont à valeurs dans $\{0,1\}$, puis vérifier que $X$ et $Y$ sont indépendantes ssi $a_1X+a_2$ et $b_1Y+b_2$ le sont.
 		%%
 		\item Soit $X$ une v.a. de loi $\cN(0,1)$. Montrer que $\Cov(X,X^2) = 0$. Qu'en conclure?
 	\end{enumerate}
 \end{exo}
 
 \begin{comment}
+\begin{enumerate}
+    \item On a 
+    \begin{align*}
+    \Cov(a_1X+a_2,b_1Y+b_2) 
+    & = \E[(a_1X+a_2-\E[a_1X+a_2])(b_1Y+b_2-\E[b_1Y+b_2])] \\
+    & = \E[(a_1X-\E[a_1X])(b_1Y-\E[b_1Y])] \\
+    & = a_1 a_2 \E[(X-\E[X])(Y-\E[Y])] \\
+    & = a_1 a_2 \Cov(X,Y).
+    \end{align*}
+    
+	\item Le fait que si $X$ et $Y$ sont indépendantes, alors $\Cov(X,Y) = 0$ est vrai en toute généralité et a été vu en cours.
 
+    
+	Montrons donc la réciproque dans le cas où $X \in \{x_1,x_2\}$ et $Y \in \{y_1,y_2\}$ avec $x_1 \neq x_2$ et $y_1 \neq y_2$.
+    Supposons que $\Cov(X,Y) = 0$, on veut montrer que $X$ et $Y$ sont indépendantes.
+    On cherche $a_1,a_2 \in \R$ tels que $a_1X+a_2 \in \{0,1\}$. Pour cela il suffit que
+    \[
+    \begin{cases}
+    a_1x_1+a_2 = 0 \\
+    a_1x_2+a_2 = 1
+    \end{cases}
+    \quad \Leftrightarrow \quad 
+    \begin{cases}
+    a_2 = -a_1x_1 \\
+    a_1(x_2-x_1) = 1
+    \end{cases}
+    \quad \Leftrightarrow \quad 
+    \begin{cases}
+    a_2 = -x_1(x_2-x_1)^{-1} \\
+    a_1 = (x_2-x_1)^{-1}
+    \end{cases}
+    \]
+    où l'on utilise que $x_2-x_1 \neq 0$. En outre, on a $a_1 \neq 0$.
+    De même, il existe $b_1 \in \R^*$, $b_2\in \R$ tels que $b_1 Y + b_2 \in \{0,1\}$.
+    On pose $X' = a_1X+a_2$ et $Y' = b_1 Y + b_2$.
+
+    Montrons que $X'$ et $Y'$ sont indépendantes. Notons d'abord que, par la question 1, $\Cov(X',Y') = a_1 b_1 \Cov(X,Y) = 0$.
+    Donc 
+    \[
+    \E[X'Y'] = \E[X'] \E[Y'].
+    \]
+    Posons $A = \{X'=1\}$ et $B = \{Y' = 1\}$. Alors $X' = \1_A$ (car $X' \in \{0,1\}$) et $Y' = \1_B$.
+    Donc $\E[X'] = \P(A)$, $\E[Y'] = \P(B)$ et $\E[X'Y'] = \E[\1_{A\cap B}] = \P(A \cap B)$. On a donc montré que 
+    \[
+    \P(A \cap B) = \P(A)\P(B)
+    \]
+    et ainsi $A$ et $B$ sont indépendants. Par l'exercice 4 du TD4 cela montre que $X'=\1_A$ et $Y'=\1_B$ sont indépendants.
+    Il en découle que $X = (X'-a_2)/a_1$ et $Y = (Y'-b_2)/b_1$ sont indépendants (en tant que fonctions mesurables de v.a. indépendantes).
+
+    
+%    \emph{Indication.} Si $x_1,x_2$ sont les valeurs possibles de $X$ et $y_1,y_2$ les valeurs possibles de $Y$, on montrera que $\E[(X-x_i)(Y-y_j)] = \E[X-x_i] \E[Y-y_j]$ pour tous $i,j \in \{1,2\}$.
+%   On a donc $\E[XY] = \E[X]\E[Y]$.
+%	Ainsi, pour tous $i,j \in \{1,2\}$,
+%	\begin{align*}
+%	\E[(X-x_i)(Y-y_j)] 
+%	& = \E[XY] - x_i \E[Y] -y_j \E[X] + x_i x_j \\
+%	& = \E[X]\E[Y] - x_i \E[Y] -y_j \E[X] + x_i x_j \\
+%	& = (\E[X]-x_i)(\E[Y] -y_j) \\
+%	& = \E[X-x_i] \E[Y-y_j].
+%	\end{align*}
+%	Comme $X-x_1 = (x_2-x_1) \1_{\{X=x_2\}}$, on a $\E[X-x_1] = (x_2-x_1) \P(X=x_2)$. De même $\E[Y-y_1] = (y_2-y_1) \P(Y=y_2)$.
+%	De plus, $(X-x_1)(Y-y_1) = (x_2-x_1)(y_2-y_1) \1_{\{X=x_2,Y=y_2\}}$,
+%	donc
+%	\[
+%	\E[(X-x_1)(Y-y_1)] = (x_2-x_1)(y_2-y_1) \P(X=x_2,Y=y_2).
+%	\]
+%	Ainsi, la formule montrée précédemment implique que
+%	\[
+%	\P(X=x_2,Y=y_2) = \P(X=x_2) \P(Y=y_2).
+%	\]
+%	Comme $x_1$ et $x_2$ jouent le même rôle on peut remplacer $x_2$ par $x_1$ dans la formule ci-dessus. De même on peut remplacer $y_2$ par $y_1$.
+%	Ainsi on a
+%	\[
+%	\forall i,j \in \{1,2\}, \P(X=x_i,Y=y_j) = \P(X=x_i) \P(Y=y_j),
+%	\]
+%	ce qui montre que $X$ et $Y$ sont indépendantes.
+	%%
+    \item On a
+	\[
+	\Cov(X,X^2) = \Ec{X \cdot X^2} - \Ec{X} \cdot \Ec{X^2} = 0 - 0 \cdot 1 = 0,
+	\]
+	où l'on a utilisé
+	\[
+	\Ec{X^3} = \int_\R x^3 \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x = 0
+	\]
+	par imparité de la fonction intégrée.
+	
+	On en conclut qu'en général avoir une covariance nulle n'implique pas l'indépendance. En effet, $X$ et $X^2$ ne sont pas indépendantes : si c'était le cas, on aurait $X^2$ et $X^2$ indépendantes (en appliquant la fonction carré à $X$) et donc
+	\[
+		\P(X^2 < 1,X^2< 1) = \P(X^2 < 1) \P(X^2< 1) = \P(X^2 < 1)^2,
+	\]
+	ce qui implique $\P(X^2 < 1) \in \{0,1\}$ ce qui n'est pas vrai:
+	\[
+	0 < \P(X^2< 1) = \int_{-1}^1 \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x < \int_\R \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x = 1.
+	\]
+\end{enumerate}
 \end{comment}
 
 
@@ -226,7 +324,9 @@ où l'on a utilisé Fubini--Tonelli, puis la définition de $g$ et finalement le
 \begin{exo}[Méthode de Box-Muller de simulation des gaussiennes]
 	\begin{enumerate}
 		\item Soit $U$ une v.a. uniforme sur $[0,1]$. Pour $\lambda > 0$, déterminer la loi de $-\frac{1}{\lambda} \ln U$.
-		\item Soit $\Theta$ une v.a. uniforme sur $[0,2\pi]$ et $Z$ une v.a. de loi exponentielle de paramètre 1/2. Déterminer la loi de $(\sqrt{Z} \cos \Theta, \sqrt{Z} \sin \Theta)$.
+		\item Soit $\Theta$ une v.a. uniforme sur $[0,2\pi]$ et $Z$ une v.a. de loi exponentielle de paramètre 1/2. 
+        On suppose que $Z$ et $\theta$ sont indépendantes.
+        Déterminer la loi de $(\sqrt{Z} \cos \Theta, \sqrt{Z} \sin \Theta)$.
 		\item En déduire une méthode pour simuler deux v.a. indépendantes de loi gaussienne standard à partir de deux v.a. $U_1$ et $U_2$ indépendantes de loi uniforme sur $[0,1]$.
 	\end{enumerate}
 \end{exo}
@@ -242,7 +342,7 @@ où l'on a utilisé Fubini--Tonelli, puis la définition de $g$ et finalement le
 f(\sqrt{z}\cos\theta,\sqrt{z}\sin\theta)e^{-z/2}\diff z\diff \theta \\ 
 &=\frac{1}{2\pi}\int_0^{2\pi} \int_0^\infty f(r\cos\theta,r\sin\theta)e^{-r^2/2}r\diff z\diff \theta,
 \end{align*}
-en utilisant le changement de varibale $z \mapsto r=z^2$.
+en utilisant le changement de variable $z \mapsto r=z^2$.
 Puis d'apr\`es la formule du passage en coordonn\'ees polaires, on a 
 \[
 \frac{1}{2\pi}\int_0^\infty\int_0^{2\pi}f(r\cos\theta,r\sin\theta)e^{-r^2/2}r\diff r\diff \theta
@@ -289,7 +389,26 @@ sont des v.a. indépendantes de loi gaussienne standard par la question 2.
 \end{exo}
 
 \begin{comment}
-
+\begin{enumerate}
+\item Soit $X$ de loi exponentielle de paramètre $\lambda > 0$. On a, pour $a \geq 0$,
+\[
+F_X(a) = \int_0^a \lambda e^{-\lambda x} \diff x = 1 - e^{-\lambda a}
+\]
+et, pour $a < 0$, $F_X(a) = 0$. Donc $F_X(a) = (1 - e^{-\lambda a}) \1_{a \geq 0}$.
+%%
+\item Soit $Y = \min(X_1,\dots,X_n)$. Pour $a \geq 0$,
+\begin{align*}
+F_Y(a) 
+& = \P(\min(X_1,\dots,X_n) \leq a) \\
+& = 1-\P(\min(X_1,\dots,X_n)>a) \\
+& = 1-\P(X_1>a,\dots,X_n>a) \\
+& = 1-\P(X_1>a) \cdots \P(X_n>a) \\
+& = 1- e^{-\lambda_1 a} \cdots e^{-\lambda_n a} \\
+& = 1 - e^{-(\lambda_1+\dots+\lambda_n) a}
+\end{align*}
+et, pour $a < 0$, $F_Y(a) = 0$ car $Y > 0$ p.s.
+Donc $F_Y$ est la fonction de répartition de la loi exponentielle de paramètre $\lambda_1+\dots+\lambda_n$. Donc $Y$ suit la loi exponentielle de paramètre $\lambda_1+\dots+\lambda_n$.
+\end{enumerate}
 \end{comment}
 
 
@@ -305,6 +424,89 @@ sont des v.a. indépendantes de loi gaussienne standard par la question 2.
 		\item $\displaystyle P_{(X,Y)} = \sum_{k,\ell \in \N} \frac{1}{2} e^{-2} \frac{2^{k-\ell}}{k!} \delta_{(k,\ell)}$.
 	\end{enumerate}
 \end{exo}
+
+\begin{comment}
+    \begin{enumerate}
+        \item On remarque que $(X,Y)$ est continue et sa densité se factorise ainsi :
+        \[
+            p_{(X,Y)}(x,y) 
+            = \frac{1}{4\pi} (1+2x)(2+y)e^{-(x^2+y^2)/2}
+            = \left( \frac{1}{4\pi} (1+2x)e^{-x^2/2} \right) 
+            \left( (2+y)e^{-y^2/2} \right).
+        \]
+        Par le résultat vu en cours, cela montre que $X$ et $Y$ sont indépendantes. Pour trouver les lois marginales il faut trouver comment répartir le facteur constant. Pour cela on calcule
+        \[
+        \int_\R (1+2x)e^{-x^2/2} \diff x 
+        = \int_\R e^{-x^2/2} \diff x + \int_\R 2xe^{-x^2/2} \diff x
+        = \sqrt{2 \pi} + 0,
+        \]
+        où l'on a utilisé dans la 2ème intégrale que la fonction intégrée est impaire.
+        On en déduit que la factorisation normalisée est
+        \[
+            p_{(X,Y)}(x,y) 
+            = \left( \frac{1}{\sqrt{2 \pi}} (1+2x)e^{-x^2/2} \right) 
+            \left( \frac{1}{2\sqrt{2 \pi}}(2+y)e^{-y^2/2} \right).
+        \]
+        Donc les densités de $X$ et $Y$ sont
+        \[
+            p_X(x) 
+            = \frac{1}{\sqrt{2 \pi}} (1+2x)e^{-x^2/2} 
+            \qquad \text{et} \qquad 
+            p_Y(y) = \frac{1}{2\sqrt{2 \pi}}(2+y)e^{-y^2/2}.
+        \]
+        %%
+        \item Il ne semble pas possible de factoriser la densité de $(X,Y)$. Montrons que $X$ et $Y$ ne sont pas indépendantes.
+    
+        \emph{Méthode 1.} On remarque que
+        \[
+            \P(X>1,Y<1) = 0,
+        \]
+        car $X<Y$ p.s.
+        Mais
+        \[
+            \P(X>1) = \int_{\R^2} \1_{x>1} \diff P_{(X,Y)}(x,y)
+            = \int_1^\infty \left( \int_x^\infty e^{-y} \diff y \right) \diff x
+            > 0
+        \]
+        et 
+        \[
+            \P(Y<1) = \int_{\R^2} \1_{x>1} \diff P_{(X,Y)}(x,y)
+            = \int_0^1  \left( \int_0^y \diff x \right) \diff y
+            > 0.
+        \]
+        Donc $\P(X>1,Y<1) \neq \P(X>1)\P(Y<1)$.
+
+        \emph{Méthode 2.} On peut calculer les densités marginales $p_X$ et $p_Y$ et vérifier que $p_{(X,Y)}(x,y) \neq p_X(x) p_Y(y)$ sur une partie de $\R^2$ de mesure de Lesbesgue non-nulle.
+        %%
+        \item Si $X$ et $Y$ étaient indépendantes alors on aurait 
+        \[
+        \forall k,\ell \in \N, \qquad \P(X=k,Y=\ell) = \P(X=k)\P(Y=\ell).
+        \]
+        Mais on a 
+        \[
+        \P(X=k,Y=\ell) = P_{(X,Y)}(\{(k,\ell)\}) = \frac{1}{2} e^{-2}(e-1)^3 (k+\ell) e^{-(k+\ell)},
+        \]
+        qui ne semble pas possible de factoriser comme le produit de quelque chose qui ne dépend que de $k$, fois quelque chose qui ne dépend que de $\ell$. Montrons donc que $X$ et $Y$ ne sont pas indépendantes.
+
+        On va par exemple vérifier que 
+        \[
+        \P(X=0,Y=0) \neq \P(X=0) \P(Y=0).
+        \]
+        En effet, on a
+        \[
+        \P(X=0,Y=0) = \frac{1}{2} e^{-2}(e-1)^3 (0+0) e^{-(0+0)} = 0,
+        \]
+        mais 
+        \[
+        \P(X=0) = \sum_{\ell \in \N} \P(X=0,Y=\ell)
+        = \sum_{\ell \in \N} \frac{1}{2} e^{-2}(e-1)^3 \ell e^{-\ell} 
+        > 0
+        \]
+        et de même $\P(Y=0)>0$.
+    \end{enumerate}
+\end{comment}
+
+
 
 %%%%%%
 \separationexos
@@ -364,20 +566,54 @@ Il suffit de prendre $(\Omega,\cA,\P) = (\R^2,\cB(\R^2),\mu\otimes\nu)$, $X \col
 	\end{enumerate}
 \end{exo}
 
+
+
 %%%%%%
 \separationexos
 %%%%%%
 
-\begin{exo} Sur un espace de probabilit\'e $(\Omega,\cA,\P)$, on se donne $X_1,\dots,X_n$ des variables al\'eatoires indépendantes uniformes sur $[0,1]$. 
+
+
+\begin{exo}[Convolution de mesures finies]
+	Soit $\mu,\nu$ des mesures finies sur $(\R,\cB(\R))$. 
+	La \emph{convolution} de $\mu$ et de $\nu$, not\'ee $\mu *\nu$, est %la mesure image de $\mu \otimes\nu$ par l'application $(x,y)\in \R^n \times \R^n \mapsto x+y$, c'est-\`a-dire que 
+	la mesure sur $(\R,\cB(\R))$ définie par : pour toute fonction mesurable positive $f$ sur $\R$, 
+	\[
+	\int_{\R} f \diff (\mu*\nu) \coloneqq \int_{\R}\int_{\R} f(x+y) \diff\mu(x)\diff\nu(y).
+	\]
+	\begin{enumerate}
+		\item Montrer que $\mu*\nu$ est bien définie et que c'est une mesure finie, dont on explicitera la masse totale.
+		%%
+		\item Soit $\mu,\nu,\rho$ trois mesures finies sur $(\R,\cB(\R))$. 
+		Montrer les points suivants 
+		\begin{enumerate}
+			\item $\mu* \delta_0 = \mu$;
+			%%
+			\item $\mu*\nu = \nu *\mu$;
+			%%
+			\item $(\mu*\nu)*\rho = \mu*(\nu*\rho)$.
+		\end{enumerate}
+		%%
+		\item \DSB{(Convolution et indépendance)}~
+		Soit $X$ et $Y$ des v.a. réelles indépendantes. Montrer que la loi de $X+Y$ est $P_X * P_Y$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Statistique d'ordre]
+    Sur un espace de probabilit\'e $(\Omega,\cA,\P)$, on se donne $X_1,\dots,X_n$ des v.a. indépendantes de loi uniforme sur $[0,1]$. 
+    Notons $\cS_n$ le groupe des permutations de $\llbracket 1,n \rrbracket$.
 	%%
 	\begin{enumerate}
-		\item Construire, à l'aide des événements $A_\sigma=\{X_{\sigma_1}<\dots<X_{\sigma_n}\}$ pour $\sigma\in \cS_n$, $n$ variables al\'eatoires $Y_1,\dots,Y_n$ sur $(\Omega,\cA,\P)$ telles que 
+		\item Construire, à l'aide des événements $A_\sigma=\{X_{\sigma_1}<\dots<X_{\sigma_n}\}$ pour $\sigma\in \cS_n$, $n$ variables al\'eatoires $Y_1,\dots,Y_n$ sur $(\Omega,\cA,\P)$ telles que, pour presque tout $\omega\in\Omega$,
 		\[
 		Y_1(\omega) \leq \dots \leq Y_n(\omega)
 		\quad \text{et} \quad
-		\{Y_1(\omega),\dots,Y_n(\omega)\}=\{X_1(\omega),\dots,X_n(\omega)\}
+		\{Y_1(\omega),\dots,Y_n(\omega)\}=\{X_1(\omega),\dots,X_n(\omega)\}.
 		\]
-		pour presque tout $\omega\in\Omega$. 
 		%%
 		\item D\'eterminer les lois des variables al\'eatoires $(Y_1,\dots,Y_n)$ et $(Y_1/Y_2,\dots,Y_{n-1}/Y_n)$. 
 	\end{enumerate}
@@ -427,39 +663,6 @@ Donc la loi de $(Y_1/Y_2,\dots,Y_{n-1}/Y_n)$ est
 \emph{Remarque.} Les variables aléatoires $Y_1/Y_2,\dots,Y_{n-1}/Y_n$ sont ind\'ependantes, et chaque $Y_i/Y_{i+1}$ a pour loi $iy^{i-1}\1_{]0,1[}(y) \diff y$.
 \end{enumerate}
 \end{comment}
-
-
-%%%%%%
-\separationexos
-%%%%%%
-
-
-
-\begin{exo}[Convolution de mesures finies]
-	Soit $\mu,\nu$ des mesures finies sur $(\R,\cB(\R))$. 
-	La \emph{convolution} de $\mu$ et de $\nu$, not\'ee $\mu *\nu$, est %la mesure image de $\mu \otimes\nu$ par l'application $(x,y)\in \R^n \times \R^n \mapsto x+y$, c'est-\`a-dire que 
-	la mesure sur $(\R,\cB(\R))$ définie par : pour toute fonction mesurable positive $f$ sur $\R$, 
-	\[
-	\int_{\R} f \diff (\mu*\nu) \coloneqq \int_{\R}\int_{\R} f(x+y) \diff\mu(x)\diff\nu(y).
-	\]
-	\begin{enumerate}
-		\item Montrer que $\mu*\nu$ est bien définie et que c'est une mesure finie, dont on explicitera la masse totale.
-		%%
-		\item Soit $\mu,\nu,\rho$ trois mesures finies sur $(\R,\cB(\R))$. 
-		Montrer les points suivants 
-		\begin{enumerate}
-			\item $\mu* \delta_0 = \mu$;
-			%%
-			\item $\mu*\nu = \nu *\mu$;
-			%%
-			\item $(\mu*\nu)*\rho = \mu*(\nu*\rho)$.
-		\end{enumerate}
-		%%
-		\item \DSB{(Convolution et indépendance)}~
-		Soit $X$ et $Y$ des v.a. réelles indépendantes. Montrer que la loi de $X+Y$ est $P_X * P_Y$.
-	\end{enumerate}
-\end{exo}
-
 
 
 %\begin{exo}
