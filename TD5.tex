@@ -503,6 +503,29 @@ Donc $F_Y$ est la fonction de répartition de la loi exponentielle de paramètre
         > 0
         \]
         et de même $\P(Y=0)>0$.
+        %%
+        \item On remarque que l'on peut factoriser 
+        \[
+        \P(X=k,Y=\ell) = P_{(X,Y)}(\{(k,\ell)\}) 
+        = e^{-2} \frac{2^{k}}{k!} \cdot \frac{1}{2} 2^{-\ell}
+        \]
+		en terme d'une fonction de $k$ et d'une fonction de $\ell$ (où l'on a réparti les constante afin de normaliser chaque partie).
+		Montrons qu'on peut en déduire l'indépendance de $X$ et $Y$ (puisqu'on n'a pas vu en cours un critère équivalent à celui pour les v.a. continues).
+		Pour récupérer la loi de $X$, on écrit la disjonction de cas suivante :
+		\[
+		\P(X=k) = \sum_{\ell=0}^\infty \P(X=k,Y=\ell) 
+		= e^{-2} \frac{2^{k}}{k!} \sum_{\ell=0}^\infty \frac{1}{2} 2^{-\ell}
+		= e^{-2} \frac{2^{k}}{k!},
+		\]
+		donc $X$ suit une loi de Poisson de paramètre 2.
+		De même,
+		\[
+		\P(Y=\ell) = \sum_{k=0}^\infty \P(X=k,Y=\ell) 
+		= \frac{1}{2} 2^{-\ell} \sum_{k=0}^\infty e^{-2} \frac{2^{k}}{k!}
+		= \frac{1}{2} 2^{-\ell},
+		\]
+		donc $Y$ suit une loi géométrique de paramètre $1/2$.
+		En outre, on a bien $\P(X=k,Y=\ell) = \P(X=k)\P(Y=\ell)$ pour tous $k,\ell \in \N$, ce qui montre l'indépendance de $X$ et $Y$.
     \end{enumerate}
 \end{comment}
 
