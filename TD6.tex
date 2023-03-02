@@ -1,0 +1,576 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 6 -- Inégalités de concentration et intervalles de confiance}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Inégalités}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Inégalité de Jensen]
+	Soit $X$ une v.a. réelle telle que $\E[\abs{x}]< \infty$. 
+	Soit $\varphi \colon \R \to \R_+$ une fonction convexe.
+	Montrer que 
+	\[
+		\Ec{\varphi(X)} \geq \varphi(\E[X]).
+	\]
+	Pour cela, on utilisera qu'une fonction convexe est égale au supremum de toutes les fonctions affines qui lui sont inférieures :
+	\[
+		\forall x \in \R, \quad \varphi(x) = \sup_{(a,b) \in \cE_\varphi} (ax+b),
+	\]
+	où $\cE_\varphi = \{ (a,b) \in \R^2 : \forall x \in \R, \varphi(x) \geq ax+b\}$.
+\end{exo}
+
+
+\begin{comment}
+	Soit $(a,b) \in \cE_\varphi$. On a $\varphi(x) \geq ax+b$ pour tout $x \in \R$, donc
+	\[
+	\Ec{\varphi(X)} \geq \E[aX+b] = a \E[X] + b.
+	\]
+	En prenant le supremum sur tout $(a,b) \in \cE_\varphi$, on obtient
+	\[
+	\Ec{\varphi(X)} \geq \sup_{(a,b) \in \cE_\varphi} a \E[X] + b = \varphi(\E[X]).
+	\]
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X_1,\dots,X_n \in L^2(\Omega,\cA,\P)$ des v.a. indépendantes.
+	Soit $\beta > 0$.
+	Pour $k \in \llbracket 1,n \rrbracket$, supposons que $\E[X_k] = 0$ et $\Var(X_k) = k^{\beta}$. 
+	\begin{enumerate}
+		\item Montrer que, pour tout $\varepsilon > 0$, 
+		\[
+		\Pp{ \abs{\frac{X_1 + \dots + X_n}{n}} \geq \varepsilon}
+		\leq \frac{n^{\beta-1}}{\varepsilon^2}.
+		\]
+		\item Pour quels $\beta$ peut-on dire que la moyenne empirique $(X_1 + \dots + X_n)/n$ se concentre en 0 quand $n \to \infty$?
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $\overline{X} = (X_1 + \dots + X_n)/n$. 
+On a $\E[\overline{X}] = (\E[X_1] + \dots + \E[X_n])/n = 0$. Donc par l'inégalité de Bienaymé--Chebychev,
+\[
+\Pp{ \abs{\frac{X_1 + \dots + X_n}{n}} \geq \varepsilon}
+= \Pp{ \abs{\overline{X}- \E[\overline{X}]} \geq \varepsilon}
+\leq \frac{\Var(\overline{X})}{\varepsilon^2}.
+\]
+Puis on a, par indépendance de $X_1,\dots,X_n$
+\[
+	\Var(\overline{X}) = \frac{1}{n^2} \sum_{k=1}^{n} \Var(X_k) 
+	= \frac{1}{n^2} \sum_{k=1}^{n} k^{\beta} 
+	\leq \frac{1}{n^2} \cdot n \cdot n^{\beta} = n^{\beta-1}.
+\]
+On en déduit l'inégalité demandée.
+%%
+\item Pour $\beta<1$ on dire que la moyenne empirique se concentre en 0 car pour tout $\varepsilon > 0$,  
+\[
+\Pp{ \abs{\frac{X_1 + \dots + X_n}{n}} \geq \varepsilon}
+\xrightarrow[n \to \infty]{ }0.
+\]
+\end{enumerate}
+\end{comment}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Intervalles de confiance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}[Confiance exacte en les lois normales]
+	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in\R}$, où $P_\theta = \cN(\theta,1)$. Soit $\alpha \in {]}0,1{[}$. 
+	\begin{enumerate}
+		\item Si $X_1,\dots,X_n$ sont de loi $P_\theta$, montrer que $X_1 + \dots + X_n$ a la même loi que $\sqrt{n}Z+n\theta$ où $Z$ est une v.a. de loi $\cN(0,1)$.
+		%%
+		\item En déduire un intervalle de confiance $I$ pour $\theta$ de niveau \textit{exactement} $1-\alpha$, i.e. tel que, si $X_1,\dots,X_n$ ont loi $P_\theta$, alors
+		\[
+		\P(\theta \in I) = 1-\alpha.
+		\]
+		On exprimera cet intervalle en utilisant $\Phi^{-1}$, où $\Phi$ est la fonction de répartition de la loi $\cN(0,1)$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Cela se montre en calculant la fonction caractéristique.
+	%%
+	\item Supposons que $X_1,\dots,X_n$ sont de loi $P_\theta$.
+	Soit $\overline{X} = (X_1 + \dots + X_n)/n$. Par la question 1, $\overline{X}$ a la même loi que 
+	\[
+		\frac{\sqrt{n}Z+n\theta}{n} 
+		= \frac{Z}{\sqrt{n}}  + \theta
+	\]
+	et donc, pour tout $\varepsilon > 0$,
+	\[
+	\Pp{\abs{\overline{X} - \theta} > \varepsilon}
+	= \Pp{\abs{\frac{Z}{\sqrt{n}}} > \varepsilon}
+	= \Pp{\abs{Z} > \varepsilon \sqrt{n}}
+	= \Pp{Z > \varepsilon \sqrt{n}} + \Pp{Z > -\varepsilon \sqrt{n}}
+	= 2 \Pp{Z > \varepsilon \sqrt{n}},
+	\]
+	par symétrie de $Z$ (la densité de $Z$ est une fonction paire).
+	On a alors 
+	\[
+	\Pp{Z > \varepsilon \sqrt{n}} 
+	= 1 - \Pp{Z \leq \varepsilon \sqrt{n}} 
+	= 1 - \Phi(\varepsilon \sqrt{n}).
+	\]
+	On a donc 
+	\[
+	\Pp{\abs{\overline{X} - \theta} \geq \varepsilon}
+	= 2 \left( 1 - \Phi(\varepsilon \sqrt{n}) \right).
+	\]
+	Ainsi
+	\[
+	\Pp{\theta \in \left[ \overline{X}-\varepsilon,\overline{X}+\varepsilon \right]}
+	= 1 - 2 \left( 1 - \Phi(\varepsilon \sqrt{n}) \right).
+	\]
+	On veut donc choisir $\varepsilon$ tel que 
+	\[
+	2 \left( 1 - \Phi(\varepsilon \sqrt{n}) \right) = \alpha 
+	\quad \Leftrightarrow \quad 
+	\Phi(\varepsilon \sqrt{n}) = 1 - \frac{\alpha}{2}
+	\quad \Leftrightarrow \quad
+	\varepsilon = \frac{1}{\sqrt{n}} \Phi^{-1} \left( 1 - \frac{\alpha}{2} \right).
+	\]
+	On a donc l'intervalle 
+	\[
+		I = \left[ \overline{X} - \frac{1}{\sqrt{n}} \Phi^{-1} \left( 1 - \frac{\alpha}{2} \right),\overline{X} + \frac{1}{\sqrt{n}} \Phi^{-1} \left( 1 - \frac{\alpha}{2} \right) \right].
+	\]
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Lois uniformes]
+	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in [0,2]}$, où $P_\theta$ est la loi uniforme sur $[0,\theta]$.
+	Soit $\alpha \in {]}0,1{[}$. 
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Construire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$ en utilisant l'inégalité de Bienaymé--Chebychev.
+			%%
+			\item Construire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$ en utilisant l'inégalité de Hoeffding.
+			%%
+			\item Déterminer pour quelles valeurs de $\alpha$ le second intervalle de confiance est meilleur que le premier.
+		\end{enumerate}
+		%%
+		\item Soit $M_n = \max(X_1,\dots,X_n)$. 
+		\begin{enumerate}
+			\item Si $X_1,\dots,X_n$ sont de loi $P_\theta$, calculer $\P(M_n \in [\theta - \varepsilon,\theta])$ pour $\varepsilon > 0$.
+			%%
+			\item En déduire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+			%%
+			\item Le comparer aux intervalles de confiance précédents dans le régime où $\alpha$ est fixé et $n \to \infty$.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+
+\begin{enumerate}
+	\item 
+	\begin{enumerate}
+		\item Soit $\theta \in [0,2]$. Supposons que $X_1,\dots,X_n$ sont de loi $P_\theta$.
+		On a alors $\E[X_1] = \theta/2$ et 
+		\[
+			\E[X_1^2] = \int_0^\theta x^2 \frac{1}{\theta} \diff x = \frac{\theta^2}{3},
+		\]
+		donc $\Var(X_1) = \theta^2/12$.
+		Ainsi, par l'inégalité de Bienaymé--Chebychev, pour tout $\varepsilon > 0$, 
+		\[
+		\Pp{ \abs{\frac{X_1 + \dots + X_n}{n} - \frac{\theta}{2}} \geq \varepsilon}
+		\leq \frac{\Var(X_1)}{n \varepsilon^2}
+		\leq \frac{1}{3 n \varepsilon^2},
+		\]
+		où l'on a borné $\theta^2 \leq 4$ pour avoir une borne qui ne dépend pas de $\theta$.
+		En posant $\overline{X} = (X_1 + \dots + X_n)/n$, on en déduit que
+		\[
+		\Pp{\theta \in \left[2\overline{X}-2\varepsilon,2\overline{X}+2\varepsilon\right]}
+		= \Pp{\abs{\overline{X} - \frac{\theta}{2}} \leq \varepsilon}
+		\geq 1 - \frac{1}{3 n \varepsilon^2}.
+		\]
+		pour avoir un intervalle de confiance de niveau $1-\alpha$, on choisit donc $\varepsilon$ tel que 
+		\[
+			\frac{1}{3 n \varepsilon^2} = \alpha 
+			\quad \Leftrightarrow \quad 
+			\varepsilon = \frac{1}{\sqrt{3n\alpha}}.
+		\]
+		Donc
+		\[ 
+		\left[2\overline{X}-\frac{2}{\sqrt{3n\alpha}},2\overline{X}+\frac{2}{\sqrt{3n\alpha}}\right]
+		\]
+		est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+		%%
+		\item Soit $\theta \in [0,2]$. Supposons que $X_1,\dots,X_n$ sont de loi $P_\theta$. Alors, par l'inégalité de Hoeffding,
+		\[
+		\Pp{ \abs{\overline{X} - \frac{\theta}{2}} \geq \varepsilon}
+		\leq 2 \exp \left( - \frac{2 \varepsilon^2 n}{\theta^2} \right)
+		\leq 2 \exp \left( - \frac{\varepsilon^2 n}{2} \right),
+		\]
+		où l'on a borné $\theta^2 \leq 4$.
+		Ainsi
+		\[
+		\Pp{\theta \in \left[2\overline{X}-2\varepsilon,2\overline{X}+2\varepsilon\right]}
+		\geq 1 - 2 \exp \left( - \frac{\varepsilon^2 n}{2} \right)
+		\]
+		et on choisit $\varepsilon$ tel que 
+		\[
+		2 \exp \left( - \frac{\varepsilon^2 n}{2} \right) = \alpha 
+		\quad \Leftrightarrow \quad 
+		\varepsilon = \sqrt{\frac{2 \log(2/\alpha)}{n}}.
+		\]
+		Donc
+		\[ 
+		\left[ 2\overline{X}-2\sqrt{\frac{2 \log(2/\alpha)}{n}},
+		2\overline{X}+2\sqrt{\frac{2 \log(2/\alpha)}{n}} \right]
+		\]
+		est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+		%%
+		\item Remarquons tout d'abord que la longueur de l'intervalle est proportionnelle à $1/\sqrt{n}$ dans les deux cas.
+		Le second intervalle de confiance est strictement meilleur que le premier ssi
+		\[
+		\sqrt{2 \log(2/\alpha)} < \frac{1}{\sqrt{3\alpha}}
+		\quad \Leftrightarrow \quad 
+		6 \alpha \log(2/\alpha) < 1
+		\quad \Leftrightarrow \quad 
+		\alpha < \alpha_0,
+		\]
+		où $\alpha_0$ est l'unique solution dans $[0,1]$ de l'équation $6 \alpha \log(2/\alpha) = 1$. On a $\alpha_0 \simeq 0.0435504\dots$
+	\end{enumerate}
+	%%
+	\item Soit $M_n = \max(X_1,\dots,X_n)$. 
+	\begin{enumerate}
+		\item On a 
+		\[
+		\P(M_n \in [\theta - \varepsilon,\theta])
+		= 1 - \P(M_n < \theta - \varepsilon) 
+		= 1 - \left( \frac{\theta-\varepsilon}{\theta} \right)^n
+		= 1 - \left( 1 - \frac{\varepsilon}{\theta} \right)^n,
+		\]
+		en utilisant l'indépendance de $X_1,\dots,X_n$ (voir le DM1 pour les détails !).
+		%%
+		\item Par la question précédente,
+		\[
+		\P(\theta \in [M_n,M_n+\varepsilon])
+		= \P(M_n \in [\theta - \varepsilon,\theta])
+		= 1 - \left( 1 - \frac{\varepsilon}{\theta} \right)^n
+		\geq 1 - \left( 1 - \frac{\varepsilon}{2} \right)^n.
+		\]
+		Donc, il suffit de choisir $\varepsilon$ tel que
+		\[
+		\left( 1 - \frac{\varepsilon}{2} \right)^n = \alpha 
+		\quad \Leftrightarrow \quad 
+		\varepsilon = 2 \left( 1- \alpha^{1/n} \right).
+		\]
+		Donc
+		\[ 
+		\left[ M_n,M_n+ 2 \left( 1- \alpha^{1/n} \right) \right]
+		\]
+		est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+		%%
+		\item Fixons $\alpha$. La longueur de cet intervalle, quand $n \to \infty$, se comporte ainsi
+		\[
+		2 \left( 1- \alpha^{1/n} \right) 
+		= 2 \left( 1- \exp \left( \frac{1}{n} \log \alpha \right) \right)
+		\sim 2 \cdot \left( - \frac{1}{n} \log \alpha \right)
+		= \frac{2 \log (1/\alpha)}{n}.
+		\]
+		La longueur décroît donc en $1/n$ alors que pour les intervalles de confiance précédents elle décroît en $1/\sqrt{n}$. On a donc fait mieux pour $n$ suffisamment grand!
+		
+		Dans les premières questions, on utilise la moyenne empirique pour estimer $\theta/2$ et dans ce cas on ne peut pas obtenir mieux que $1/\sqrt{n}$ pour la longueur de l'intervalle de confiance car, par le théorème central limite (qu'on verra plus tard), $1/\sqrt{n}$ est l'ordre des fluctuations typiques de la moyenne empirique autour de $\theta/2$. Il se trouve qu'on a trouvé une autre manière d'estimer, le maximum $M_n$ qui lui ne fluctue qu'à l'échelle $1/n$ autour de $\theta$, il permet donc de construire un intervalle de confiance plus précis.
+	\end{enumerate}
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Concentration avec un moment d'ordre 4]
+	\begin{enumerate}
+		\item Soit $X \in L^4(\Omega,\cA,\P)$. Montrer que, pour tout $a > 0$,
+		\[
+		\P(\abs{X-\E[X]} \geq a) \leq \frac{\E[(X-\E[X])^4]}{a^4}.
+		\]
+		%%
+		\item Soit $Y_1,\dots,Y_n$ des v.a. réelles i.i.d. telles que $\E[Y_1^4] < \infty$ et $\E[Y_1] = 0$. Montrer que
+		\[
+		\Ec{(Y_1 + \dots + Y_n)^4}
+		= 3 n (n-1) \Ec{Y_1^2}^2 + n \Ec{Y_1^4}.
+		\]
+		%%
+		\item Soit $X_1,\dots,X_n$ des v.a. réelles i.i.d. telles que $\E[X_1^4] < \infty$.
+		Montrer que, pour tout $\varepsilon > 0$, 
+		\[
+		\Pp{ \abs{\frac{X_1 + \dots + X_n}{n} - \E[X_1]} \geq \varepsilon}
+		\leq \frac{1}{n^2\varepsilon^4} 
+		\left( 3 \Var(X_1) + \frac{1}{n} \E[(X_1-\E[X_1])^4 \right).
+		\]
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item On passe à la puissance 4 l'inégalité à l'intérieur de la probabilité, puis on applique l'inégalité de Markov :
+\[
+\P(\abs{X-\E[X]} \geq a) 
+= \Pp{(X-\E[X])^4 \geq a^4}
+\leq \frac{\E[(X-\E[X])^4]}{a^4}.
+\]
+%%
+\item On développe la puissance :
+\[
+\Ec{(Y_1 + \dots + Y_n)^4}
+= \sum_{i,j,k,\ell=1}^n \E[Y_iY_jY_kY_\ell].
+\]
+Par indépendance et comme $\E[Y_k]=0$, l'espérance $\E[Y_iY_jY_kY_\ell]$ est nulle dès que l'un des indices $i,j,k,\ell$ n'apparaît qu'une fois. Il y a alors deux cas où cette espérance n'est pas nulle :
+\begin{itemize}
+\item Si les indices $i,j,k,\ell$ sont tous égaux. Alors l'espérance vaut $\E[Y_1^4]$ et il y a $n$ termes de ce type (il y a $n$ possibilités pour cette valeur commune).
+\item Si les indices $i,j,k,\ell$ contiennent deux valeurs différentes et ce deux fois chacune. Alors l'espérance vaut $\E[Y_1^2 Y_2^2]$ et il y a $3n(n-1)$ termes de ce type (il y a $n$ manières de choisir la valeur de $i$, 3 manières de choisir l'indice parmi $j,k,\ell$ qui est égal à $i$, et $(n-1)$ manières de choisir la valeur des deux autres indices).
+\end{itemize}
+Cela donne le résultat souhaité.
+%%
+\item Comme $n\E[X_1] = \E[X_1 + \dots + X_n]$, on a
+\begin{align*}
+\Pp{ \abs{\frac{X_1 + \dots + X_n}{n} - \E[X_1]} \geq \varepsilon}
+& = \Pp{ \abs{X_1 + \dots + X_n - \E[X_1 + \dots + X_n]} \geq n\varepsilon} \\
+& \leq \frac{1}{(n\varepsilon)^4} 
+\Ec{(X_1 + \dots + X_n - \E[X_1 + \dots + X_n])^4 }
+\end{align*}
+On pose $Y_i = X_i - \E[X_i]$. Alors, $Y_1,\dots,Y_n$ sont i.i.d. et $Y_i \in L^4$ et $\E[Y_i] = 0$.
+Ainsi, en utilisant la question 2,
+\begin{align*}
+\Ec{(X_1 + \dots + X_n - \E[X_1 + \dots + X_n])^4 }
+& = \Ec{(Y_1 + \dots + Y_n)^4} \\
+& = 3 n (n-1) \Ec{Y_1^2}^2 + n \Ec{Y_1^4}  \\
+& = 3 n (n-1) \Var(X_1)^2 + n \Ec{(X_1-\E[X_1])^4} \\
+& \leq 3 n^2 \Var(X_1)^2 + n \Ec{(X_1-\E[X_1])^4}.
+\end{align*}
+On obtient donc
+\begin{align*}
+\Pp{ \abs{\frac{X_1 + \dots + X_n}{n} - \E[X_1]} \geq \varepsilon}
+& \leq \frac{1}{(n\varepsilon)^4} 
+\left( 3 n^2 \Var(X_1)^2 + n \Ec{(X_1-\E[X_1])^4} \right) \\
+& \leq \frac{1}{n^2\varepsilon^4} 
+\left( 3 \Var(X_1) + \frac{1}{n} \E[(X_1-\E[X_1])^4 \right).
+\end{align*}
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Lois normales de variance inconnue]
+	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in \Theta}$, où $P_\theta = \cN(0,\theta^2)$.
+	Soit $\alpha \in {]}0,1{[}$. 
+	\begin{enumerate}
+		\item On suppose que $\Theta = {]} 0 , \sigma_{\max}]$, où $\sigma_{\max} > 0$ est un paramètre connu.
+		\begin{enumerate}
+			\item En considérant 
+			\[
+			\frac{X_1^2 + \dots + X_n^2}{n}
+			\]
+			et en utilisant l'inégalité de Bienaymé--Chebychev, construire un intervalle de confiance pour $\theta^2$ de niveau $1-\alpha$.
+			%%
+			\item En déduire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+		\end{enumerate}
+		%%
+		\item On ne suppose plus que l'on connaît a priori une borne supérieure pour le paramètre $\theta$. On considère donc $\Theta = \R_+^*$.
+		\begin{enumerate}
+			\item Montrer que, pour tout $\varepsilon \in {]}0,1{[}$, 
+			\[
+			\Pp{ \abs{\frac{X_1^2 + \dots + X_n^2}{n} - \theta^2} \geq  \frac{X_1^2 + \dots + X_n^2}{n} \varepsilon} 
+			\leq \Pp{ \abs{\frac{X_1^2 + \dots + X_n^2}{n} - \theta^2} \geq \frac{\theta^2 \varepsilon}{1-\varepsilon} }.
+			\]
+			%%
+			\item En déduire un intervalle de confiance de niveau $1-\alpha$ pour $\theta^2$ puis pour $\theta$.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+
+\end{document}
