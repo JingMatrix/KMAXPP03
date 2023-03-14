@@ -1,0 +1,493 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+\newcommand{\emphb}[1]{\emph{{\color{DarkSlateBlue}#1}}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 7 -- Retour sur les convergences $L^p$ et p.s. et sur l'indépendance}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence $L^p$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent \textcolor{DarkSlateBlue}{\textbf{Rappel.}} 
+Soit $p \in [1,\infty[$. Soit $X,X_1,X_2,\dots \in L^p$. 
+On dit que $(X_n)_{n\geq 1}$ converge dans $L^p$ vers $X$, que l'on note
+\[
+X_n \xrightarrow[n\to\infty]{L^p} X,
+\]
+si $\norme{X_n-X}_p\to 0$ quand $n \to \infty$, où $\norme{X_n-X}_p = \E[\abs{X_n-X}^p]^{1/p}$.
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Stabilité par opérations de la convergence $L^p$] 
+	Soit $p,q \in [1,\infty[$.
+	Soit $X,X_1,X_2,\dots \in L^p$ et $Y,Y_1,Y_2,\dots \in L^q$. On suppose que
+	\[
+	X_n \xrightarrow[n\to\infty]{L^p} X 
+	\quad \text{et} \quad 
+	Y_n \xrightarrow[n\to\infty]{L^q} Y.
+	\]
+	\begin{enumerate}
+		\item Si $p = q$ et $a,b \in \R$, montrer que $(aX_n+bY_n)_{n\geq 1}$ converge dans $L^p$ vers $aX+bY$.
+		%%
+		\item Si $\frac{1}{p} + \frac{1}{q} \leq 1$, montrer que $(X_nY_n)_{n\geq 1}$ converge dans $L^r$ vers $XY$, avec $r$ tel que $\frac{1}{p} + \frac{1}{q} = \frac{1}{r}$.
+		%%
+		\item Si $f\colon \R \to \R$ est lipschitzienne, montrer que $(f(X_n))_{n\geq 1}$ converge dans $L^p$ vers $f(X)$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item C'est une conséquence du fait que la convergence $L^p$ soit associée à une norme. Plus précisément,
+\begin{align*}
+\norme{(aX_n+bY_n) - (aX+bY)}_p
+& = \norme{a(X_n-X)+b(Y_n-Y)}_p \\
+& \leq \norme{a(X_n-X)}_p + \norme{b(Y_n-Y)}_p \\
+& = a\norme{X_n-X}_p + b\norme{Y_n-Y}_p \\
+& \xrightarrow[n\to\infty]{} 0.
+\end{align*}
+%%
+\item Soit $r$ tel que $\frac{1}{p} + \frac{1}{q} = \frac{1}{r}$.
+Par inégalité triangulaire,
+\begin{align*}
+\norme{X_nY_n-XY}_r
+& \leq \norme{X_nY_n-XY_n}_r + \norme{XY_n-XY}_r \\
+& = \norme{(X_n-X)Y_n}_r + \norme{X(Y_n-Y)}_r.
+\end{align*}
+On utilise ensuite l'inégalité de Hölder avec $a = p/r$ et $b = q/r$ de sorte que $\frac{1}{a} + \frac{1}{b} = 1$ : 
+\begin{align*}
+	\norme{(X_n-X)Y_n}_r^r = \Ec{\abs{(X_n-X)Y_n}^r}
+	& \leq \Ec{\abs{X_n-X}^{ar}}^{1/a} \Ec{\abs{Y_n}^{br}}^{1/b} \\
+	& = \Ec{\abs{X_n-X}^p}^{r/p} \Ec{\abs{Y_n}^q}^{r/q} \\
+	& \xrightarrow[n\to\infty]{} 0,
+\end{align*}
+car $\Ec{\abs{X_n-X}^p} \to 0$ et $\Ec{\abs{Y_n}^q} \to \Ec{\abs{Y}^q} < \infty$ (conséquence de la convergence $L^q$).
+Similairement,
+\begin{align*}
+\norme{X(Y_n-Y)}_r^r 
+& \leq \Ec{\abs{X}^p}^{r/p} \Ec{\abs{Y_n-Y}^q}^{r/q}
+\xrightarrow[n\to\infty]{} 0.
+\end{align*}
+On en conclut que 
+\begin{align*}
+\norme{X_nY_n-XY}_r \xrightarrow[n\to\infty]{} 0.
+\end{align*}
+%%
+\item Si $f$ est $L$-lipschitzienne, alors
+\[
+	\Ec{\abs{f(X_n) - f(X)}^p} 
+	\leq \Ec{(L\abs{X_n - X})^p} 
+	= L^p \Ec{\abs{X_n - X}^p} 
+	\xrightarrow[n\to\infty]{} 0.
+\]
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $m \in \R$ et $v > 0$.
+	Soit $X_1,X_2,\dots \in L^2$ des v.a. indépendantes de même moyenne $m$ et de variance majorée par $v$.
+	Montrer que
+	\[
+	\frac{X_1+ \dots + X_n}{n} \xrightarrow[n \to \infty]{L^2} m.
+	\]
+\end{exo}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence p.s.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	On considère une suite $(Y_n)_{n\geq 1}$ de v.a. réelles positives.
+	\begin{enumerate}
+		\item Montrer que, si $\forall k \geq 1, Y_k \leq 1/k^2$  p.s.,
+		alors $\sum_{k\geq 1} Y_k$ converge p.s.
+		%%
+		\item Pour $m \geq 1$ et $n \geq 0$, on définit $A_{m,n} = \{ Y_1 + \cdots + Y_m \geq n\}$.
+		Parmi les événements 
+		\[
+		\bigcap_{m\geq1} \bigcup_{n\geq0} A_{m,n}, \quad 
+		\bigcap_{n\geq0} \bigcup_{m\geq1} A_{m,n}, \quad 
+		\bigcup_{m\geq1} \bigcap_{n\geq0} A_{m,n}, \quad 
+		\bigcup_{n\geq0} \bigcap_{m\geq1} A_{m,n}, 
+		\]
+		lequel correspond à l'événement $\{\sum_{k\geq 1} Y_k \text{ diverge}\}$ ? 
+		À quoi correspondent les trois autres ?
+		%%
+		\item Montrer que si $\sum_{k\geq 1} Y_k$ diverge p.s., alors, pour tout $n \geq 0$,
+		\[
+		\mathbb{P}(Y_1 + \dots + Y_m \geq n)
+		\xrightarrow[m\to\infty]{} 1.
+		\]
+	\end{enumerate}
+\end{exo}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Indépendances de suites}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent \textcolor{DarkSlateBlue}{\textbf{Définition.}}
+\begin{itemize}
+	\item Soit $A_1,A_2,\ldots \in \cA$.
+	On dit que $(A_k)_{k\geq 1}$ est une \emphb{suite d'événements indépendants} si, pour tout $n \geq 1$, $A_1,\dots,A_n$ sont indépendants.
+	\item Soit $X_1,X_2,\dots$ des v.a.
+	On dit que $(X_k)_{k\geq 1}$ est une \emphb{suite de variables aléatoires indépendantes} si, pour tout $n \geq 1$, $X_1,\dots,X_n$ sont indépendantes.
+\end{itemize}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $(A_k)_{k\geq 1}$ une suite d'événements indépendants. Montrer que
+		\[
+		\P \Biggl( \bigcap_{n\geq 1} A_n \Biggr)
+		= \prod_{n\geq 1} \P(A_n).
+		\]
+\end{exo}
+
+\begin{comment}
+Notons que $\prod_{n\geq 1} \P(A_n)$ est toujours bien défini car $\P(A_n) \in [0,1]$, donc la suite $(\prod_{n=1}^m \P(A_n))_{m\geq 1}$ est décroissante et a donc une limite (dans $[0,1]$).
+D'autre part, on a
+\[
+\P \Biggl( \bigcap_{n\geq 1} A_n \Biggr)
+= \P \Biggl( \bigcap_{m\geq 1} \downarrow \bigcap_{n=1}^m A_n \Biggr)
+= \lim_{m\to \infty} \downarrow \P \Biggl( \bigcap_{n=1}^m A_n \Biggr)
+= \lim_{m\to \infty} \downarrow \prod_{n=1}^m \P(A_n)
+= \prod_{n\geq 1} \P(A_n),
+\]
+où on a utilisé dans la 3ème égalité le fait que $A_1,\dots,A_m$ sont indépendants.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} \label{exo indep piles et faces}
+	Soit $(X_n)_{n\geq1}$ une suite de variables aléatoires indépendantes de loi de Bernoulli de paramètre $p \in {]}0,1[$.
+	Soit $N$ une variable aléatoire de loi de Poisson de paramètre $\lambda >0$, c'est-à-dire vérifiant
+	\[
+	\forall k \in \N, \quad \Pp{N=k} = \frac{\lambda^k}{k!} e^{-\lambda}.
+	\]
+	On suppose que $N$ est indépendante de $(X_n)_{n\geq1}$, i.e. pour tout $n \geq $, $N,X_1,\dots,X_n$ sont indépendants.
+	On pose 
+	\[
+	P \coloneqq \sum_{i=1}^N X_i
+	\quad \text{et} \quad 
+	F \coloneqq N-P=\sum_{i=1}^N(1-X_i),
+	\]
+	avec $P=F=0$ sur $\{N=0\}$. Les variables aléatoires $P$ et $F$ représentent respectivement le nombre de piles et de faces dans un jeu de pile ou face de paramètre $p$ à $N$ lancers.
+	%%
+	\begin{enumerate}
+		\item Déterminer la loi du couple $(P,N)$.
+		%%
+		\item En déduire les lois de $P$ et $F$ et montrer que $P$ et $F$ sont indépendantes.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item On a $\P(P=0,N=0) = \P(N=0) = e^{-\lambda}$, et pour $n\geq1$ et $0\leq k\leq n$, 
+\begin{align*}
+\P(P=k,N=n) 
+& = \P\left(N=n,\sum_{i=1}^nX_i=k\right)
+= \P(N=n)\P\left(\sum_{i=1}^nX_i=k\right) 
+= e^{-\lambda}\frac{\lambda^n}{n!} \binom{n}{k}p^k(1-p)^{n-k}\\ 
+& = e^{-\lambda}\frac{(\lambda p)^k}{k!}\frac{(\lambda(1-p))^{n-k}}{(n-k)!}.
+\end{align*}
+%%
+\item On a pour $k,l\geq0$, 
+\[
+\P(P=k,F=l)
+=\P(P=k,N=k+l)
+=\left(e^{-\lambda p}\frac{(\lambda p)^k}{k!}\right)
+\left(e^{-\lambda(1-p)}\frac{(\lambda(1-p))^l}{l!}\right).
+\] 
+Donc les variables aléatoires $P$ et $F$ sont indépendantes et de lois respectives les lois de Poisson de paramètres $\lambda p$ et $\lambda(1-p)$. 
+
+\emphb{Remarque.} On utilise en fait ici le petit résultat suivant. Soit $X$ et $Y$ deux v.a. discrètes à valeurs respectivement dans des espaces dénombrables $I$ et $J$ et telles que pour tous $i \in I$ et $j \in J$, on ait $\P(X=i,Y=j)=p_i q_j$. 
+Alors $X$ et $Y$ sont indépendantes et on a, pour tout $i \in I$, $\P(X = i) = p_i/c$ où $c \coloneqq \sum_{i \in I} p_i$ et, pour tout $j \in J$, $\P(Y = j) = c q_j $. 
+
+Montrons ce résultat. Soit $j \in J$, on a
+\[
+\P(Y = j) 
+= \sum_{i\in I} \P(X=i,Y=j) 
+= \sum_{i\in I} p_i q_j
+= q_j c.
+\]
+Comme $\sum_{j\in J} \P(Y=j) = 1$, on en déduit que $\sum_{j\in J} q_j = 1/c$
+Puis de la même manière, on a, pour $i \in I$
+\[
+\P(X = i) 
+= \sum_{j\in J} \P(X=i,Y=j) 
+= p_i \sum_{j\in J} q_j
+= p_i / c.
+\]
+Alors, l'hypothèse se réécrit $\P(X=i,Y=j)=\P(X=i) \P(Y=j)$ pour tous $i \in I$ et $j \in J$, ce qui montre l'indépendance entre $X$ et $Y$.
+\end{enumerate}
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo}
+	Deux personnes $A$ et $B$ jouent une suite de parties indépendantes. 
+	Lors de chacune d'elles, elles ont respectivement les probabilités $p$ pour $A$ et $1-p$ pour $B$ de gagner. 
+	La première personne qui obtient 2 victoires de plus que son adversaire a gagné. 
+	Quelle est la probabilité que $A$ gagne?
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Construction d'une suite de v.a. de Bernoulli indépendantes]
+	On considère $\Omega = [0,1[$, muni de $\cA = \cB([0,1[)$ et de $\P$ la mesure de Lebesgue sur $[0,1[$.
+	Pour $n \geq 1$ et $\omega \in [0,1{[}$, on pose
+	\[
+	X_n(\omega) = \lfloor 2^n \omega \rfloor - 2 \lfloor 2^{n-1} \omega \rfloor,
+	\]
+	où $\lfloor x \rfloor$ désigne la partie entière d'un nombre réel $x$.
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Pour tous $n \geq 1$ et $\omega \in [0,1{[}$, montrer que $X_n(\omega) \in \{0,1\}$.
+			%%
+			\item Montrer par récurrence que, pour tous $n \geq 1$ et $\omega \in [0,1{[}$,
+			\[
+			0 \leq \omega - \sum_{k=1}^n X_k(\omega) 2^{-k} < 2^{-n}.
+			\]
+			%%
+			\item En déduire que 
+			\[
+			\omega = \sum_{k=1}^\infty X_k(\omega) 2^{-k}.
+			\]
+			On dit que les $X_k(\omega)$ sont les coefficients du développement dyadique propre de $\omega$ (i.e. l'unique développement dyadique de $\omega$ qui ne se termine pas par une infinité de 1).
+		\end{enumerate}
+		%%
+		\item 
+		\begin{enumerate}
+			\item Pour tout $n \geq 1$, montrer que $X_n$ suit la loi de Bernoulli de paramètre $1/2$.
+			\item Montrer que $(X_n)_{n\geq 1}$ est une suite de variables aléatoires indépendantes.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}
+	Soit $(X_n)_{n\geq1}$ une suite de variables aléatoires réelles indépendantes  de même loi et $N$ une variable aléatoire à valeurs dans $\N$ indépendante de la suite $(X_n)_{n\geq1}$. 
+	Soit $f\colon \R\to\R_+$ une fonction mesurable. Montrer que
+	\[
+	\Ec{\sum_{i=1}^N f(X_i)} = \Ec{N} \Ec{f(X_1)},
+	\]
+	où l'on adopte la convention qu'une somme vide est nulle.
+\end{exo}
+
+\begin{comment}
+On a 
+\begin{align*}
+\Ec{\sum_{i=1}^N f(X_i)}
+&=\Ec{\sum_{n\geq1}\1_{\{N=n\}}\sum_{i=1}^nf(X_i)}
+=\sum_{n\geq1} \Ec{\1_{\{N=n\}}\sum_{i=1}^nf(X_i)} 
+=\sum_{n\geq1} \P(N=n) \Ec{\sum_{i=1}^nf(X_i)}\\ 
+&=\sum_{n\geq1} \P(N=n) n \Ec{f(X_1)}
+=\E[N] \Ec{f(X_1)},
+\end{align*} 
+où l'on a utilisé que $N$ est indépendante de $(X_1,\dots,X_n)$.
+\end{comment}
+
+
+\end{document}
