@@ -269,6 +269,19 @@ On en conclut que
 	\]
 \end{exo}
 
+\begin{comment}
+    On calcule 
+    \begin{align*}
+    \Ec{ \left( \frac{X_1+ \dots + X_n}{n} - m \right)^2}
+    & = \frac{1}{n^2} \Ec{ \left( X_1+ \dots + X_n - \Ec{X_1+ \dots + X_n} \right)^2} & \text{(car $\E[X_k]=m$)} \\
+    & = \frac{1}{n^2} \Var \left( \sum_{k=1}^n X_k \right) \\
+    & = \frac{1}{n^2} \sum_{k=1}^n \Var \left( X_k \right) & \text{(par indépendance)} \\
+    & \leq \frac{1}{n^2} \sum_{k=1}^n v & \text{(car $\Var(X_k) \leq v$)} \\
+    & = \frac{v}{n} \\
+    & \xrightarrow[n\to\infty]{} 0.
+    \end{align*}
+    Cela montre la convergence dans $L^2$ souhaitée.
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Convergence p.s.}
@@ -277,7 +290,7 @@ On en conclut que
 \begin{exo}
 	On considère une suite $(Y_n)_{n\geq 1}$ de v.a. réelles positives.
 	\begin{enumerate}
-		\item Montrer que, si $\forall k \geq 1, Y_k \leq 1/k^2$  p.s.,
+		\item Montrer que, si pour chaque $k \geq 1$, on a p.s. $Y_k \leq 1/k^2$,
 		alors $\sum_{k\geq 1} Y_k$ converge p.s.
 		%%
 		\item Pour $m \geq 1$ et $n \geq 0$, on définit $A_{m,n} = \{ Y_1 + \cdots + Y_m \geq n\}$.
@@ -299,6 +312,70 @@ On en conclut que
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+    \begin{enumerate}
+		\item On sait que pour tout $k \geq 1$, $\P(Y_k > 1/k^2) = 0$ donc
+        \begin{align*}
+        \Pp{ \forall k \geq 1, Y_k \leq 1/k^2} 
+        & = 1 - \Pp{ \exists k \geq 1, Y_k > 1/k^2}  
+        = 1 - \P\Biggl( \bigcup_{k\geq1} \{ Y_k > 1/k^2\} \Biggr) \\
+        & \geq 1 - \sum_{k\geq1} \Pp{Y_k > 1/k^2}
+        = 1.
+        \end{align*}
+        On a montré que l'événement $A = \{ \forall k \geq 1, Y_k \leq 1/k^2 \}$ a probabilité 1.
+        Mais, pour $\omega \in A$, on a $0 \leq Y_k(\omega) \leq 1/k^2$ pour tout $k \geq 1$, donc la série $\sum_{k\geq 1} Y_k(\omega)$.
+        Comme c'est vrai pour tout $\omega$ dans un événement de probabilité 1, on peut dire que $\sum_{k\geq 1} Y_k$ converge p.s.
+		%%
+		\item L'événement qui correspond à $\{\sum_{k\geq 1} Y_k \text{ diverge}\}$ est
+        \begin{align*}
+        \bigcap_{n\geq0} \bigcup_{m\geq1} A_{m,n}
+        & = \{ \forall n\geq0, \exists m\geq1, Y_1 + \cdots + Y_m \geq n\} \\
+        & = \{ \forall n\geq0, \exists m\geq1, \forall m' \geq m, Y_1 + \cdots + Y_{m'} \geq n\} & \text{(car $Y_k \geq 0$)} \\
+        & = \left\{ Y_1 + \cdots + Y_m \xrightarrow[m\to\infty]{} \infty \right\} \\
+        & = \Biggl\{ \sum_{k\geq 1} Y_k \text{ diverge} \Biggr\}.
+        \end{align*}
+        Les autres événements peuvent être décrit ainsi :
+		\[
+		\bigcap_{m\geq1} \bigcup_{n\geq0} A_{m,n} 
+        = \{ \forall m\geq1, \exists n\geq0, Y_1 + \cdots + Y_m \geq n\}
+        = \Omega,
+		\]
+        car $Y_1 + \cdots + Y_m \geq n$ est tout le temps vrai avec $n=0$,
+        \[
+		\bigcup_{m\geq1} \bigcap_{n\geq0} A_{m,n}
+        = \{ \exists m\geq1, \forall n\geq0, Y_1 + \cdots + Y_m \geq n\}
+        = \{ \exists m\geq1, Y_1 + \cdots + Y_m = \infty\}
+        = \varnothing,
+		\]
+        et finalement
+        \[
+		\bigcup_{n\geq0} \bigcap_{m\geq1} A_{m,n}
+        = \{ \exists n\geq0, \forall m\geq1, Y_1 + \cdots + Y_m \geq n\} = \Omega,
+		\]
+        de nouveau car $Y_1 + \cdots + Y_m \geq n$ est tout le temps vrai avec $n=0$.
+		%%
+		\item Si $\sum_{k\geq 1} Y_k$ diverge p.s., alors
+        \[
+        \P\Biggl(\bigcap_{n\geq0} \bigcup_{m\geq1} A_{m,n}\Biggr) =1
+        \]
+        par la question précédente.
+        Mais, pour tout $n \geq 0$, on a $\bigcap_{k\geq0} \bigcup_{m\geq1} A_{m,k} \subset \bigcup_{m\geq1} A_{m,n}$, donc
+        \[
+        \P \Biggl(\bigcup_{m\geq1} A_{m,n}\Biggr) =1.
+        \]
+        Mais les v.a. $Y_k$ sont positives donc 
+        \[
+        \forall m \geq 1, \quad 
+        A_{m,n} = \{Y_1 + \dots + Y_m \geq n\} \subset \{Y_1 + \dots + Y_m + Y_{m+1} \geq n\} = A_{m+1,n},
+        \]
+        donc la suite d'événements $(A_{m,n})_{m\geq 1}$ est croissante.
+        Ainsi 
+        \[
+        \lim_{m\to\infty} \uparrow \Pp{A_{m,n}} = \P \Biggl(\bigcup_{m\geq1} A_{m,n}\Biggr) =1.
+        \]
+		ce qui est exactement ce qu'il fallait démontrer.
+	\end{enumerate}
+\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
