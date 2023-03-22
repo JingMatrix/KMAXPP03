@@ -1,0 +1,485 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 8 -- Convergence de variables aléatoires}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence dans $L^p$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo} 
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant p.s. vers une v.a. réelle $X$.
+	Soit $f \colon \R \to \R$ continue bornée.
+	Montrer que, pour tout $p \in [1,\infty[$,
+	\[
+	f(X_n) \xrightarrow[n\to\infty]{L^p} f(X).
+	\]
+\end{exo}
+
+
+\begin{comment}
+	Comme $f$ est continue, on a
+	\[
+	f(X_n) \xrightarrow[n\to\infty]{\text{p.s.}} f(X).
+	\]
+	et donc
+	\[
+	\abs{f(X_n)-f(X)}^p \xrightarrow[n\to\infty]{\text{p.s.}} 0.
+	\]
+	En outre, $f$ est bornée, donc il existe $M > 0$ tel que, pour tout $x \in \R$, $\abs{f(x)} \leq M$.
+	Alors on a 
+	\[
+	\abs{f(X_n)-f(X)}^p \leq \left( \abs{f(X_n)} + \abs{f(X)} \right)^p
+	\leq (2M)^p,
+	\]
+	et $\E[(2M)^p] = (2M)^p < \infty$ donc cela nous fournit une domination.
+	Par convergence dominée, on a donc
+	\[
+	\Ec{\abs{f(X_n)-f(X)}^p} \xrightarrow[n\to\infty]{} 0,
+	\]
+	ce qui montre la convergence $L^p$.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Soit $X \in L^1$. Montrer que $(n\sin(X/n))_{n\geq 1}$ converge dans $L^1$ vers une limite à identifier.
+\end{exo}
+
+
+\begin{comment}
+On a $n\sin(X/n) \to X$ p.s. donc $n\sin(X/n) - X \to 0$.
+D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\abs{X}$ qui est intégrable. Donc, par convergence dominée, on a
+\[
+\Ec{\abs{n\sin(X/n)-X}} \xrightarrow[n\to\infty]{} 0.
+\]
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $(X_k)_{k\geq 1}$ une suite de v.a. indépendantes dans $L^2$. On dit que la série $\sum_{k\geq1} X_k$ converge dans $L^2$ si ses sommes partielles $\sum_{k=1}^n X_k$ convergent dans $L^2$.
+	\begin{enumerate}
+		\item Supposons que les séries $\sum_{k\geq 1} \E[X_k]$ et $\sum_{k\geq 1} \Var(X_k)$ convergent.
+		\begin{enumerate}
+			\item Pour $n \geq 1$, soit $Z_n = \sum_{k=1}^n (X_k-\E[X_k])$. Montrer que $(Z_n)_{n\geq1}$ est de Cauchy dans $L^2$.
+			\item En déduire que $\sum_{k\geq1} X_k$ converge dans $L^2$.
+		\end{enumerate}
+		\item Supposons que $\sum_{k\geq1} X_k$ converge dans $L^2$.
+		Montrer que $\sum_{k\geq 1} \E[X_k]$ et $\sum_{k\geq 1} \Var(X_k)$ convergent.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en probabilité}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo} Soit $(X_n)_{n\geq 1}$ une suite de v.a. i.i.d. 
+	\begin{enumerate}
+		\item Montrer que \[ \frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.\]
+		\item Soit $p \in[1,\infty[$. Trouver une condition nécessaire et suffisante (en terme de moments de $X_1$) pour qu'il y ait convergence dans $L^p$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Stabilité par opérations]
+	Soit $(X_n)_{n\geq 1}$ et $(Y_n)_{n\geq 1}$ des suites de v.a. réelles convergeant en probabilité vers $X$ et $Y$ respectivement.
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Montrer que \[X_n+Y_n \xrightarrow[n\to\infty]{\P} X+Y.\]
+			\item En déduire que \[ X_n-Y_n \xrightarrow[n\to\infty]{\P} X-Y.\]
+		\end{enumerate}
+		%%
+		\item On veut montrer la stabilité par produit. Soit $\varepsilon>0$. 
+		\begin{enumerate}
+			\item Montrer que 
+			\[
+			\Pp{ \abs{X_nY_n - XY} \geq \varepsilon }
+			\leq \Pp{ \abs{X_n-X} \cdot \abs{Y_n} \geq \frac{\varepsilon}{2} }
+			+ \Pp{ \abs{X} \cdot \abs{Y_n-Y} \geq \frac{\varepsilon}{2} }
+			\]
+			\item Soit $\delta > 0$. Montrer qu'il existe $M > 0$ tel que
+			$\Pp{\abs{X} \geq M} \leq \delta $ et $\Pp{\abs{Y} \geq M} \leq \delta$.
+			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq M+1} \leq 2 \delta$.
+			\item En déduire que 
+			\[
+			X_nY_n \xrightarrow[n\to\infty]{\P} XY.
+			\]
+		\end{enumerate}
+		%%
+		\item Supposons $\P(Y = 0)= 0$. On veut montrer la stabilité par quotient.
+		\begin{enumerate}
+			\item Soit $\delta > 0$. Montrer qu'il existe $\eta > 0$ tel que $\Pp{\abs{Y} \leq \eta} \leq \delta$.
+			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq \eta/2} \leq 2 \delta$.
+			\item En déduire que 
+			\[ 
+			\frac{1}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{1}{Y}.
+			\]
+			\item Conclure que 
+			\[ 
+			\frac{X_n}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{X}{Y}.
+			\]
+		\end{enumerate}
+		%%
+		\item Soit $f\colon \R \to \R$ est continue. En utilisant la question 2.(a) et le fait qu'une fonction continue sur un compact est uniformément continue, montrer que 
+		\[
+		f(X_n) \xrightarrow[n\to\infty]{\P} f(X).
+		\]
+	\end{enumerate}
+\end{exo}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{exo} 
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant en probabilité vers une v.a. réelle $X$. On suppose qu'il existe $M > 0$ tel que $\abs{X} \leq M$ p.s. et, pour tout $n \geq 1$, $\abs{X_n} \leq M$ p.s.
+	Montrer que, pour tout $p \in [1,\infty[$,
+	\[
+	X_n \xrightarrow[n\to\infty]{L^p} X.
+	\]
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+%On note $L^0(\Omega,\cA,\P)$, abrégé en $L^0$, l'espace des v.a. réelles quotienté par la relation d'équivalence ``être égal p.s.'' (c'est-à-dire où l'on considère deux variables aléatoires égales p.s. comme identiques).
+%Cet espace correspond au cas $p=0$ des espaces $L^p$.
+%Le résultat suivant fournit une métrique sur $L^0$ qui correspond à la convergence en probabilité.
+%Notons que le choix de cette métrique n'est pas unique.
+%
+%\begin{theorem}
+%	Pour $X$ et $Y$ des v.a. réelles, on définit 
+%	\[
+%		d(X,Y) = \Ec{\abs{X-Y} \wedge 1}.
+%	\]
+%	Alors, $d$ est une distance sur $L^0$ qui métrise la convergence en probabilité, c'est-à-dire que, pour $X,X_1,X_2,\dots \in L^0$,
+%	\[
+%	X_n \xrightarrow[n\to\infty]{\P} X
+%	\quad \Leftrightarrow \quad 
+%	d(X_n,X) \xrightarrow[n\to\infty]{} 0.
+%	\]
+%\end{theorem}
+%
+%\begin{proof}
+%	
+%\end{proof}
+
+\begin{exo}
+	On note $L^0(\Omega,\cA,\P)$, abrégé en $L^0$, l'espace des v.a. réelles quotienté par la relation d'équivalence ``être égal p.s.''
+	Pour $X$ et $Y$ des variables aléatoires réelles, on définit
+	\[
+	d(X,Y) \coloneqq \Ec{\min(1,\abs{X-Y})}.
+	\]
+	\begin{enumerate}
+		\item Montrer que $d$ est une distance sur $L^0$.
+		%%
+		\item Montrer que $d$ métrise la convergence en probabilité, c'est-à-dire que, pour $X,X_1,X_2,\dots \in L^0$,
+		\[
+			X_n \xrightarrow[n\to\infty]{\P} X
+			\quad \Leftrightarrow \quad 
+			d(X_n,X) \xrightarrow[n\to\infty]{} 0.
+		\]
+		%%
+		\item En utilisant cette nouvelle caractérisation de la convergence en probabilité, montrer de nouveau que les convergences p.s. et $L^1$ impliquent la convergence en probabilité.
+		%%
+%		\item Montrer que $L^0$ muni de $d$ est complet.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Il est clair que $d(X,Y) = d(Y,X)$. 
+
+Le fait que $d(X,Y) = 0 \Leftrightarrow X = Y$ p.s. ce montre en utilisant qu'une v.a. positive d'espérance nulle est nulle p.s.
+
+Pour l'inégalité triangulaire, on vérifie que, pour $X,Y,Z$ des v.a. réelles,
+\[
+\min(1,\abs{X-Z})
+\leq \min(1,\abs{X-Y}) + \min(1,\abs{Y-Z})
+\] 
+en distinguant selon si $\abs{X-Y} \leq 1$ ou non et si $\abs{Y-Z} \leq 1$ ou non.
+Cela donne $d(X,Z) \leq d(X,Y) + d(Y,Z)$.
+
+Donc $d$ définit bien une distance.
+%%
+\item Soit $X,X_1,X_2,\dots \in L^0$.
+
+Supposons que $X_n$ converge en probabilité vers $X$.
+Soit $\varepsilon > 0$. 
+Alors, en coupant l'espérance en deux en distinguant selon si $\abs{X_n-X} < \varepsilon$ ou $\abs{X_n-X} \geq \varepsilon$, on a
+\begin{align*}
+d(X_n,X) 
+& = \Ec{\min(1,\abs{X_n-X})} \\
+& = \Ec{\min(1,\abs{X_n-X}) \1_{\{\abs{X_n-X} < \varepsilon\}}}
++ \Ec{\min(1,\abs{X_n-X}) \1_{\{\abs{X_n-X} \geq \varepsilon\}}} \\
+& \leq \Ec{\min(1,\varepsilon) \1_{\{\abs{X_n-X} < \varepsilon\}}}
++ \Ec{\1_{\{\abs{X_n-X} \geq \varepsilon\}}} \\
+& \leq \varepsilon + \Pp{\abs{X_n-X} \geq \varepsilon} \\
+& \leq 2 \varepsilon,
+\end{align*}
+pour $n$ suffisamment grand. Ça montre que $d(X_n,X) \to 0$.
+
+
+Réciproquement, supposons que $d(X_n,X) \to 0$.
+Soit $\varepsilon > 0$. Si $\varepsilon \leq 1$, alors
+\[
+\Pp{\abs{X_n-X} \geq \varepsilon } 
+= \Pp{\min(1,\abs{X_n-X}) \geq \varepsilon} 
+\leq \frac{\E[\min(1,\abs{X_n-X})]}{\varepsilon}
+= \frac{d(X_n,X)}{\varepsilon},
+\]
+où l'on a utilisé l'inégalité de Markov.
+Donc $\Pp{\abs{X_n-X} \geq \varepsilon }  \to 0$.
+Si $\varepsilon \geq 1$, alors $\Pp{\abs{X_n-X} \geq \varepsilon} \leq \Pp{\abs{X_n-X} \geq 1}  \to 0$.
+Cela montre la convergence en probabilité.
+%%
+%\item On procède d'une manière proche de la démonstration de la complétude de $L^p$.
+%Soit $(X_n)_{n\in\N}$ une suite de Cauchy pour $d$. Il existe une extractrice $\phi$ telle que
+%\[
+%\forall n \in \N, \Pp{\abs{X_{\phi(n+1)}-X_{\phi(n)}} \geq \frac{1}{2^n}} \leq \frac{1}{2^n}.
+%\]
+%Alors, par Borel-Cantelli, p.s. il existe seulement un nombre fini de $n$ tels que $\abs{X_{\phi(n+1)}-X_{\phi(n)}}\geq \frac{1}{2^n}$ donc p.s. $\sum_{n\geq 0} \abs{X_{\phi(n+1)}-X_{\phi(n)}} < \infty$.
+%Ainsi on peut définir $X = X_0 + \sum_{n\geq 0} X_{\phi(n+1)}-X_{\phi(n)}$ et $X$ est limite de ses sommes partielles p.s., c'est-à-dire $X_{\phi(n)} \to X$ p.s.
+%En particulier, $X_{\phi(n)} \to X$ en probabilité.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Soit $(\Omega, \cA, \mathbb{P})$ un espace de probabilité. 
+	On suppose que $\Omega$ est dénombrable et que $\cA = \cP(\Omega)$. 
+	Montrer que les convergences ``presque-sûre'' et ``en probabilité'' sont équivalentes pour des v.a. réelles définies sur cet espace.
+\end{exo}
+
+
+\begin{comment}
+Il suffit de montrer que la convergence en probabilité implique la convergence p.s. (car la réciproque est toujours vraie).
+Soit $X,X_1,X_2,\dots$ des v.a. réelles telles que  
+\[ 
+X_n \xrightarrow[n\to\infty]{\P} X.
+\] 
+Soit $A = \{ \omega \in \Omega : \P(\{\omega\})>0 \}$.
+On a 
+\begin{align*}
+\P(A^c) & = \P \Biggl( \bigcup_{\omega \in A^c} \{\omega\} \Biggr) \\
+& = \sum_{\omega \in A^c} \P(\{\omega\}) & \text{(car $A^c$ est dénombrable)}\\
+& = 0 & \text{(car $\P(\{\omega\}) = 0$ pour $\omega \in A^c$)}.
+\end{align*}
+Donc $\P(A)=1$.
+Soit $\omega \in A$.
+On va montrer que
+\[ 
+X_n(\omega) \xrightarrow[n\to\infty]{} X(\omega).
+\] 
+Soit $\varepsilon > 0$. On sait que 
+\[
+	\Pp{ \abs{X_n-X} \geq \varepsilon } \xrightarrow[n\to\infty]{} 0.
+\]
+Or $\mathbb{P}(\{\omega\})>0$ donc, à partir d'un certain rang, $\Pp{ \abs{X_n-X} \geq \varepsilon } < \mathbb{P}(\{\omega\})$ et donc $\omega \notin \{\abs{X_n-X} \geq \varepsilon \}$.
+On a donc montré que, pour tout $\varepsilon >0$, à partir d'un certain rang, 
+\[
+	\abs{X_n(\omega)-X(\omega)} < \varepsilon.
+\]
+Cela montre que $X_n(\omega) \to X(\omega)$ et conclut la preuve (car c'est vrai pour tout $\omega$ dans $A$ qui est de probabilité 1).
+\end{comment}
+
+\end{document}
