@@ -248,6 +248,66 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+	\item Supposons que les séries $\sum_{k\geq 1} \E[X_k]$ et $\sum_{k\geq 1} \Var(X_k)$ convergent.
+	\begin{enumerate}
+		\item Soit $n > m \geq n_0 \geq 1$.
+		On a
+		\[
+		\norme{Z_n-Z_m}_2^2 
+		= \Ec{ \Biggl( \sum_{k=m+1}^n (X_k-\E[X_k]) \Biggr)^2} 
+		= \Var \Biggl( \sum_{k=m+1}^n X_k \Biggr)
+		= \sum_{k=m+1}^n \Var(X_k),
+		\]
+		par indépendance des $X_k$.
+		Soit $\varepsilon > 0$. Comme la série $\sum_{k\geq 1} \Var(X_k)$ est convergente, son reste tend vers 0 donc il existe $n_0 \geq 1$ tel que
+		\[
+		\sum_{k\geq n_0} \Var(X_k) \leq \varepsilon.
+		\]
+		Alors, par le calcul précédent, on voit que pour tout $n > m \geq n_0$, on a $\norme{Z_n-Z_m}_2^2 \leq \varepsilon$.
+		Cela montre que $(Z_n)_{n\geq 1}$ est de Cauchy dans $L^2$.
+		\item Par complétude de $L^2$, on déduit de la question précédente que $(Z_n)_{n\geq 1}$ converge dans $L^2$.
+		De plus, pour $n \geq 1$,
+		\[
+		\sum_{k=1}^n X_k = Z_n + \sum_{k=1}^n \E[X_k]
+		\]
+		et on a supposé que $\sum_{k=1}^n \E[X_k]$ a une limite dans $\R$ quand $n \to \infty$, donc la v.a. constante égale à $\sum_{k=1}^n \E[X_k]$ converge dans $L^2$ quand $n \to \infty$ (voir la remarque ci-dessous).
+		Donc $\sum_{k=1}^n X_k$ a une limite dans $L^2$ quand $n \to \infty$.
+		Autrement dit, $\sum_{k\geq1} X_k$ converge dans $L^2$.
+		
+		\DSB{Remarque.} Soit $(y_n)_{n\geq 1}$ une suite de réels convergeant vers $y \in \R$. On peut voir $y_n$ comme la v.a. constante égale à $y_n$ (i.e. $\omega \in \Omega \mapsto y_n$) et alors c'est un élément de $L^2$ (car $\E[y_n^2] = y_n^2 < \infty$). De même, $y$ peut être vu comme un élément de $L^2$.
+		On peut alors dire que $(y_n)_{n\geq 1}$ converge dans $L^2$ vers $y$ car
+		\[
+			\E[(y_n-y)^2] = (y_n-y)^2 \xrightarrow[n\to\infty]{} 0,
+		\]
+		car  $(y_n)_{n\geq 1}$ converge dans $\R$ vers $y$.
+	\end{enumerate}
+	\item Supposons que $\sum_{k\geq1} X_k$ converge dans $L^2$.
+	Alors on a vu dans le cours que $\sum_{k\geq1} X_k$ converge aussi dans $L^1$.
+	On rappelle que si une suite converge dans $L^1$ alors ses intégrales (ici ses espérances) convergent aussi.
+	Donc $\sum_{k\geq 1} \E[X_k]$ converge.
+	
+	Ensuite, on écrit 
+	\[
+	\sum_{k=1}^n X_k = \sum_{k=1}^n \E[X_k] + \sum_{k=1}^n (X_k-\E[X_k]).
+	\]
+	Comme la somme de gauche et la somme du milieu convergent dans $L^2$, on en déduit que celle de droite converge dans $L^2$ et donc que son 2nd moment converge : 
+	\[
+		\lim_{n\to \infty} \Ec{ \Biggl( \sum_{k=1}^n (X_k-\E[X_k]) \Biggr)^2} 
+		\quad \text{existe}.
+	\]
+	Mais on a
+	\[
+	\Ec{ \Biggl( \sum_{k=1}^n (X_k-\E[X_k]) \Biggr)^2} 
+	= \Var \Biggl( \sum_{k=1}^n X_k \Biggr)
+	= \sum_{k=1}^n \Var(X_k),
+	\]
+	en utilisant l'indépendance des $X_k$, et donc on a montré que $\sum_{k\geq 1} \Var(X_k)$ converge.
+\end{enumerate}
+\end{comment}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Convergence en probabilité}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -255,15 +315,64 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 
 \begin{exo} Soit $(X_n)_{n\geq 1}$ une suite de v.a. i.i.d. 
 	\begin{enumerate}
-		\item Montrer que \[\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.\]
+		\item Montrer que 
+		\[ 
+		\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.
+		\]
+		%%
 		\item Soit $p \in[1,\infty[$. Trouver une condition nécessaire et suffisante (en terme de moments de $X_1$) pour qu'il y ait convergence dans $L^p$.
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+	\item Soit $\varepsilon > 0$.
+	On a
+	\[
+	\Pp{ \abs{\frac{X_n}{n}} \geq \varepsilon } 
+	= \Pp{ \abs{X_n} \geq \varepsilon n}
+	= \Pp{ \abs{X_1} \geq \varepsilon n},
+	\]
+	car $X_n$ a la même loi que $X_1$.
+	Les événements $\{ \abs{X_1} \geq \varepsilon n\}$ sont décroissants en $n$, donc
+	\[
+	\Pp{ \abs{\frac{X_n}{n}} \geq \varepsilon }
+	= \Pp{ \abs{X_1} \geq \varepsilon n}
+	\xrightarrow[n\to\infty]{}
+	\P \Biggl( \bigcap_{n\geq 1} \{ \abs{X_1} \geq \varepsilon n\} \Biggr)
+	= \P(\abs{X_1}=\infty)
+	= 0.
+	\]
+	Cela montre que 
+	\[ 
+	\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.
+	\]
+	%%
+	\item Soit $p \in[1,\infty[$. On va montrer que
+	\[ 
+	\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0 
+	\quad \Leftrightarrow \quad 
+	\Ec{\abs{X_1}^p} < \infty.
+	\]
+	
+	$(\Leftarrow)$ Supposons $\Ec{\abs{X_1}^p} < \infty$. Alors 
+	\[
+		\Ec{ \abs{ \frac{X_n}{n} - 0}^p }
+		= \frac{\Ec{\abs{X_n}^p}}{n^p}
+		= \frac{\Ec{\abs{X_1}^p}}{n^p} 
+		\xrightarrow[n\to\infty]{} 0,
+	\]
+	ce qui montre que $X_n/n$ converge dans $L^p$ vers 0.
+	
+	$(\Rightarrow)$ On montre la contraposée : supposons $\Ec{\abs{X_1}^p} = \infty$.
+	Alors, pour tout $n \geq 1$, on a $\Ec{\abs{X_n/n}^p} = \Ec{\abs{X_1}^p}/n^p = \infty$ et donc $X_n/n \notin L^p$. Donc il ne peut pas y avoir convergence dans $L^p$.
+\end{enumerate}
+\end{comment}
 
 %%%%%%
 \separationexos
 %%%%%%
+
 
 
 \begin{exo}[Stabilité par opérations]
@@ -271,21 +380,27 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 	\begin{enumerate}
 		\item 
 		\begin{enumerate}
-			\item Montrer que \[X_n+Y_n \xrightarrow[n\to\infty]{\P} X+Y.\]
-			\item En déduire que \[ X_n-Y_n \xrightarrow[n\to\infty]{\P} X-Y.\]
-		\end{enumerate}
-		%%
-		\item On veut montrer la stabilité par produit. Soit $\varepsilon>0$. 
-		\begin{enumerate}
 			\item Montrer que 
 			\[
-			\Pp{ \abs{X_nY_n - XY} \geq \varepsilon }
-			\leq \Pp{ \abs{X_n-X} \cdot \abs{Y_n} \geq \frac{\varepsilon}{2} }
-			+ \Pp{ \abs{X} \cdot \abs{Y_n-Y} \geq \frac{\varepsilon}{2} }
+			X_n+Y_n \xrightarrow[n\to\infty]{\P} X+Y.
+			\]
+			\item En déduire que 
+			\[ 
+			X_n-Y_n \xrightarrow[n\to\infty]{\P} X-Y.
+			\]
+		\end{enumerate}
+		%%
+		\item On veut montrer la stabilité par produit. 
+		\begin{enumerate}
+			\item Soit $\varepsilon>0$.  Montrer que 
+			\[
+			\Pp{ \abs{X_nY_n - XY} > \varepsilon }
+			\leq \Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2} }
+			+ \Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2} }
 			\]
 			\item Soit $\delta > 0$. Montrer qu'il existe $M > 0$ tel que
 			$\Pp{\abs{X} \geq M} \leq \delta $ et $\Pp{\abs{Y} \geq M} \leq \delta$.
-			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq M+1} \leq 2 \delta$.
+			\item Avec $\delta$ et $M$ considérés à la question précédente, montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq M+1} \leq 2 \delta$.
 			\item En déduire que 
 			\[
 			X_nY_n \xrightarrow[n\to\infty]{\P} XY.
@@ -297,24 +412,184 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 			\item Soit $\delta > 0$. Montrer qu'il existe $\eta > 0$ tel que $\Pp{\abs{Y} \leq \eta} \leq \delta$.
 			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq \eta/2} \leq 2 \delta$.
 			\item En déduire que 
-			\[
+			\[ 
 			\frac{1}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{1}{Y}.
 			\]
 			\item Conclure que 
-			\[
+			\[ 
 			\frac{X_n}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{X}{Y}.
 			\]
 		\end{enumerate}
 		%%
-		\item Soit $f\colon \R \to \R$ est continue. En utilisant la question 2.(a) et le fait qu'une fonction continue sur un compact est uniformément continue, montrer que 
+		\item Soit $f\colon \R \to \R$ est continue. En utilisant les questions 2.(b) et 2.(c), ainsi que le fait qu'une fonction continue sur un compact est uniformément continue, montrer que 
 		\[
 		f(X_n) \xrightarrow[n\to\infty]{\P} f(X).
 		\]
 	\end{enumerate}
 \end{exo}
 
-
-
+\begin{comment}
+\begin{enumerate}
+	\item 
+	\begin{enumerate}
+		\item Soit $\varepsilon > 0$. On a, par inégalité triangulaire,
+		\begin{align*}
+		\abs{(X_n+Y_n)-(X+Y)} > \varepsilon
+		& \quad \Rightarrow \quad 
+		\abs{X_n-X} + \abs{Y_n-Y} > \varepsilon \\
+		& \quad \Rightarrow \quad 
+		\abs{X_n-X} > \frac{\varepsilon}{2}
+		\text{ ou }
+		\abs{Y_n-Y} > \frac{\varepsilon}{2}.
+		\end{align*}
+		Donc
+		\[
+		\Pp{\abs{(X_n+Y_n)-(X+Y)} > \varepsilon}
+		\leq \Pp{\abs{X_n-X} > \frac{\varepsilon}{2}}
+		+ \Pp{\abs{Y_n-Y} > \frac{\varepsilon}{2}} 
+		\xrightarrow[n\to\infty]{} 0,
+		\]
+		car chacune des probabilités tend vers 0 par convergence en probabilité de $(X_n)_{n\geq 1}$ et $(Y_n)_{n\geq 1}$. Cela montre la convergence demandée.
+		%%
+		\item Grâce à la question précédente, il suffit de montrer que $(-Y_n)_{n\geq 1}$ converge en probabilité vers $-Y$. Cela découle facilement du fait que $\abs{(-Y_n)-(-Y)} = \abs{Y_n-Y}$.
+	\end{enumerate}
+	%%
+	\item On veut montrer la stabilité par produit. Soit $\varepsilon>0$. 
+	\begin{enumerate}
+		\item On écrit $\abs{X_nY_n - XY} = \abs{(X_n-X)Y_n + X(Y_n-Y)}$, puis on procède comme à la question~1.(a).
+		%%
+		\item Soit $\delta > 0$. 
+		Les événements $\{\abs{X} \geq M\}$ sont décroissants en $M$, donc
+		\[
+			\Pp{\abs{X} \geq M} 
+			\xrightarrow[M\to\infty]{} 
+			\P \Biggl( \bigcap_{M\geq 1} \{ \abs{X} \geq M \} \Biggr)
+			= \P(\abs{X}=\infty)
+			= 0.
+		\]
+		On a donc aussi $\Pp{\abs{Y} \geq M} \to 0$ quand $M \to \infty$.
+		Donc il existe $M > 0$ tel que $\Pp{\abs{X} \geq M} \leq \delta$
+		et $\Pp{\abs{Y} \geq M} \leq \delta$.
+		%%
+		\item Pour $n \geq 1$, en écrivant $Y_n = (Y_n-Y)+Y$ et en utilisant l'inégalité triangulaire, on a 
+		\[
+		\abs{Y_n} \geq M+1 
+		\quad \Rightarrow \quad 
+		\abs{Y_n-Y} \geq 1
+		\text{ ou }
+		\abs{Y} \geq M.
+		\]
+		Donc
+		\[
+		\Pp{\abs{Y_n} \geq M+1}
+		\leq \Pp{\abs{Y_n-Y} \geq 1} + \Pp{\abs{Y} \geq M}.
+		\]
+		On a $\Pp{\abs{Y} \geq M} \leq \delta$ par la question précédente.
+		D'autre part, comme $Y_n \to Y$ en probabilité, on a $\Pp{\abs{Y_n-Y} \geq 1} \to 0$ et donc $\Pp{\abs{Y_n-Y} \geq 1} \leq \delta$ pour $n$ suffisamment grand.
+		Donc, $\Pp{\abs{Y_n} \geq M+1} \leq 2\delta$ pour $n$ suffisamment grand.
+		%%
+		\item Soit $\varepsilon>0$. On a, par la question 2.(a),
+		\[
+		\Pp{ \abs{X_nY_n - XY} > \varepsilon }
+		\leq \Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2} }
+		+ \Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2} }.
+		\]
+		Montrons que chacune des deux probabilités à droite tend vers 0 quand $n \to \infty$.
+		
+		Commençons par la première.
+		Soit $\delta > 0$. Par les questions précédentes, il existe $M>0$ et $n_0\geq 1$ tel que, pour tout $n \geq n_0$, $\Pp{\abs{Y_n} \geq M+1} \leq 2\delta$.
+		Alors on écrit
+		\begin{align*}
+		& \Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2} } \\
+		& = \Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2},\abs{Y_n} < M+1}
+		+ \Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2},\abs{Y_n} \geq M+1} \\
+		& \leq  \Pp{ \abs{X_n-X} > \frac{\varepsilon}{2(M+1)}}
+		+ \Pp{\abs{Y_n} \geq M+1} \\
+		& \leq \Pp{ \abs{X_n-X} > \frac{\varepsilon}{2(M+1)}} + 2 \delta,
+		\end{align*}
+		pour $n \geq n_0$. Mais, comme $X_n \to X$ en probabilité, on a 
+		\begin{align*}
+		\Pp{ \abs{X_n-X} > \frac{\varepsilon}{2(M+1)}}
+		\xrightarrow[n\to\infty]{} 0,
+		\end{align*}
+		donc il existe $n_1 \geq n_0$ tel que, pour tout $n \geq n_1$, cette probabilité soit plus petite que $\delta$.
+		On a donc montré que, pour tout $\delta >0$, il existe $n_1 \geq 1$ tel que, pour tout $n \geq n_1$,
+		\[
+		\Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2} } \leq 3 \delta.
+		\]
+		Cela montre que 
+		\[
+		\Pp{ \abs{X_n-X} \cdot \abs{Y_n} > \frac{\varepsilon}{2} } 
+		\xrightarrow[n\to\infty]{} 0.
+		\]
+		
+		Pour la deuxième probabilité, on procède de manière similaire. 
+		Soit $\delta > 0$. Par 2.(b), il existe $M>0$ tel que $\Pp{\abs{X} \geq M} \leq \delta$.
+		Alors on écrit
+		\begin{align*}
+		\Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2} }
+		& = \Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2},\abs{X} < M}
+		+ \Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2},\abs{X} \geq M} \\
+		& \leq  \Pp{ \abs{Y_n-Y} > \frac{\varepsilon}{2M}}
+		+ \Pp{\abs{X} \geq M} \\
+		& \leq 2 \delta,
+		\end{align*}
+		pour $n$ suffisamment grand, en utilisant que $Y_n \to Y$ en probabilité.
+		Cela montre que 
+		\[
+		\Pp{ \abs{X} \cdot \abs{Y_n-Y} > \frac{\varepsilon}{2} } 
+		\xrightarrow[n\to\infty]{} 0
+		\]
+		et conclut la preuve.
+	\end{enumerate}
+	%%
+	\item Idées similaires à la question 2.
+	%%
+	\item Soit $\varepsilon > 0$. On veut montrer que
+	\[
+	\Pp{ \abs{f(X_n)-f(X)} > \varepsilon } 
+	\xrightarrow[n\to\infty]{} 0.
+	\]
+	Soit $\delta > 0$. Par les questions 2.(b) et 2.(c), il existe $M>0$ tel que $\Pp{\abs{X} \geq M} \leq \delta$ et $n_0\geq 1$ tel que, pour tout $n \geq n_0$, $\Pp{\abs{X_n} \geq M+1} \leq 2\delta$.
+	On a donc, en posant $K = M+1$,
+	\[
+	\Pp{\abs{X} > K \text{ ou } \abs{X_n} > K} 
+	\leq \Pp{\abs{X} > K} + \Pp{\abs{X_n} > K} 
+	\leq 3 \delta.
+	\]
+	On écrit alors, avec $A = \{ \abs{X} \leq K \text{ et } \abs{X_n} \leq K \}$,
+	\begin{align*}
+	\Pp{ \abs{f(X_n)-f(X)} > \varepsilon }
+	& = \Pp{ \{ \abs{f(X_n)-f(X)} > \varepsilon \} \cap A } 
+	+ \Pp{ \{ \abs{f(X_n)-f(X)} > \varepsilon \} \cap A^c } \\
+	& \leq  \Pp{ \abs{f(X_n)-f(X)} > \varepsilon, \abs{X} \leq K, \abs{X_n} \leq K} + 3\delta.
+	\end{align*}
+	Comme $f$ est continue sur le compact $[-K,K]$, elle y est uniformément continue (théorème de Heine) et donc il existe $\eta > 0$ tel que 
+	\[
+	\forall x,y \in [-K,K], \quad \abs{x-y} \leq \eta \Rightarrow \abs{f(x)-f(y)} \leq \varepsilon.
+	\]
+	On a donc
+	\[
+	\forall x,y \in [-K,K], \quad \abs{f(x)-f(y)} > \varepsilon \Rightarrow \abs{x-y} > \eta.
+	\]
+	On en déduit que
+	\begin{align*}
+	\Pp{ \abs{f(X_n)-f(X)} > \varepsilon, \abs{X} \leq K, \abs{X_n} \leq K}
+	\leq \Pp{ \abs{X_n-X} > \eta}
+	\xrightarrow[n\to\infty]{} 0,
+	\end{align*}
+	car $X_n \to X$ en probabilité. Donc pour $n$ suffisamment grand on a 
+	\begin{align*}
+	\Pp{ \abs{f(X_n)-f(X)} > \varepsilon }
+	\leq 4\delta.
+	\end{align*}
+	Cela montre que 
+	\begin{align*}
+	\Pp{ \abs{f(X_n)-f(X)} > \varepsilon }
+	\xrightarrow[n\to\infty]{} 0.
+	\end{align*}
+\end{enumerate}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Compléments}
@@ -332,31 +607,60 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 \end{exo}
 
 
+
 %%%%%%
 \separationexos
 %%%%%%
 
-%On note $L^0(\Omega,\cA,\P)$, abrégé en $L^0$, l'espace des v.a. réelles quotienté par la relation d'équivalence ``être égal p.s.'' (c'est-à-dire où l'on considère deux variables aléatoires égales p.s. comme identiques).
-%Cet espace correspond au cas $p=0$ des espaces $L^p$.
-%Le résultat suivant fournit une métrique sur $L^0$ qui correspond à la convergence en probabilité.
-%Notons que le choix de cette métrique n'est pas unique.
-%
-%\begin{theorem}
-%	Pour $X$ et $Y$ des v.a. réelles, on définit 
-%	\[
-%		d(X,Y) = \Ec{\abs{X-Y} \wedge 1}.
-%	\]
-%	Alors, $d$ est une distance sur $L^0$ qui métrise la convergence en probabilité, c'est-à-dire que, pour $X,X_1,X_2,\dots \in L^0$,
-%	\[
-%	X_n \xrightarrow[n\to\infty]{\P} X
-%	\quad \Leftrightarrow \quad 
-%	d(X_n,X) \xrightarrow[n\to\infty]{} 0.
-%	\]
-%\end{theorem}
-%
-%\begin{proof}
-%	
-%\end{proof}
+
+\begin{exo} 
+	Soit $X$ une v.a. positive. Identifier les limites de $\E[e^{-nX}]$ et $\E[e^{nX}]$ quand $n \to \infty$.
+\end{exo}
+
+\begin{comment}
+Comme $X$ est une v.a. positive, on a
+\[
+e^{-nX} 
+\xrightarrow[n\to\infty]{\text{p.s.}} 
+\1_{\{X=0\}} =
+\begin{cases}
+1 & \text{si } X=0, \\
+0 & \text{si } X>0. \\
+\end{cases}
+\]
+En outre, on a $\lvert e^{-nX} \rvert \leq 1$ qui est intégrable donc, par convergence dominée,
+\[
+\Ec{e^{-nX}}
+\xrightarrow[n\to\infty]{} \Ec{\1_{\{X=0\}}} 
+= \Pp{X=0}.
+\]
+Ensuite, on a
+\[
+e^{nX} 
+\xrightarrow[n\to\infty]{\text{p.s.}} 
+\begin{cases}
+1 & \text{si } X=0, \\
++\infty & \text{si } X>0. \\
+\end{cases}
+\]
+Appelons $Y$ cette limite, qui est une v.a. à valeurs dans $\R \cup \{+\infty \}$.
+Comme $(e^{nX})_{n\geq 1}$ est une suite croissante de v.a. positives, on peut appliquer le théorème de convergence monotone pour obtenir
+\[
+\Ec{e^{-nX}}
+\xrightarrow[n\to\infty]{} \Ec{Y} 
+=
+\begin{cases}
+1 & \text{si } \P(X>0) = 0, \\
++\infty & \text{si } \P(X>0) > 0. \\
+\end{cases}
+\]
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
 
 \begin{exo}
 	On note $L^0(\Omega,\cA,\P)$, abrégé en $L^0$, l'espace des v.a. réelles quotienté par la relation d'équivalence ``être égal p.s.''
