@@ -150,7 +150,7 @@
 	}
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -316,7 +316,7 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 \begin{exo} Soit $(X_n)_{n\geq 1}$ une suite de v.a. i.i.d. 
 	\begin{enumerate}
 		\item Montrer que 
-		\[ 
+		\[
 		\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.
 		\]
 		%%
@@ -344,12 +344,12 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 	= 0.
 	\]
 	Cela montre que 
-	\[ 
+	\[
 	\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0.
 	\]
 	%%
 	\item Soit $p \in[1,\infty[$. On va montrer que
-	\[ 
+	\[
 	\frac{X_n}{n} \xrightarrow[n\to\infty]{\P} 0 
 	\quad \Leftrightarrow \quad 
 	\Ec{\abs{X_1}^p} < \infty.
@@ -410,13 +410,13 @@ D'autre part, $\abs{n\sin(X/n)} \leq \abs{X}$ donc $\abs{n\sin(X/n)-X} \leq 2\ab
 		\item Supposons $\P(Y = 0)= 0$. On veut montrer la stabilité par quotient.
 		\begin{enumerate}
 			\item Soit $\delta > 0$. Montrer qu'il existe $\eta > 0$ tel que $\Pp{\abs{Y} \leq \eta} \leq \delta$.
-			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \geq \eta/2} \leq 2 \delta$.
+			\item Montrer que, pour $n$ suffisamment grand, $\Pp{\abs{Y_n} \leq \eta/2} \leq 2 \delta$.
 			\item En déduire que 
-			\[ 
+			\[
 			\frac{1}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{1}{Y}.
 			\]
 			\item Conclure que 
-			\[ 
+			\[
 			\frac{X_n}{Y_n} \xrightarrow[n\to\infty]{\P} \frac{X}{Y}.
 			\]
 		\end{enumerate}
