@@ -1,0 +1,455 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 9 -- Lemmes de Borel--Cantelli et convergence de v.a.}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Lemmes de Borel--Cantelli}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	On tire une infinité de fois à pile ou face avec une pièce équilibrée. Montrer que, presque sûrement, on obtient une infinité de fois face et une infinité de fois pile.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles. Supposons qu'il existe $M > 0$ tel que
+	\[
+		\sum_{n\geq 1} \P(X_n > M) < \infty.
+	\]
+	Montrer que, presque sûrement, la suite $(X_n)_{n\geq 1}$ est bornée.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}
+	Soit $(Z_n)_{n\geq 1}$ une suite de v.a. réelles avec $Z_n$ de loi exponentielle de paramètre $n$.
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Montrer que $Z_n$ converge presque sûrement vers $0$ lorsque $n \to \infty$.
+			%%
+			\item En déduire que, presque sûrement, à partir d'un certain rang, $Z_n<Z_1$.
+		\end{enumerate}
+		%%
+		\item On suppose ici que les v.a. $(Z_n)_{n \geq 1}$ sont indépendantes. 
+		Calculer la somme $\sum_{n \geq 1 } \Pp{Z_n \geq Z_1}$.
+		%%
+		\item Commenter.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $\varepsilon>0$. 
+On a $ \Pp{Z_n >\varepsilon}= e^{-n \varepsilon}$. 
+Donc
+\[ 
+\sum_{n \geq 0} \Pp{Z_n>\varepsilon} < \infty.
+\]
+D'après le lemme Borel-Cantelli,  pour tout $\varepsilon>0$, presque sûrement, à partir d'un certain rang on a $Z_n \leq \varepsilon$. 
+Donc presque sûrement, pour entier $k \geq 1$, à partir d'un certain rang $0 \leq Z_n \leq 1/k$. 
+On en déduit que $Z_n$ converge presque sûrement vers $0$.
+%%
+\item Soit $A \coloneqq \{\omega \in \Omega : Z_n(\omega) \to 0 \text{ et } Z_1>0\} $. 
+Soit $\omega \in A$. 
+Alors à partir d'un certain rang $Z_n(\omega) <Z_1(\omega)$. 
+Comme $\Pp{A}=1$, ceci conclut.
+%%
+\item On a $ \Pp{Z_n>Z_1}=1/(n+1)$ pour $n \geq 2$. Ainsi 
+\[
+\sum_{n \geq 1 } \Pp{Z_n>Z_1}= \infty.
+\]
+Ici le lemme Borel-Cantelli (version série divergente) ne s'applique pas car les événements $ \{ Z_n>Z_1\}$ ne sont pas indépendants. 
+\end{enumerate}
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Limites supérieures et inférieures}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles. Soit $a \in \R$.
+	\begin{enumerate}
+		\item Établir une série d'inclusion entre les événements suivants
+		\[
+			\limsup_{n\to\infty}\, \{ X_n \geq a \}, \qquad 
+			\limsup_{n\to\infty}\, \{ X_n > a \}, \qquad 
+			\left\{ \limsup_{n\to\infty} X_n \geq a \right\}, \qquad 
+			\left\{ \limsup_{n\to\infty} X_n > a \right\}.
+		\]
+		Pour chaque inclusion, trouver un exemple tel qu'elle soit stricte.
+		%%
+		\item Faire de même avec les événements
+		\[
+		\limsup_{n\to\infty}\, \{ X_n \leq a \}, \qquad 
+		\limsup_{n\to\infty}\, \{ X_n < a \}, \qquad 
+		\left\{ \limsup_{n\to\infty} X_n \leq a \right\}, \qquad 
+		\left\{ \limsup_{n\to\infty} X_n < a \right\}.
+		\]
+	\end{enumerate}
+\end{exo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence de variables aléatoires}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo} 
+Soit $(p_n)_{n\geq 1}$ une suite de réels dans $[0,1]$.
+Soit $(X_n)_{n\geq 1}$ une suite de v.a. indépendantes à valeurs dans $\{0,1\}$ telles que, pour tout $ n\geq 1$, 
+\[
+p_n = \P(X_n=1) 
+\quad \text{et} \quad 
+1-p_n = \P(X_n=0).
+\]
+\begin{enumerate}
+	\item Trouver une condition nécessaire et suffisante sur la suite $(p_n)_{n\geq 1}$ telle que $(X_n)_{n\geq 1}$ converge en probabilité vers 0.
+	%%
+	\item Trouver une condition nécessaire et suffisante sur la suite $(p_n)_{n\geq 1}$ telle que $(X_n)_{n\geq 1}$ converge p.s. vers 0.
+\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} 
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant en probabilité vers $X$.
+	\begin{enumerate}
+		\item Construire par récurrence une fonction strictement croissante $\varphi \colon \N^* \to \N^*$ telle que
+		\[
+			\forall n \geq 1, \quad 
+			\Pp{\lvert X_{\varphi(n)}-X \rvert \geq \frac{1}{n} } \leq \frac{1}{2^n}.
+		\]
+		%%
+		\item En déduire que $(X_n)_{n\geq 1}$ possède une sous-suite convergeant p.s. vers $X$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit  $(X_n)_{n\geq 1}$ une suite de v.a. réelle et $(\varepsilon_n)_{n\geq 1}$ 
+	une suite de nombres positifs telle que 
+	$\sum_{n=1}^{\infty}\varepsilon_n<\infty$. Supposons que 
+	\[
+	\sum_{n=1}^{\infty}
+	\P(\abs{X_{n+1}-X_n} > \varepsilon_n)<\infty.
+	\] 
+	Montrer que $(X_n)_{n\geq 1}$ converge p.s.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+	
+\begin{exo}
+	Soit $(p_n)_{n\geq 1}$ une suite de réels dans $[0,1]$.
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. indépendantes telle que $X_n$ ait loi binomiale de paramètre $(n,p_n)$.
+	\begin{enumerate}
+		\item Trouver une condition nécessaire et suffisante sur la suite $(p_n)_{n\geq 1}$ telle que $(X_n)_{n\geq 1}$ converge en probabilité vers 0.
+		%%
+		\item Trouver une condition nécessaire et suffisante sur la suite $(p_n)_{n\geq 1}$ telle que $(X_n)_{n\geq 1}$ converge dans $L^1$ vers 0.
+		%%
+		\item Trouver une condition nécessaire et suffisante sur la suite $(p_n)_{n\geq 1}$ telle que $(X_n)_{n\geq 1}$ converge p.s. vers 0.
+	\end{enumerate}
+\end{exo}
+
+
+
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de variables aléatoires réelles définies sur $(\Omega,\cA,\P)$ indépendantes et de loi exponentielle de paramètre $1$ (de densité $e^{-x} \1_{x > 0}$ par rapport à la mesure de Lebesgue). 
+	\begin{enumerate} 
+		\item Déterminer les limites inférieure et supérieure de $X_n/\ln(n)$ quand $n \to\infty$.
+		%%
+		\item On pose $Z_n \coloneqq \max(X_1,\dots,X_n)/\ln(n)$ pour $n \geq 2$.
+		Montrer que $Z_n$ converge presque sûrement quand $n \to \infty$ vers une limite à déterminer.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\emph{Remarque préliminaire.} Pour les deux questions, on va chercher des limites supérieures et inférieures sous la forme d'une constante presque sûre. 
+Cela ne sort pas de nulle part : on vérifie aisément que ces limites sont mesurables par rapport à la tribu queue des $(X_n)_{n \geq 1}$, elles sont donc constantes presque sûrement d'après la loi du 0--1 de Kolmogorov.
+%%
+\begin{enumerate} 
+\item \emph{Limite inférieure.} 
+Il est clair que $\liminf_{n \to \infty} X_n/\ln(n) \geq 0$, montrons l'égalité.
+On a 
+\[
+\sum_{n\geq 1} \Pr{X_n < 1} = \sum_{n\geq 1} 1- e^{-1} = \infty,
+\]
+et les événements $\{ X_n < 1 \}$ sont indépendants, donc, par le lemme de Borel--Cantelli, on en déduit que p.s. la suite $(X_n)_{n\geq 1}$ prend une infinité de fois des valeurs inférieures à 1.
+Donc p.s. la suite $(X_n/\ln(n))_{n\geq 1}$ admet une sous-suite tendant vers 0.
+Donc $\liminf_{n \to \infty} X_n/\ln(n) = 0$ p.s.
+
+\emph{Limite supérieure.}
+Soit $a\geq 0$, on a $\P(X_n > a\ln(n)) = 1/n^a$
+et les évènements sont indépendants, donc, d'après les lemmes de Borel--Cantelli, on a
+\[ 
+\Pr{\limsup_{n \to \infty} \{ X_n > a\ln(n)\}} 
+= \left\{ \begin{array}{ll} 
+1 & \text{si } a < 1 \\ 
+0  & \text{si } a > 1
+\end{array} \right..
+\]
+Soit $\varepsilon > 0$.
+Presque sûrement, $(X_n/\ln n)_{n\geq 2}$ ne passe au-dessus de $1 + \varepsilon$ qu'un nombre fini de fois donc
+\[ 
+\limsup_{n \to \infty} \frac{X_n}{\ln(n)} 
+\leq 1+\varepsilon,
+\quad \text{presque sûrement}.
+\]
+D'autre part, presque sûrement, $(X_n/\ln n)_{n\geq 2}$ passe au-dessus de $1-\varepsilon$ une infinité de fois donc
+\[ 
+\limsup_{n \to \infty} \frac{X_n}{\ln(n)} 
+\geq 1-\varepsilon,
+\quad \text{presque sûrement}.
+\]
+On conclut en faisant tendre $\varepsilon \to 0$ (on discrétise en prenant $\varepsilon = 1/k$, $k\in \N^*$, pour pouvoir échanger le ``$\forall k \in \N^*$'' et le ``p.s.'') et ainsi $\limsup_{n \to \infty} X_n/\ln(n) = 1$ p.s.
+%%
+\item \emph{Limite inférieure.} Soit $\varepsilon \in (0,1)$ et posons $A_n=  \{Z_n \leq 1- \varepsilon\}$ pour $n \geq 2$.
+On a
+\begin{align*}
+\P(A_n) 
+& = \P( \forall 1 \leq i \leq n, X_{i} \leq (1- \varepsilon)\ln(n)) 
+= \P(X_{1} \leq   (1- \varepsilon)\ln(n))^n
+= \left(1- e^{- (1- \varepsilon) \ln(n)} \right)^n \\
+& = \left( 1- \frac{1}{n^{1- \varepsilon}} \right)^n 
+= \exp \left( n \ln \left( 1- \frac{1}{n^{1- \varepsilon}} \right) \right) 
+\leq \exp \left( - n \cdot \frac{1}{n^{1- \varepsilon}}\right) 
+\leq \exp \left( - n^{ \varepsilon} \right).
+\end{align*}
+Donc $\sum_{n\geq 2} \P(A_n)$ converge. 
+D'après le lemme de Borel--Cantelli, p.s., pour tout $n$ suffisamment grand on a $Z_n \geq 1- \varepsilon$, ce qui montre que $\liminf_{n \to \infty} Z_n \geq 1 - \varepsilon$.
+
+\emph{Limite supérieure, méthode 1.} Posons $B_n= \{Z_n \geq  1 +\varepsilon\}$. 
+Un calcul proche de celui de la question précédente donne:
+\[ 
+\P(B_n)
+= 1- \left( 1- \frac{1}{n^{1+ \varepsilon}} \right)^n 
+\mathop{\sim}_{n \rightarrow \infty} \frac{1}{n^{\varepsilon}}.
+\]
+La série de terme général $1/n^{\varepsilon}$ ne converge pas, il faut donc extraire.
+Fixons $\eta>0$ et posons $n_k = \lfloor k^{2/\varepsilon} \rfloor$. 
+Alors $\sum_{k\geq 1} \P(B_{n_k})$ converge et d'après le lemme de Borel--Cantelli, p.s., pour tout $k$ suffisamment grand on a $Z_{n_k} \leq 1+ \varepsilon$. 
+Soit $n \geq 2$ et l'unique $k \geq 1$ tel que $n_k \leq n < n_{k+1}$, on a
+\[
+Z_n 
+=\frac{ \max(X_1, \dots, X_n )}{ \ln(n)} 
+\leq \frac{ \max(X_{1}, \dots, X_{n_{k+1}})}{ \ln(n_{k+1})} \frac{\ln(n_{k+1})}{\ln(n)} 
+\leq Z_{n_{k+1}} \frac{\ln(n_{k+1})}{\ln(n_k)}.
+\]
+Il s'ensuit que $\limsup_{n \to \infty} Z_n \leq 1+\varepsilon$ p.s. 
+
+\emph{Limite supérieure, méthode 2.} Soit $n \geq N \geq 2$. 
+On a
+\[
+Z_n 
+\leq \frac{\max(X_1, \dots, X_{N-1})}{\ln(n)} 
++ \max \left( \frac{X_N}{\ln(N)}, \dots, \frac{X_n}{\ln(n)} \right).
+\]
+Soit $\varepsilon > 0$.
+Par la question 1., on sait que p.s. à partir d'un certain rang $N$ (dépendant de $\omega$), on a $X_n/ \ln(n) \leq 1+\varepsilon$ et donc 
+\[
+Z_n 
+\leq \frac{\max(X_1, \dots, X_{N-1})}{\ln(n)} + 1 + \varepsilon
+\xrightarrow[n\to\infty]{} 1 + \varepsilon.
+\]
+On a donc montré que $\limsup_{n \to \infty} Z_n \leq 1+\varepsilon$ p.s. 
+
+\emph{Conclusion.} En regroupant les limites inférieure et supérieure et avec $\varepsilon \to 0$, on a donc montré que $\lim_{n \to \infty} Z_n =1$ p.s. 
+\end{enumerate}
+\end{comment}
+
+
+\end{document}
