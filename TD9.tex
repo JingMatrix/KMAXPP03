@@ -175,9 +175,6 @@
 
 
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Lemmes de Borel--Cantelli}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,6 +183,23 @@
 	On tire une infinité de fois à pile ou face avec une pièce équilibrée. Montrer que, presque sûrement, on obtient une infinité de fois face et une infinité de fois pile.
 \end{exo}
 
+
+
+\begin{comment}
+On considère une suite de v.a. $(X_n)_{n\geq1}$ indépendantes de loi de Bernoulli($1/2$).
+On considère que $X_n=1$ correspond à un $n$-ième lancer qui donne face.
+Soit $A_n = \{X_n=1\}$. Les événements $A_n$ pour $n \geq 1$ sont indépendants et $\sum_{n\geq 1} \P(A_n) = \infty$ car $\P(A_n)=1/2$.
+Donc par le second lemme de Borel--Cantelli,
+\[
+\Pp{\limsup_{n\to\infty} A_n} = 1,
+\]
+ce qui signifie que, p.s., on obtient une infinité de fois face.
+
+On montre de même que, p.s., on obtient une infinité de fois pile. 
+
+Comme l'intersection de deux événements de probabilité 1 a probabilité 1, on en conclut que, p.s., on obtient une infinité de fois face et une infinité de fois pile.
+\end{comment}
+
 %%%%%%
 \separationexos
 %%%%%%
@@ -193,59 +207,22 @@
 \begin{exo}
 	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles. Supposons qu'il existe $M > 0$ tel que
 	\[
-		\sum_{n\geq 1} \P(X_n > M) < \infty.
+		\sum_{n\geq 1} \P(\abs{X_n} > M) < \infty.
 	\]
 	Montrer que, presque sûrement, la suite $(X_n)_{n\geq 1}$ est bornée.
 \end{exo}
 
-%%%%%%
-\separationexos
-%%%%%%
-
-
-\begin{exo}
-	Soit $(Z_n)_{n\geq 1}$ une suite de v.a. réelles avec $Z_n$ de loi exponentielle de paramètre $n$.
-	\begin{enumerate}
-		\item 
-		\begin{enumerate}
-			\item Montrer que $Z_n$ converge presque sûrement vers $0$ lorsque $n \to \infty$.
-			%%
-			\item En déduire que, presque sûrement, à partir d'un certain rang, $Z_n<Z_1$.
-		\end{enumerate}
-		%%
-		\item On suppose ici que les v.a. $(Z_n)_{n \geq 1}$ sont indépendantes. 
-		Calculer la somme $\sum_{n \geq 1 } \Pp{Z_n \geq Z_1}$.
-		%%
-		\item Commenter.
-	\end{enumerate}
-\end{exo}
-
 
 \begin{comment}
-\begin{enumerate}
-\item Soit $\varepsilon>0$. 
-On a $ \Pp{Z_n >\varepsilon}= e^{-n \varepsilon}$. 
-Donc
-\[ 
-\sum_{n \geq 0} \Pp{Z_n>\varepsilon} < \infty.
-\]
-D'après le lemme Borel-Cantelli,  pour tout $\varepsilon>0$, presque sûrement, à partir d'un certain rang on a $Z_n \leq \varepsilon$. 
-Donc presque sûrement, pour entier $k \geq 1$, à partir d'un certain rang $0 \leq Z_n \leq 1/k$. 
-On en déduit que $Z_n$ converge presque sûrement vers $0$.
-%%
-\item Soit $A \coloneqq \{\omega \in \Omega : Z_n(\omega) \to 0 \text{ et } Z_1>0\} $. 
-Soit $\omega \in A$. 
-Alors à partir d'un certain rang $Z_n(\omega) <Z_1(\omega)$. 
-Comme $\Pp{A}=1$, ceci conclut.
-%%
-\item On a $ \Pp{Z_n>Z_1}=1/(n+1)$ pour $n \geq 2$. Ainsi 
+Par le premier lemme de Borel--Cantelli, on déduit de l'hypothèse de l'exercice que
 \[
-\sum_{n \geq 1 } \Pp{Z_n>Z_1}= \infty.
+\Pp{\limsup_{n\to\infty} \{\abs{X_n} > M\}} = 0.
 \]
-Ici le lemme Borel-Cantelli (version série divergente) ne s'applique pas car les événements $ \{ Z_n>Z_1\}$ ne sont pas indépendants. 
-\end{enumerate}
+Cela signifie que, p.s., il n'y a qu'un nombre fini de $n$ tels que $\abs{X_n} > M$.
+Autrement dit, p.s., pour tout~$n$ à partir d'un certain rang, $\abs{X_n} \leq M$.
+Mais une suite de réels bornée à partir d'un certain rang est bornée.
+Donc, p.s., la suite $(X_n)_{n\geq 1}$ est bornée.
 \end{comment}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -257,22 +234,140 @@ Ici le lemme Borel-Cantelli (version série divergente) ne s'applique pas car le
 	\begin{enumerate}
 		\item Établir une série d'inclusion entre les événements suivants
 		\[
-			\limsup_{n\to\infty}\, \{ X_n \geq a \}, \qquad 
 			\limsup_{n\to\infty}\, \{ X_n > a \}, \qquad 
-			\left\{ \limsup_{n\to\infty} X_n \geq a \right\}, \qquad 
-			\left\{ \limsup_{n\to\infty} X_n > a \right\}.
+			\limsup_{n\to\infty}\, \{ X_n \geq a \}, \qquad 
+			\left\{ \limsup_{n\to\infty} X_n > a \right\}, \qquad 
+			\left\{ \limsup_{n\to\infty} X_n \geq a \right\}.
 		\]
 		Pour chaque inclusion, trouver un exemple tel qu'elle soit stricte.
 		%%
-		\item Faire de même avec les événements
+		\item Montrer qu'aucune inclusion n'est vraie en général entre
 		\[
-		\limsup_{n\to\infty}\, \{ X_n \leq a \}, \qquad 
-		\limsup_{n\to\infty}\, \{ X_n < a \}, \qquad 
-		\left\{ \limsup_{n\to\infty} X_n \leq a \right\}, \qquad 
-		\left\{ \limsup_{n\to\infty} X_n < a \right\}.
+		\limsup_{n\to\infty}\, \{ X_n \leq a \} 
+		\quad \text{et} \quad 
+		\left\{ \limsup_{n\to\infty} X_n \leq a \right\}.
+		\]
+		Que dire du cas avec des inégalités strictes ?
+		%%
+		\item Reprendre la question 1. avec les événements
+		\[
+		\liminf_{n\to\infty}\, \{ X_n < a \}, \qquad 
+		\liminf_{n\to\infty}\, \{ X_n \leq a \}, \qquad 
+		\left\{ \limsup_{n\to\infty} X_n < a \right\}, \qquad 
+		\left\{ \limsup_{n\to\infty} X_n \leq a \right\}.
 		\]
 	\end{enumerate}
+	\vspace{-.3cm}
 \end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item On a
+\[
+\left\{ \limsup_{n\to\infty} X_n > a \right\}
+\subset
+\limsup_{n\to\infty}\, \{ X_n > a \} 
+\subset
+\limsup_{n\to\infty}\, \{ X_n \geq a \}
+\subset
+\left\{ \limsup_{n\to\infty} X_n \geq a \right\}.
+\]
+Montrons ces inclusions:
+\begin{itemize}
+\item \emph{1ère inclusion.} 
+Soit $\omega$ tel que $\limsup_{n\to\infty} X_n(\omega) > a$. 
+Mais il existe une sous-suite de $(X_n(\omega))_{n\geq 1}$ convergeant vers $\limsup_{n\to\infty} X_n(\omega)$. Donc les éléments de cette sous-suite sont strictement supérieurs à $a$ à partir d'un certain rang.
+Cela montre qu'il y a une infinité de $n$ tels que $X_n(\omega) > a$.
+Donc $\omega \in \limsup_{n\to\infty}\, \{ X_n > a \}$.
+%%
+\item \emph{2ème inclusion.} Cela découle simplement du fait que $\{ X_n > a \} 
+\subset \{ X_n \geq a \}$ pour tout $n \geq 1$.
+%%
+\item \emph{3ème inclusion.} Soit $\omega \in \limsup_{n\to\infty}\, \{ X_n \geq a \}$. Alors, il y a une infinité de $n$ tels que $X_n(\omega) \geq a$.
+Donc, pour tout $k\geq 1$, $\sup_{n\geq k} X_n(\omega) \geq a$.
+Cela montre que 
+\[
+\limsup_{n\to\infty} X_n(\omega) = \lim_{k\to\infty} \sup_{n\geq k} X_n(\omega) \geq a.
+\]
+\end{itemize}
+Contruisons des exemples tels que ces inclusions sont strictes:
+\begin{itemize}
+\item \emph{1ère inclusion.} 
+On prend $X_n = a+ 1/n$. Alors $X_n > a$ pour tout $n \geq 1$ donc 
+\[
+\limsup_{n\to\infty}\, \{ X_n > a \} = \Omega.
+\]
+Mais $\limsup_{n\to\infty} X_n = a$ donc 
+\[
+\left\{ \limsup_{n\to\infty} X_n > a \right\}
+= \varnothing.
+\]
+On a donc
+\[
+\left\{ \limsup_{n\to\infty} X_n > a \right\}
+\varsubsetneq
+\limsup_{n\to\infty}\, \{ X_n > a \}.
+\]
+%%
+\item \emph{2ème inclusion.} 
+Il suffit de prendre $X_n = a$.
+%%
+\item \emph{3ème inclusion.} 
+On prend $X_n = a- 1/n$. Alors $X_n < a$ pour tout $n \geq 1$ donc 
+\[
+\limsup_{n\to\infty}\, \{ X_n \geq a \} = \varnothing.
+\]
+Mais $\limsup_{n\to\infty} X_n = a$ donc 
+\[
+\left\{ \limsup_{n\to\infty} X_n \geq a \right\}
+= \varnothing.
+\]
+On a donc
+\[
+\limsup_{n\to\infty}\, \{ X_n \geq a \}
+\subset
+\left\{ \limsup_{n\to\infty} X_n \geq a \right\}.
+\]
+\end{itemize}
+%%
+\item En considérant $X_{2n} = a$ et $X_{2n+1} = a+1$, on a
+\[
+\limsup_{n\to\infty}\, \{ X_n \leq a \} = \Omega
+\quad \text{et} \quad 
+\left\{ \limsup_{n\to\infty} X_n \leq a \right\} = \varnothing.
+\]
+En considérant $X_n = a+1/n$, on a
+\[
+\limsup_{n\to\infty}\, \{ X_n \leq a \} = \varnothing
+\quad \text{et} \quad 
+\left\{ \limsup_{n\to\infty} X_n \leq a \right\} = \Omega.
+\]
+donc aucune inclusion entre ces deux événements n'est vraie en général.
+
+
+Dans le cas d'inégalités strictes, montrons que 
+\[
+\left\{ \limsup_{n\to\infty} X_n < a \right\}
+\subset 
+\limsup_{n\to\infty}\, \{ X_n < a \}.
+\]
+En effet, si $\limsup_{n\to\infty} X_n(\omega) < a$, alors tous les $X_n(\omega)$ à partir d'un certain rang sont strictement inférieurs à $a$. Donc en particulier une infinité d'entre eux le sont. Donc $\omega \in \limsup_{n\to\infty}\, \{ X_n < a \}$.
+
+En revanche, l'inclusion réciproque n'est pas vraie. On peut considérer par exemple $X_{2n} = a-1$ et $X_{2n+1} = a+1$.
+%%
+\item En passant au complémentaire dans la série d'inclusion montrée en 1., on a
+\[
+\left\{ \limsup_{n\to\infty} X_n < a \right\}
+\subset
+\liminf_{n\to\infty}\, \{ X_n < a \}
+\subset
+\liminf_{n\to\infty}\, \{ X_n \leq a \}
+\subset
+\left\{ \limsup_{n\to\infty} X_n \leq a \right\}.
+\]
+Les exemples pour avoir des inégalités strictes sont donc exactement les mêmes !
+\end{enumerate}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Convergence de variables aléatoires}
@@ -294,6 +389,56 @@ p_n = \P(X_n=1)
 \end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+	\item Montrons que
+	\[
+	X_n \xrightarrow[n\to\infty]{\P} 0
+	\quad \Leftrightarrow \quad 
+	p_n \xrightarrow[n\to\infty]{} 0.
+	\]
+	$(\Leftarrow)$ Supposons que $p_n \to 0$.
+	Soit $\varepsilon > 0$.
+	Alors 
+	\[
+		\Pp{\abs{X_n-0} > \varepsilon} \leq \Pp{X_n \neq 0} = p_n \xrightarrow[n\to\infty]{} 0.
+	\]
+	donc $X_n \to 0$ en probabilité.
+	
+	$(\Rightarrow)$ Supposons que $X_n \to 0$ en probabilité.
+	Alors 
+	\[
+	\Pp{\abs{X_n-0} > \frac{1}{2}} \xrightarrow[n\to\infty]{} 0.
+	\]
+	Mais $\P(\abs{X_n-0} > \frac{1}{2}) = p_n$, donc $p_n \to 0$.
+	%%
+	\item Montrons que
+	\[
+	X_n \xrightarrow[n\to\infty]{\text{p.s.}} 0
+	\quad \Leftrightarrow \quad 
+	\sum_{n\geq 1} p_n < \infty.
+	\]
+	$(\Leftarrow)$ Supposons que $\sum_{n\geq 1} p_n < \infty$.
+	Soit $\varepsilon > 0$.
+	Alors 
+	\[
+	\sum_{n\geq 1} \Pp{\abs{X_n-0} > \varepsilon} \leq \sum_{n\geq 1} p_n < \infty,
+	\]
+	donc, par le critère vu en cours, $X_n \to 0$ p.s.
+	
+	$(\Rightarrow)$ On va montrer la contraposée : supposons que $\sum_{n\geq 1} p_n = \infty$.
+	Alors $\sum_{n\geq 1} \P(X_n=1) = \infty$, mais comme les événements $\{X_n=1\}$ pour $n \geq 1$ sont indépendants, par le second lemme de Borel--Cantelli,
+	\[
+	\Pp{\limsup_{n\to\infty} \, \{X_n=1\}} = 1.
+	\]
+	Donc, p.s., il existe une infinité de $n$ tels que $X_n=1$.
+	Cela implique que, p.s., $\limsup_{n\to\infty} X_n \geq 1$.
+	Donc, p.s. , $(X_n)_{n\geq 1}$ est pas convergente vers 0.
+	En particulier, $(X_n)_{n\geq 1}$ n'est pas p.s. convergente vers 0.
+\end{enumerate}
+\end{comment}
+
+
 %%%%%%
 \separationexos
 %%%%%%
@@ -312,9 +457,96 @@ p_n = \P(X_n=1)
 \end{exo}
 
 
+\begin{comment}
+\begin{enumerate}
+	\item \emph{Initialisation.} Comme $(X_n)_{n\geq 1}$ converge en probabilité vers $X$, on sait que 
+	\[
+	\Pp{\lvert X_k-X \rvert \geq 1 } \xrightarrow[k\to\infty]{} 0.
+	\]
+	Donc il existe $k \geq 1$ tel que $\Pp{\lvert X_k-X \rvert \geq 1 } \leq 1/2$. On pose $\varphi(1) = k$, qui vérifie l'inégalité demandée.
+	
+	\emph{Étape de récurrence.} Soit $n \geq 2$. Supposons que $\varphi(1)<\dots<\varphi(n-1)$ sont bien définis.
+	Comme $(X_n)_{n\geq 1}$ converge en probabilité vers $X$, on sait que 
+	\[
+	\Pp{\lvert X_k-X \rvert \geq \frac{1}{n}} \xrightarrow[k\to\infty]{} 0.
+	\]
+	Donc il existe $k > \varphi(n-1)$ tel que $\Pp{\lvert X_k-X \rvert \geq 1 } \leq 2^{-n}$. On pose $\varphi(n) = k$, qui vérifie l'inégalité demandée ainsi que $\varphi(n) > \varphi(n-1)$.
+	%%
+	\item On a 
+	\[
+		\sum_{n\geq 1} \Pp{\lvert X_{\varphi(n)}-X \rvert \geq \frac{1}{n} } < \infty,
+	\]
+	donc, par le 1er lemme de Borel--Cantelli, 
+	\[
+	\Pp{ \limsup_{n\to\infty} \, \left\{ \lvert X_{\varphi(n)}-X \rvert \geq \frac{1}{n} \right\} } = 0.
+	\]
+	Ainsi, p.s., il n'existe qu'un nombre fini de $n$ tels que $\lvert X_{\varphi(n)}-X \rvert \geq \frac{1}{n}$. Autrement dit, p.s., pour tout $n$ à partir d'un certain rang, $\lvert X_{\varphi(n)}-X \rvert < \frac{1}{n}$.
+	Cela montre que, p.s., $\lvert X_{\varphi(n)}-X \rvert \to 0$ quand $n \to \infty$.
+	On a bien montré que $(X_n)_{n\geq 1}$ possède une sous-suite convergeant p.s. vers $X$.
+\end{enumerate}
+\end{comment}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Compléments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit $(Z_n)_{n\geq 1}$ une suite de v.a. réelles avec $Z_n$ de loi exponentielle de paramètre $n$.
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Montrer que $Z_n$ converge presque sûrement vers $0$ lorsque $n \to \infty$.
+			%%
+			\item En déduire que, presque sûrement, à partir d'un certain rang, $Z_n<Z_1$.
+		\end{enumerate}
+		%%
+		\item On suppose ici que les v.a. $(Z_n)_{n \geq 1}$ sont indépendantes. 
+		Calculer la somme $\sum_{n \geq 1 } \Pp{Z_n \geq Z_1}$.
+		%%
+		\item Commenter.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+	\item Soit $\varepsilon>0$. 
+	On a $ \Pp{Z_n >\varepsilon}= e^{-n \varepsilon}$. 
+	Donc
+	\[ 
+	\sum_{n \geq 0} \Pp{Z_n>\varepsilon} < \infty.
+	\]
+	D'après le lemme Borel-Cantelli,  pour tout $\varepsilon>0$, presque sûrement, à partir d'un certain rang on a $Z_n \leq \varepsilon$. 
+	Donc presque sûrement, pour entier $k \geq 1$, à partir d'un certain rang $0 \leq Z_n \leq 1/k$. 
+	On en déduit que $Z_n$ converge presque sûrement vers $0$.
+	%%
+	\item Soit $A \coloneqq \{\omega \in \Omega : Z_n(\omega) \to 0 \text{ et } Z_1>0\} $. 
+	Soit $\omega \in A$. 
+	Alors à partir d'un certain rang $Z_n(\omega) <Z_1(\omega)$. 
+	Comme $\Pp{A}=1$, ceci conclut.
+\end{enumerate}
+%%
+\item On a $ \Pp{Z_n>Z_1}=1/(n+1)$ pour $n \geq 2$. Ainsi 
+\[
+\sum_{n \geq 1 } \Pp{Z_n>Z_1}= \infty.
+\]
+%%
+\item Si on pouvait appliquer le 2nd lemme de Borel--Cantelli, on obtiendrait que 
+\[
+	\Pp{ \limsup_{n\to\infty}\, \{Z_n>Z_1\} } =1,
+\]
+ce qui signifie que, p.s., pour une infinité de $n$, $Z_n>Z_1$. Cela contredit ce qui a été montré à la question 1.(b).
+
+Mais heureusement il n'y a pas de contradiction : ici le lemme Borel--Cantelli ne s'applique pas car les événements $\{Z_n>Z_1\}$ ne sont pas indépendants. 
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
 
 
 \begin{exo}
@@ -328,10 +560,19 @@ p_n = \P(X_n=1)
 	Montrer que $(X_n)_{n\geq 1}$ converge p.s.
 \end{exo}
 
+\begin{comment} 
+On utilise le 1er lemme de Borel--Cantelli qui nous montre que, p.s., pour tout $n$ à partir d'un certain rang $\abs{X_{n+1}-X_n} \leq \varepsilon_n$.
+On considère un tel $\omega$ : il existe $n_0$ (qui dépend de $\omega$) tel que, pour tout $n \geq n_0$, $\abs{X_{n+1}(\omega)-X_n(\omega)} \leq \varepsilon_n$.
+On vérifie alors (en utilisant l'hypothèse $\sum_{n=1}^{\infty}\varepsilon_n<\infty$) que $(X_n(\omega))_{n\geq 1}$ est de Cauchy dans $\R$.
+On en déduit que la suite $(X_n(\omega))_{n\geq 1}$ converge.
+Donc $(X_n)_{n\geq 1}$ converge p.s.
+\end{comment}
+
+
 %%%%%%
 \separationexos
 %%%%%%
-	
+
 \begin{exo}
 	Soit $(p_n)_{n\geq 1}$ une suite de réels dans $[0,1]$.
 	Soit $(X_n)_{n\geq 1}$ une suite de v.a. indépendantes telle que $X_n$ ait loi binomiale de paramètre $(n,p_n)$.
@@ -344,110 +585,51 @@ p_n = \P(X_n=1)
 	\end{enumerate}
 \end{exo}
 
-
-
-
-\begin{exo}
-	Soit $(X_n)_{n\geq 1}$ une suite de variables aléatoires réelles définies sur $(\Omega,\cA,\P)$ indépendantes et de loi exponentielle de paramètre $1$ (de densité $e^{-x} \1_{x > 0}$ par rapport à la mesure de Lebesgue). 
-	\begin{enumerate} 
-		\item Déterminer les limites inférieure et supérieure de $X_n/\ln(n)$ quand $n \to\infty$.
-		%%
-		\item On pose $Z_n \coloneqq \max(X_1,\dots,X_n)/\ln(n)$ pour $n \geq 2$.
-		Montrer que $Z_n$ converge presque sûrement quand $n \to \infty$ vers une limite à déterminer.
-	\end{enumerate}
-\end{exo}
-
 \begin{comment}
-\emph{Remarque préliminaire.} Pour les deux questions, on va chercher des limites supérieures et inférieures sous la forme d'une constante presque sûre. 
-Cela ne sort pas de nulle part : on vérifie aisément que ces limites sont mesurables par rapport à la tribu queue des $(X_n)_{n \geq 1}$, elles sont donc constantes presque sûrement d'après la loi du 0--1 de Kolmogorov.
-%%
-\begin{enumerate} 
-\item \emph{Limite inférieure.} 
-Il est clair que $\liminf_{n \to \infty} X_n/\ln(n) \geq 0$, montrons l'égalité.
-On a 
+\begin{enumerate}
+\item Comme $X_n$ prend des valeurs entières, on remarque que pour $\varepsilon \in {]}0,1{[}$, 
 \[
-\sum_{n\geq 1} \Pr{X_n < 1} = \sum_{n\geq 1} 1- e^{-1} = \infty,
+\Pp{\abs{X_n-0} > \varepsilon} 
+= \Pp{X_n \neq 0} 
+= 1 - \Pp{X_n=0}
+= 1 - (1-p_n)^n,
 \]
-et les événements $\{ X_n < 1 \}$ sont indépendants, donc, par le lemme de Borel--Cantelli, on en déduit que p.s. la suite $(X_n)_{n\geq 1}$ prend une infinité de fois des valeurs inférieures à 1.
-Donc p.s. la suite $(X_n/\ln(n))_{n\geq 1}$ admet une sous-suite tendant vers 0.
-Donc $\liminf_{n \to \infty} X_n/\ln(n) = 0$ p.s.
-
-\emph{Limite supérieure.}
-Soit $a\geq 0$, on a $\P(X_n > a\ln(n)) = 1/n^a$
-et les évènements sont indépendants, donc, d'après les lemmes de Borel--Cantelli, on a
-\[ 
-\Pr{\limsup_{n \to \infty} \{ X_n > a\ln(n)\}} 
-= \left\{ \begin{array}{ll} 
-1 & \text{si } a < 1 \\ 
-0  & \text{si } a > 1
-\end{array} \right..
+et, pour $\varepsilon \geq 1$, on a $\Pp{\abs{X_n-0} > \varepsilon} 
+\leq 1 - (1-p_n)^n$.
+On a donc 
+\[
+X_n \xrightarrow[n\to\infty]{\P} 0 
+\quad \Leftrightarrow \quad 
+1 - (1-p_n)^n \xrightarrow[n\to\infty]{} 0.
 \]
-Soit $\varepsilon > 0$.
-Presque sûrement, $(X_n/\ln n)_{n\geq 2}$ ne passe au-dessus de $1 + \varepsilon$ qu'un nombre fini de fois donc
-\[ 
-\limsup_{n \to \infty} \frac{X_n}{\ln(n)} 
-\leq 1+\varepsilon,
-\quad \text{presque sûrement}.
-\]
-D'autre part, presque sûrement, $(X_n/\ln n)_{n\geq 2}$ passe au-dessus de $1-\varepsilon$ une infinité de fois donc
-\[ 
-\limsup_{n \to \infty} \frac{X_n}{\ln(n)} 
-\geq 1-\varepsilon,
-\quad \text{presque sûrement}.
-\]
-On conclut en faisant tendre $\varepsilon \to 0$ (on discrétise en prenant $\varepsilon = 1/k$, $k\in \N^*$, pour pouvoir échanger le ``$\forall k \in \N^*$'' et le ``p.s.'') et ainsi $\limsup_{n \to \infty} X_n/\ln(n) = 1$ p.s.
-%%
-\item \emph{Limite inférieure.} Soit $\varepsilon \in (0,1)$ et posons $A_n=  \{Z_n \leq 1- \varepsilon\}$ pour $n \geq 2$.
-On a
+On peut réécrire cela ainsi
 \begin{align*}
-\P(A_n) 
-& = \P( \forall 1 \leq i \leq n, X_{i} \leq (1- \varepsilon)\ln(n)) 
-= \P(X_{1} \leq   (1- \varepsilon)\ln(n))^n
-= \left(1- e^{- (1- \varepsilon) \ln(n)} \right)^n \\
-& = \left( 1- \frac{1}{n^{1- \varepsilon}} \right)^n 
-= \exp \left( n \ln \left( 1- \frac{1}{n^{1- \varepsilon}} \right) \right) 
-\leq \exp \left( - n \cdot \frac{1}{n^{1- \varepsilon}}\right) 
-\leq \exp \left( - n^{ \varepsilon} \right).
+1 - (1-p_n)^n \xrightarrow[n\to\infty]{} 0
+& \quad \Leftrightarrow \quad 
+(1-p_n)^n \xrightarrow[n\to\infty]{} 1 \\
+& \quad \Leftrightarrow \quad 
+n \log(1-p_n) \xrightarrow[n\to\infty]{} 0 \\
+& \quad \Leftrightarrow \quad 
+n p_n \xrightarrow[n\to\infty]{} 0.
 \end{align*}
-Donc $\sum_{n\geq 2} \P(A_n)$ converge. 
-D'après le lemme de Borel--Cantelli, p.s., pour tout $n$ suffisamment grand on a $Z_n \geq 1- \varepsilon$, ce qui montre que $\liminf_{n \to \infty} Z_n \geq 1 - \varepsilon$.
-
-\emph{Limite supérieure, méthode 1.} Posons $B_n= \{Z_n \geq  1 +\varepsilon\}$. 
-Un calcul proche de celui de la question précédente donne:
-\[ 
-\P(B_n)
-= 1- \left( 1- \frac{1}{n^{1+ \varepsilon}} \right)^n 
-\mathop{\sim}_{n \rightarrow \infty} \frac{1}{n^{\varepsilon}}.
-\]
-La série de terme général $1/n^{\varepsilon}$ ne converge pas, il faut donc extraire.
-Fixons $\eta>0$ et posons $n_k = \lfloor k^{2/\varepsilon} \rfloor$. 
-Alors $\sum_{k\geq 1} \P(B_{n_k})$ converge et d'après le lemme de Borel--Cantelli, p.s., pour tout $k$ suffisamment grand on a $Z_{n_k} \leq 1+ \varepsilon$. 
-Soit $n \geq 2$ et l'unique $k \geq 1$ tel que $n_k \leq n < n_{k+1}$, on a
+%%
+\item Ici on note tout simplement que 
 \[
-Z_n 
-=\frac{ \max(X_1, \dots, X_n )}{ \ln(n)} 
-\leq \frac{ \max(X_{1}, \dots, X_{n_{k+1}})}{ \ln(n_{k+1})} \frac{\ln(n_{k+1})}{\ln(n)} 
-\leq Z_{n_{k+1}} \frac{\ln(n_{k+1})}{\ln(n_k)}.
+\Ec{\abs{X_n-0}} = \Ec{X_n} = np_n,
 \]
-Il s'ensuit que $\limsup_{n \to \infty} Z_n \leq 1+\varepsilon$ p.s. 
-
-\emph{Limite supérieure, méthode 2.} Soit $n \geq N \geq 2$. 
-On a
+donc
 \[
-Z_n 
-\leq \frac{\max(X_1, \dots, X_{N-1})}{\ln(n)} 
-+ \max \left( \frac{X_N}{\ln(N)}, \dots, \frac{X_n}{\ln(n)} \right).
+X_n \xrightarrow[n\to\infty]{L^1} 0 
+\quad \Leftrightarrow \quad 
+n p_n \xrightarrow[n\to\infty]{} 0.
 \]
-Soit $\varepsilon > 0$.
-Par la question 1., on sait que p.s. à partir d'un certain rang $N$ (dépendant de $\omega$), on a $X_n/ \ln(n) \leq 1+\varepsilon$ et donc 
+%%	
+\item Ici, en procédant comme à l'exercice 4, on peut voir que la condition nécessaire et suffisante est
 \[
-Z_n 
-\leq \frac{\max(X_1, \dots, X_{N-1})}{\ln(n)} + 1 + \varepsilon
-\xrightarrow[n\to\infty]{} 1 + \varepsilon.
+\sum_{n\geq1} (1 - (1-p_n)^n) < \infty
+\quad \Leftrightarrow \quad 
+\sum_{n\geq1} n p_n < \infty
 \]
-On a donc montré que $\limsup_{n \to \infty} Z_n \leq 1+\varepsilon$ p.s. 
-
-\emph{Conclusion.} En regroupant les limites inférieure et supérieure et avec $\varepsilon \to 0$, on a donc montré que $\lim_{n \to \infty} Z_n =1$ p.s. 
 \end{enumerate}
 \end{comment}
 
