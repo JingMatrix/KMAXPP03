@@ -1,0 +1,745 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 10 -- Convergence p.s. et loi des grands nombres}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Toujours plus de convergence p.s.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. indépendantes et de loi exponentielle de paramètre $1$. On pose, pour $n \geq 2$
+	\[
+	Z_n = \frac{\max(X_1,\dots,X_n)}{\log n}.
+	\]
+	\begin{enumerate} 
+		\item 
+		\begin{enumerate} 
+			\item Soit $\varepsilon \in {]}0,1{[}$. Montrer que 
+			\[
+			\sum_{n \geq 2} \Pp{Z_n \leq 1-\varepsilon} < \infty.
+			\]
+			%%
+			\item En déduire que $\liminf_{n\to\infty} Z_n \geq 1 - \varepsilon$ p.s.
+			%%
+			\item En déduire que $\liminf_{n\to\infty} Z_n \geq 1$ p.s.
+		\end{enumerate}
+		%%
+		\item
+		\begin{enumerate} 
+			\item Soit $\varepsilon > 0$. 
+			Montrer que 
+			\[
+			\sum_{k \geq 2} \Pp{Z_{2^k} \geq 1+\varepsilon} < \infty.
+			\]
+			%%
+			\item En déduire que $\limsup_{k\to\infty} Z_{2^k} \leq 1 + \varepsilon$ p.s.
+			%%
+			\item En déduire que $\limsup_{n\to\infty} Z_n \leq 1$ p.s.
+		\end{enumerate}
+		%%
+		\item Conclure.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate} 
+	\item 
+	\begin{enumerate} 
+		\item Soit $\varepsilon \in {]}0,1{[}$. 
+		Pour $n \geq 2$, on a
+		\begin{align*}
+		\Pp{Z_n \leq 1-\varepsilon}
+		& = \P( X_1 \leq (1- \varepsilon)\log n, \dots, X_n \leq (1- \varepsilon)\log n) \\
+		& = \P( X_1 \leq (1- \varepsilon)\log n) \cdots \P(X_n \leq (1- \varepsilon) \log n) \\
+		& = \P(X_{1} \leq   (1- \varepsilon)\log n)^n \\
+		& = \left(1- e^{- (1- \varepsilon) \log n} \right)^n \\
+		& = \left( 1- \frac{1}{n^{1- \varepsilon}} \right)^n \\
+		& = \exp \left( n \log \left( 1- \frac{1}{n^{1- \varepsilon}} \right) \right) \\
+		& \leq \exp \left( - n \cdot \frac{1}{n^{1- \varepsilon}}\right) \\
+		& = \exp \left( - n^{ \varepsilon} \right).
+		\end{align*}
+		Cette dernière quantité est sommable en $n$ donc
+		\[
+		\sum_{n \geq 2} \Pp{Z_n \leq 1-\varepsilon} < \infty.
+		\]
+		%%
+		\item Par la question précédente et Borel--Cantelli, on a
+		\[
+		\Pp{ \limsup_{n\to\infty} \, \{Z_n \leq 1-\varepsilon\} } = 0,
+		\]
+		donc, p.s., il n'y a qu'un nombre fini de $n$ tels que $Z_n \leq 1-\varepsilon$.
+		Autrement dit, p.s., pour tout $n$ à partir d'un certain rang, $Z_n > 1-\varepsilon$.
+		Cela implique que, p.s., $\liminf_{n\to\infty} Z_n \geq 1 - \varepsilon$.
+		%%
+		\item Par la question précédente et Boral--Cantelli, on a
+		\[
+		\forall k \in \N^*, \text{ p.s.},\,
+		\liminf_{n\to\infty} Z_n \geq 1 - \frac{1}{k}.
+		\] 
+		On peut échanger le ``pour tout'' dénombrable et le ``p.s.'' donc
+		\[
+		\text{p.s.},\, \forall k \in \N^*,\, 
+		\liminf_{n\to\infty} Z_n \geq 1 - \frac{1}{k}.
+		\] 
+		Cela signifie que p.s. $\liminf_{n\to\infty} Z_n \geq 1$.
+	\end{enumerate}
+	%%
+	\item
+	\begin{enumerate} 
+		\item Soit $\varepsilon > 0$. 
+		Pour $n \geq 2$, on a
+		\begin{align*}
+		\Pp{Z_n \geq 1+\varepsilon}
+		& = 1-\Pp{Z_n < 1+\varepsilon} \\
+		& = 1-\P(X_1 < (1+\varepsilon)\log n)^n & \text{(comme en 1.(a))} \\
+		& = 1-\left(1- e^{- (1+\varepsilon) \log n} \right)^n \\
+		& = 1-\left( 1- \frac{1}{n^{1+\varepsilon}} \right)^n \\
+		& = 1-\exp \left( n \log \left( 1- \frac{1}{n^{1+\varepsilon}} \right) \right).
+		\end{align*}
+		Comme $n \log(1- \frac{1}{n^{1+\varepsilon}}) 
+		\sim n \cdot  \frac{1}{n^{1+\varepsilon}} = n^{-\varepsilon}$, on obtient
+		\[
+		\Pp{Z_n \geq 1+\varepsilon} \sim n^{-\varepsilon},
+		\quad \text{quand } n \to \infty. 
+		\]
+		On remarque que ce n'est pas sommable pour $\varepsilon \leq 1$, c'est pour cela que l'on extrait une sous-suite.
+		En effet, on a
+		\[
+		\Pp{Z_{2^k} \geq 1+\varepsilon} \sim 2^{-\varepsilon k},
+		\quad \text{quand } k \to \infty. 
+		\]
+		Comme $2^{-\varepsilon k} \geq 0$ et $\sum_{k \geq 2} 2^{-\varepsilon k} < \infty$, on en déduit que
+		\[
+		\sum_{k \geq 2} \Pp{Z_{2^k} \geq 1+\varepsilon} < \infty.
+		\]
+		%%
+		\item Par la question précédente et Borel--Cantelli, on a
+		\[
+		\Pp{ \limsup_{k\to\infty} \, \{Z_{2^k} \geq 1+\varepsilon\} } = 0,
+		\]
+		donc, p.s., il n'y a qu'un nombre fini de $k$ tels que $Z_{2^k} \geq 1+\varepsilon$.
+		Autrement dit, p.s., pour tout $k$ à partir d'un certain rang, $Z_{2^k} < 1+\varepsilon$.
+		Cela implique que, p.s., $\limsup_{k\to\infty} Z_{2^k} \leq 1+\varepsilon$.
+		%%
+		\item Soit $n \geq 2$ et l'unique $k \geq 1$ tel que $2^k \leq n < 2^{k+1}$, on a
+		\[
+		Z_n 
+		=\frac{ \max(X_1, \dots, X_n )}{\log n} 
+		\leq \frac{ \max(X_{1}, \dots, X_{2^{k+1}})}{\log n} 
+		= Z_{2^{k+1}}
+		\frac{\log 2^{k+1}}{\log n}.
+		\]
+		Mais 
+		\[
+		\frac{\log 2^{k+1}}{\log n}
+		\leq \frac{\log 2^{k+1}}{\log 2^k}
+		= \frac{k+1}{k}
+		\xrightarrow[k\to\infty]{} 1.
+		\]
+		Donc, p.s., $\limsup_{n\to\infty} Z_n \leq 1 +\varepsilon$.
+		Puis, en procédant comme en 1.(c) on en déduit que, p.s., $\limsup_{n\to\infty} Z_n \leq 1$.
+		
+		\emph{Remarque.} On a utilisé ici que 
+		\[
+			\limsup_{n\to\infty} a_nb_n
+			\leq \left( \limsup_{n\to\infty} a_n \right)
+			\left( \limsup_{n\to\infty} b_n \right),
+		\]
+		qui est vraie dès que le produit à droite a un sens (c'est-à-dire n'est pas une forme indéterminée).
+	\end{enumerate}
+	%%
+	\item On en déduit que p.s., $1 \leq \liminf_{n\to\infty} Z_n \leq \limsup_{n\to\infty} Z_n \leq 1$.
+	Et donc
+	\[
+		Z_n \xrightarrow[n\to\infty]{\text{p.s.}} 1.
+	\]
+\end{enumerate}
+\end{comment}
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Loi des grands nombres}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo}[Moments empiriques]	
+	Soit $X$ une v.a. réelle.
+	\begin{enumerate}
+		\item Si $X$ a un moment d'ordre $k$ fini, comment faire pour l'approcher numériquement (en supposant que l'on sait simuler $X$) ?
+		\item Si $X$  a un moment d'ordre $2$ fini, comment faire pour approcher sa variance numériquement ?
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Soit $f \colon [0,1] \to \R$ continue. Déterminer la limite, quand $n \to \infty$, de
+	\[
+	\int_{[0,1]^n} f\left(\frac{x_1+\dots+x_n}{n}\right) \diff x_1 \cdots \diff x_n.
+	\]
+\end{exo}
+\vspace{-.3cm}
+
+
+\begin{comment}
+On a 
+\[
+\int_{[0,1]^n}f\left(\frac{x_1+\dots+x_n}{n}\right)\diff x_1\cdots \diff x_n
+= \E\left[ f\left(\frac{U_1+\dots+U_n}{n}\right)\right]
+\] 
+o\`u $U_1,\dots,U_n$ sont des variables aléatoires indépendantes et uniformes sur $[0,1]$. D'après la loi forte des grands nombres, $(U_1+\dots+U_n)/n$ converge p.s.~vers $\E[U_1] = 1/2$. 
+Comme $f$ est continue, on a
+\[
+	f\left(\frac{U_1+\dots+U_n}{n}\right) 
+	\xrightarrow[n\to\infty]{\text{p.s.}}
+	f\left(\frac{1}{2}\right).
+\]
+On peut alors appliquer le théorème de convergence dominée (en dominant par le maximum de $f$ sur $[0,1]$ qui existe car $f$ est continue et $[0,1]$ est compact), et on obtient
+Ainsi, 
+\[
+\E\left[ f\left(\frac{U_1+\dots+U_n}{n}\right)\right]
+\xrightarrow[n\to\infty]{}
+f\left(\frac{1}{2}\right).
+\] 
+\end{comment}
+
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Le cas des variables aléatoires qui ne sont pas dans $L^1$]
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Soit $X$ une v.a. positive.
+			Montrer que pour tout $\alpha > 0$ on a l'équivalence suivante :
+			\[ 
+			\E[X]<\infty 
+			\quad \Leftrightarrow \quad
+			\sum_{n\geq 1} \P(X \geq \alpha n) <\infty.
+			\]
+			\emph {Indication.} On pourra utiliser que $\E[X] = \int_0^\infty \P(X > x) \diff x$.
+			%%
+			\item Soit $(X_n)_{n\geq1}$ une suite de v.a. i.i.d. positives.
+			Montrer que, presque sûrement, on a
+			\[
+			\limsup_{n \to \infty} \frac{X_n}{n} 
+			= \left\{ \begin{array}{ll} 
+			0 & \text{si } \E[X_1] < \infty, \\ 
+			\infty & \text{si } \E[X_1] = \infty.
+			\end{array} \right.
+			\]
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item Soit $(x_n)_{n\geq1}$ une suite de réels. Montrer que, si la suite $((x_1+\dots+x_n)/n)_{n\geq 1}$ converge dans~$\R$, alors $x_n/n \to 0$ quand $n \to \infty$.
+			%%
+			\item Soit $(X_n)_{n\geq1}$ une suite de v.a. réelles i.i.d. telle que $\E[\abs{X_1}] = \infty$. Montrer que, p.s., la suite $((X_1+\dots+X_n)/n)_{n\geq 1}$ ne converge pas dans~$\R$.
+		\end{enumerate}
+		\item Soit $(X_n)_{n\geq1}$ une suite de v.a. i.i.d. positives telle que $\E[X_1] = \infty$.
+		\begin{enumerate}
+			\item Soit $M > 0$. Pour $n \geq 1$, on pose $Y_n = \max(X_n,M)$.
+			Montrer que 
+			\[
+				\frac{Y_1+\dots+Y_n}{n}
+				\xrightarrow[n\to\infty]{\text{p.s.}} \E[\max(X_1,M)].
+			\]
+			%%
+			\item En déduire que
+			\[
+			\frac{X_1+\dots+X_n}{n}
+			\xrightarrow[n\to\infty]{\text{p.s.}} \infty.
+			\]
+		\end{enumerate}
+	\end{enumerate} 
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item 
+	\begin{enumerate}
+		\item On écrit
+		\[
+			\E[X] = \int_0^\infty \P(X > x) \diff x
+			= \sum_{n \geq 1} \int_{\alpha (n-1)}^{\alpha n} \P(X > x) \diff x.
+		\]
+		Pour tout $x \in [\alpha (n-1),\alpha n]$, on a $\P(X > \alpha n) \leq \P(X > x) \leq \P(X > \alpha (n-1))$ donc on a l'encadrement
+		\[
+			\sum_{n \geq 1} \alpha \P(X > \alpha n)
+			\leq \E[X] 
+			\leq \sum_{n \geq 1} \alpha \P(X > \alpha (n-1))
+			= \sum_{n \geq 0} \alpha \P(X > \alpha n).
+		\]
+		Cela montre l'équivalence voulue.
+		%%
+		\item Supposons $\E[X_1] < \infty$. Soit $\alpha > 0$. 
+		Alors, par la question précédente,
+		\[
+		\sum_{n \geq 1} \P(X_n > \alpha n)
+		= \sum_{n \geq 1} \P(X_1 > \alpha n) 
+		< \infty.
+		\]
+		Donc par le 1er lemme de Borel--Cantelli,
+		\[
+		\P\left( \limsup_{n\to\infty} \, \{ X_n > \alpha n \} \right) = 0.
+		\]
+		Donc, p.s., il n'y a qu'un nombre fini de $n$ tel que $X_n > \alpha n$.
+		Ainsi, p.s., pour tout $n$ à partir d'un certain rang, $X_n/n \leq \alpha$.
+		Donc, p.s. $\limsup_{n\to\infty} X_n/n \leq \alpha$.
+		En prenant $\alpha = 1/k$ avec $k \in \N^*$, on peut échanger le ``pour tout'' et le ``p.s.'' et obtenir
+		\[
+			\text{p.s.}, \, \forall k \in \N^*, \, 
+			\limsup_{n \to \infty} \frac{X_n}{n} \leq \frac{1}{k}.
+		\]
+		Cela implique que 
+		\[
+		\text{p.s. } \limsup_{n \to \infty} \frac{X_n}{n} \leq 0 .
+		\]
+		Mais comme $X_n \geq 0$ on a 
+		\[
+		\text{p.s. } \limsup_{n \to \infty} \frac{X_n}{n} = 0.
+		\]
+		
+		
+		Supposons à présent $\E[X_1] = \infty$. Soit $\alpha > 0$. 
+		Alors, par la question précédente,
+		\[
+		\sum_{n \geq 1} \P(X_n > \alpha n)
+		= \sum_{n \geq 1} \P(X_1 > \alpha n) 
+		= \infty.
+		\]
+		Donc, comme les événements $\{ X_n > \alpha n \}$ sont indépendants, par le 2nd lemme de Borel--Cantelli,
+		\[
+		\P\left( \limsup_{n\to\infty} \, \{ X_n > \alpha n \} \right) = 1.
+		\]
+		Donc, p.s., il n'y a qu'une infinité de $n$ tel que $X_n > \alpha n$.
+		Ainsi, p.s. $\limsup_{n\to\infty} X_n/n \geq \alpha$.
+		En prenant $\alpha = k$ avec $k \in \N^*$, on peut échanger le ``pour tout'' et le ``p.s.'' et obtenir
+		\[
+		\text{p.s.}, \, \forall k \in \N^*, \, 
+		\limsup_{n \to \infty} \frac{X_n}{n} \geq k.
+		\]
+		Cela implique que 
+		\[
+		\text{p.s. } \limsup_{n \to \infty} \frac{X_n}{n} = \infty.
+		\]
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item Soit $(x_n)_{n\geq1}$ une suite de réels telle que $(x_1+\dots+x_n)/n \to \ell \in \R$ quand $n \to \infty$.
+		On a 
+		\[
+		\frac{x_1+\dots+x_n}{n} 
+		= \frac{x_1+\dots+x_{n-1}}{n} + \frac{x_n}{n}
+		= \frac{x_1+\dots+x_{n-1}}{n-1} \cdot \frac{n-1}{n} + \frac{x_n}{n}
+		\]
+		La partie de gauche tend vers $\ell$. Et à droite on a
+		\[
+		\frac{x_1+\dots+x_{n-1}}{n} 
+		= \frac{x_1+\dots+x_{n-1}}{n-1} \cdot \frac{n-1}{n} \xrightarrow[n\to\infty]{} \ell.
+		\]
+		Donc 
+		\[
+		\frac{x_n}{n} \xrightarrow[n\to\infty]{} 0.
+		\]
+		%%
+		\item Comme $\E[\abs{X_1}] = \infty$, on sait que $\limsup_{n\to\infty} X_n/n = \infty$ p.s. 
+		En particulier, p.s., $X_n/n$ ne converge pas vers 0.
+		Par la contraposée de la question 2.(a), cela implique que, p.s., la suite $((X_1+\dots+X_n)/n)_{n\geq 1}$ ne converge pas dans~$\R$.
+	\end{enumerate}
+	\item Soit $(X_n)_{n\geq1}$ une suite de v.a. i.i.d. positives telle que $\E[X_1] = \infty$.
+	\begin{enumerate}
+		\item Comme $(Y_n)_{n\geq1}$ est une suite de v.a. i.i.d. et $\E[\abs{Y_1}] = \E[Y_1] \leq M < \infty$, on a, par la loi forte des grands nombres,
+		\[
+		\frac{Y_1+\dots+Y_n}{n}
+		\xrightarrow[n\to\infty]{\text{p.s.}} \E[Y_1] = \E[\max(X_1,M)].
+		\]
+		%%
+		\item Pour tout $n \geq 1$, on a $X_n \geq Y_n$. Donc
+		\[
+		\liminf_{n\to\infty} \frac{X_1+\dots+X_n}{n}
+		\geq \liminf_{n\to\infty} \frac{Y_1+\dots+Y_n}{n} 
+		= \E[\max(X_1,M)] \text{ p.s.}
+		\]
+		On peut se restreindre à $M \in \N^*$ pour échanger le ``pour tout'' et le ``p.s.'' et obtenir
+		\[
+		\text{p.s.}, \, \forall M \in \N^*, \, 
+		\liminf_{n \to \infty} \frac{X_1+\dots+X_n}{n} \geq \E[\max(X_1,M)].
+		\]
+		Donc, comme $\E[\max(X_1,M)] \to \E[X_1] = \infty$ par le théorème de convergence monotone (car $\max(X_1,M) \geq 0$ et $\max(X_1,M) \uparrow X_1$ quand $M\to\infty$),
+		\[
+		\text{p.s.}, \, 
+		\liminf_{n \to \infty} \frac{X_1+\dots+X_n}{n} = \infty.
+		\]
+		Cela montre que 
+		\[
+		\frac{X_1+\dots+X_n}{n}
+		\xrightarrow[n\to\infty]{\text{p.s.}} \infty.
+		\]
+	\end{enumerate}
+\end{enumerate} 
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Théorème de Bernstein-Weierstrass]
+	Soit $f \colon [0,1] \to \R$ continue. 
+	Le $n$-ième polynôme de Bernstein de $f$ est défini par 
+	\[ 
+	B_n(x) \coloneqq \sum_{k=0}^n \binom{n}{k} x^k(1-x)^{n-k} f\left(\frac{k}{n}\right), \quad x \in [0,1].
+	\]
+	De plus, pour chaque $x \in [0,1]$, on considère une v.a. $S_{n,x}$ de loi binomiale de paramètre $(n,x)$.
+	\begin{enumerate} 
+		\item En notant que $B_n(x) = \E[f(S_{n,x}/n)]$, montrer sans calcul que $B_n$ converge simplement vers $f$.
+		%%
+		\item On veut montrer que $B_n$ converge uniformément vers $f$.
+		\begin{enumerate}
+			\item Soit $\varepsilon > 0$. En utilisant l'uniforme continuité de $f$, montrer qu'il existe $\eta > 0$ tel que, pour tout $x \in [0,1]$ et tout $n \geq 1$,
+			\[
+			\abs{f(x)-B_n(x)}
+			\leq \varepsilon + 2 \norme{f}_\infty \mathbb{P}(|S_{n,x}-x| \geq \eta) 
+			\]
+			\item En utilisant l'inégalité de Bienaymé--Chebychev, conclure.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate} 
+\item Soit $x \in [0,1]$ fixé. On peut écrire $S_{n,x} = X_1 + \dots + X_n$ avec $(X_k)_{k\geq 1}$ une suite de v.a. indépendantes de loi de Bernoulli de paramètre $x$.
+Alors, d'après la loi forte des grands nombres, $S_n/n$ converge p.s. vers $\Ec{X_1} = x$.
+Donc, par continuité de $f$ et par convergence dominée (comme à l'exercice 3), $B_n(x) \to f(x)$.
+%% 
+\item 
+\begin{enumerate}
+\item Soit $\varepsilon>0$.
+Comme $f$ est continue sur un compact, elle est uniformément continue, donc il existe $\eta>0$ tel que pour tous $x,y \in [0,1]$, on ait $\abs{x-y}\leq \eta \Rightarrow \abs{f(x)-f(y)} \leq \varepsilon$.
+Alors on a, pour tout $x \in [0,1]$ et tout $n \geq 1$,
+\begin{align*}
+\abs{f(x)-B_n(x)}
+& \leq \Ec{ \abs{f(x)-f(S_{n,x})} } \\ 
+& = \Ec{\abs{f(x)-f(S_{n,x})} \1_{ \abs{S_{n,x}-x} < \eta} }
++ \Ec{ \abs{f(x)-f(S_{n,x})} \1_{\abs{S_{n,x}-x}\geq \eta} } \\  
+& \leq \varepsilon + 2 \norme{f}_\infty \mathbb{P}(\abs{S_{n,x}-x} \geq \eta).
+\end{align*}
+%%
+\item Par l'inégalité de Bienaymé--Chebychev, 
+\[ 
+\mathbb{P}(|S_{n,x}-x|\geq \eta) 
+\leq \frac{\mathrm{Var}(|S_{n,x}|)}{\eta^2} 
+= \frac{x(1-x)}{n\eta^2} 
+\leq \frac{1}{2n\eta^2}.
+\] 
+La majoration ci-dessus est uniforme en $x$, ce qui permet de conclure : pour tout $n$ à partir d'un certain rang (tel que $\norme{f}_\infty/(n\eta^2) \leq \varepsilon$), pour tout $x \in [0,1]$,
+\[
+\abs{f(x)-B_n(x)} \leq 2 \varepsilon.
+\]
+\end{enumerate}
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Proposer une méthode de Monte-Carlo pour approcher numériquement $\pi$.
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Soit $(X_n)_{n\geq1}$ une suite de v.a. réelles i.i.d.
+	On note $F$ la fonction de répartition de $X_1$ et on suppose que $X_1$ n'est pas p.s.~constante. 
+	On pose 
+	\[
+	\alpha \coloneqq \inf\{x\in\R:F(x)>0\}
+	\quad \text{et} \quad 
+	\beta \coloneqq \sup\{x\in\R:F(x)<1\}.
+	\] 
+	\emph{Remarque.} On appelle $\alpha$ l'infimum essentiel de $X_1$ et $\beta$ le supremum essentiel.
+	\begin{enumerate} 
+		%\item Soit $a\in\R$ tel que $0<F(a)<1$. Montrer que p.s. \[\liminf_{n\to\infty}X_n \leq a \leq \limsup_{n\to\infty} X_n.\] 
+		%%
+		\item Montrer que $\alpha<\beta$, que $\alpha\neq+\infty$ et que $\beta\neq-\infty$. 
+		%%
+		\item \begin{enumerate}
+			\item Soit $x > \alpha$. Montrer que 
+			\[
+				\sum_{n\geq 1} \P(X_n \leq x) = \infty.
+			\]
+			\item En déduire que $\liminf_{n\to\infty}X_n=\alpha$ p.s.
+		\end{enumerate}
+		%%
+		\item Montrer que $\limsup_{n\to\infty} X_n = \beta$ p.s.
+	\end{enumerate} 
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}  
+\item Comme $F$ est croissante, on a $\alpha \leq \beta$ et, par continuité à droite, on a
+\[
+	F(x) \begin{cases}
+	= 0 & \text{si } x < \alpha, \\
+	\in {]}0,1{[} & \text{si } x \in {]}\alpha,\beta[, \\
+	= 1 & \text{si } x \geq \beta.
+	\end{cases}
+\]
+Notons qu'en $x=\alpha$, $F(\alpha)$ peut être nul ou strictement positif.
+
+Supposons que $\alpha=\beta$. 
+Alors $F(x)= \1_{]-\infty,\alpha]}(x)$ et $F$ est la fonction de répartition de la mesure $\delta_\alpha$ ce qui contredit l'hypothèse de l'énoncé. Donc $\alpha < \beta$.
+
+Si $\beta=-\infty$ cela signifie que $F\equiv1$ ce qui n'est pas possible car $F(x)\to0$ quand $x\to-\infty$. 
+De même $\alpha\neq+\infty$. 
+%%
+\item 
+\begin{enumerate}
+\item Soit $x > \alpha$. On a 
+\[
+\sum_{n\geq 1} \P(X_n \leq x) 
+= \sum_{n\geq 1} \P(X_1 \leq x)
+= \sum_{n\geq 1} F(x)
+= \infty,
+\]
+car $F(x) > 0$ car $x > \alpha$ (voir question 1.).
+%%
+\item En appliquant le 2nd lemme de Borel--Cantelli, on peut en déduire que, p.s., $\liminf_{n\to\infty}X_n \leq x$.
+En faisant tendre $x$ vers $\alpha$ (i.e. en se ramenant à un ``pour tout $x$'' dénombrable pour l'échanger avec le ``p.s.'') on obtient $\liminf_{n\to\infty} X_n \leq \alpha$ p.s.
+
+D'autre part, $\P(X_n < \alpha) = \P(X_1 < \alpha) = F(\alpha-) = 0$ (toujours par ce qu'on a vu à la question 1). 
+Cela signifie que, pour tout $n \geq 1$, p.s., $X_n \geq \alpha$.
+Donc, p.s., pour tout $n \geq 1$, $X_n \geq \alpha$.
+En particulier, $\liminf_{n\to\infty} X_n \geq \alpha$ p.s.
+Cela conclut la preuve.
+\end{enumerate}
+\item C'est similaire à la question 2. 
+\end{enumerate}  
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo} 
+	Soit $f \colon \R_+ \to \R$ continue bornée et $\lambda> 0$. Déterminer la limite, quand $n \to \infty$, de
+	\[
+	\sum_{k\geq0} e^{-\lambda n} \frac{(\lambda n)^k}{k!} f\left(\frac{k}{n}\right).
+	\]
+	\emph{Indication.} On rappelle que si $X_1,\dots,X_n$ sont des v.a. indépendantes avec $X_i$ de loi de Poisson de paramètre $\lambda_i$, alors $X_1+\dots+X_n$ suit une loi de Poisson de paramètre $\lambda_1+\dots+\lambda_n$ (cela se montre par calcul de fonction caractéristique).
+\end{exo}
+
+\begin{comment}
+On a 
+\[
+\sum_{k=0}^{\infty}e^{-\lambda n}\frac{(\lambda n)^k}{k!}f\left(\frac{k}{n} \right)
+=\E\left[f\left(\frac{P}{n}\right)\right],
+\] 
+où $P$ est une v.a. de Poisson de paramètre $\lambda n$.
+En utilisant l'indication, on peut donc le réécrire
+\[
+\sum_{k=0}^{\infty}e^{-\lambda n}\frac{(\lambda n)^k}{k!}f\left(\frac{k}{n} \right)
+=\E\left[f\left(\frac{P_1+\dots+P_n}{n}\right)\right],
+\] 
+où $P_1,\dots,P_n$ sont des v.a. indépendantes de loi de Poisson de paramètre $\lambda$. D'après la loi forte des grands nombres, $(P_1+\dots+P_n)/n$ converge p.s. vers $\lambda$. Ainsi, en procédant comme à l'exercice 3,
+\[
+\sum_{k=0}^{\infty}e^{-\lambda n}\frac{(\lambda n)^k}{k!}f\left(\frac{k}{n}\right)
+\xrightarrow[n\to\infty]{} f(\lambda).
+\]
+\end{comment}
+
+
+\end{document}
