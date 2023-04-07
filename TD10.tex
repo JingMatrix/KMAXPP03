@@ -150,7 +150,7 @@
 	}
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -312,13 +312,20 @@
 		Donc, p.s., $\limsup_{n\to\infty} Z_n \leq 1 +\varepsilon$.
 		Puis, en procédant comme en 1.(c) on en déduit que, p.s., $\limsup_{n\to\infty} Z_n \leq 1$.
 		
-		\emph{Remarque.} On a utilisé ici que 
+		\emph{Remarque.} On a utilisé ici que, pour $(a_n)_{n\geq1}$ et $(b_n)_{n\geq1}$ des suites de réels positifs,
 		\[
 			\limsup_{n\to\infty} a_nb_n
 			\leq \left( \limsup_{n\to\infty} a_n \right)
 			\left( \limsup_{n\to\infty} b_n \right),
 		\]
-		qui est vraie dès que le produit à droite a un sens (c'est-à-dire n'est pas une forme indéterminée).
+		qui est vraie dès que le produit à droite a un sens (c'est-à-dire n'est pas de la forme $0 \times \infty$).
+		Pour le voir, on utilise la définition de la limsup et l'inégalité
+		\[
+		\forall m \geq 1, \quad 
+		\sup_{n\geq m} a_nb_n
+		\leq \left( \sup_{n\geq m} a_n \right)
+		\left( \sup_{n\geq m} b_n \right).
+		\]
 	\end{enumerate}
 	%%
 	\item On en déduit que p.s., $1 \leq \liminf_{n\to\infty} Z_n \leq \limsup_{n\to\infty} Z_n \leq 1$.
@@ -344,6 +351,23 @@
 	\end{enumerate}
 \end{exo}
 
+
+\begin{comment}
+\begin{enumerate}
+\item On se donne une suite $(X_n)_{n\geq 1}$ de v.a. i.i.d. de même loi que $X$.
+Comme $\E[\lvert X_1^k \rvert] < \infty$, par la loi forte des grands nombres,
+\[
+	\frac{X_1^k + \dots + X_n^k}{n} 
+	\xrightarrow[n\to\infty]{\text{p.s.}} \Ec{X_1^k} = \Ec{X^k}.
+\]
+\item On a 
+\[
+\frac{X_1^2 + \dots + X_n^2}{n} 
+- \left( \frac{X_1 + \dots + X_n}{n} \right)^2 
+\xrightarrow[n\to\infty]{\text{p.s.}} \Ec{X_1^2} - \Ec{X_1}^2 = \Var(X).
+\]
+\end{enumerate}
+\end{comment}
 
 %%%%%%
 \separationexos
@@ -419,11 +443,11 @@ f\left(\frac{1}{2}\right).
 		\end{enumerate}
 		\item Soit $(X_n)_{n\geq1}$ une suite de v.a. i.i.d. positives telle que $\E[X_1] = \infty$.
 		\begin{enumerate}
-			\item Soit $M > 0$. Pour $n \geq 1$, on pose $Y_n = \max(X_n,M)$.
+			\item Soit $M > 0$. Pour $n \geq 1$, on pose $Y_n = \min(X_n,M)$.
 			Montrer que 
 			\[
 				\frac{Y_1+\dots+Y_n}{n}
-				\xrightarrow[n\to\infty]{\text{p.s.}} \E[\max(X_1,M)].
+				\xrightarrow[n\to\infty]{\text{p.s.}} \E[\min(X_1,M)].
 			\]
 			%%
 			\item En déduire que
@@ -524,7 +548,7 @@ f\left(\frac{1}{2}\right).
 		\frac{x_n}{n} \xrightarrow[n\to\infty]{} 0.
 		\]
 		%%
-		\item Comme $\E[\abs{X_1}] = \infty$, on sait que $\limsup_{n\to\infty} X_n/n = \infty$ p.s. 
+		\item Comme $\E[\abs{X_1}] = \infty$, on sait que $\limsup_{n\to\infty} \abs{X_n}/n = \infty$ p.s. par la question 1.(a). 
 		En particulier, p.s., $X_n/n$ ne converge pas vers 0.
 		Par la contraposée de la question 2.(a), cela implique que, p.s., la suite $((X_1+\dots+X_n)/n)_{n\geq 1}$ ne converge pas dans~$\R$.
 	\end{enumerate}
@@ -533,21 +557,21 @@ f\left(\frac{1}{2}\right).
 		\item Comme $(Y_n)_{n\geq1}$ est une suite de v.a. i.i.d. et $\E[\abs{Y_1}] = \E[Y_1] \leq M < \infty$, on a, par la loi forte des grands nombres,
 		\[
 		\frac{Y_1+\dots+Y_n}{n}
-		\xrightarrow[n\to\infty]{\text{p.s.}} \E[Y_1] = \E[\max(X_1,M)].
+		\xrightarrow[n\to\infty]{\text{p.s.}} \E[Y_1] = \E[\min(X_1,M)].
 		\]
 		%%
 		\item Pour tout $n \geq 1$, on a $X_n \geq Y_n$. Donc
 		\[
 		\liminf_{n\to\infty} \frac{X_1+\dots+X_n}{n}
 		\geq \liminf_{n\to\infty} \frac{Y_1+\dots+Y_n}{n} 
-		= \E[\max(X_1,M)] \text{ p.s.}
+		= \E[\min(X_1,M)] \text{ p.s.}
 		\]
 		On peut se restreindre à $M \in \N^*$ pour échanger le ``pour tout'' et le ``p.s.'' et obtenir
 		\[
 		\text{p.s.}, \, \forall M \in \N^*, \, 
-		\liminf_{n \to \infty} \frac{X_1+\dots+X_n}{n} \geq \E[\max(X_1,M)].
+		\liminf_{n \to \infty} \frac{X_1+\dots+X_n}{n} \geq \E[\min(X_1,M)].
 		\]
-		Donc, comme $\E[\max(X_1,M)] \to \E[X_1] = \infty$ par le théorème de convergence monotone (car $\max(X_1,M) \geq 0$ et $\max(X_1,M) \uparrow X_1$ quand $M\to\infty$),
+		Donc, comme $\E[\min(X_1,M)] \to \E[X_1] = \infty$ par le théorème de convergence monotone (car $\min(X_1,M) \geq 0$ et $\min(X_1,M) \uparrow X_1$ quand $M\to\infty$),
 		\[
 		\text{p.s.}, \, 
 		\liminf_{n \to \infty} \frac{X_1+\dots+X_n}{n} = \infty.
