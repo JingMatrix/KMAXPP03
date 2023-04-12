@@ -1,0 +1,301 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 10 -- Révisions et convergence en loi}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Révisions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}
+	Soit $(\lambda_n)_{n\geq 1}$ une suite de réels strictement positifs.
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. indépendantes telle que $X_n$ ait loi exponentielle de paramètre $\lambda_n$.
+	\begin{enumerate}
+		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge dans $L^1$ vers 0.
+		%%
+		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge en probabilité vers 0.
+		%%
+		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge p.s. vers 0.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo} \label{exo:convergence_mesures_discretes_1}
+	\begin{enumerate}
+	\item Pour $n \geq 1$, soit $U_n$ une v.a. uniforme sur $\{1,\dots,n\}$.
+	Montrer que $(U_n/n)_{n\geq 1}$ converge en loi vers une v.a. uniforme sur $[0,1]$. 
+	%%
+	\item Soit $\lambda > 0$. 
+	Pour $n \geq 1$, soit $U_n$ une v.a de loi géométrique de paramètre $e^{-\lambda/n}$.
+	Montrer que $(X_n/n)_{n\geq 1}$ converge en loi vers une v.a. exponentielle de param\`etre $\lambda$.
+\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Stabilité par opérations ?]
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers $X$.
+	\begin{enumerate}
+		\item Soit $f \colon \R\to\R$ continue. Montrer que $(f(X_n))_{n\geq 1}$ converge en loi vers $f(X)$.
+		%%
+		\item Si $(Y_n)_{n\geq 1}$ est une suite de v.a. convergeant en loi vers $Y$, a-t-on convergence en loi de $(X_n+Y_n)_{n\geq 1}$ ?
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $g \colon \R \to \R$ est continue bornée. Alors $g \circ f$ est continue bornée et donc $ \Ec{g(f(X_n))} \to \Ec{g(f(X))}$. Cela montre la convergence.
+%%
+\item C'est faux.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers une v.a. constante $X$. 
+	Soit $(b_n)_{n\geq 1}$ une suite de réels.
+	Montrer que $(X_n + b_n)_{n\geq 1}$ converge en loi si et seulement si $(b_n)_{n\geq 1}$ converge dans~$\R$.
+\end{exo}
+
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers $X$. 
+	A-t-on $\E[X_n] \to \E[X]$ ?
+\end{exo}
+
+\begin{comment}
+Faux: même la convergence p.s. ne permet pas d'assurer la convergence des espérances.
+Par exemple, on peut prendre $(\Omega,\cA,\P)=([0,1],\cB(\R),\lambda)$ et $X_n(t)$ la fonction tente telle que $X_n(0)=0, X_n(1/n)=n,X_n(2/n)=0$. 
+Alors $X_n$ converge p.s. vers $0$ mais $\Ec{X_n}=1 \neq \Ec{0}$. 
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Discrétisation de mesure]
+	\begin{enumerate}
+		\item Soit $\mu$ une mesure de probabilité sur $(\R,\cB(\R))$. 
+		Pour tout $n\geq 1$, on définit une mesure de probabilité $\mu_n$ sur $(\R,\cB(\R))$ par~:
+		\[
+		\mu_n \coloneqq \sum_{k\in \Z} \mu([k/n,(k+1)/n[) \delta_{k/n}.
+		\]
+		On veut montrer que $\mu_n$ converge étroitement vers $\mu$ quand $n\to\infty$. 
+		\begin{enumerate}
+			\item Soit $X$ une v.a. de loi $\mu$. On pose $X_n=\lfloor nX\rfloor/n$ ($\lfloor x\rfloor$ désigne la partie enti\`ere de $x$).
+			Montrer que $X_n$ suit la loi $\mu_n$.
+			\item Montrer que $(X_n)_{n\geq 1}$ converge p.s. vers $X$.
+			\item Conclure.
+		\end{enumerate}
+		%%
+		\item Reprendre l'exercice \ref{exo:convergence_mesures_discretes_1} en utilisant la question 1.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $X$ une variable aléatoire réelle définie sur un espace $(\Omega,\cA,\P)$ de loi $\mu$. 
+Alors on voit que pour tout $n\geq1$, la variable aléatoire $X_n=\lfloor nX\rfloor/n$ ($\lfloor x\rfloor$ désigne la partie enti\`ere de $x$) suit la loi $\mu_n$. 
+Et $X_n\to X$ p.s. 
+Donc $X_n\to X$ en loi, ce qui signifie que $\mu_n\to \mu$ étroitement. 
+%%
+\item On pose $m(\diff x)=e^{-x}\1_{\{x>0\}}\diff x$. 
+Alors on vérifie que pour tout $n\geq1$, $m_n$ est la loi de la variable aléatoire $X_n/n$. 
+En effet, 
+\[
+\P(X_n=k)=e^{-k/n}-e^{-(k+1)/n}=\int_{k/n}^{(k+1)/n}e^{-x}\diff x=m_n(\{k/n\}).
+\] 
+\end{enumerate}
+\end{comment}
+
+
+\end{document}
