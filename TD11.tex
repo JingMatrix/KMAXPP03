@@ -171,8 +171,7 @@
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\titre{TD 10 -- Révisions et convergence en loi}
-
+\titre{TD 11 -- Révisions et convergence en loi}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Révisions}
@@ -187,24 +186,117 @@
 		%%
 		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge en probabilité vers 0.
 		%%
-		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge p.s. vers 0.
+		\item On veut montrer que 
+		\[
+		X_n \xrightarrow[n\to\infty]{\text{p.s.}} 0 
+		\quad \Leftrightarrow \quad
+		\frac{\lambda_n}{\log n} \xrightarrow[n\to\infty]{} \infty.
+		\]
+		\begin{enumerate}
+			\item Montrer l'implication $(\Leftarrow)$. 
+			\item Supposons à présent que $\lambda_n/\log n$ ne tende pas vers l'infini. Montrer qu'il existe $C>0$ tel que $\lambda_n \leq C \log n$ pour tout $n \geq 2$.
+			\item En déduire que
+			\[
+				\sum_{n\geq 2} \P(X_n \geq 1/C) = \infty.
+			\]
+			\item En déduire l'implication $(\Rightarrow)$. 
+		\end{enumerate}
 	\end{enumerate}
 \end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+	\item On a
+	\[
+	\Ec{\abs{X_n-0}} = \Ec{X_n} = \frac{1}{\lambda_n}.
+	\]
+	Donc
+	\[
+		X_n \xrightarrow[n\to\infty]{L^1} 0 
+		\quad \Leftrightarrow \quad
+		\lambda_n \xrightarrow[n\to\infty]{} \infty.
+	\]
+	%%
+	\item Pour $\varepsilon > 0$,
+	\[
+	\Pp{\abs{X_n-0} > \varepsilon} = \P(X_n> \varepsilon) = e^{-\lambda_n \varepsilon},
+	\]
+	qui tend vers 0 ssi $\lambda_n \to \infty$. Donc
+	\[
+	X_n \xrightarrow[n\to\infty]{\P} 0 
+	\quad \Leftrightarrow \quad
+	\lambda_n \xrightarrow[n\to\infty]{} \infty.
+	\]
+	%%
+	\item
+	\begin{enumerate}
+		\item Supposons que $\lambda_n/\log n \to \infty$.
+		Soit $\varepsilon > 0$.
+		\[
+		\sum_{n\geq 1} \Pp{\abs{X_n-0} > \varepsilon} 
+		= \sum_{n\geq 1} e^{-\lambda_n \varepsilon} < \infty,
+		\]
+		parce que, pour tout $n$ suffisamment grand, on a $\lambda_n \geq \frac{2}{\varepsilon} \log n$ et donc $e^{-\lambda_n \varepsilon} \leq n^{-2}$, qui est sommable. 
+		%%
+		\item Si $\lambda_n/\log n$ ne tend pas vers l'infini, alors la suite $(\lambda_n/\log n)_{n\geq 2}$ est bornée : il existe $C>0$ tel que $\lambda_n/\log n \leq C$ pour tout $n \geq 2$.
+		%%
+		\item On a alors
+		\[
+		\sum_{n\geq 2} \P(X_n \geq 1/C) 
+		= \sum_{n\geq 2} e^{-\lambda_n/C} 
+		\geq \sum_{n\geq 2} e^{-\log n}
+		= \sum_{n\geq 2} \frac{1}{n}
+		= \infty.
+		\]
+		\item Par le second lemme de Borel--Cantelli (par indépendance des $X_n$), on en déduit que, p.s., il y a une infinité de $n$ tels que $X_n \geq 1/C$, donc, p.s., $X_n$ ne tend pas vers 0. 
+		Cela montre la contraposée de $(\Rightarrow)$. 
+	\end{enumerate}
+\end{enumerate}
+\end{comment}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Convergence en loi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{exo} \label{exo:convergence_mesures_discretes_1}
+
+
+\begin{exo}[Convergence en loi et densités]
 	\begin{enumerate}
-	\item Pour $n \geq 1$, soit $U_n$ une v.a. uniforme sur $\{1,\dots,n\}$.
-	Montrer que $(U_n/n)_{n\geq 1}$ converge en loi vers une v.a. uniforme sur $[0,1]$. 
-	%%
-	\item Soit $\lambda > 0$. 
-	Pour $n \geq 1$, soit $U_n$ une v.a de loi géométrique de paramètre $e^{-\lambda/n}$.
-	Montrer que $(X_n/n)_{n\geq 1}$ converge en loi vers une v.a. exponentielle de param\`etre $\lambda$.
-\end{enumerate}
+		\item Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles continues. On suppose que les densités des $X_n$ convergent simplement vers une fonction $p \colon \R \to \R$, c'est-à-dire
+		\[
+		\forall x \in \R, \quad p_{X_n}(x) 
+		\xrightarrow[n\to\infty]{} p(x).
+		\]
+		On suppose également qu'il existe une fonction $q \colon \R \to \R_+$ telle que
+		\[
+		\forall x \in \R, \quad p_{X_n}(x) \leq q(x)
+		\qquad \text{et} \qquad
+		\int_\R q(x) \diff x < \infty.
+		\]
+		Montrer que $p$ est une densité de probabilité et que $(X_n)_{n\geq 1}$  converge en loi vers une v.a. $X$ de densité $p$.
+		%%
+		\item Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles continues telles que
+		\[
+		p_{X_n}(x) = \frac{1}{2 \sqrt{2\pi}} \left( e^{-x^2/2} + e^{-(x-n)^2/2} \right).
+		\]
+		Que dire de la suite $(X_n)_{n\geq 1}$ ?
+	\end{enumerate}
 \end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Il faut utiliser le théorème de convergence dominée (pour chaque partie de la question).
+	%%
+	\item Ici, on a
+	\[
+	p_{X_n}(x) \xrightarrow[n\to\infty]{} \frac{1}{2 \sqrt{2\pi}} e^{-x^2/2}.
+	\]
+	Ici on ne peut pas dominer convenablement la suite de densité (la fonction $q$ de l'hypothèse de la question 1 n'existe pas). Une preuve de cela est le fait que la fonction limite n'est pas d'intégrale 1, donc la question 1 ne s'applique pas.
+\end{enumerate}
+\end{comment}
 
 
 %%%%%%
@@ -216,7 +308,7 @@
 	\begin{enumerate}
 		\item Soit $f \colon \R\to\R$ continue. Montrer que $(f(X_n))_{n\geq 1}$ converge en loi vers $f(X)$.
 		%%
-		\item Si $(Y_n)_{n\geq 1}$ est une suite de v.a. convergeant en loi vers $Y$, a-t-on convergence en loi de $(X_n+Y_n)_{n\geq 1}$ ?
+		\item Si $(Y_n)_{n\geq 1}$ est une suite de v.a. convergeant en loi vers $Y$, a-t-on convergence en loi de $(X_n+Y_n)_{n\geq 1}$ vers $X+Y$ ?
 	\end{enumerate}
 \end{exo}
 
@@ -225,26 +317,105 @@
 \begin{enumerate}
 \item Soit $g \colon \R \to \R$ est continue bornée. Alors $g \circ f$ est continue bornée et donc $ \Ec{g(f(X_n))} \to \Ec{g(f(X))}$. Cela montre la convergence.
 %%
-\item C'est faux.
+\item C'est faux. Considérons une v.a. $Z$ de loi de Bernoulli de paramètre $1/2$. On prend $X_n = Z$ et $Y_n = Z$ pour tout $n \geq 1$, ainsi que $X = Z$ et $Y=1-Z$.
+Alors tous les $X_n$, $Y_n$, $X$ et $Y$ ont loi Bernoulli($1/2$), donc 
+\[
+	X_n \xrightarrow[n\to\infty]{\text{loi}} X
+	\quad \text{et} \quad 
+	Y_n \xrightarrow[n\to\infty]{\text{loi}} Y		
+\]
+Mais $X_n + Y_n = 2Z$ est une v.a. de loi $\frac{1}{2} \delta_0 + frac{1}{2} \delta_2$, alors que $X+Y = 1$. Donc $X_n+Y_n$ ne converge pas en loi vers $X+Y$.
+\end{enumerate}
+\end{comment}
+
+\newpage 
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo} \label{exo:convergence_mesures_discretes_1}
+	\begin{enumerate}
+	\item Pour $n \geq 1$, soit $U_n$ une v.a. uniforme sur $\{1,\dots,n\}$.
+	Montrer que $(U_n/n)_{n\geq 1}$ converge en loi vers une v.a. uniforme sur $[0,1]$. 
+	%%
+	\item Soit $\lambda > 0$. 
+	Pour $n \geq 1$, soit $X_n$ une v.a de loi géométrique de paramètre $1-e^{-\lambda/n}$.
+	Montrer que $(X_n/n)_{n\geq 1}$ converge en loi vers une v.a. exponentielle de param\`etre $\lambda$.
+\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+	\item Soit $f \colon \R \to \R$ continue bornée. On a
+	\begin{align*}
+	\Ec{f(U_n/n)} 
+	= \sum_{k=1}^n \Pp{U_n=k} f(k/n)
+	= \sum_{k=1}^n \frac{1}{n} f(k/n).
+	\end{align*}
+	C'est une somme de Riemann ! Comme $f$ est continue sur le segment $[0,1]$ on a donc
+	\[
+	\Ec{f(U_n/n)}  \xrightarrow[n\to\infty]{} 
+	\int_0^1 f(x) \diff x
+	= \Ec{f(U)},
+	\]
+	pour $U$ une v.a. uniforme sur $[0,1]$. Cela montre la convergence désirée.
+	%%
+	\item Soit $f \colon \R \to \R$ continue bornée. On a
+	\begin{align*}
+	\Ec{f(U_n/n)} 
+	& = \sum_{k\geq 1} \Pp{X_n=k} f(k/n) \\
+	& = \sum_{k\geq 1} (1-e^{-\lambda/n}) (e^{-\lambda /n})^{k-1} f(k/n) \\
+	& = (1-e^{-\lambda/n}) e^{\lambda/n}
+	\sum_{k\geq 1} e^{-\lambda k/n} f(k/n) \\
+	& \sim \frac{\lambda}{n} \sum_{k\geq 1} e^{-\lambda k/n} f(k/n).
+	\end{align*}
+	Montrons à présent que
+	\begin{align*}
+	\frac{1}{n} \sum_{k\geq 1} e^{-\lambda k/n} f(k/n)
+	\xrightarrow[n\to\infty]{} 
+	\int_0^\infty f(x) e^{-\lambda  x} \diff x.
+	\end{align*}
+	Par convergence des sommes de Riemann vers l'intégrale, on sait que pour tout $N \geq 1$, on a 
+	\begin{align*}
+	\frac{1}{n} \sum_{k = 1}^{Nn} e^{-\lambda k/n} f(k/n)
+	\xrightarrow[n\to\infty]{} 
+	\int_0^N f(x) e^{-\lambda x} \diff x.
+	\end{align*}
+	Mais le reste de l'intégral peut être borné par 
+	\[
+	\abs{\int_N^\infty f(x) e^{-\lambda x} \diff x} 
+	\leq \norme{f}_\infty \frac{e^{-\lambda N}}{\lambda }
+	\]
+	et le reste de la somme par
+	\[
+	\abs{\frac{1}{n} \sum_{k > Nn} e^{-\lambda k/n} f(k/n)}
+	\leq \frac{\norme{f}_\infty}{n} \sum_{k \geq Nn} e^{-\lambda k/n}
+	= \frac{\norme{f}_\infty}{n}
+	\frac{e^{-\lambda (Nn)/n}}{1 - e^{-\lambda/n}}
+	\leq \norme{f}_\infty \frac{e^{-\lambda N}}{\lambda },
+	\]
+	en utilisant que $1 - e^{-\lambda/n} \geq \lambda/n$.
+	En combinant tout cela, on obtient la convergence mentionnée plus haut.
+	On a donc montré que 
+	\begin{align*}
+	\Ec{f(U_n/n)} 
+	\xrightarrow[n\to\infty]{} 
+	\lambda \int_0^\infty f(x) e^{-\lambda  x} \diff x
+	= \Ec{f(X)},
+	\end{align*}
+	où $X$ est une v.a. exponentielle de param\`etre $\lambda$.
 \end{enumerate}
 \end{comment}
 
 
-%%%%%%
-\separationexos
-%%%%%%
 
-\begin{exo}
-	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers une v.a. constante $X$. 
-	Soit $(b_n)_{n\geq 1}$ une suite de réels.
-	Montrer que $(X_n + b_n)_{n\geq 1}$ converge en loi si et seulement si $(b_n)_{n\geq 1}$ converge dans~$\R$.
-\end{exo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-%%%%%%
-\separationexos
-%%%%%%
 
 \begin{exo}
 	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers $X$. 
@@ -257,10 +428,51 @@ Par exemple, on peut prendre $(\Omega,\cA,\P)=([0,1],\cB(\R),\lambda)$ et $X_n(t
 Alors $X_n$ converge p.s. vers $0$ mais $\Ec{X_n}=1 \neq \Ec{0}$. 
 \end{comment}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\partie{Compléments}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%
+\separationexos
+%%%%%%
 
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles i.i.d. de loi 
+	\[
+	\frac{3}{(1+x)^4} \1_{x \geq 0} \diff x.
+	\]
+	\begin{enumerate}
+		\item Calculer $\P(X>x)$ pour tout $x>0$.
+		%%
+		\item Soit $\alpha > 1/3$. Montrer que
+		\[
+		\frac{X_n}{n^\alpha} \xrightarrow[n\to\infty]{\text{p.s.}} 0
+		\]
+		%%
+		\item On considère $Y_n = X_n/n^{1/3}$.
+	\begin{enumerate}
+		\item Soit $\varepsilon > 0$. Montrer que $\liminf_{n\to\infty} Y_n \leq \varepsilon$ p.s.
+			%%
+		\item En déduire que $\liminf_{n\to\infty} Y_n = 0$ p.s.
+		%%
+		\item Soit $M > 0$. Montrer que $\limsup_{n\to\infty} Y_n \geq M$ p.s.
+		%%
+		\item En déduire que $\limsup_{n\to\infty} Y_n = \infty$ p.s.
+	\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. convergeant en loi vers une v.a. constante $X$. 
+	Soit $(b_n)_{n\geq 1}$ une suite de réels.
+	Montrer que $(X_n + b_n)_{n\geq 1}$ converge en loi si et seulement si $(b_n)_{n\geq 1}$ converge dans~$\R$.
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
 
 \begin{exo}[Discrétisation de mesure]
 	\begin{enumerate}
@@ -296,6 +508,4 @@ En effet,
 \] 
 \end{enumerate}
 \end{comment}
-
-
 \end{document}
