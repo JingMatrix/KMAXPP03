@@ -186,26 +186,23 @@
 		%%
 		\item Trouver une condition nécessaire et suffisante sur la suite $(\lambda_n)_{n\geq 1}$ pour que $(X_n)_{n\geq 1}$ converge en probabilité vers 0.
 		%%
-		\item On veut montrer que 
-		\[
-		X_n \xrightarrow[n\to\infty]{\text{p.s.}} 0 
-		\quad \Leftrightarrow \quad
-		\frac{\lambda_n}{\log n} \xrightarrow[n\to\infty]{} \infty.
-		\]
+		\item 
 		\begin{enumerate}
-			\item Montrer l'implication $(\Leftarrow)$. 
-			\item Supposons à présent que $\lambda_n/\log n$ ne tende pas vers l'infini. Montrer qu'il existe $C>0$ tel que $\lambda_n \leq C \log n$ pour tout $n \geq 2$.
-			\item En déduire que
-			\[
-				\sum_{n\geq 2} \P(X_n \geq 1/C) = \infty.
-			\]
-			\item En déduire l'implication $(\Rightarrow)$. 
+			\item Montrer que 
+    		\[
+    		X_n \xrightarrow[n\to\infty]{\text{p.s.}} 0 
+    		\quad \Leftrightarrow \quad
+    		\forall \varepsilon >0, \quad
+            \sum_{n\geq1} e^{-\lambda_n \varepsilon} <  \infty.
+    		\]
+			\item En déduire que, si $\lambda_n/\log n \to \infty$ quand $n \to \infty$, alors $(X_n)_{n\geq 1}$ converge p.s. vers 0.
+			\item En déduire également que, si $(\lambda_n/\log n)_{n\geq 2}$ est bornée, alors $(X_n)_{n\geq 1}$ ne converge pas p.s. vers~0.
 		\end{enumerate}
 	\end{enumerate}
 \end{exo}
 
 
-\begin{comment}
+
 \begin{enumerate}
 	\item On a
 	\[
@@ -231,6 +228,9 @@
 	%%
 	\item
 	\begin{enumerate}
+        \item Comme $\Pp{\abs{X_n-0} > \varepsilon} = e^{-\lambda_n \varepsilon}$, l'implication $(\Leftarrow)$ est une conséquence directe du critère de convergence p.s. vu en cours.
+
+        Montrons $(\Rightarrow)$. Pour cela on montre la contraposée : supposons qu'il existe $\varepsilon > 0$ tel que $\sum_{n\geq 1} e^{-\lambda_n \varepsilon} = \infty$.
 		\item Supposons que $\lambda_n/\log n \to \infty$.
 		Soit $\varepsilon > 0$.
 		\[
@@ -253,6 +253,7 @@
 		Cela montre la contraposée de $(\Rightarrow)$. 
 	\end{enumerate}
 \end{enumerate}
+\begin{comment}
 \end{comment}
 
 
@@ -328,7 +329,6 @@ Mais $X_n + Y_n = 2Z$ est une v.a. de loi $\frac{1}{2} \delta_0 + \frac{1}{2} \d
 \end{enumerate}
 \end{comment}
 
-\newpage 
 
 %%%%%%
 \separationexos
