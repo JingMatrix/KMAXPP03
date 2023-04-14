@@ -202,7 +202,7 @@
 \end{exo}
 
 
-
+\begin{comment}
 \begin{enumerate}
 	\item On a
 	\[
@@ -231,17 +231,18 @@
         \item Comme $\Pp{\abs{X_n-0} > \varepsilon} = e^{-\lambda_n \varepsilon}$, l'implication $(\Leftarrow)$ est une conséquence directe du critère de convergence p.s. vu en cours.
 
         Montrons $(\Rightarrow)$. Pour cela on montre la contraposée : supposons qu'il existe $\varepsilon > 0$ tel que $\sum_{n\geq 1} e^{-\lambda_n \varepsilon} = \infty$.
+        Alors, par le second lemme de Borel--Cantelli (par indépendance des $X_n$), on en déduit que, p.s., il y a une infinité de $n$ tels que $X_n \geq \varepsilon$, donc, p.s., $X_n$ ne tend pas vers 0. 
+        %%
 		\item Supposons que $\lambda_n/\log n \to \infty$.
 		Soit $\varepsilon > 0$.
+        Alors, pour tout $n$ suffisamment grand, on a $\lambda_n \geq \frac{2}{\varepsilon} \log n$ et donc $e^{-\lambda_n \varepsilon} \leq n^{-2}$, qui est sommable. Donc on a bien
 		\[
-		\sum_{n\geq 1} \Pp{\abs{X_n-0} > \varepsilon} 
-		= \sum_{n\geq 1} e^{-\lambda_n \varepsilon} < \infty,
+		\sum_{n\geq 1} e^{-\lambda_n \varepsilon} < \infty,
 		\]
-		parce que, pour tout $n$ suffisamment grand, on a $\lambda_n \geq \frac{2}{\varepsilon} \log n$ et donc $e^{-\lambda_n \varepsilon} \leq n^{-2}$, qui est sommable. 
+		ce qui montre la convergence p.s. par 3.(a).
 		%%
-		\item Si $\lambda_n/\log n$ ne tend pas vers l'infini, alors la suite $(\lambda_n/\log n)_{n\geq 2}$ est bornée : il existe $C>0$ tel que $\lambda_n/\log n \leq C$ pour tout $n \geq 2$.
-		%%
-		\item On a alors
+		\item Supposons $(\lambda_n/\log n)_{n\geq 2}$ bornée : il existe $C>0$ tel que $\lambda_n/\log n \leq C$ pour tout $n \geq 2$.
+		On a alors
 		\[
 		\sum_{n\geq 2} \P(X_n \geq 1/C) 
 		= \sum_{n\geq 2} e^{-\lambda_n/C} 
@@ -249,11 +250,9 @@
 		= \sum_{n\geq 2} \frac{1}{n}
 		= \infty.
 		\]
-		\item Par le second lemme de Borel--Cantelli (par indépendance des $X_n$), on en déduit que, p.s., il y a une infinité de $n$ tels que $X_n \geq 1/C$, donc, p.s., $X_n$ ne tend pas vers 0. 
-		Cela montre la contraposée de $(\Rightarrow)$. 
+        donc il n'y a pas convergence p.s. par 3.(a).
 	\end{enumerate}
 \end{enumerate}
-\begin{comment}
 \end{comment}
 
 
