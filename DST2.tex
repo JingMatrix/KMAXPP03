@@ -1,0 +1,284 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm}
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+	\bigskip
+	%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+}
+\newcommand{\petiteseparationexos}{
+	\bigskip
+	%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{Devoir sur table 2 \\ \medskip {\large Contrôle continu du 17 avril 2023, 10h00--11h30}}
+
+\medskip 
+
+\noindent \textcolor{DarkSlateBlue}{\textbf{Instructions:}} 
+Tout appareil électronique est interdit. Le seul matériel autorisé est une feuille A4 recto-verso manuscrite.
+
+\medskip 
+
+\noindent \textcolor{DarkSlateBlue}{\textbf{Total:}} 20 points
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[3 points] 
+	Soit $(X_n)_{n\geq1}$ une suite de v.a. positives convergeant p.s. vers $X$. Montrer que
+	\[
+		\frac{2 X_n}{X_n+1} \xrightarrow[n\to\infty]{L^1} \frac{2 X}{X+1}.
+	\]	
+\end{exo}
+
+
+%%%%%%
+\petiteseparationexos
+%%%%%%
+
+
+\begin{exo}[7 points] 
+	Soit $(U_n)_{n\geq 1}$ une suite de v.a. i.i.d. de loi uniforme sur $[0,1]$.
+	\begin{enumerate}
+		\item \DSB{(2 pts)} Montrer que $(U_n^n)_{n\geq 1}$ converge dans $L^1$ vers 0.
+		%%
+		\item \DSB{(1 pt)} Montrer que $(U_n^n)_{n\geq 1}$ converge en probabilité vers 0.
+		%%
+		\item 
+		\begin{enumerate}
+			\item \DSB{(2 pts)} Soit $a \in {]}0,1{[}$. Montrer que
+			\[
+				\sum_{n\geq 1} \Pp{U_n^n \geq a} = \infty.
+			\]
+			%%
+			\item \DSB{(2 pts)} En déduire que, p.s., $(U_n^n)_{n\geq 1}$ ne converge pas  vers 0.
+		\end{enumerate}
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+%\separationexos
+%%%%%%%
+%
+%\begin{exo}[2 points] 
+%	Soit $X$ une v.a. réelle. Soit $(u_n)_{n\geq 1}$ une suite de réels tendant vers l'infini.
+%	Montrer que $(X/u_n)_{n\geq 1}$ converge en probabilité vers 0.
+%\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[7 points] 
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. positives indépendantes dans $L^2$. On suppose qu'il existe $m,v >0$ tels que
+	\[
+		\forall n \geq 1, \quad 
+		\E[X_n] = m
+		\quad \text{et} \quad
+		\Var(X_n) \leq v.
+	\]
+	On pose $S_n = X_1 + \dots +X_n$. On veut montrer que $(S_n/n)_{n\geq 1}$ converge p.s. vers $m$.
+	\begin{enumerate}
+		\item \DSB{(1 pt)} Quelle hypothèse manque-t-il pour appliquer la loi forte des grands nombres vue en cours ?
+		%%
+		\item \DSB{(2 pts)} Pour tout $\varepsilon > 0$, montrer que 
+		\[
+			\Pp{\abs{\frac{S_n}{n} - m} > \varepsilon} \leq \frac{v}{n\varepsilon^2}.
+		\]
+		%%
+		\item \DSB{(2 pts)} En déduire que
+		\[
+			\frac{S_{n^2}}{n^2} \xrightarrow[n\to\infty]{\text{p.s.}} m.
+		\]
+		%%
+		\item \DSB{(2 pts)} En déduire que
+		\[
+		\frac{S_{n}}{n} \xrightarrow[n\to\infty]{\text{p.s.}} m.
+		\]
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\petiteseparationexos
+%%%%%%
+
+\begin{exo}[3 points] 
+	Soit $(X_n)_{n\geq1}$ et $(Y_n)_{n\geq 1}$ des suites de v.a. réelles. 
+	On dit que $(X_n)_{n\geq1}$ est tendue si
+	\[
+		\forall \delta > 0, \quad 
+		\exists M> 0, \quad 
+		\forall n \geq 1, \quad
+		\P(\abs{X_n} \geq M) \leq \delta.
+	\]
+	Supposons $(X_n)_{n\geq 1}$ tendue et que $(Y_n)_{n\geq 1}$ converge en probabilité vers 0.
+	Montrer que $(X_n Y_n)_{n\geq 1}$ converge en probabilité vers 0.
+\end{exo}
+
+
+\end{document}
