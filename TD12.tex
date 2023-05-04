@@ -173,6 +173,185 @@
 
 \titre{TD 12 -- Convergence en loi}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi et fonction de répartition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles dont les fonctions de répartitions sont données ci-dessous. Dans chaque cas, justifier s'il y a convergence en loi ou non et, si oui, déterminer la loi de la limite.
+	\begin{enumerate}
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-(1-\frac{2a}{n})^n] \1_{a \geq 0}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} \1_{a \geq (-1)^n} + \frac{1}{2} \1_{a \geq 3}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{3} \1_{a \geq 1/n} + \frac{2}{3} a^n \1_{a \in[0,1{[}} + \frac{2}{3} \1_{a \geq 1}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-e^{-(a-n)}] \1_{a \geq n} + \frac{1}{2}  \1_{a \geq 0}$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Pour tout $a <0$, on a $F_{X_n}(a) = 0 \to 0$.
+	Pour $a \geq 0$, on a
+	\[
+	F_{X_n}(a) = \frac{1}{2} \left[ 1- \left( 1-\frac{2a}{n} \right)^n \right]
+	\xrightarrow[n\to\infty]{} 
+	\frac{1}{2} \left[ 1- e^{-2a} \right].
+	\]
+	Donc $F_{X_n}$ converge en tout point vers $F$ définie par
+	\[
+	F(a) = \frac{1}{2} \left[ 1- e^{-2a} \right] \1_{a \geq 0}.
+	\]
+	Cette fonction est croissante, continue à droite et tend vers 1 en $+\infty$ et vers 0 en $-\infty$ donc $F$ est la fonction de répartition d'une v.a. $X$.
+	Cela montre que $(X_n)_{n\geq 1}$ converge en loi vers $X$.
+	Comme $F$ est $\cC^1$ sur $\R\setminus \{0\}$, la loi de $X$ est donnée par 
+	\[
+	F'(x) \diff x + (F(0)-F(0-)) \delta_0(\diff x)
+	= e^{-2x} \1_{x \geq 0} \diff x + \frac{1}{2} \delta_0(\diff x).
+	\]
+	%%
+	\item Pour tout $a \in {[}-1,1{[}$, 
+	$F_{X_{2n}}(a) = 0$ et $F_{X_{2n+1}}(a) =\frac{1}{2}$. Il y a donc un ensemble non dénombrable de points $a$ pour lesquels $F_{X_n}(a)$ ne converge pas. Donc $(X_n)_{n\geq 1}$ ne converge pas en loi.
+	%%
+	\item Pour tout $a \in \R$, on a
+	\[
+	F_{X_n}(a) 
+	\xrightarrow[n \to \infty]{}
+	\begin{cases}
+	0 & \text{si } a \leq 0, \\
+	\frac{1}{3} & \text{si } a \in {]}0,1{[}, \\
+	1 & \text{si } a \geq 1.
+	\end{cases}
+	\]
+	On définit
+	\[
+	F(a) =
+	\begin{cases}
+	0 & \text{si } a < 0, \\
+	\frac{1}{3} & \text{si } a \in {[}0,1{[}, \\
+	1 & \text{si } a \geq 1.
+	\end{cases}
+	\]
+	On a changé la valeur en 0 pour que $F$ soit continue à droite.
+	En outre, $F$ est croissante et tend vers 1 en $+\infty$ et vers 0 en $-\infty$ donc $F$ est la fonction de répartition d'une v.a. $X$.
+	On a convergence simple de $F_{X_n}$ vers $F$ partout sauf en 0 mais c'est un point de discontinuité de $F$.
+	Donc $(X_n)_{n\geq 1}$ converge en loi vers $X$.
+	Comme $F$ est $\cC^1$ sur $\R\setminus \{0,1\}$, la loi de $X$ est donnée par 
+	\[
+	\frac{1}{3} \delta_0 + \frac{2}{3} \delta_1.
+	\]
+	%%
+	\item Pour tout $a \in \R$, on a 
+	\[
+	F_{X_n}(a) \xrightarrow[n \to \infty]{} \frac{1}{2} \1_{a \geq 0}.
+	\]
+	La fonction $F\colon a \mapsto \frac{1}{2} \1_{a \geq 0}$ ne tend pas vers 1 en $+\infty$.
+	Donc $(X_n)_{n\geq 1}$ ne converge pas en loi.
+	En effet s'il y avait convergence en loi vers une v.a. $X$ alors $F_{X_n}$ convergerait vers $F_X$ simplement sauf en ses points de discontinuité. On aurait donc $F = F_X$ sauf en un ensemble dénombrable de points. Ce n'est pas compatible avec le fait que $F_X$ tend vers 1 en l'infini.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant en loi vers $X$.
+	On suppose que $X$ n'a pas d'atome, i.e. $\P(X=a)=0$ pour tout $a \in \R$.
+	\begin{enumerate}
+		\item Montrer que, pour tout $a<b$, $\P(X_n \in {]}a,b]) \to \P(X \in {]}a,b])$ quand $n \to \infty$.
+		\item Montrer que, pour tout $a \in \R$, $\P(X_n=a) \to 0$ quand $n \to \infty$.
+		\item Montrer que, pour tout intervalle $I \subset \R$,  $\P(X_n \in I) \to \P(X \in I)$ quand $n \to \infty$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Comme $X$ n'a pas d'atome, $F_X$ est continue. Donc, $F_{X_n}$ converge simplement vers $F_X$ en tout point de $\R$.
+	Soit $a<b$. On a
+	\[
+	\P(X_n \in {]}a,b]) 
+	= F_{X_n}(b) - F_{X_n}(a) 
+	\xrightarrow[n\to\infty]{} 
+	F_{X}(b) - F_{X}(a) 
+	= \P(X \in {]}a,b]).
+	\]
+	\item Soit $b \in \R$. Soit $a < b$. On a 
+	\[
+	\P(X_n=b) \leq \P(X_n \in {]}a,b])	\xrightarrow[n\to\infty]{} F_{X}(b) - F_{X}(a).
+	\]
+	Soit $\varepsilon > 0$. Comme $F_X$ est continue, on peut choisir $a$ tel que $F_{X}(b) - F_{X}(a) < \varepsilon$. Alors pour tout $n$ à partir d'un certain rang $\P(X_n=b) < \varepsilon$. Cela montre que $\P(X_n=b) \to 0$.
+	%%
+	\item Commençons par le cas où $I$ est borné, de bornes $a$ et $b$.
+	\begin{itemize}
+		\item Le cas $I = {]}a,b]$ est déjà fait.
+		\item Pour $I = [a,b]$, on a 
+		\[
+		\P(X_n \in [a,b]) = \P(X_n \in {]}a,b])  + \P(X_n=a)
+		\xrightarrow[n\to\infty]{} 
+		\P(X \in {]}a,b]) + 0
+		= \P(X \in [a,b]),
+		\]
+		car $\P(X=a) = 0$.
+		\item Pour $I = [a,b[$, on utilise le point prédécent avec le fait que $\P(X_n=b) \to 0 = \P(X=b)$.
+		\item Pour $I = {]}a,b[$, on utilise le 1er point avec le fait que $\P(X_n=b) \to 0 = \P(X=b)$.
+	\end{itemize}
+	Considérons maintenant le cas de $I$ non borné.
+	\begin{itemize}
+		\item Si $I = {]}-\infty,b]$ alors cela découle directement de la convergence des fonctions de répartition. 
+		\item On en déduit le cas de $I = {]}-\infty,b[$ en utilisant que $\P(X_n=b) \to 0 = \P(X=b)$.
+		\item Pour $I = [b,\infty[$, on utilise que $\P(X_n \in [b,\infty[) = 1 - \P(X_n \in {]}-\infty,b[)$ et le point précédent.
+		\item On procède similairement pour $I = {]}b,\infty[$.
+		\item Le cas $I = \R$ est immédiat.
+	\end{itemize}
+\end{enumerate}
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi et fonction caractéristique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Une loi faible par les fonctions caractéristiques] 
+	Soit $(X_n)_{n\geq1}$ une suite de v.a. réelles i.i.d telle que $\mathbb{E}[|X_1|]<\infty$. 
+	\begin{enumerate}
+		\item En utilisant le théorème de Lévy, montrer que 
+		\[ 
+		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
+		\]
+		\item En déduire que
+		\[ 
+		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\P} \mathbb{E}[X_1].
+		\]
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item L'indépendance des $(X_i)$ implique que, pour $\xi\in \R$,
+\[
+\phi_{\frac{X_1+\dots+X_n}{n}}(\xi) 
+= \left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n}.
+\] 
+Comme $X_1$ a un moment d'ordre $1$ fini, $\xi \mapsto \phi(\xi)$ est dérivable en $0$ de dérivée $i\mathbb{E}[X_1]$. 
+D'o\`u 
+\[
+\left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n} 
+= \left(1+\frac{i\xi\mathbb{E}[X_1]}{n} + \petito{\frac{1}{n}} \right)^n 
+\xrightarrow[n\to\infty]{} i\xi\mathbb{E}[X_1].
+\]
+Ainsi, les fonctions caractéristiques de $(X_1 +\dots+ X_n)/n$ convergent simplement vers la fonction caractéristique de la mesure de Dirac en $\mathbb{E}[X_1]$, on en déduit que 
+\[ \frac{X_1+\dots+X_n}{n} 
+\xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
+\]
+%%
+\item La convergence en loi vers une constante implique une convergence en probabilité vers cette constante, ce qui conclut.
+\end{enumerate}
+\end{comment}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Convergence en loi de v.a. discrètes}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,128 +437,63 @@ Par l'exercice précédent, cela montre que $(X_n)_{n\geq 1}$ converge en loi ve
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\partie{Convergence en loi et fonction de répartition}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{exo}
-	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles dont les fonctions de répartitions sont données ci-dessous. Dans chaque cas, justifier s'il y a convergence en loi ou non et, si oui, déterminer la loi de la limite.
-	\begin{enumerate}
-		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-(1-\frac{2a}{n})^n] \1_{a \geq 0}$.
-		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} \1_{a \geq (-1)^n} + \frac{1}{2} \1_{a \geq 3}$.
-		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{3} \1_{a \geq 1/n} + \frac{2}{3} a^n \1_{a \in[0,1{[}} + \frac{2}{3} \1_{a \geq 1}$.
-		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-e^{-(a-n)}] \1_{a \geq n} + \frac{1}{2}  \1_{a \geq 0}$.
-	\end{enumerate}
-\end{exo}
-
-
-%%%%%%
-\separationexos
-%%%%%%
-
-\begin{exo}
-	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant en loi vers $X$.
-	On suppose que $X$ n'a pas d'atome, i.e. $\P(X=a)=0$ pour tout $a \in \R$.
-	\begin{enumerate}
-		\item Montrer que, pour tout $a<b$, $\P(X_n \in {]}a,b]) \to \P(X \in {]}a,b])$ quand $n \to \infty$.
-		\item Montrer que, pour tout $a \in \R$, $\P(X_n=a) \to 0$ quand $n \to \infty$.
-		\item Montrer que, pour tout intervalle $I \subset \R$,  $\P(X_n \in I) \to \P(X \in I)$ quand $n \to \infty$.
-	\end{enumerate}
-\end{exo}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\partie{Convergence en loi et fonction caractéristique}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{exo}[Une loi faible par les fonctions caractéristiques] 
-	Soit $(X_n)_{n\geq1}$ une suite de v.a. réelles i.i.d telle que $\mathbb{E}[|X_1|]<\infty$. 
-	\begin{enumerate}
-		\item En utilisant le théorème de Lévy faible, montrer que 
-		\[ 
-		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
-		\]
-		\item En déduire que
-		\[ 
-		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\P} \mathbb{E}[X_1].
-		\]
-	\end{enumerate}
-\end{exo}
-
-\begin{comment}
-L'indépendance des $(X_i)$ implique que, pour $\xi\in \R$,
-\[
-\phi_{\frac{X_1+\dots+X_n}{n}}(\xi) 
-= \left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n}.
-\] 
-Comme $X_1$ a un moment d'ordre $1$ fini, $\xi \mapsto \phi(\xi)$ est dérivable en $0$ de dérivée $i\mathbb{E}[X_1]$. 
-D'o\`u 
-\[
-\left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n} 
-= \left(1+\frac{i\xi\mathbb{E}[X_1]}{n} + \petito{\frac{1}{n}} \right)^n 
-\xrightarrow[n\to\infty]{} i\xi\mathbb{E}[X_1].
-\]
-Ainsi, les fonctions caractéristiques de $(X_1 +\dots+ X_n)/n$ convergent simplement vers la fonction caractéristique de la mesure de Dirac en $\mathbb{E}[X_1]$, on en déduit que 
-\[ \frac{X_1+\dots+X_n}{n} 
-\xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
-\]
-Or la convergence en loi vers une constante implique une convergence en probabilité vers cette constante, ce qui conclut.
-\end{comment}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Compléments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
 \begin{exo}[Limite de gaussiennes]
-	Soit $(Y_n)_{n\in\N}$ une suite de variables aléatoires réelles suivant respectivement
-	une loi gaussienne $\cN (m_n,\sigma_n^2)$ avec $m_n \in \R$ et $\sigma_n \in \R_+$. 
-	Montrer que cette suite converge en loi vers une variable réelle $Y$ si et seulement si les deux suites $(m_n)_{n\in\N}$ et $(\sigma_n)_{n\in\N}$ convergent vers respectivement $m \in \R$ et $\sigma \in \R_+$, et identifier la loi limite.
+	Soit $(Y_n)_{n\in\N}$ une suite de v.a. réelles de loi $\cN(m_n,\sigma_n^2)$ avec $m_n \in \R$ et $\sigma_n \in \R_+$. 
+	Par convention, lorsque $\sigma=0$, la loi $\mathcal{N}(m, \sigma^2)$ est la masse de Dirac $\delta_m$.
+	
+	\emph{Rappel.} La fonction caractéristique de la loi $\mathcal{N}(m, \sigma^2)$ est $\theta \mapsto \exp(im\theta- \sigma^2 \theta^2/2)$ (on peut noter que cette formule fonctionne aussi dans le cas $\sigma = 0$). 
+	\begin{enumerate}
+		\item Supposons que $(m_n)_{n\in\N}$ et $(\sigma_n)_{n\in\N}$ convergent vers respectivement $m \in \R$ et $\sigma \in \R_+$. Montrer que $(Y_n)_{n\in\N}$ converge en loi et identifier sa limite.
+		%%
+		\item Supposons que $(Y_n)_{n\in\N}$ converge en loi.
+		\begin{enumerate}
+			\item En considérant $\abs{\phi_{Y_n}}$ montrer que $(\sigma_n)_{n\in\N}$ converge vers une limite $\sigma \in \R_+$.
+			\item Montrer que $(m_n)_{n\in\N}$ est bornée.
+			\item En déduire que $(m_n)_{n\in\N}$ converge vers une limite $m \in \R$
+		\end{enumerate}
+	\end{enumerate}
 \end{exo}
 
 \begin{comment}
-On rappelle que la fonction caractéristique d'une gaussienne $\mathcal{N}(m, \sigma^2)$ de moyenne $m$ et de variance $\sigma^2$ est $\Phi_{m, \sigma^2}(t)= \exp(imt- \sigma^2 t^2/2)$. 
-Par convention, lorsque $\sigma=0$, la gaussienne $\mathcal{N}(m, \sigma^2)$ est la masse de Dirac $\delta_m$.
-
-La réciproque découle immédiatement du théor\`eme de Lévy et la loi limite est alors la loi gaussienne $\mathcal{N}(m, \sigma^2)$.
-
-Pour l'implication, supposons que $Y_n$ converge en loi vers $Y$. 
-Le théor\`eme de Lévy garantit que $\exp(im_n t- \sigma_n^2 t^2/2)$ converge pour tout réel $t$ lorsque $n \rightarrow \infty$, et donc que $\exp(- \sigma_{n}^2 t^2/2)$ converge (en prenant le module).
+\begin{enumerate}
+\item Cela découle immédiatement du théor\`eme de Lévy et la loi limite est alors la loi gaussienne $\mathcal{N}(m, \sigma^2)$.
+%%
+\item Supposons que $(Y_n)_{n\in\N}$ converge en loi.
+\begin{enumerate}
+\item Le théor\`eme de Lévy garantit que $\exp(im_n t- \sigma_n^2 t^2/2)$ converge pour tout réel $t$ lorsque $n \rightarrow \infty$, et donc que $\exp(- \sigma_{n}^2 t^2/2)$ converge (en prenant le module).
 Par positivité de $\sigma_n$, on obtient donc 
 \[
 \sigma_n \xrightarrow[n\to\infty]{} \sigma \in \R_+ \cup \{\infty\}.
 \] 
 Par l'absurde, si $\sigma = \infty$, alors on a, pour tout $t > 0$,
 \[
-\abs{\phi_Y(t)} = \lim_{n\to\infty} \e^{-\sigma_n^2 t^2/2} = 0,
+\abs{\phi_Y(t)} = \lim_{n\to\infty} e^{-\sigma_n^2 t^2/2} = 0,
 \] 
 ce qui contredit que $\phi_Y(0)=1$ et que $\phi_Y$ est continue en 0.
 Ainsi, on a bien $\sigma \in \R_+$.
-
-Montrons à présent la convergence de $(m_n)_{n\in\N}$.
-Comme $\e^{-\sigma_n^2 t^2/2}$ converge vers une limite non nulle pour tout $t\in\R$, $\e^{im_n t}$ converge pour tout $t\in\R$ lorsque $n \to \infty$. 
-Montrons que cela entra\^ine la convergence de la suite $(m_n)_{n\in\N}$.
-
-\emph{Méthode 1}. 
-Si on sait a priori que la suite $(m_n)_{n\in\N}$ est bornée, c'est facile: si $m$ et $m'$ sont deux valeurs d'adhérence on a $\exp(imt)= \exp(im't)$ pour tout $t \in \R$, ce qui entra\^ine $m=m'$. 
-Montrons donc que la suite $(m_n)_{n\in\N}$ est bornée.
+%%
+\item Comme $e^{-\sigma_n^2 t^2/2}$ converge vers une limite non nulle pour tout $t\in\R$, $e^{im_n t}$ converge pour tout $t\in\R$ lorsque $n \to \infty$. 
+%Montrons donc que la suite $(m_n)_{n\in\N}$ est bornée.
 On note $D_Y$ l'ensemble des points de discontinuité de $F_Y$.
 Soit $A>0$ tel que $A, -A \notin D_Y$. Alors on a
 \begin{align*}
-\P(Y \in ]-\infty,-A]\cup ]A,\infty])
+\P(Y \in ]-\infty,-A{]}\cup {]}A,\infty])
 & = F_Y(-A) + 1- F_Y(A) 
 = \lim_{n \to \infty} F_{Y_n}(-A) + 1- F_{Y_n}(A) \\
-& = \lim_{n \to \infty} \P(Y_n \in ]-\infty,-A]\cup ]A,\infty]).
+& = \lim_{n \to \infty} \P(Y_n \in {]}-\infty,-A]\cup {]}A,\infty]).
 \end{align*}
 Soit $\varepsilon > 0$.
 Choisissons $A$ suffisamment grand tel que $\P(\abs{Y} \geq A) <\varepsilon$ et $A, -A \notin D_Y$.
 Alors, à partir d'un certain rang, $\P(\abs{Y_n} > A) < \varepsilon$ d'après l'équation ci-dessus.
 D'autre part, si $\abs{m_n} > A$, alors
 \[
-\P(\abspetit{Y_n} > A)
-\geq \P(\abspetit{Y_n} \geq \abspetit{m_n})
+\P(\abs{Y_n} > A)
+\geq \P(\abs{Y_n} \geq \abs{m_n})
 \geq \left\{
 \begin{array}{ll}
 \P(Y_n \geq m_n) & \text{si } m_n \geq 0 \\
@@ -391,27 +505,34 @@ D'autre part, si $\abs{m_n} > A$, alors
 par symétrie de la gaussienne autour de sa moyenne.
 Avec $\varepsilon = 1/2$, comme, à partir d'un certain rang, $\P(\abs{Y_n} > A) < \varepsilon$, on ne peut pas avoir $\abs{m_n} > A$.
 Donc $\abs{m_n} \leq A$ à partir d'un certain rang.
+%%
+\item Comme $(m_n)_{n\in\N}$ est bornée, il suffit de montrer qu'elle a au plus une seule valeur d'adhérence réelle.
+Mais si $m$ et $m'$ sont deux valeurs d'adhérence on a $\exp(imt)= \exp(im't)$ pour tout $t \in \R$, ce qui entra\^ine $m=m'$ (en dérivant en $t=0$ par exemple). 
+\end{enumerate}
+\end{enumerate}
 
-\emph{Méthode 2}. On note $\psi(\xi) = \lim_{n\to\infty} \e^{i m_n \xi}$ pour tout $\xi \in \R$. Alors $\psi$ est continue de module 1.
-Si $m_n \neq 0$, on a, pour $a > 0$,
-\[
-\int_0^a \e^{im_n\xi} \diff \xi = \frac{\e^{i m_n a}-1}{im_n}.
-\]
-D'autre part, par convergence dominée, on a
-\[
-\int_0^a \e^{im_n\xi} \diff \xi \xrightarrow[n\to\infty]{} \int_0^a \psi(\xi) \diff \xi.
-\]
-On choisit alors $a>0$ tel que $\int_0^a \psi(\xi) \diff \xi \neq 0$ (ce qui est possible car $\lvert \psi \rvert = 1$ et $\psi$ continue en 0).
-Alors pour $n$ suffisamment grand on a $\int_0^a \e^{im_n\xi} \neq 0$ et donc
-\[
-m_n = \frac{\e^{i m_n a}-1}{i\int_0^a \e^{im_n\xi} \diff \xi},
-\]
-en remarquant que c'est aussi vrai si $m_n = 0$.
-Finalement, on obtient
-\[
-m_n \xrightarrow[n\to\infty]{} \frac{\psi(a) - 1}{i\int_0^a \psi(\xi) \diff \xi}
-\]
-donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
+%\emph{Méthode 2}. 
+%Comme $e^{-\sigma_n^2 t^2/2}$ converge vers une limite non nulle pour tout $t\in\R$, $e^{im_n t}$ converge pour tout $t\in\R$ lorsque $n \to \infty$. 
+%On note $\psi(\xi) = \lim_{n\to\infty} e^{i m_n \xi}$ pour tout $\xi \in \R$. Alors $\psi$ est continue de module 1.
+%Si $m_n \neq 0$, on a, pour $a > 0$,
+%\[
+%\int_0^a e^{im_n\xi} \diff \xi = \frac{e^{i m_n a}-1}{im_n}.
+%\]
+%D'autre part, par convergence dominée, on a
+%\[
+%\int_0^a e^{im_n\xi} \diff \xi \xrightarrow[n\to\infty]{} \int_0^a \psi(\xi) \diff \xi.
+%\]
+%On choisit alors $a>0$ tel que $\int_0^a \psi(\xi) \diff \xi \neq 0$ (ce qui est possible car $\lvert \psi \rvert = 1$ et $\psi$ continue en 0).
+%Alors pour $n$ suffisamment grand on a $\int_0^a e^{im_n\xi} \neq 0$ et donc
+%\[
+%m_n = \frac{e^{i m_n a}-1}{i\int_0^a e^{im_n\xi} \diff \xi},
+%\]
+%en remarquant que c'est aussi vrai si $m_n = 0$.
+%Finalement, on obtient
+%\[
+%m_n \xrightarrow[n\to\infty]{} \frac{\psi(a) - 1}{i\int_0^a \psi(\xi) \diff \xi}
+%\]
+%donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
 \end{comment}
 
 
@@ -423,6 +544,33 @@ donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
 
 \begin{exo}[Maximum d'exponentielles]
 	Soit $(X_n)_{n\geq 1}$ une suite de v.a. i.i.d. de loi exponentielle de paramètre 1. Soit $M_n = \max(X_1,\dots,X_n)$. Montrer que $(M_n-\log n)_{n\geq 1}$ converge en loi et déterminer la limite.
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. à valeurs dans $\Z$. On suppose que pour tout $k \in \Z$, $\P(X_n=k)$ converge vers un réel $p_k$ quand $n \to \infty$. À quelle condition sur les $p_k$ a-t-on convergence en loi de $(X_n)_{n\geq 1}$ ?
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}
+	On reprend la question 2 de l'exercice 2 du TD11.
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles continues telles que
+	\[
+	p_{X_n}(x) = \frac{1}{2 \sqrt{2\pi}} \left( e^{-x^2/2} + e^{-(x-n)^2/2} \right).
+	\]
+	En utilisant les fonctions de répartition, montrer que $(X_n)_{n\geq 1}$ ne converge pas.
 \end{exo}
 
 
@@ -445,21 +593,21 @@ donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
 		\item Soit $(a_n)_{n\geq 1}$ une suite de réels positifs convergeant vers $a > 0$. Pour $n \geq 1$, soit $\mu_n$ la mesure de Lebesgue sur $[0,a_n]$.
 		Montrer que $(\mu_n)_{n\geq 1}$ converge étroitement vers une limite à déterminer.
 		%%
-		\item Pour $n \geq 1$, soit $\mu_n = \delta_n$. Soit $\mu$ la mesure nulle. Montrer que, pour toute fonction $f \colon \R \to \R$ continue à support compact,
-		\[
-			\int_\R f \diff \mu_n 
-			\xrightarrow[n\to\infty]{} 
-			\int_\R f \diff \mu,
-		\]
+		\item Pour $n \geq 1$, soit $\mu_n = \delta_n$. Soit $\mu$ la mesure nulle. Montrer que, pour toute fonction $f \colon \R \to \R$ continue à support compact, $\int_\R f \diff \mu_n \to \int_\R f \diff \mu$,
+%		\[
+%			\int_\R f \diff \mu_n 
+%			\xrightarrow[n\to\infty]{} 
+%			\int_\R f \diff \mu,
+%		\]
 		mais que $(\mu_n)_{n\geq 1}$ ne converge pas étroitement vers $\mu$.
 		%%
 		\item Soit $\mu,\mu_1,\mu_2,\dots$ des mesures finies sur $\R$. 
-		Montrer que $(\mu_n)_{n\geq 1}$ converge étroitement vers $\mu$ si et seulement si $\mu_n(\R) \to \mu(\R)$ et, pour toute fonction $f \colon \R \to \R$ continue à support compact,
-		\[
-		\int_\R f \diff \mu_n 
-		\xrightarrow[n\to\infty]{} 
-		\int_\R f \diff \mu.
-		\]
+		Montrer que $(\mu_n)_{n\geq 1}$ converge étroitement vers $\mu$ si et seulement si $\mu_n(\R) \to \mu(\R)$ et, pour toute fonction $f \colon \R \to \R$ continue à support compact, $\int_\R f \diff \mu_n \to \int_\R f \diff \mu$.
+%		\[
+%		\int_\R f \diff \mu_n 
+%		\xrightarrow[n\to\infty]{} 
+%		\int_\R f \diff \mu.
+%		\]
 	\end{enumerate}
 \end{exo}
 
@@ -470,23 +618,24 @@ donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
 
 
 \begin{exo}[Une partie du théorème de Prokhorov sur $\R$] \label{exo:prokhorov}
-	Soit $(\mu_n)_{n\in\N}$ une suite de mesures de probabilité sur $\R$. 
-	On note $F_n$ la fonction de répartition de $\mu_n$.
-	La suite $(\mu_n)_{n\in\N}$ est dite \emph{tendue} si
+	Soit $(X_n)_{n\in\N}$ une suite de v.a. réelles. 
+	La suite $(X_n)_{n\in\N}$ est dite \emph{tendue} si
 	\[
-	\forall \varepsilon > 0, \exists K \text{ compact} : \forall n \in \N, 
-	\mu_n(K) \geq 1-\varepsilon.
+	\forall \varepsilon > 0, \quad \exists M>0, \quad \forall n \in\N, \quad
+	P(\abs{X_n} \geq M) \leq \varepsilon.
 	\]
-	L'objectif de cet exercice est de montrer que, si la suite $(\mu_n)_{n\in\N}$ est tendue, alors elle admet une sous-suite qui converge étroitement. 
-	On suppose donc que $(\mu_n)_{n\in\N}$ est tendue.
+	L'objectif de cet exercice est de montrer que, si la suite $(X_n)_{n\in\N}$ est tendue, alors elle admet une sous-suite qui converge en loi. 
+	On suppose donc que $(X_n)_{n\in\N}$ est tendue.
 	\begin{enumerate}
-		\item Montrer qu'il existe une extractrice $\varphi \colon \N \to \N$ telle que, 
-		pour tout $q \in \Q$, $F_{\varphi(n)}(q)$ converge vers une limite $G(q)$ quand $n \to \infty$.
+		\item On note $F_n$ la fonction de répartition de $X_n$. Soit $q \in \Q$.
+		Montrer qu'il existe une extractrice $\psi \colon \N \to \N$ telle que $F_{\psi(n)}(q)$ converge vers une limite $G(q)$ quand $n \to \infty$.
+		%%
+		\item En déduire qu'il existe une extractrice $\varphi \colon \N \to \N$ telle que, pour tout $q \in \Q$, $F_{\varphi(n)}(q)$ converge vers $G(q)$ quand $n \to \infty$.
 		%%
 		\item On définit, pour $x \in \R$, $F(x) \coloneqq \inf \{G(q) : q \in \Q \, \cap \, ]x,\infty[ \}$.
-		Montrer qu'il existe une mesure de probabilité $\mu$ sur $\R$ telle que $F$ soit la fonction de répartition de $\mu$.
+		Montrer qu'il existe une v.a. réelle $X$ telle que $F$ soit la fonction de répartition de $X$.
 		%%
-		\item Montrer que $\mu_{\varphi(n)}$ converge étroitement vers $\mu$ quand $n \to \infty$.
+		\item Montrer que $(X_{\varphi(n)})_{n\in\N}$ converge en loi vers $X$.
 	\end{enumerate}
 \end{exo}
 
@@ -494,7 +643,8 @@ donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
 \begin{comment}
 \begin{enumerate}
 \item Pour $q \in \Q$, la suite $(F_n(q))_{n\in\N}$ est bornée dans $\R$ donc admet une sous-suite convergente.
-Il s'agit ensuite d'utiliser un procédé d'extraction diagonale pour construire une extractrice $\varphi$ commune à tous les $q \in \Q$.
+%%
+\item C'est le procédé d'extraction diagonale qui permet de construire une extractrice $\varphi$ commune à tous les $q \in \Q$.
 %%
 \item Il suffit de montrer que $F \colon \R \to \R$ est croissante, continue à droite et telle que $F(-\infty) = 0$ et $F(+\infty) =1$.
 \begin{itemize}
@@ -512,7 +662,7 @@ Par croissance on en conclut que $F(x+) = F(x)$.
 Soit $\varepsilon>0$. 
 Par la tension, il existe $M \in \N$ tel que, pour tout $n \in \N$, 
 \[
-\mu_n ([-M,M]) \geq 1-\varepsilon.
+\P(X_n\in[-M,M]) \geq 1-\varepsilon.
 \]
 Alors, on a $F_n(M) - F_n(-M) \geq 1-\varepsilon$ et, en passant à la limite $n\to\infty$,
 \[
@@ -546,7 +696,6 @@ et donc
 Cela montre que $F_{\varphi(n)}(x) \to F(x)$ quand $n\to\infty$.
 \end{enumerate}
 \end{comment}
-
 
 
 %%%%%%%
