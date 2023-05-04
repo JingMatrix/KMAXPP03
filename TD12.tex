@@ -1,0 +1,636 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 12 -- Convergence en loi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi de v.a. discrètes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $X,X_1,X_2,\dots$ des v.a. à valeurs dans $\Z$. 
+	Montrer que $(X_n)_{n\geq 1}$ converge en loi vers $X$ si et seulement si
+	\[
+	\forall k \in \Z, \qquad 
+	\Pp{X_n=k} \xrightarrow[n\to\infty]{} \Pp{X=k}.
+	\]
+	\emph{Indication.} Pour montrer $(\Rightarrow)$, on pourra utiliser une fonction $f$ qui vaut 1 sur $k$ et 0 sur les autres entiers. Pour montrer $(\Leftarrow)$, on pourra considérer une fonction test $f$ à support compact.
+\end{exo}
+
+\begin{comment}
+\emph{Sens direct.} Supposons que $(X_n)_{n\geq 1}$ converge en loi vers $X$.
+Soit $k \in \Z$. 
+On considère une fonction $f \colon \R \to \R$ continue bornée telle que $f(k) = 1$ et $f$ est nulle sur tous les autres entiers (par exemple, $f(x) = \max(1-\abs{x-k},0)$).
+Alors
+\[
+\Ec{f(X_n)} = \sum_{i\in \Z} \P(X_n=i) f(i) = \P(X_n=k)
+\]
+et de même $\Ec{f(X)} = \P(X=k)$.
+Or, par convergence en loi, on a $\Ec{f(X_n)} \to \Ec{f(X)}$ quand $n \to \infty$ et donc $\P(X_n=k) \to \P(X=k)$.
+
+\emph{Sens réciproque.} Supposons que, pour tout $k \in \Z$, on ait $\P(X_n=k) \to \P(X=k)$ quand $n \to \infty$.
+Soit $f \colon \R \to \R$ à support compact. Soit $M > 0$ tel que $f(x) = 0$ pour tout $x \notin [-M,M]$.
+Alors 
+\begin{align*}
+\Ec{f(X_n)} & = \sum_{k\in \Z} \P(X_n=k) f(k) 
+= \sum_{k\in \Z \cap [-M,M]} \P(X_n=k) f(k) \\
+& \xrightarrow[n\to\infty]{} \sum_{k\in \Z \cap [-M,M]} \P(X=k) f(k)
+= \Ec{f(X)},
+\end{align*}
+où la convergence est justifiée car la somme est finie.
+Cela implique la convergence en loi par le Théorème \ref{thm:CV_loi_C_infini}.
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. telle que $X_n$ ait une loi binomiale de paramètre $(n,p_n)$, où $(p_n)_{n\geq 1}$ est une suite de réels dans $[0,1]$ telle que 
+	\[
+	n p_n \xrightarrow[n\to\infty]{} \lambda >0.
+	\]
+	Montrer que $(X_n)_{n\geq 1}$ converge en loi vers une v.a. de loi de Poisson de paramètre $\lambda$.
+	
+	\emph{Rappel.} La formule de Stirling dit que $n! \sim \sqrt{2 \pi n} (\frac{n}{e})^n$ quand $n \to \infty$.
+\end{exo}
+
+\begin{comment}
+Soit $k \in \N$ fixé. On a
+\begin{align*}
+\Pp{X_n = k} 
+= \binom{n}{k} p_n^k (1-p_n)^{n-k}
+= \frac{n!}{k ! (n-k)!} 
+\left( \frac{p_n}{1-p_n} \right)^k 
+\exp \left( n \log(1-p_n) \right).
+\end{align*}
+En utilisant la formule de Stirling, le fait que $\frac{p_n}{1-p_n} \sim \frac{\lambda}{n}$ et que $n \log(1-p_n) \sim -\lambda$, on obtient
+\begin{align*}
+\Pp{X_n = k} 
+& \sim \frac{1}{k!} \cdot 
+\frac{\sqrt{2\pi n} (\frac{n}{e})^{n}}{\sqrt{2\pi (n-k)} (\frac{n-k}{e})^{n-k}}
+\cdot \left( \frac{\lambda}{n} \right)^k 
+\exp \left( - \lambda \right)
+\sim \frac{1}{k!} \cdot e^{-k}
+\left( \frac{n}{n-k} \right)^{n}
+\cdot \lambda^k e^{-\lambda}.
+\end{align*}
+Finalement, comme $(\frac{n-k}{n})^{n} = \exp( n \log (1-\frac{k}{n})) \to e^{-k}$, on obtient
+\[
+\Pp{X_n = k} 
+\xrightarrow[n \to \infty]{}
+\frac{\lambda^k}{k!} e^{-\lambda}. 
+\]
+Notons aussi que, pour tout $k < 0$, $\Pp{X_n = k}  = 0 \to 0$.
+Par l'exercice précédent, cela montre que $(X_n)_{n\geq 1}$ converge en loi vers une v.a. de loi de Poisson de paramètre $\lambda$.
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi et fonction de répartition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles dont les fonctions de répartitions sont données ci-dessous. Dans chaque cas, justifier s'il y a convergence en loi ou non et, si oui, déterminer la loi de la limite.
+	\begin{enumerate}
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-(1-\frac{2a}{n})^n] \1_{a \geq 0}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} \1_{a \geq (-1)^n} + \frac{1}{2} \1_{a \geq 3}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{3} \1_{a \geq 1/n} + \frac{2}{3} a^n \1_{a \in[0,1{[}} + \frac{2}{3} \1_{a \geq 1}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-e^{-(a-n)}] \1_{a \geq n} + \frac{1}{2}  \1_{a \geq 0}$.
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles convergeant en loi vers $X$.
+	On suppose que $X$ n'a pas d'atome, i.e. $\P(X=a)=0$ pour tout $a \in \R$.
+	\begin{enumerate}
+		\item Montrer que, pour tout $a<b$, $\P(X_n \in {]}a,b]) \to \P(X \in {]}a,b])$ quand $n \to \infty$.
+		\item Montrer que, pour tout $a \in \R$, $\P(X_n=a) \to 0$ quand $n \to \infty$.
+		\item Montrer que, pour tout intervalle $I \subset \R$,  $\P(X_n \in I) \to \P(X \in I)$ quand $n \to \infty$.
+	\end{enumerate}
+\end{exo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Convergence en loi et fonction caractéristique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{exo}[Une loi faible par les fonctions caractéristiques] 
+	Soit $(X_n)_{n\geq1}$ une suite de v.a. réelles i.i.d telle que $\mathbb{E}[|X_1|]<\infty$. 
+	\begin{enumerate}
+		\item En utilisant le théorème de Lévy faible, montrer que 
+		\[ 
+		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
+		\]
+		\item En déduire que
+		\[ 
+		\frac{X_1 +\dots+X_n}{n} \xrightarrow[n\to\infty]{\P} \mathbb{E}[X_1].
+		\]
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+L'indépendance des $(X_i)$ implique que, pour $\xi\in \R$,
+\[
+\phi_{\frac{X_1+\dots+X_n}{n}}(\xi) 
+= \left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n}.
+\] 
+Comme $X_1$ a un moment d'ordre $1$ fini, $\xi \mapsto \phi(\xi)$ est dérivable en $0$ de dérivée $i\mathbb{E}[X_1]$. 
+D'o\`u 
+\[
+\left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n} 
+= \left(1+\frac{i\xi\mathbb{E}[X_1]}{n} + \petito{\frac{1}{n}} \right)^n 
+\xrightarrow[n\to\infty]{} i\xi\mathbb{E}[X_1].
+\]
+Ainsi, les fonctions caractéristiques de $(X_1 +\dots+ X_n)/n$ convergent simplement vers la fonction caractéristique de la mesure de Dirac en $\mathbb{E}[X_1]$, on en déduit que 
+\[ \frac{X_1+\dots+X_n}{n} 
+\xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
+\]
+Or la convergence en loi vers une constante implique une convergence en probabilité vers cette constante, ce qui conclut.
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo}[Limite de gaussiennes]
+	Soit $(Y_n)_{n\in\N}$ une suite de variables aléatoires réelles suivant respectivement
+	une loi gaussienne $\cN (m_n,\sigma_n^2)$ avec $m_n \in \R$ et $\sigma_n \in \R_+$. 
+	Montrer que cette suite converge en loi vers une variable réelle $Y$ si et seulement si les deux suites $(m_n)_{n\in\N}$ et $(\sigma_n)_{n\in\N}$ convergent vers respectivement $m \in \R$ et $\sigma \in \R_+$, et identifier la loi limite.
+\end{exo}
+
+\begin{comment}
+On rappelle que la fonction caractéristique d'une gaussienne $\mathcal{N}(m, \sigma^2)$ de moyenne $m$ et de variance $\sigma^2$ est $\Phi_{m, \sigma^2}(t)= \exp(imt- \sigma^2 t^2/2)$. 
+Par convention, lorsque $\sigma=0$, la gaussienne $\mathcal{N}(m, \sigma^2)$ est la masse de Dirac $\delta_m$.
+
+La réciproque découle immédiatement du théor\`eme de Lévy et la loi limite est alors la loi gaussienne $\mathcal{N}(m, \sigma^2)$.
+
+Pour l'implication, supposons que $Y_n$ converge en loi vers $Y$. 
+Le théor\`eme de Lévy garantit que $\exp(im_n t- \sigma_n^2 t^2/2)$ converge pour tout réel $t$ lorsque $n \rightarrow \infty$, et donc que $\exp(- \sigma_{n}^2 t^2/2)$ converge (en prenant le module).
+Par positivité de $\sigma_n$, on obtient donc 
+\[
+\sigma_n \xrightarrow[n\to\infty]{} \sigma \in \R_+ \cup \{\infty\}.
+\] 
+Par l'absurde, si $\sigma = \infty$, alors on a, pour tout $t > 0$,
+\[
+\abs{\phi_Y(t)} = \lim_{n\to\infty} \e^{-\sigma_n^2 t^2/2} = 0,
+\] 
+ce qui contredit que $\phi_Y(0)=1$ et que $\phi_Y$ est continue en 0.
+Ainsi, on a bien $\sigma \in \R_+$.
+
+Montrons à présent la convergence de $(m_n)_{n\in\N}$.
+Comme $\e^{-\sigma_n^2 t^2/2}$ converge vers une limite non nulle pour tout $t\in\R$, $\e^{im_n t}$ converge pour tout $t\in\R$ lorsque $n \to \infty$. 
+Montrons que cela entra\^ine la convergence de la suite $(m_n)_{n\in\N}$.
+
+\emph{Méthode 1}. 
+Si on sait a priori que la suite $(m_n)_{n\in\N}$ est bornée, c'est facile: si $m$ et $m'$ sont deux valeurs d'adhérence on a $\exp(imt)= \exp(im't)$ pour tout $t \in \R$, ce qui entra\^ine $m=m'$. 
+Montrons donc que la suite $(m_n)_{n\in\N}$ est bornée.
+On note $D_Y$ l'ensemble des points de discontinuité de $F_Y$.
+Soit $A>0$ tel que $A, -A \notin D_Y$. Alors on a
+\begin{align*}
+\P(Y \in ]-\infty,-A]\cup ]A,\infty])
+& = F_Y(-A) + 1- F_Y(A) 
+= \lim_{n \to \infty} F_{Y_n}(-A) + 1- F_{Y_n}(A) \\
+& = \lim_{n \to \infty} \P(Y_n \in ]-\infty,-A]\cup ]A,\infty]).
+\end{align*}
+Soit $\varepsilon > 0$.
+Choisissons $A$ suffisamment grand tel que $\P(\abs{Y} \geq A) <\varepsilon$ et $A, -A \notin D_Y$.
+Alors, à partir d'un certain rang, $\P(\abs{Y_n} > A) < \varepsilon$ d'après l'équation ci-dessus.
+D'autre part, si $\abs{m_n} > A$, alors
+\[
+\P(\abspetit{Y_n} > A)
+\geq \P(\abspetit{Y_n} \geq \abspetit{m_n})
+\geq \left\{
+\begin{array}{ll}
+\P(Y_n \geq m_n) & \text{si } m_n \geq 0 \\
+\P(Y_n \leq m_n) & \text{si } m_n < 0
+\end{array}
+\right.
+= \frac{1}{2},
+\]
+par symétrie de la gaussienne autour de sa moyenne.
+Avec $\varepsilon = 1/2$, comme, à partir d'un certain rang, $\P(\abs{Y_n} > A) < \varepsilon$, on ne peut pas avoir $\abs{m_n} > A$.
+Donc $\abs{m_n} \leq A$ à partir d'un certain rang.
+
+\emph{Méthode 2}. On note $\psi(\xi) = \lim_{n\to\infty} \e^{i m_n \xi}$ pour tout $\xi \in \R$. Alors $\psi$ est continue de module 1.
+Si $m_n \neq 0$, on a, pour $a > 0$,
+\[
+\int_0^a \e^{im_n\xi} \diff \xi = \frac{\e^{i m_n a}-1}{im_n}.
+\]
+D'autre part, par convergence dominée, on a
+\[
+\int_0^a \e^{im_n\xi} \diff \xi \xrightarrow[n\to\infty]{} \int_0^a \psi(\xi) \diff \xi.
+\]
+On choisit alors $a>0$ tel que $\int_0^a \psi(\xi) \diff \xi \neq 0$ (ce qui est possible car $\lvert \psi \rvert = 1$ et $\psi$ continue en 0).
+Alors pour $n$ suffisamment grand on a $\int_0^a \e^{im_n\xi} \neq 0$ et donc
+\[
+m_n = \frac{\e^{i m_n a}-1}{i\int_0^a \e^{im_n\xi} \diff \xi},
+\]
+en remarquant que c'est aussi vrai si $m_n = 0$.
+Finalement, on obtient
+\[
+m_n \xrightarrow[n\to\infty]{} \frac{\psi(a) - 1}{i\int_0^a \psi(\xi) \diff \xi}
+\]
+donc on a bien montré la convergence de la suite $(m_n)_{n\in\N}$.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}[Maximum d'exponentielles]
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. i.i.d. de loi exponentielle de paramètre 1. Soit $M_n = \max(X_1,\dots,X_n)$. Montrer que $(M_n-\log n)_{n\geq 1}$ converge en loi et déterminer la limite.
+\end{exo}
+
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+
+\begin{exo}[Convergence étroite de mesures finies]
+	Soit $\mu,\mu_1,\mu_2,\dots$ des mesures finies sur $\R$. 
+	On dit que $(\mu_n)_{n\geq 1}$ converge étroitement vers $\mu$ si, pour toute fonction $f \colon \R \to \R$ continue bornée,
+	\[
+	\int_\R f \diff \mu_n 
+	\xrightarrow[n\to\infty]{} 
+	\int_\R f \diff \mu.
+	\]
+	\begin{enumerate}
+		\item Soit $(a_n)_{n\geq 1}$ une suite de réels positifs convergeant vers $a > 0$. Pour $n \geq 1$, soit $\mu_n$ la mesure de Lebesgue sur $[0,a_n]$.
+		Montrer que $(\mu_n)_{n\geq 1}$ converge étroitement vers une limite à déterminer.
+		%%
+		\item Pour $n \geq 1$, soit $\mu_n = \delta_n$. Soit $\mu$ la mesure nulle. Montrer que, pour toute fonction $f \colon \R \to \R$ continue à support compact,
+		\[
+			\int_\R f \diff \mu_n 
+			\xrightarrow[n\to\infty]{} 
+			\int_\R f \diff \mu,
+		\]
+		mais que $(\mu_n)_{n\geq 1}$ ne converge pas étroitement vers $\mu$.
+		%%
+		\item Soit $\mu,\mu_1,\mu_2,\dots$ des mesures finies sur $\R$. 
+		Montrer que $(\mu_n)_{n\geq 1}$ converge étroitement vers $\mu$ si et seulement si $\mu_n(\R) \to \mu(\R)$ et, pour toute fonction $f \colon \R \to \R$ continue à support compact,
+		\[
+		\int_\R f \diff \mu_n 
+		\xrightarrow[n\to\infty]{} 
+		\int_\R f \diff \mu.
+		\]
+	\end{enumerate}
+\end{exo}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Une partie du théorème de Prokhorov sur $\R$] \label{exo:prokhorov}
+	Soit $(\mu_n)_{n\in\N}$ une suite de mesures de probabilité sur $\R$. 
+	On note $F_n$ la fonction de répartition de $\mu_n$.
+	La suite $(\mu_n)_{n\in\N}$ est dite \emph{tendue} si
+	\[
+	\forall \varepsilon > 0, \exists K \text{ compact} : \forall n \in \N, 
+	\mu_n(K) \geq 1-\varepsilon.
+	\]
+	L'objectif de cet exercice est de montrer que, si la suite $(\mu_n)_{n\in\N}$ est tendue, alors elle admet une sous-suite qui converge étroitement. 
+	On suppose donc que $(\mu_n)_{n\in\N}$ est tendue.
+	\begin{enumerate}
+		\item Montrer qu'il existe une extractrice $\varphi \colon \N \to \N$ telle que, 
+		pour tout $q \in \Q$, $F_{\varphi(n)}(q)$ converge vers une limite $G(q)$ quand $n \to \infty$.
+		%%
+		\item On définit, pour $x \in \R$, $F(x) \coloneqq \inf \{G(q) : q \in \Q \, \cap \, ]x,\infty[ \}$.
+		Montrer qu'il existe une mesure de probabilité $\mu$ sur $\R$ telle que $F$ soit la fonction de répartition de $\mu$.
+		%%
+		\item Montrer que $\mu_{\varphi(n)}$ converge étroitement vers $\mu$ quand $n \to \infty$.
+	\end{enumerate}
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item Pour $q \in \Q$, la suite $(F_n(q))_{n\in\N}$ est bornée dans $\R$ donc admet une sous-suite convergente.
+Il s'agit ensuite d'utiliser un procédé d'extraction diagonale pour construire une extractrice $\varphi$ commune à tous les $q \in \Q$.
+%%
+\item Il suffit de montrer que $F \colon \R \to \R$ est croissante, continue à droite et telle que $F(-\infty) = 0$ et $F(+\infty) =1$.
+\begin{itemize}
+\item Les $F_n$ sont croissantes donc $G$ est croissante sur $\Q$, et ainsi $F$ est croissante.
+\item Soit $x \in \R$. Montrons la continuité à droite de $F$ en $x$. On sait déjà que $F(x+)$ existe.
+D'autre part, il existe $(q_k)_{k\in\N}$ une suite de rationnels strictement supérieurs à $x$ telle que $G(q_k) \to F(x)$ quand $k \to \infty$.
+Alors on a, pour tout $k \in \N$, 
+\[
+F(x+) \leq F \left( \frac{x+q_k}{2} \right) \leq G(q_k).
+\]
+En passant à la limite, on obtient $F(x+) \leq F(x)$.
+Par croissance on en conclut que $F(x+) = F(x)$.
+%%
+\item Montrons que $F(-\infty) = 0$ et $F(+\infty) =1$. Comme $G$ est à valeurs dans $[0,1]$, $F$ aussi et donc on a déjà $0 \leq F(-\infty) \leq F(+\infty) \leq 1$.
+Soit $\varepsilon>0$. 
+Par la tension, il existe $M \in \N$ tel que, pour tout $n \in \N$, 
+\[
+\mu_n ([-M,M]) \geq 1-\varepsilon.
+\]
+Alors, on a $F_n(M) - F_n(-M) \geq 1-\varepsilon$ et, en passant à la limite $n\to\infty$,
+\[
+F(+\infty)- F(-\infty) 
+\geq G(M)-G(M)
+\geq 1-\varepsilon.
+\]
+Avec $\varepsilon\to0$, on obtient $F(+\infty)- F(-\infty)  \geq 1$ et cela donne le résultat espéré.
+\end{itemize}
+%%
+\item Il suffit de montrer, pour $x \in\R$ point de continuité de $F$, que $F_{\varphi(n)}(x) \to F(x)$ quand $n\to\infty$.
+Soit $\varepsilon>0$. 
+Il existe $\eta > 0$ tel que, pour tout $y \in [x-\eta,x+\eta]$, $\lvert F(x)-F(y) \rvert \leq \varepsilon$.
+Soit $x-\eta < q < x < r < x+\eta$ avec $q,r \in \Q$,
+\begin{align*}
+\lvert F_{\varphi(n)}(x) - F(x) \rvert
+& \leq \lvert F_{\varphi(n)}(x) - F_{\varphi(n)}(r) \rvert 
++ \lvert F_{\varphi(n)}(r) - G(r) \rvert 
++ \lvert G(r) - F(x) \rvert \\
+& \leq [F_{\varphi(n)}(r) - F_{\varphi(n)}(q)]
++ \lvert F_{\varphi(n)}(r) - G(r) \rvert 
++ [F(x+\eta) - F(x)]
+\end{align*}
+et donc 
+\begin{align*}
+\limsup_{n\to\infty} \, \lvert F_{\varphi(n)}(x) - F(x) \rvert
+& \leq [G(r) - G(q)] + [F(x+\eta) - F(x)]
+\leq 2 [F(x+\eta) - F(x-\eta)]
+\leq 4 \varepsilon.
+\end{align*}
+Cela montre que $F_{\varphi(n)}(x) \to F(x)$ quand $n\to\infty$.
+\end{enumerate}
+\end{comment}
+
+
+
+%%%%%%%
+%\separationexos
+%%%%%%%
+%
+%\begin{exo}[Théorème de Lévy fort] Soit $(X_n)_{n\in\N}$ une suite de variables aléatoires réelles. 
+%	On suppose qu'il existe une fonction $\phi \colon \R \rightarrow \C$, continue en $0$, telle que
+%	\[
+%	\forall t \in \R, \quad \phi_{X_n}(t) \xrightarrow[n\to\infty]{} \phi(t).
+%	\]
+%	\begin{enumerate}
+%		\item Montrer que, pour tout $a>0$, on a
+%		\[
+%		\Pp{\abs{X_n} > \frac{2}{a}} 
+%		\leq \frac{1}{a} \int_{-a}^a \left( 1- \mathrm{Re}( \phi_{X_n}(u)) \right) \diff u
+%		= \frac{1}{a} \int_{-a}^a \left( 1-\phi_{X_n}(u) \right) \diff u.
+%		\]
+%		%%
+%		\item Montrer que, pour tout $\varepsilon>0$, il existe $u>0$ et $n_0 \in \N$ tels que, pour tout $n \geq n_0$, on ait
+%		\[ 
+%		\frac{1}{u} \int_{-u}^u  \abs{1- \phi_{X_n}(t)} \diff t < \varepsilon.
+%		\]
+%		%%
+%		\item En déduire que la suite $(X_n)_{n\in\N}$ est tendue (c'est-\`a-dire que la suite des lois $(P_{X_n})_{n\in\N}$ est tendue).
+%		%%
+%		\item Montrer que la suite $(X_n)_{n\in\N}$ converge en loi.
+%		
+%		\emph{Rappel}. \`A l'exercice 9 du TD 12, il a été montré que si une suite de variables aléatoires est tendue, alors elle admet une sous-suite convergeant en loi.
+%	\end{enumerate}
+%\end{exo}
+%
+%
+%\begin{comment}
+%\begin{enumerate}
+%\item D'apr\`es le théor\`eme de Fubini--Tonelli,
+%\begin{align*}
+%\frac{1}{a} \int_{-a}^a (1- \phi_{X_n}(t)) \diff t 
+%&= \frac{1}{a}\int_{-a}^a \left( \int_{ \R}(1- \e^{itx}) \P_{X_{n}}(\diff x) \right) \diff t 
+%= \frac{1}{a} \int_{\R}\left(\int_{-a}^a(1- \e^{itx}) \diff t \right) \P_{X_{n}}(\diff x) \\
+%&= 2 \int_{ \R} \left( 1- \frac{ \sin(ax)}{ax} \right)\P_{X_{n}}(\diff x) \geq  \int_{|x|>2/u} \left(1- \frac{1}{|ax|} \right) \P_{X_{n}}(\diff x)
+%\end{align*}
+%car pour tout réel $t$ on a $1- \sin(t)/t \geq 0$ et $ 1- \sin(t)/t \geq 1-1/|t|$. Comme
+%\[2 \int_{|x|>2/a} \left(1- \frac{1}{|ax|} \right) \P_{X_{n}}(\diff x) \leq 2 \int_{|x|>2/a} \left(1- \frac{1}{2} \right) \P_{X_{n}}(\diff x) = \Pp{ |X_{n}|>2/a},\]
+%ceci conclut.
+%%%
+%\item Comme $|\phi(t)| = \lim_{n \rightarrow \infty} | \phi_{X_n}(t)| \leq 1$ pour tout $t \in \R$, $ \phi(0)=\lim_{n \rightarrow \infty} | \phi_{X_n}(0)|=1$ et que $ \phi$ est continue en $0$, si $\varepsilon > 0$ est fixé, il existe $u>0$ tel que $|1- \phi(t)| < \varepsilon/2$ pour $|t|<u$. 
+%Ainsi
+%\[
+%\frac{1}{u} \int_{-u}^u | 1- \phi(t)| \diff t < \varepsilon.
+%\]
+%Or $|1- \phi_{X_n}(t)| \leq 2$ et $ | 1- \phi_{X_n}(t)| \rightarrow  | 1- \phi(t)|$ quand $n \rightarrow \infty$. Par convergence dominée, il s'ensuit que 
+%\[
+%\frac{1}{u} \int_{-u}^u | 1- \phi_{X_n}(t)| \diff t 
+%\xrightarrow[n \to \infty]{} 
+%\frac{1}{u} \int_{-u}^u | 1- \phi(t)| \diff t 
+%< \varepsilon.
+%\]
+%Le résultat désiré en découle.
+%%%
+%\item D'apr\`es la premi\`ere question, pour $n \geq n_{0}$, $\Pp{|X_{n}|> \frac{2}{u}}> 2 \varepsilon$. Comme les variables aléatoires $X_{i}$ sont réelles, il existe des réels positifs $a_{1},a_{2}, \ldots, a_{n_{0}-1}$ tels que
+%\[
+%\Pp{|X_{i}|> a_{i}}< 2 \varepsilon, \qquad 0 \leq i \leq n_{0}-1.
+%\]
+%En posant $a= \max(2/u,a_{1},a_{2}, \ldots, a_{n_{0}-1})$, on a bien
+%\[
+%\Pp{|X_{n}|>a}< 2 \varepsilon
+%\]
+%pour tout entier $n \geq 1$, c'est-à-dire 
+%\[
+%\Pp{X_n \in [-a,a]} \geq 1-2 \varepsilon.
+%\]
+%%%
+%\item Comme la suite $(X_n)_{n\in\N}$ est tendue,  elle admet une sous-suite $(X_{\varphi(n)})_{n\in\N}$ qui converge en loi vers une variable aléatoire $X$.
+%On a alors
+%\[
+%\forall t \in \R, \quad 
+%\phi_{X_{\varphi(n)}}(t) \xrightarrow[n\to\infty]{} \phi_X(t).
+%\]
+%et donc $\phi_X = \phi$.
+%Il suffit alors d'appliquer le théorème de Lévy faible.
+%\end{enumerate}
+%%\newpage
+%\end{comment}
+
+
+\end{document}
