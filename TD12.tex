@@ -331,24 +331,34 @@
 
 \begin{comment}
 \begin{enumerate}
-\item L'indépendance des $(X_i)$ implique que, pour $\xi\in \R$,
+\item L'indépendance des $X_i$ implique que, pour $\xi\in \R$,
 \[
 \phi_{\frac{X_1+\dots+X_n}{n}}(\xi) 
 = \left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n}.
 \] 
-Comme $X_1$ a un moment d'ordre $1$ fini, $\xi \mapsto \phi(\xi)$ est dérivable en $0$ de dérivée $i\mathbb{E}[X_1]$. 
-D'o\`u 
+Comme $X_1$ a un moment d'ordre $1$ fini, $\phi_{X_1}$ est dérivable en $0$ de dérivée $im$, où $m \coloneqq \mathbb{E}[X_1]$. 
+Par Taylor-Young en 0, on a donc
 \[
-\left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n} 
-= \left(1+\frac{i\xi\mathbb{E}[X_1]}{n} + \petito{\frac{1}{n}} \right)^n 
-\xrightarrow[n\to\infty]{} i\xi\mathbb{E}[X_1].
+\phi_{X_1}\left(\frac{\xi}{n}\right)
+= 1+\frac{i\xi\mathbb{E}[X_1]}{n} + \petito{\frac{1}{n}} 
+= e^{im\xi/n} + \petito{\frac{1}{n}}.
 \]
-Ainsi, les fonctions caractéristiques de $(X_1 +\dots+ X_n)/n$ convergent simplement vers la fonction caractéristique de la mesure de Dirac en $\mathbb{E}[X_1]$, on en déduit que 
+Ainsi
+\[
+	\abs{\phi_{\frac{X_1+\dots+X_n}{n}}(\xi) - e^{im\xi} }
+	= \abs{\left(\phi_{X_1}\left(\frac{\xi}{n}\right)\right)^{n} 
+	- (e^{im\xi/n})^n }
+	\leq n \abs{\phi_{X_1}\left(\frac{\xi}{n}\right) - e^{im\xi/n}}
+	\xrightarrow[n\to\infty]{} 0,
+\]
+par l'inégalité vue en cours : $\abs{z^n-w^n} \leq n \abs{z-w}$ pour $z,w \in \C$ de modules inférieurs à 1.
+Ainsi, la fonction caractéristique de $(X_1 +\dots+ X_n)/n$ converge simplement vers la fonction caractéristique de la v.a. constante égale à $m$.
+Par le théorème de Lévy, on en déduit que 
 \[ \frac{X_1+\dots+X_n}{n} 
-\xrightarrow[n\to\infty]{\text{loi}} \mathbb{E}[X_1].
+\xrightarrow[n\to\infty]{\text{loi}} m=\mathbb{E}[X_1].
 \]
 %%
-\item La convergence en loi vers une constante implique une convergence en probabilité vers cette constante, ce qui conclut.
+\item La convergence en loi vers une constante implique la convergence en probabilité vers cette constante, ce qui conclut.
 \end{enumerate}
 \end{comment}
 
