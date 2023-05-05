@@ -182,7 +182,7 @@
 \begin{exo}
 	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles dont les fonctions de répartitions sont données ci-dessous. Dans chaque cas, justifier s'il y a convergence en loi ou non et, si oui, déterminer la loi de la limite.
 	\begin{enumerate}
-		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-(1-\frac{2a}{n})^n] \1_{a \geq 0}$.
+		\item Pour tout $a \in \R$, $F_{X_n}(a) = [1-\frac{1}{2} (1-\frac{2a}{n})^n] \1_{a \geq 0}$.
 		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} \1_{a \geq (-1)^n} + \frac{1}{2} \1_{a \geq 3}$.
 		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{3} \1_{a \geq 1/n} + \frac{2}{3} a^n \1_{a \in[0,1{[}} + \frac{2}{3} \1_{a \geq 1}$.
 		\item Pour tout $a \in \R$, $F_{X_n}(a) = \frac{1}{2} [1-e^{-(a-n)}] \1_{a \geq n} + \frac{1}{2}  \1_{a \geq 0}$.
@@ -194,13 +194,13 @@
 	\item Pour tout $a <0$, on a $F_{X_n}(a) = 0 \to 0$.
 	Pour $a \geq 0$, on a
 	\[
-	F_{X_n}(a) = \frac{1}{2} \left[ 1- \left( 1-\frac{2a}{n} \right)^n \right]
+	F_{X_n}(a) = 1- \frac{1}{2} \left( 1-\frac{2a}{n} \right)^n
 	\xrightarrow[n\to\infty]{} 
-	\frac{1}{2} \left[ 1- e^{-2a} \right].
+	1-\frac{1}{2}  e^{-2a}.
 	\]
 	Donc $F_{X_n}$ converge en tout point vers $F$ définie par
 	\[
-	F(a) = \frac{1}{2} \left[ 1- e^{-2a} \right] \1_{a \geq 0}.
+	F(a) = \left[ 1- \frac{1}{2} e^{-2a} \right] \1_{a\geq 0}.
 	\]
 	Cette fonction est croissante, continue à droite et tend vers 1 en $+\infty$ et vers 0 en $-\infty$ donc $F$ est la fonction de répartition d'une v.a. $X$.
 	Cela montre que $(X_n)_{n\geq 1}$ converge en loi vers $X$.
@@ -250,6 +250,7 @@
 	En effet s'il y avait convergence en loi vers une v.a. $X$ alors $F_{X_n}$ convergerait vers $F_X$ simplement sauf en ses points de discontinuité. On aurait donc $F = F_X$ sauf en un ensemble dénombrable de points. Ce n'est pas compatible avec le fait que $F_X$ tend vers 1 en l'infini.
 \end{enumerate}
 \end{comment}
+
 
 
 %%%%%%
