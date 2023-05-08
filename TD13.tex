@@ -1,0 +1,934 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsthm,amsmath,amsfonts,amssymb,bbm,mathrsfs,stmaryrd}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage{amsthm}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{graphicx}
+
+\usepackage{fancyhdr,lastpage,titlesec,verbatim,ifthen}
+
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black]{hyperref}
+
+\usepackage[french]{babel}
+
+\usepackage{caption,tikz,subfigure}
+
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%% Taille de la legende des images %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+
+%%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
+\setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
+%\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
+%\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
+
+%%%%%%%% Pas d'espacement supplementaire avant \left et apres \right %%%
+%%%%%%%% Note : pour les \Big(, utiliser \Bigl( \Bigr) %%%%%%%%%%%%%%%%%
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\1}{\mathbbm{1}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+
+\newcommand{\Ec}[1]{\mathbb{E} \left[#1\right]}
+\newcommand{\Pp}[1]{\mathbb{P} \left(#1\right)}
+\newcommand{\Ppsq}[2]{\mathbb{P} \left(#1\middle|#2\right)}
+
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\ii}{\mathrm{i}}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Arg}{Arg}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\abso}[1]{\lvert#1\rvert}
+\newcommand{\norme}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ps}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+\newcommand\relphantom[1]{\mathrel{\phantom{#1}}}
+
+\newcommand{\NB}[1]{{\color{NavyBlue}#1}}
+\newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+
+%%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Définition}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{question}[theorem]{Question}
+
+%%%%%%%% Macros spéciales TD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%% Changer numérotation des pages %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\cfoot{\thepage/\pageref{LastPage}} %%% numéroter page / total de pages
+\renewcommand{\headrulewidth}{0pt} %%% empêcher qu'il y ait une ligne horizontale en haut
+%%%%%%%%%%%% Ne pas numéroter les pages %%%%%%%%%%%%%%%%%
+%\pagestyle{empty}
+
+%%%%%%%%%%%% Supprimer les alineas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0cm} 
+
+%%%%%%%%%%%% Exercice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcounter{exo}
+\newenvironment{exo}[1][vide]
+{\refstepcounter{exo}
+	{\noindent \textcolor{DarkSlateBlue}{\textbf{Exercice \theexo.}}}
+	\ifthenelse{\equal{#1}{vide}}{}{\textcolor{DarkSlateBlue}{(#1)}}
+}{}
+
+%%%%%%%%%%%% Partie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{partie}
+\newcommand\partie[1]{
+	\stepcounter{partie}%
+	{\bigskip\large\textbf{\DSB{\thepartie.~#1}}\bigskip}
+	}
+
+%%%%%%%%%%%% Separateur entre les exos %%%%%%%%%%%%%%%%%
+\newcommand{\separationexos}{
+	\bigskip
+%	{\centering\hfill\DSB{\rule{0.4\linewidth}{1.2pt}}\hfill}\medskip
+	}
+
+%%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+
+%%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\titre[1]{\ \vspace{-1cm}
+	
+	\DSB{\rule{\linewidth}{1.2pt}}
+	{\small Probabilités et statistiques continues avancées}
+	\hfill {\small Université Paul Sabatier}
+	
+	{\small KMAXPP03}
+	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\begin{center}
+		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
+	\end{center}
+	\DSB{\rule{\linewidth}{1.2pt}}\medskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titre{TD 13 -- Théorème central limite}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Applications du théorème central limite}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo} 
+	On s'intéresse ici à la convergence de la suite suivante
+	\[ 
+	u_n = e^{-n}\sum_{k=0}^n\frac{n^k}{k!}. 
+	\]
+	\begin{enumerate}
+		\item Écrire $u_n$ comme une probabilité impliquant une v.a. $X_n$ de loi de Poisson de paramètre $n$.
+		%%
+		\item En utilisant que $X_n$ a la même loi que la somme de $n$ v.a. i.i.d. de loi Poisson de Poisson de paramètre $1$, ainsi que le théorème central limite, déterminer la limite de la suite $(u_n)_{n\geq 0}$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item On a $u_n = \P(X_n \leq n)$.
+%%
+\item Comme $X_n$ a la même loi que $P_1+\ldots+P_n$, où $(P_k)_{k\geq1}$ est une suite de v.a. i.i.d. de loi Poisson de Poisson de paramètre $1$, on a
+\[
+u_n = \P(P_1+\ldots+P_n\leq n)
+= \P\left(\frac{P_1+\ldots+P_n-n}{\sqrt{n}}\leq0\right).
+\]
+L'espérance et la variance de $P_k$ étant égales à 1, donc, d'après le TCL et avec $Z$ de loi $\cN(0,1)$, 
+\[
+u_n = \P\left(\frac{P_1+\ldots+P_n-n\E[P_1]}{\sigma_{P_1} \sqrt{n}}\leq0\right)
+\xrightarrow[n\to\infty]{}
+\P(Z\leq 0) = \frac{1}{2}.
+\] 
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Monte--Carlo] Soit $X$ le gain réalisé à un jeu de hasard donné. On suppose que l'on connaît les règles du jeu, de sorte que l'on sait simuler numériquement la v.a. $X$. De plus, on sait que les valeurs possibles de $X$ sont dans $[-5,20]$.
+Comment estimer numériquement le gain moyen du jeu de sorte que l'estimation soit précise à 0,001 près avec probabilité au moins 99\% ?
+\end{exo}
+
+
+\begin{comment}
+On considère une suite de v.a. i.i.d. $(X_n)_{n\geq1}$ de même loi que $X$ et on approche $\E[X]$ par la moyenne empirique 
+\[
+	\overline{X}_n = \frac{X_1+\dots+X_n}{n}.
+\]
+Posons $\sigma^2 = \Var(X)$ (notons que $X \in L^2$ car à valeurs dans un intervalle borné).
+Pour $a > 0$ fixé, par le TCL, on a
+\begin{align*}
+\Pp{ \abs{\overline{X}_n - \Ec{X}} \leq \frac{a \sigma}{\sqrt{n}} }  
+= \Pp{ \frac{X_1+\dots+X_n - n\Ec{X}}{\sigma \sqrt{n}} \in[-a,a] } 
+\xrightarrow[n\to\infty]{} \int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x.
+\end{align*}
+Rappelons que l'on note $\Phi$ la fonction de répartition de la loi $\cN(0,1)$.
+On choisit $a$ en terme de $\alpha = 0.01$ de sorte que 
+\begin{align*}
+1- \alpha = \int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x
+& \quad \Leftrightarrow \quad
+\alpha = \int_{-\infty}^{-a} \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x
++ \int_a^\infty \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x \\
+& \quad \Leftrightarrow \quad
+\alpha = 2 \Phi(-a) \\
+& \quad \Leftrightarrow \quad
+a = - \Phi^{-1} \left( \frac{\alpha}{2} \right) \simeq 2,6.
+\end{align*}
+Cela garantit que (pour $n$ grand)
+\[
+\Pp{ \abs{\overline{X}_n - \Ec{X}} \leq \frac{a \sigma}{\sqrt{n}} }  
+\simeq 0,99.
+\]
+Puis, pour obtenir une précision $\varepsilon = 0,001$, on choisit $n$ tel que 
+\[
+\frac{a \sigma}{\sqrt{n}} \leq n
+\quad \Leftrightarrow \quad
+n \geq \frac{a^2 \sigma^2}{\varepsilon^2}.
+\]
+Mais on ne connaît pas $\sigma$, on peut seulement le majorer : en effet, comme $X$ est à valeurs dans $[-5,20]$, on a $\sigma^2 = \Var(X) \leq \E[X] \leq 20^2$.
+On obtient la condition
+\[
+	n \geq \frac{2,6^2 \cdot 20^2}{0,001^2} \simeq 2.7 \cdot 10^9.
+\]
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}[Intervalle de confiance asymptotique]\label{exo:int_conf}
+	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in \Theta}$, où $P_\theta$ est la loi exponentielle de paramètre $\theta$.
+	On suppose que $\Theta = [1,\infty[$.
+	Soit $\alpha \in {]}0,1{[}$. 
+	\begin{enumerate}
+		\item On rappelle que, si $X$ a loi $P_\theta$, on a $\E[X] = 1/\theta$ et $\Var(X) = 1/\theta^2$. 
+		Construire un intervalle de confiance asymptotique pour $1/\theta$ de niveau $1-\alpha$.
+		%%
+		\item En déduire un intervalle de confiance asymptotique pour $\theta$ de niveau $1-\alpha$.
+		%%
+		\item Aurait-on pu utiliser cette méthode si $\Theta = {]}0,\infty{[}$ ?
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Soit $\theta \in \Theta$. Supposons que les v.a. $(X_n)_{n\geq 1}$ ont loi $P_\theta$. Comme $\E[X_1] = 1/\theta$, on utilise la moyenne empirique $\overline{X}_n = (X_1+\dots+X_n)/n$ pour approcher $1/\theta$.
+	Comme $\Var(X_1) = 1/\theta^2$, par le TCL, on a
+	\[
+	\Pp{\abs{\overline{X}_n - \frac{1}{\theta}} \leq \frac{a}{\theta\sqrt{n}}}
+	= \Pp{ \abs{\frac{X_1+\dots+X_n - n\cdot\frac{1}{\theta}}{\frac{1}{\theta} \cdot \sqrt{n}} } \leq a}
+	\xrightarrow[n\to\infty]{} 
+	\int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x.
+	\]
+	On choisit alors $a$ en terme de $\alpha \in {]}0,1{[}$ de sorte que 
+	\[
+	1- \alpha = \int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x
+	\quad \Leftrightarrow \quad
+	a = - \Phi^{-1} \left( \frac{\alpha}{2} \right),
+	\]
+	en procédant comme à l'exercice précédent.
+	Pour cette valeur de $a$, on a donc
+	\[
+	\Pp{\frac{1}{\theta} \in 
+		\left[ \overline{X}_n - \frac{a}{\theta \sqrt{n}},
+		\overline{X}_n + \frac{a}{\theta \sqrt{n}} \right]}
+	\xrightarrow[n\to\infty]{} 1-\alpha.
+	\]
+	Comme $\theta \geq 1$, on prend
+	\[
+	I_n \coloneqq \left[ \overline{X}_n - \frac{a}{\sqrt{n}},
+	\overline{X}_n + \frac{a}{\sqrt{n}} \right].
+	\]
+	Alors, on a 
+	\[
+	\Pp{\frac{1}{\theta} \in I_n}
+	\geq \Pp{\frac{1}{\theta} \in 
+		\left[ \overline{X}_n - \frac{a}{\theta \sqrt{n}},
+		\overline{X}_n + \frac{a}{\theta \sqrt{n}} \right]}
+	\]
+	et donc
+	\[
+	\liminf_{n\to\infty} \Pp{\frac{1}{\theta} \in I_n} \geq 1-\alpha.
+	\]
+	Donc, $I_n$ est un intervalle de confiance asymptotique pour $1/\theta$ de niveau $1-\alpha$.
+	
+	Ou, comme $1/\theta > 0$, on peut aussi prendre 
+	\[
+	I_n' \coloneqq \left[ \max \left( \overline{X}_n - \frac{a}{\sqrt{n}}, 0 \right),
+	\overline{X}_n + \frac{a}{\sqrt{n}} \right].
+	\]
+	%%
+	\item On a 
+	\[
+	\frac{1}{\theta} \in 
+	\left[ \max \left( \overline{X}_n - \frac{a}{\sqrt{n}}, 0 \right),
+	\overline{X}_n + \frac{a}{\sqrt{n}} \right]
+	\quad \Leftrightarrow \quad 
+	\theta \in 
+	\left[ \left( \overline{X}_n + \frac{a}{\sqrt{n}} \right)^{-1},
+	\left( \max \left( \overline{X}_n - \frac{a}{\sqrt{n}}, 0 \right) \right)^{-1} \right],
+	\]
+	où on convient que $0^{-1} = + \infty$.
+	Donc
+	\[
+		J_n = \left[ \left( \overline{X}_n + \frac{a}{\sqrt{n}} \right)^{-1},
+		\left( \max \left( \overline{X}_n - \frac{a}{\sqrt{n}}, 0 \right) \right)^{-1} \right]
+	\]
+	est un intervalle de confiance asymptotique pour $\theta$ de niveau $1-\alpha$.
+	%%
+	\item Non, on a eu besoin d'une borne supérieure sur $\Var(X) = 1/\theta^2$ pour obtenir un intervalle qui ne dépend pas de $\theta$.
+\end{enumerate}
+\end{comment}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Hors du cadre du théorème central limite}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exo}[Sommes de Cauchy]
+	Rappelons que la \emph{loi de Cauchy} (centrée) de paramètre $a > 0$ est la loi suivante sur $\R$ :
+	\[
+	\frac{a}{\pi(a^2+x^2)} \diff x.
+	\]
+	\begin{enumerate}
+		\item On veut calculer la fonction caractéristique de la loi de Cauchy.
+		Pour cela, on va utiliser la formule d'inversion de Fourier.
+		Rappelons que, pour $f \in L^1(\R)$, sa \emph{transformée de Fourier} est
+		\[ 
+		\hat{f} \colon \xi \in \R \longmapsto \int_\R f(x) e^{-i\xi x} \diff x.
+		\]
+		Si, en outre, $\hat{f} \in L^1(\R)$, alors la formule d'inversion de Fourier donne que, pour Lebesgue-presque tout $x\in\R$,
+		\[
+		f(x) = \frac{1}{2\pi} \int_\R e^{ix \xi} \hat{f}(\xi) \diff \xi,
+		\]
+		où l'égalité est vraie partout si et seulement si $f$ est continue.
+		\begin{enumerate}
+			\item Soit $a>0$ et $f \colon x \in \R \mapsto e^{-a |x|}$. Calculer $\hat{f}$.
+			%%
+			\item Soit $X$ une v.a. de Cauchy de paramètre $a$. 
+			En utilisant la formule d'inversion de Fourier, montrer que, pour tout $\xi \in \R$, $\phi_X(\xi) = e^{-a |\xi|}$.
+		\end{enumerate}
+		%%
+		\item Soit $X_1,\dots,X_n$ des variables aléatoires indépendantes de loi de Cauchy de paramètres $a_1,\dots,a_n$.
+		Déterminer la loi de $X_1 + \dots + X_n$.
+		%%
+		\item Soit $(X_k)_{k\geq1}$ une suite de v.a. i.i.d. de loi de Cauchy de paramètre $1$. 
+		Déterminer la loi de $(X_1 + \dots + X_n)/n$ et en déduire une convergence. Commenter.
+	\end{enumerate} 
+\end{exo}
+
+
+\begin{comment}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item Pour $\xi \in \R$, on a
+\[
+\hat{f} (\xi) 
+= \int_\R e^{-a |x|} e^{-i \xi x} \diff x
+= \lim_{n\to \infty} \int_\R \1_{\abs{x} \leq n} e^{-a |x|} e^{-i \xi x} \diff x
+= \lim_{n\to \infty} \int_{-n}^n e^{-a |x|} e^{-i \xi x} \diff x,
+\]
+où la 2ème égalité se justifie par convergence dominée (on domine $\lvert \1_{\abs{x} \leq n} e^{-a |x|} e^{-i \xi x} \rvert \leq e^{-a |x|}$ qui est intégrable par rapport à la mesure de Lebesgue sur $\R$).
+Puis on a
+\begin{align*}
+\int_{-n}^n e^{-a |x|} e^{-i \xi x} \diff x
+& = \int_0^n e^{-a x} e^{-i \xi x} \diff x 
++ \int_{-n}^0 e^{a x} e^{-i \xi x} \diff x \\
+& = \frac{1 - e^{-a n} e^{-i \xi n}}{a + i \xi}
++ \frac{1 - e^{-a n} e^{i \xi n}}{a - i \xi} \\
+& \xrightarrow[n\to\infty]{}
+\frac{2 a}{a^2 + \xi^2},
+\end{align*}
+et donc
+\[
+\hat{f} (\xi) 
+= \frac{2 a}{a^2 + \xi^2}.
+\]
+%%
+\item Comme $\hat{f}$ est $L^1$, on peut utiliser l'inversion de Fourier : pour tout $\xi \in \R$,
+\[
+f(\xi) 
+= \frac{1}{2\pi} \int_\R e^{ix \xi} \frac{2 a}{a^2 + x^2} \diff x
+= \int_\R e^{ix \xi} \frac{a}{\pi(a^2 + x^2)} \diff x
+\]
+et donc $f$ est bien la fonction caractéristique de la loi de Cauchy de paramètre $a$.
+\end{enumerate}
+%%
+\item Pour déterminer la loi d'une somme de v.a. indépendantes, il est très pratique de passer par les fonctions caractéristiques. On calcule donc, pour $\xi \in \R$,
+\[
+\phi_{X_1 + \dots + X_n}(\xi)
+= \prod_{k=1}^n \phi_{X_k}(\xi)
+= \prod_{k=1}^n e^{-a_k |\xi|}
+= e^{-(a_1 + \dots + a_n) |\xi|}.
+\]
+On en d\'eduit que $X_1 + \dots + X_n$ suit une loi de Cauchy de paramètre $a_1 + \dots + a_n$.
+
+\emph{Remarque 1.} En particulier, toute loi de Cauchy est \emph{infiniment divisible} : si $X$ suit une loi de Cauchy de paramètre $a$ et si $k \geq 1$, alors il existe $X_1,\dots,X_k$ des variables aléatoires indépendantes de même loi telles que $X$ ait même loi que $X_1+\dots+X_k$ (il suffit de prendre les $X_i$ avec une loi de Cauchy de paramètre $a/k$).
+
+\emph{Remarque 2.} Les lois de Cauchy sont aussi des lois \emph{stables} (ce qui est plus fort que infiniment divisible) : si $X_1$ et $X_2$ sont deux copies indépendantes de $X$ et $a,b \in \R$, alors il existe $c,d\in\R$ tels que $aX_1 + bX_2$ a même loi que $cX + d$. 
+Les lois gaussiennes sont aussi stables.
+Les lois stables jouent un rôle majeur en probabilité pour généraliser le théorème central limite à des variables aléatoires de variance infinie (voir la question suivante pour un exemple).
+%%
+\item On pose $S_n \coloneqq X_1+ \cdots + X_n$, qui suit une loi de Cauchy de paramètre $n$ par la question précédente. 
+Pour $\xi \in \R$, on a
+\[
+\phi_{S_n/n}(\xi)
+= \phi_{S_n}(\xi/n)
+= e^{-n |\xi/n|}
+= e^{-|\xi|}.
+\]
+Donc $S_n/n$ suit une loi de Cauchy de paramètre 1 et converge donc évidemment en loi vers une v.a. de Cauchy de paramètre 1.
+
+Ici on est dans le cas de variables aléatoires i.i.d. n'admettant pas de moment d'ordre 1, donc on a vu au TD10 que p.s. $S_n/n$ ne converge pas dans $\R$.
+Il y a pourtant convergence en loi.
+
+En outre, le th\'eorème central limite ne s'applique pas car il n'y a pas de moment d'ordre $1$ (et donc pas de moment d'ordre $2$) : ici on a besoin d'une renormalisation par $n$ au lieu de $\sqrt{n}$ dans le TCL.
+\end{enumerate}
+\end{comment}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{exo}[Intervalle de confiance asymptotique suite] 
+	On reprend le cadre de l'Exercice \ref{exo:int_conf}, mais 
+%	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in \Theta}$, où $P_\theta$ est la loi exponentielle de paramètre $\theta$.
+	on suppose à présent que $\Theta = {]}0,\infty[$.
+	Soit $\alpha \in {]}0,1{[}$. 
+	\begin{enumerate}
+		\item Si $X$ est de loi $P_\theta$, calculer $\E[e^{-X}]$ et $\Var(e^{-X})$.
+		Montrer que $\Var(e^{-X}) \leq 1/4$.
+		%%
+		\item En déduire un intervalle de confiance asymptotique pour $\theta/(1+\theta)$ de niveau $1-\alpha$.
+		%%
+		\item En déduire un intervalle de confiance asymptotique pour $\theta$ de niveau $1-\alpha$.
+	\end{enumerate}
+\end{exo}
+
+\begin{enumerate}
+	\item On a 
+	\[
+	\Ec{e^{-X}} = \frac{\theta}{1+\theta} 
+	\quad \text{et} \quad
+	\Ec{\left( e^{-X} \right)^2} = \frac{\theta}{2+\theta}.
+	\] 
+	Donc
+	\[
+	\Var(e^{-X}) = \frac{\theta}{2+\theta} - \left( \frac{\theta}{1+\theta} \right)^2
+	= \frac{\theta}{(1+\theta)^2(2+\theta)}
+	\leq \frac{1}{4},
+	\]
+	en utilisant que $\theta/(1+\theta) \leq 1/2$ et $(1+\theta)(2+\theta) \geq 2$ si $\theta < 1$ et que $\theta/(1+\theta) \leq 1$ et $(1+\theta)(2+\theta) \geq 6$ si $\theta \geq 1$.
+	%%
+	\item On utilise 
+	\[
+	Y_n = \frac{e^{-X_1} + \dots + e^{-X_n}}{n}
+	\]
+	pour approcher $\E[e^{-X_1}] = \theta/(1+\theta)$.
+	Par le TCL, avec $\sigma^2 = \Var(e^{-X_1})$, on a
+	\[
+	\Pp{\abs{Y_n - \frac{\theta}{1+\theta}} \leq \frac{a \sigma}{\sqrt{n}}}
+	= \Pp{ \abs{\frac{e^{-X_1} + \dots + e^{-X_n} - n\E[e^{-X_1}]}{\sigma \sqrt{n}} } \leq a}
+	\xrightarrow[n\to\infty]{} 
+	\int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x.
+	\]
+	On choisit alors $a$ en terme de $\alpha \in {]}0,1{[}$ de sorte que 
+	\[
+	1- \alpha = \int_{-a}^a \frac{e^{-x^2/2}}{\sqrt{2\pi}} \diff x
+	\quad \Leftrightarrow \quad
+	a = - \Phi^{-1} \left( \frac{\alpha}{2} \right),
+	\]
+	en procédant comme à l'exercice précédent.
+	Pour cette valeur de $a$, on a donc
+	\[
+	\Pp{\frac{\theta}{1+\theta} \in 
+		\left[ Y_n - \frac{a \sigma}{\sqrt{n}},
+		Y_n + \frac{a \sigma}{\sqrt{n}} \right]}
+	\xrightarrow[n\to\infty]{} 1-\alpha.
+	\]
+	Comme $\sigma \leq 1/2$ par la question 1, on prend
+	\[
+	I_n \coloneqq \left[ \overline{X}_n - \frac{a}{2\sqrt{n}},
+	\overline{X}_n + \frac{a}{2\sqrt{n}} \right],
+	\]
+	qui est un intervalle de confiance asymptotique pour $\theta/(1+\theta)$ de niveau $1-\alpha$.
+	
+	Comme $\theta/(1+\theta) \in {]}0,1{[}$, on peut prendre 
+	\[
+	I_n' \coloneqq \left[ \max \left( \overline{X}_n - \frac{a}{2\sqrt{n}},0 \right),
+	\min \left( \overline{X}_n + \frac{a}{2\sqrt{n}},1 \right) \right],
+	\]
+	%%
+	\item La fonction $f \colon\theta \in [0,\infty] \mapsto \theta/(1+\theta) \in [0,1]$ (où $f(\infty) = 1$) est croissante d'inverse $f^{-1} \colon x \in [0,1] \mapsto x/(1-x)\in [0,\infty]$ (où $f(1) = \infty$).
+	Donc on peut prendre
+	\[
+	J_n \coloneqq \left[ f^{-1} \left( \max \left( \overline{X}_n - \frac{a}{2\sqrt{n}},0 \right) \right),
+	f^{-1} \left( \min \left( \overline{X}_n + \frac{a}{2\sqrt{n}},1 \right) \right) \right].
+	\]
+\end{enumerate}
+
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Loi stable]\label{exo:loi_stable}
+	Soit $P$ une loi sur $\R$ telle que $\int_\R x^2 P(\diff x) \in {]}0,\infty[$ et satisfaisant la propriété suivante : 
+	si $X$ et $Y$ sont deux v.a. indépendantes de loi $P$, alors $(X+Y)/ \sqrt{2}$ a aussi loi $P$.
+	On veut trouver les lois $P$ possibles satisfaisant cette propriété.
+	\begin{enumerate}
+		\item Montrer que $\int_\R x P(\diff x) =0$.
+		%%
+		\item On se donne une suite $(X_k)_{k\geq 1}$ de v.a. i.i.d. de loi $P$.
+		Pour $n \geq 0$, on pose 
+		\[
+		Z_n \coloneqq \frac{1}{\sqrt{2^n}} \sum_{i=1}^{2^n} X_i.
+		\]
+		Quelle est la loi de $Z_n$ ?
+		%%
+		\item En utilisant le théorème central limite, en déduire que $P = \cN(0,\sigma^2)$, où $\sigma^2 =  \int_\R x^2 P(\diff x)$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+\item Soit $X$ et $Y$ indépendantes de loi $P$. Notons que $\Ec{X^2} = \int_\R x^2 P(\diff x) < \infty$ donc $\Ec{X}$ est bien défini. 
+Comme $(X+Y)/\sqrt{2}$ et $X$ ont même loi, on a $(\Ec{X}+ \Ec{Y})/\sqrt{2} = \Ec{X}$. Ainsi $\sqrt{2} \Ec{X} = \Ec{X}$ donc $\Ec{X} = 0$. Cela montre que $\int_\R x P(\diff x) = 0$
+%%
+\item Par récurrence, on vérifie que $Z_n$ a loi $P$ pour tout $n$.
+%%
+\item On a $\sigma^2 = \E[X_i^2]= \Var(X_i)$ car $\Ec{X_i} = 0$.
+Donc par le TCL, $(Z_n)_{n\geq 1}$ converge en loi vers $\cN(0,\sigma^2)$.
+Mais par la question précédente $(Z_n)_{n\geq 1}$ converge aussi en loi vers $P$.
+Donc $P = \cN(0,\sigma^2)$.
+\end{enumerate}
+\end{comment}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	On lance répétitivement un dé à six faces équilibré jusqu'à obtenir un résultat total supérieur ou égal à 300.
+	En utilisant le théorème central limite, approximer la probabilité qu'il faille effectuer au moins 80 lancers.
+\end{exo}
+
+\begin{comment}
+Soit $X_i$ le résultat du $i$-ème lancer.
+Au moins 80 lancers sont nécessaires si et seulement si $X_1+\dots+X_{79} \leq 300$.
+Donc on veut approximer
+\[
+\P(X_1+\dots+X_{79} \leq 300).
+\]
+On calcule d'abord la moyenne et la variance des $X_i$ :
+\begin{align*}
+m & = \E[X_i] = \frac{1+2+3+4+5+6}{6} = \frac{7}{2} \\
+\E[X_i^2] & = \frac{1^2+2^2+3^2+4^2+5^2+6^2}{6} = \frac{91}{6} \\
+\sigma^2 & = \Var(X_i) = \frac{91}{6} - \left( \frac{7}{2} \right)^2 = \frac{35}{12}.
+\end{align*}
+Par le TCL, on a
+\begin{align*}
+\P(X_1+\dots+X_{79} \leq 300)
+& = \P\left( X_1+\dots+X_{79}-79m \leq 23.5 \right) \\
+& = \P\left( \frac{X_1+\dots+X_{79}-79m}{\sigma \sqrt{79}} \leq 1.5481 \right) \\
+& \simeq \Phi(1.5481) = 0.9392,
+\end{align*}
+où $\Phi$ est la fonction de répartition de $\cN(0,1)$.
+\end{comment}
+
+
+%%%%%%
+\separationexos
+%%%%%%
+
+
+\begin{exo}[Un TCL pour une somme inhomogène]
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles i.i.d. telle que $\Ec{X_1^2} < \infty$ et $\E[X_1] = 0$.
+	 et $\sigma^2 = \Var(X_1)$ et on suppose $\sigma^2 >0$.
+	Soit $(a_n)_{n\geq1}$ une suite de réels bornée telle que 
+	\[
+		\frac{1}{n} \sum_{k=1}^n a_k^2
+		\xrightarrow[n\to\infty]{} a^2,
+	\]
+	pour un certain $a>0$.
+	On s'intéresse à la convergence en loi de 
+	\[
+	Z_n = \frac{a_1X_1+\dots+a_nX_n}{\sqrt{n}}.
+	\]
+	\begin{enumerate}
+		\item Calculer $\phi_{Z_n}$ en terme de $\phi_{X_1}$.
+		\item Soit $\theta \in \R$ fixé. Montrer que 
+		\[
+		\sup_{k \geq 1} n \cdot
+		\abs{\phi_{X_1} \left( \frac{a_k \theta}{\sqrt{n}} \right) 
+			- e^{-a_k^2 \sigma^2 \theta^2 /(2n)} }
+		\xrightarrow[n\to\infty]{} 0.
+		\]
+		\item Montrer que, pour tout $n \geq 1$, pour tous $z_1,\dots,z_n,w_1,\dots,w_n \in \C$ de modules inférieurs ou égaux à 1, 
+		\[
+			\abs{\prod_{k=1}^n z_k - \prod_{k=1}^n w_k}
+			\leq \sum_{k=1}^n \abs{z_k - w_k}.
+		\]
+		\item En déduire que
+		\[
+			\abs{\phi_{Z_n}(\theta) 
+				- \exp\left( - \frac{\sigma^2\theta^2}{2n} \sum_{k=1}^n a_k^2 \right)}
+			\xrightarrow[n\to\infty]{} 0.
+		\]
+		\item En conclure que $(Z_n)_{n\geq 1}$ converge en loi vers une v.a. de loi $\cN(0,a^2\sigma^2)$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}(Bref)
+\begin{enumerate}
+	\item On a 
+	\[
+	\phi_{Z_n}(\theta) 
+	= \prod_{k=1}^n \phi_{X_1}\left( \frac{a_k \theta}{\sqrt{n}} \right).
+	\]
+	%%
+	\item Cela découle de Taylor-Young en 0 (voir la preuve du TCL) avec le fait que la suite $(a_k)_{k\geq 1}$ est bornée.
+	%%
+	\item Cela se montre par récurrence sur $n$ en utilisant que 
+	\begin{align*}
+	\abs{\prod_{k=1}^{n+1} z_k - \prod_{k=1}^{n+1} w_k}
+	& \leq \abs{z_{n+1} \prod_{k=1}^n z_k - z_{n+1} \prod_{k=1}^n w_k} + \abs{z_{n+1} \prod_{k=1}^n w_k - w_{n+1} \prod_{k=1}^n w_k} \\
+	& \leq \left( \sum_{k=1}^n \abs{z_k - w_k} \right) + \abs{z_{n+1}-w_{n+1}}.
+	\end{align*}
+	%%
+	\item On a
+	\begin{align*}
+	\abs{\phi_{Z_n}(\theta) 
+		- \exp\left( - \frac{\sigma^2\theta^2}{2n} \sum_{k=1}^n a_k^2 \right)}
+	& = \abs{\prod_{k=1}^n \phi_{X_1}\left( \frac{a_k \theta}{\sqrt{n}} \right) 
+		- \prod_{k=1}^n e^{-a_k^2 \sigma^2 \theta^2 /(2n)} } \\
+	& \leq \sum_{k=1}^n \abs{ \phi_{X_1}\left( \frac{a_k \theta}{\sqrt{n}} \right) 
+		- e^{-a_k^2 \sigma^2 \theta^2 /(2n)} } \\
+	& \leq \sup_{k \geq 1} n \cdot
+	\abs{\phi_{X_1} \left( \frac{a_k \theta}{\sqrt{n}} \right) 
+		- e^{-a_k^2 \sigma^2 \theta^2 /(2n)} }
+	\xrightarrow[n\to\infty]{} 0.
+	\end{align*}
+	%%
+	\item Cela découle du théorème de Lévy et du fait que $\frac{1}{n} \sum_{k=1}^n a_k^2 \to a^2$.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%%
+%\separationexos
+%%%%%%%
+%
+%\begin{exo}[Lois uniformes]
+%	On observe des v.a. $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in [0,2]}$, où $P_\theta$ est la loi uniforme sur $[0,\theta]$.
+%	Soit $\alpha \in {]}0,1{[}$. 
+%	\begin{enumerate}
+%		\item 
+%		\begin{enumerate}
+%			\item Construire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$ en utilisant l'inégalité de Bienaymé--Chebychev.
+%			%%
+%			\item Construire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$ en utilisant l'inégalité de Hoeffding.
+%			%%
+%			\item Déterminer pour quelles valeurs de $\alpha$ le second intervalle de confiance est meilleur que le premier.
+%		\end{enumerate}
+%		%%
+%		\item Soit $M_n = \max(X_1,\dots,X_n)$. 
+%		\begin{enumerate}
+%			\item Si $X_1,\dots,X_n$ sont de loi $P_\theta$, calculer $\P(M_n \in [\theta - \varepsilon,\theta])$ pour $\varepsilon > 0$.
+%			%%
+%			\item En déduire un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+%			%%
+%			\item Le comparer aux intervalles de confiance précédents dans le régime où $\alpha$ est fixé et $n \to \infty$.
+%		\end{enumerate}
+%	\end{enumerate}
+%\end{exo}
+%
+%\begin{comment}
+%\begin{enumerate}
+%\item 
+%\begin{enumerate}
+%\item Soit $\theta \in [0,2]$. Supposons que $X_1,\dots,X_n$ sont de loi $P_\theta$.
+%On a alors $\E[X_1] = \theta/2$ et 
+%\[
+%\E[X_1^2] = \int_0^\theta x^2 \frac{1}{\theta} \diff x = \frac{\theta^2}{3},
+%\]
+%donc $\Var(X_1) = \theta^2/12$.
+%Ainsi, par l'inégalité de Bienaymé--Chebychev, pour tout $\varepsilon > 0$, 
+%\[
+%\Pp{ \abs{\frac{X_1 + \dots + X_n}{n} - \frac{\theta}{2}} \geq \varepsilon}
+%\leq \frac{\Var(X_1)}{n \varepsilon^2}
+%\leq \frac{1}{3 n \varepsilon^2},
+%\]
+%où l'on a borné $\theta^2 \leq 4$ pour avoir une borne qui ne dépend pas de $\theta$.
+%En posant $\overline{X} = (X_1 + \dots + X_n)/n$, on en déduit que
+%\[
+%\Pp{\theta \in \left[2\overline{X}-2\varepsilon,2\overline{X}+2\varepsilon\right]}
+%= \Pp{\abs{\overline{X} - \frac{\theta}{2}} \leq \varepsilon}
+%\geq 1 - \frac{1}{3 n \varepsilon^2}.
+%\]
+%pour avoir un intervalle de confiance de niveau $1-\alpha$, on choisit donc $\varepsilon$ tel que 
+%\[
+%\frac{1}{3 n \varepsilon^2} = \alpha 
+%\quad \Leftrightarrow \quad 
+%\varepsilon = \frac{1}{\sqrt{3n\alpha}}.
+%\]
+%Donc
+%\[ 
+%\left[2\overline{X}-\frac{2}{\sqrt{3n\alpha}},2\overline{X}+\frac{2}{\sqrt{3n\alpha}}\right]
+%\]
+%est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+%%%
+%\item Soit $\theta \in [0,2]$. Supposons que $X_1,\dots,X_n$ sont de loi $P_\theta$. Alors, par l'inégalité de Hoeffding,
+%\[
+%\Pp{ \abs{\overline{X} - \frac{\theta}{2}} \geq \varepsilon}
+%\leq 2 \exp \left( - \frac{2 \varepsilon^2 n}{\theta^2} \right)
+%\leq 2 \exp \left( - \frac{\varepsilon^2 n}{2} \right),
+%\]
+%où l'on a borné $\theta^2 \leq 4$.
+%Ainsi
+%\[
+%\Pp{\theta \in \left[2\overline{X}-2\varepsilon,2\overline{X}+2\varepsilon\right]}
+%\geq 1 - 2 \exp \left( - \frac{\varepsilon^2 n}{2} \right)
+%\]
+%et on choisit $\varepsilon$ tel que 
+%\[
+%2 \exp \left( - \frac{\varepsilon^2 n}{2} \right) = \alpha 
+%\quad \Leftrightarrow \quad 
+%\varepsilon = \sqrt{\frac{2 \log(2/\alpha)}{n}}.
+%\]
+%Donc
+%\[ 
+%\left[ 2\overline{X}-2\sqrt{\frac{2 \log(2/\alpha)}{n}},
+%2\overline{X}+2\sqrt{\frac{2 \log(2/\alpha)}{n}} \right]
+%\]
+%est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+%%%
+%\item Remarquons tout d'abord que la longueur de l'intervalle est proportionnelle à $1/\sqrt{n}$ dans les deux cas.
+%Le second intervalle de confiance est strictement meilleur que le premier ssi
+%\[
+%\sqrt{2 \log(2/\alpha)} < \frac{1}{\sqrt{3\alpha}}
+%\quad \Leftrightarrow \quad 
+%6 \alpha \log(2/\alpha) < 1
+%\quad \Leftrightarrow \quad 
+%\alpha < \alpha_0,
+%\]
+%où $\alpha_0$ est l'unique solution dans $[0,1]$ de l'équation $6 \alpha \log(2/\alpha) = 1$. On a $\alpha_0 \simeq 0.0435504\dots$
+%\end{enumerate}
+%%%
+%\item Soit $M_n = \max(X_1,\dots,X_n)$. 
+%\begin{enumerate}
+%\item On a 
+%\[
+%\P(M_n \in [\theta - \varepsilon,\theta])
+%= 1 - \P(M_n < \theta - \varepsilon) 
+%= 1 - \left( \frac{\theta-\varepsilon}{\theta} \right)^n
+%= 1 - \left( 1 - \frac{\varepsilon}{\theta} \right)^n,
+%\]
+%en utilisant l'indépendance de $X_1,\dots,X_n$ (voir le DM1 pour les détails !).
+%%%
+%\item Par la question précédente,
+%\[
+%\P(\theta \in [M_n,M_n+\varepsilon])
+%= \P(M_n \in [\theta - \varepsilon,\theta])
+%= 1 - \left( 1 - \frac{\varepsilon}{\theta} \right)^n
+%\geq 1 - \left( 1 - \frac{\varepsilon}{2} \right)^n.
+%\]
+%Donc, il suffit de choisir $\varepsilon$ tel que
+%\[
+%\left( 1 - \frac{\varepsilon}{2} \right)^n = \alpha 
+%\quad \Leftrightarrow \quad 
+%\varepsilon = 2 \left( 1- \alpha^{1/n} \right).
+%\]
+%Donc
+%\[ 
+%\left[ M_n,M_n+ 2 \left( 1- \alpha^{1/n} \right) \right]
+%\]
+%est un intervalle de confiance pour $\theta$ de niveau $1-\alpha$.
+%%%
+%\item Fixons $\alpha$. La longueur de cet intervalle, quand $n \to \infty$, se comporte ainsi
+%\[
+%2 \left( 1- \alpha^{1/n} \right) 
+%= 2 \left( 1- \exp \left( \frac{1}{n} \log \alpha \right) \right)
+%\sim 2 \cdot \left( - \frac{1}{n} \log \alpha \right)
+%= \frac{2 \log (1/\alpha)}{n}.
+%\]
+%La longueur décroît donc en $1/n$ alors que pour les intervalles de confiance précédents elle décroît en $1/\sqrt{n}$. On a donc fait mieux pour $n$ suffisamment grand!
+%
+%Dans les premières questions, on utilise la moyenne empirique pour estimer $\theta/2$ et dans ce cas on ne peut pas obtenir mieux que $1/\sqrt{n}$ pour la longueur de l'intervalle de confiance car, par le théorème central limite (qu'on verra plus tard), $1/\sqrt{n}$ est l'ordre des fluctuations typiques de la moyenne empirique autour de $\theta/2$. Il se trouve qu'on a trouvé une autre manière d'estimer, le maximum $M_n$ qui lui ne fluctue qu'à l'échelle $1/n$ autour de $\theta$, il permet donc de construire un intervalle de confiance plus précis.
+%\end{enumerate}
+%\end{enumerate}
+%\end{comment}
+
+
+
+
+%\begin{exo}[Formule d'inversion de Fourier] \label{exo:inversion-fourier}
+%	Pour $f \in L^1(\R)$, on définit sa \emph{transformée de Fourier} $\hat{f}$ par 
+%	\[ 
+%	\hat{f}(\xi) \coloneqq \int_\R f(x) e^{-i\xi x} \diff x,
+%	\quad \xi \in \R.
+%	\]
+%	Pour $\sigma > 0$, on note $g_\sigma$ la fonction gaussienne centrée de variance $\sigma^2$ :
+%	\[
+%	g_\sigma (x) \coloneqq 
+%	\frac{1}{\sigma \sqrt{2\pi}} e^{-x^2/2\sigma^2}
+%	\quad x \in \R.
+%	\]
+%	%%
+%	\begin{enumerate}
+%		\item Soit $f \in L^1(\R)$. Montrer que, pour tous $\sigma >0$ et $x \in \R$,
+%		\[
+%		(g_\sigma * f)(x) 
+%		= \frac{1}{2\pi} 
+%		\int_\R e^{-\sigma^2 \xi^2/2} e^{ix \xi} \hat{f}(\xi) \diff \xi.
+%		\]
+%		%%
+%		\item Soit $f \in L^1(\R)$ telle que $\hat{f} \in L^1(\R)$. 
+%		Montrer que, pour presque tout $x\in\R$,
+%		\[
+%		f(x) = \frac{1}{2\pi} \int_\R e^{ix \xi} \hat{f}(\xi) \diff \xi.
+%		\]
+%		\emph{Remarque.} L'égalité est vraie partout si et seulement si $f$ est continue.
+%	\end{enumerate}
+%\end{exo}
+%
+%\begin{comment}
+%\begin{enumerate}
+%\item Rappelons que, pour $\sigma >0$ et $\xi \in \R$, on a
+%\[
+%\widehat{g_\sigma}(\xi) 
+%= e^{-\sigma^2 \xi^2/2} 
+%= \frac{\sqrt{2\pi}}{\sigma} g_{1/\sigma} (\xi),
+%\]
+%avec le changement de variable $y = x/\sigma$.
+%%%
+%Pour $\sigma >0$ et $x\in\R$, on a, en utilisant la question 1.,
+%\begin{align*}
+%(g_\sigma * f)(x) 
+%& = \int_\R e^{-y^2/2\sigma^2} f(x-y) \diff y
+%= \int_\R \frac{1}{\sigma\sqrt{2\pi}} 
+%\widehat{g_{1/\sigma}}(y) f(x-y) \diff y \\
+%& = \int_\R \frac{1}{\sigma\sqrt{2\pi}} \left( \int_\R 
+%\frac{\sigma e^{-\sigma^2 \xi^2/2}}{\sqrt{2\pi}} 
+%e^{-iy \xi} \diff \xi \right) f(x-y) \diff y \\
+%& = \frac{1}{2\pi}
+%\int_\R \left( \int_\R 
+%f(x-y) e^{-i(x-y) (-\xi)} \diff y \right)
+%e^{-\sigma^2 \xi^2/2} e^{-ix \xi} \diff \xi \\
+%& = \frac{1}{2\pi} \int_\R \hat{f}(-\xi)
+%e^{-\sigma^2 \xi^2/2}
+%e^{-ix \xi} \diff \xi 
+%= \frac{1}{2\pi} \int_\R \hat{f}(\xi)
+%e^{-\sigma^2 \xi^2/2}
+%e^{ix \xi} \diff \xi,
+%\end{align*}
+%en utilisant le théorème de Fubini-Lebesgue, car on a bien
+%$\int_\R \int_\R \abs{e^{-\sigma^2 \xi^2/2}e^{-iy \xi} f(x-y)} \diff y \diff \xi
+%= \norme{f}_1 \int_\R e^{-\sigma^2 \xi^2/2}\diff \xi < \infty$.
+%
+%\emph{Remarque}. C'est l'analogue du calcul de $\E[h(X+\sigma Y)]$ avec $X$ une variable aléatoire réelle et $Y$ une gaussienne centrée réduite, où ici $X$ serait la variable aléatoire de loi $f(x)\diff x$ (dans le cas $f$ positive d'intégrale 1, auquel on peut se ramener facilement). On peut alors utiliser directement le résultat du cours : les intégrales de $h$ contre deux mesures coïncident pour tout $h \in \cC_c(\R)$ donc les deux mesures sont égales.
+%%%
+%\item Par la question 1., on a, pour tout $x\in\R$,
+%\[
+%(g_\sigma * f)(x) 
+%= \frac{1}{2\pi} 
+%\int_\R e^{-\sigma^2 \xi^2/2} e^{ix \xi} \hat{f}(\xi) \diff \xi
+%\xrightarrow[\sigma \to 0]{} 
+%\frac{1}{2\pi} \int_\R e^{ix \xi} \hat{f}(\xi) \diff \xi,
+%\]
+%par convergence dominée (la convergence $\lambda$-p.p. est claire et on domine par $\lvert \hat{f} \rvert \in L^1$).
+%D'autre part, $g_\sigma * f$ converge vers $f$ dans $L^1$ quand $\sigma\to0$. 
+%Pour le montrer, voici deux méthodes :
+%
+%\emph{Méthode 1.} On vérifie que $(g_\sigma)_{\sigma >0}$ est une approximation de Dirac (quand $\sigma\to 0$). 
+%Comme $f \in L^1$, on a $g_\sigma * f \to f$ dans $L^1$, par l'exercice 5 question 2.(b) du TD 7.
+%
+%\emph{Méthode 2.} On le montre à la main pour $f \in \cC_c(\R)$, puis on étend à $L^1$ par densité.
+%
+%Ainsi $g_\sigma * f$ converge vers $f$ dans $L^1$ et vers $x \mapsto \frac{1}{2\pi} \int_\R e^{ix \xi} \hat{f}(\xi) \diff \xi$ simplement donc les deux limites co\"incident presque partout (cf petite question 3. du TD 4).
+%
+%\emph{Remarque.} On peut écrire cela sous la forme plus synthétique : pour presque tout $x\in\R$, 
+%\[f(x) = \frac{1}{2\pi} \hat{\hat{f}} (-x).\]
+%\end{enumerate}
+%\vspace{0cm}
+%\end{comment}
+
+
+\end{document}
