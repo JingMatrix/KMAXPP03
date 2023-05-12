@@ -185,7 +185,7 @@
 	\begin{enumerate}
 		\item Écrire $u_n$ comme une probabilité impliquant une v.a. $X_n$ de loi de Poisson de paramètre $n$.
 		%%
-		\item En utilisant que $X_n$ a la même loi que la somme de $n$ v.a. i.i.d. de loi Poisson de Poisson de paramètre $1$, ainsi que le théorème central limite, déterminer la limite de la suite $(u_n)_{n\geq 0}$.
+		\item En utilisant que $X_n$ a la même loi que la somme de $n$ v.a. i.i.d. de loi de Poisson de paramètre $1$, ainsi que le théorème central limite, déterminer la limite de la suite $(u_n)_{n\geq 0}$.
 	\end{enumerate}
 \end{exo}
 
@@ -193,7 +193,7 @@
 \begin{enumerate}
 \item On a $u_n = \P(X_n \leq n)$.
 %%
-\item Comme $X_n$ a la même loi que $P_1+\ldots+P_n$, où $(P_k)_{k\geq1}$ est une suite de v.a. i.i.d. de loi Poisson de Poisson de paramètre $1$, on a
+\item Comme $X_n$ a la même loi que $P_1+\ldots+P_n$, où $(P_k)_{k\geq1}$ est une suite de v.a. i.i.d. de loi de Poisson de paramètre $1$, on a
 \[
 u_n = \P(P_1+\ldots+P_n\leq n)
 = \P\left(\frac{P_1+\ldots+P_n-n}{\sqrt{n}}\leq0\right).
@@ -249,7 +249,7 @@ Cela garantit que (pour $n$ grand)
 \]
 Puis, pour obtenir une précision $\varepsilon = 0,001$, on choisit $n$ tel que 
 \[
-\frac{a \sigma}{\sqrt{n}} \leq n
+\frac{a \sigma}{\sqrt{n}} \leq \varepsilon
 \quad \Leftrightarrow \quad
 n \geq \frac{a^2 \sigma^2}{\varepsilon^2}.
 \]
