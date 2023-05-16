@@ -188,7 +188,7 @@
 		%%
 		\item Soit $p>0$. Déterminer les valeurs de $p$ telles que $M_n$ a un moment d'ordre $p$ fini.
 		%%
-		\item Montrer que $M_n/\sqrt{n}$ converge en loi quand $n \to \infty$ vers une variable aléatoire dont on précisera la fonction de répartition et la densité.
+		\item Montrer que $M_n/\sqrt{n}$ converge en loi quand $n \to \infty$ vers une v.a. dont on déterminera la loi
 	\end{enumerate}
 \end{exo}
 
@@ -228,13 +228,11 @@ F_{M_n / \sqrt{n}}(x)
 On pose $F(x) \coloneqq e^{-1/x^2} \1_{x>0}$ pour $x\in\R$. 
 Alors $F$ est continue croissante et tend vers 0 en $-\infty$ et en 1 en $+\infty$ donc c'est la fonction de répartition d'une variable aléatoire $Z$, et donc $M_n/\sqrt{n}$ converge en loi vers $Z$.
 
-En outre, on a $F_Z(x) = \int_{-\infty}^x p_Z(z) \diff z$, avec 
+En outre, on a $F_Z$ est $\cC^1$ sur $\R$, donc la loi de $Z$ est
 \[
-p_Z(z) 
-\coloneqq F_Z'(z) 
-= \frac{2}{z^3} e^{-1/z^2} \1_{z>0},
+F_Z'(z) \diff z
+= \frac{2}{z^3} e^{-1/z^2} \1_{z>0}  \diff z.
 \]
-donc $Z$ admet $p$ pour densité.
 \end{enumerate}
 \end{comment}
 
@@ -293,18 +291,7 @@ On a, par l'inégalité de Bienaymé-Tchebychev
 \leq \frac{1}{\varepsilon^2 k^2},
 \]
 qui est une suite sommable en $k$.
-Par Borel--Cantelli, on en déduit que presque sûrement, à partir d'un certain rang, 
-\[
-\abs{ \frac{S_{n_k}}{b_{n_k}} -1} < \varepsilon
-\]
-et donc, presque sûrement,
-\[
-1- \varepsilon
-\leq \liminf_{k\to\infty} \frac{S_{n_k}}{b_{n_k}} 
-\leq \limsup_{k\to\infty} \frac{S_{n_k}}{b_{n_k}}
-\leq 1+ \varepsilon.
-\]
-On conclut en prenant une suite $(\varepsilon_m)_{m\in\N} \downarrow 0$.
+Par le critère vu en cours, cela implique que $S_{n_k} / b_{n_k} \to 1$ p.s. quand $k \to \infty$.
 %%
 \item Soit $n \geq 1$. 
 Il existe un unique $k \geq 1$ tel que $n_k \leq n < n_{k+1}$.
@@ -332,14 +319,14 @@ On a donc montré que $S_n / b_n \to 1$ presque sûrement quand $n \to \infty$.
 
 
 \begin{exo}[Convergence en loi de couples de v.a.]
-	Soient $(X_n)_{n\geq1}$, $(Y_n)_{n\geq1}$ deux suites de v.a. réelles convergeant en loi vers des v.a. $X$ et $Y$.
+	Soient $(X_n)_{n\geq1}$ et $(Y_n)_{n\geq1}$ deux suites de v.a. réelles convergeant en loi vers des v.a. $X$ et $Y$.
 	On a vu au TD11 qu'en général on n'a pas convergence en loi de $(X_n+Y_n)_{n\geq 1}$ vers $X+Y$. On va voir ci-dessous deux cas où c'est vrai.
 	\begin{enumerate}
 		\item On suppose ici que $X_n$ et $Y_n$ sont indépendantes pour tout $n\geq1$ et que $X$ et $Y$ sont indépendantes. En utilisant le théorème de Lévy, montrer que $(X_n+Y_n)_{n\geq 1}$ converge en loi vers $X+Y$.
 		%%
 		\item On suppose que $Y$ est constante p.s. (mais plus l'indépendance). On veut montrer que $(X_n+Y_n)_{n\geq 1}$ converge en loi vers $X+Y$.
 		\begin{enumerate}
-			\item Montrer qu'il suffit de montrer $\Ec{f(X_n+Y_n)} \to \Ec{f(X+Y)}$ pour tout fonction $f \colon \R \to \R$ lipschitzienne bornée. On considère à présent $f$ une telle fonction.
+			\item Montrer qu'il suffit de montrer $\Ec{f(X_n+Y_n)} \to \Ec{f(X+Y)}$ pour toute fonction $f \colon \R \to \R$ lipschitzienne bornée. On considère à présent $f$ une telle fonction.
 			%%
 			\item Soit $\varepsilon > 0$. Montrer que
 			\[
@@ -358,9 +345,130 @@ On a donc montré que $S_n / b_n \to 1$ presque sûrement quand $n \to \infty$.
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+	\item Pour $\theta \in \R$ et $n \geq 1$, on a
+	\[
+		\phi_{X_n+Y_n} (\theta) 
+		= \Ec{e^{\ii \theta X_n} \cdot e^{\ii \theta Y_n}}
+		= \Ec{e^{\ii \theta X_n}} \cdot \Ec{e^{\ii \theta Y_n}}
+		= \phi_{X_n} (\theta) \cdot \phi_{Y_n} (\theta),
+	\]
+	en utilisant l'indépendance de $X_n$ et $Y_n$.
+	Comme $(X_n)_{n\geq1}$ et $(Y_n)_{n\geq1}$ converge en loi vers $X$ et $Y$, leurs fonctions caractéristiques convergent et donc
+	\[
+	\phi_{X_n+Y_n} (\theta) 
+	\xrightarrow[n\to\infty]{} \phi_{X} (\theta) \cdot \phi_{Y} (\theta)
+	= \phi_{X+Y} (\theta),
+	\]
+	en utilisant l'indépendance de $X$ et $Y$.
+	Donc, par le théorème de Lévy, $(X_n+Y_n)_{n\geq 1}$ converge en loi vers $X+Y$.
+	%%
+	\item On suppose que $Y$ est constante p.s. (mais plus l'indépendance). On veut montrer que $(X_n+Y_n)_{n\geq 1}$ converge en loi vers $X+Y$.
+	\begin{enumerate}
+		\item Par le cours, il suffit de montrer $\Ec{f(X_n+Y_n)} \to \Ec{f(X+Y)}$ pour toute fonction $f \colon \R \to \R$ de classe $\cC^\infty$ à support compact. Mais une telle fonction $f$ est bornée et sa dérivée est bornée aussi donc elle est lipschitzienne. Donc il suffit de considérer $f$ bornée et lipschitzienne.
+		%%
+		\item Soit $\varepsilon > 0$. On distingue selon si $\abs{Y_n-Y} > \varepsilon$ ou non :
+		\begin{align*}
+		& \abs{\Ec{f(X_n+Y_n)} - \Ec{f(X_n+Y)}} \\
+		& \leq \Ec{\abs{f(X_n+Y_n)-f(X_n+Y)}} \\
+		& = \Ec{\abs{f(X_n+Y_n)-f(X_n+Y)} \1_{\abs{Y_n-Y} > \varepsilon}}
+		+ \Ec{\abs{f(X_n+Y_n)-f(X_n+Y)} \1_{\abs{Y_n-Y} \leq \varepsilon}}.
+		\end{align*}
+		Dans la première espérance, on borne $\abs{f(X_n+Y_n)-f(X_n+Y)} \leq 2 \norme{f}_\infty$ et dans la 2ème on utilise que $f$ est lipschitzienne pour borner $\abs{f(X_n+Y_n)-f(X_n+Y)} \leq L \abs{Y-Y_n} \leq L\varepsilon$ sur l'événement $\{\abs{Y_n-Y} \leq \varepsilon\}$.
+		On a donc le résultat voulu.
+		%%
+		\item Comme $(Y_n)_{n\geq1}$ converge en loi vers une v.a. constante, il y a aussi convergence en probabilité. Donc $\P(\abs{Y_n-Y} > \varepsilon) \to 0$ quand $n \to \infty$.
+		Donc, pour $n$ suffisamment grand, on obtient 
+		\[
+		\abs{\Ec{f(X_n+Y_n)} - \Ec{f(X_n+Y)}}  
+		\leq \varepsilon + L \varepsilon = (L+1)\varepsilon,
+		\]
+		Comme $L$ est fixé, cela montre que $\abs{\Ec{f(X_n+Y_n)} - \Ec{f(X_n+Y)}} \to 0$.
+		%%
+		\item La v.a. $Y$ est constante p.s. donc $Y = y$ p.s. pour un certain $y \in \R$.
+		De plus, la fonction $x \mapsto f(x+y)$ est continue bornée car $f$ l'est.
+		Donc
+		\[
+		\Ec{f(X_n+Y)} = \Ec{f(X_n+y)}
+		\xrightarrow[n\to\infty]{}
+		\Ec{f(X+y)} = \Ec{f(X+Y)}.
+		\]
+		%%
+		\item Par inégalité triangulaire,
+		\begin{align*}
+		& \abs{\Ec{f(X_n+Y_n)} - \Ec{f(X+Y)}} \\
+		& \leq \abs{\Ec{f(X_n+Y_n)} - \Ec{f(X_n+Y)}}
+		+ \abs{\Ec{f(X_n+Y)} - \Ec{f(X+Y)}} \\
+		& \xrightarrow[n\to\infty]{} 0,
+		\end{align*}
+		par les questions précédentes. C'est ce qu'on voulait montrer !
+	\end{enumerate}
+\end{enumerate}
+\end{comment}
+
 %%%%%%
 \separationexos
 %%%%%%
+
+\begin{exo}[Lemme de Scheffé]
+	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles continues. Notons $f_n$ la densité de $X_n$. On suppose que $(f_n)_{n\geq 1}$ converge Lebesgue-presque partout vers une fonction $f$ telle que $\int_\R f(x) \diff x =1$.
+	\begin{enumerate}
+		\item Montrer que $\abs{f-f_n} = 2(f-f_n)_+ + f_n - f$.
+		%%
+		\item On note $\lambda$ la mesure de Lebesgue sur $\R$.
+		Montrer que 
+		\[
+		\int_\R \abs{f-f_n} \diff \lambda 
+		= 2 \int_\R (f-f_n)_+ \diff \lambda.
+		\]
+		\item En déduire que $(f_n)_{n\geq 1}$ converge vers $f$ dans $L^1(\R,\lambda)$.
+		%%
+		\item En déduire que $(X_n)_{n\geq 1}$ converge en loi vers une v.a. de densité $f$.
+	\end{enumerate}
+\end{exo}
+
+\begin{comment}
+\begin{enumerate}
+	\item Soit $x \in \R$. 
+	On a $\abs{x} = x_+ + x_-$. Mais aussi $x = x_+ - x_-$, donc $x_- = x_+ - x$.
+	Ainsi on obtient $\abs{x} = 2 x_+ - x$.
+	On applique alors cette formule à $x = f-f_n$.
+	%%
+	\item On applique la formule précédente (en notant que toutes les fonctions ci-dessous sont intégrables car $f$ et $f_n$ le sont) :
+	\[
+	\int_\R \abs{f-f_n} \diff \lambda 
+	= 2 \int_\R (f-f_n)_+ \diff \lambda + \int_\R f_n \diff \lambda 
+	- \int_\R f \diff \lambda.
+	\]
+	Mais $\int_\R f_n \diff \lambda = 1 = \int_\R f \diff \lambda$ donc on obtient la formule voulue.
+	%%
+	\item On sait que $(f-f_n)_+ \to 0$ $\lambda$-p.p. et que $\abs{(f-f_n)_+} \leq f$ qui est $\lambda$-intégrable. donc par convergence dominée,
+	\[
+	\int_\R \abs{f-f_n} \diff \lambda 
+	\xrightarrow[n\to\infty]{} 0,
+	\]
+	ce qui montre que $(f_n)_{n\geq 1}$ converge vers $f$ dans $L^1(\R,\lambda)$.
+	%%
+	\item Soit $X$ une v.a. de densité $f$ (existe car $f$ d'intégrale 1 et $f$ est positive comme limite de fonction positive).
+	Soit $g \colon \R \to \R$ continue bornée.
+	Alors 
+	\begin{align*}
+	\abs{\Ec{g(X_n)} - \Ec{g(X)}}
+	= \abs{\int_\R gf_n \diff \lambda - \int_\R gf \diff \lambda}
+	\leq \int_\R g\abs{f_n-f} \diff \lambda
+	\leq \norme{g}_\infty \int_\R \abs{f-f_n} \diff \lambda 
+	\xrightarrow[n\to\infty]{} 0.
+	\end{align*}
+	Donc $(X_n)_{n\geq 1}$ converge en loi vers $X$.
+\end{enumerate}
+\end{comment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\partie{Compléments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \begin{exo}
 	On reprend l'exercice 3 du DST1. On observe des v.a. réelles $X_1,\dots,X_n$ i.i.d. dont la loi appartient à la famille $(P_\theta)_{\theta \in [1,4]}$, où $P_\theta$ est définie par
@@ -372,30 +480,6 @@ On a donc montré que $S_n / b_n \to 1$ presque sûrement quand $n \to \infty$.
 	Soit $\alpha \in {]}0,1{[}$. 
 	En utilisant le théorème central limite, construire un intervalle de confiance asymptotique pour $\theta$ de niveau $1-\alpha$. 
 \end{exo}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\partie{Compléments}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{exo}[Lemme de Scheffé]
-	Soit $(X_n)_{n\geq 1}$ une suite de v.a. réelles continues. Notons $f_n$ la densité de $X_n$. On suppose que $(f_n)_{n\geq 1}$ converge Lebesgue-presque partout vers une fonction $f$ telle que $\int_\R f(x) \diff x =1$.
-	\begin{enumerate}
-		\item Montrer que $\abs{f-f_n} = 2(f-f_n)_+ + f_n - f$.
-		%%
-		\item On note $\lambda$ la mesure de Lebesgue sur $\R$.
-		Montrer que 
-		\[
-			\int_\R \abs{f-f_n} \diff \lambda 
-			= 2 \int_\R (f-f_n)_+ \diff \lambda.
-		\]
-		\item En déduire que $(f_n)_{n\geq 1}$ converge vers $f$ dans $L^1(\R,\lambda)$.
-		%%
-		\item En déduire que $(X_n)_{n\geq 1}$ converge en loi vers une v.a. de densité $f$.
-	\end{enumerate}
-\end{exo}
-
 
 %%%%%%
 \separationexos
@@ -441,417 +525,6 @@ On a donc montré que $S_n / b_n \to 1$ presque sûrement quand $n \to \infty$.
 		\item Conclure.
 	\end{enumerate}
 \end{exo}
-
-
-%%%%%%%
-%\separationexos
-%%%%%%%
-%
-%\begin{exo}
-%	Soit $(X_n)_{n\geq 1}$ une suite de variables aléatoires indépendantes et identiquement ditribuées définies sur $(\Omega, \cA,\P)$.
-%	On suppose que $X_1 \in L^2(\P)$, $\E[X_1] = 0$ et $\E[X_1^2] = \sigma^2 < \infty$.
-%	On fixe un réel $\alpha > 0$ et, pour $n \geq 1$, on pose
-%	\[
-%	S_n^{(\alpha)} 
-%	\coloneqq \sum_{i=1}^n \frac{X_i}{i^\alpha}.
-%	\]
-%	\begin{enumerate}
-%		\item On suppose que $\alpha > 1/2$. Montrer que $(S_n^{(\alpha)})_{n\geq 1}$ converge dans $L^2$.
-%		
-%		\emph{Indication.} On pourra utiliser le critère de Cauchy.
-%		%%
-%		\item On suppose maintenant que $\alpha = 1/2$.
-%		\begin{enumerate}
-%			\item 
-%			%Montrer que, pour tout $\varepsilon>0$, il existe $\eta > 0$ tel que, pour tout $\xi \in [-\eta, \eta]$, on ait
-%			%\[
-%			%\abs{\ln \phi_{X_1} (\xi) + \frac{\sigma^2 \xi^2}{2}}
-%			%\leq \varepsilon \xi^2.
-%			%\]
-%			Montrer que, pour tout $\varepsilon>0$, il existe $\eta > 0$ tel que, pour tout $\xi \in [-\eta, \eta]$, on ait 
-%			\[
-%			\abs{ \phi_{X_1} (\xi) \exp\left( \frac{\sigma^2 \xi^2}{2} \right) -1}
-%			\leq \varepsilon \xi^2.
-%			\]
-%			%Montrer que, pour tout $\varepsilon>0$, il existe $\eta > 0$ tel que, pour tout $\xi \in [-\eta, \eta]$, on ait $\abs{z(\xi)} \leq \varepsilon \xi^2$ et
-%			%\[
-%			%\phi_{X_1} (\xi) \exp\left( \frac{\sigma^2 \xi^2}{2} \right)
-%			%= \exp(z(\xi)).
-%			%\]
-%			%%
-%			\item En déduire que la suite
-%			\[
-%			\left( \frac{S_n^{(1/2)}}{\sqrt{\ln n}} \right)_{n\geq 1}
-%			\]
-%			converge en loi vers une limite dont on précisera la loi.
-%		\end{enumerate}
-%	\end{enumerate}
-%\end{exo}
-%
-%\begin{comment}
-%\begin{enumerate}
-%\item On utilise le critère de Cauchy : soit $1 \leq m \leq n$, on a
-%\[
-%\Ec{\left( \sum_{i=m}^n \frac{X_i}{i^\alpha} \right)^2}
-%= \sum_{i=m}^n \Ec{\left( \frac{X_i}{i^\alpha} \right)^2}
-%= \sigma^2 \sum_{i=m}^n \frac{1}{i^{2\alpha}},
-%\]
-%en utilisant l'indépendance et le fait que les $X_i$ sont centrées.
-%Pour $\alpha > 1/2$, la série $\sum_{i\geq 1} i^{-2\alpha}$ converge donc 
-%\[
-%\sup_{n \geq m \geq N} \Ec{\left( \sum_{i=m}^n \frac{X_i}{i^\alpha} \right)^2}
-%\xrightarrow[N\to\infty]{} 0,
-%\]
-%ce qui montre que $(S_n^{(\alpha)})_{n\geq 1}$ converge dans $L^2$ (car $L^2$ est complet).
-%%%
-%\item Pour cette question, on utilise une méthode similaire à la démonstration du TCL.
-%\begin{enumerate}
-%\item 
-%%On sait que $X_1$ admet un moment d'ordre 2, donc $\phi_{X_1}$ est 2 fois dérivable en 0 et $\phi_{X_1}'(0) = i \E[X_1] = 0$ et $\phi_{X_1}''(0) = - \E[X_1^2] = -\sigma^2$.
-%%Avec un développement de Taylor-Young en 0, on obtient
-%%\[
-%%\phi_{X_1} (\xi) 
-%%= 1 - \frac{\sigma^2 \xi^2}{2} + \petito{\xi^2}
-%%= \exp \left( - \frac{\sigma^2 \xi^2}{2} + \petito{\xi^2} \right),
-%%\]
-%%quand $\xi \to 0$.
-%%Ainsi, on a
-%%\[
-%%\ln \phi_{X_1} (\xi) + \frac{\sigma^2 \xi^2}{2}
-%%= \petito{\xi^2},
-%%\]
-%%quand $\xi \to 0$, ce qui montre le résultat souhaité.
-%%
-%%\emph{Remarque.} On utilise le développement de $\ln$ en 1, mais on a besoin de l'avoir pour un voisinage de $1$ dans $\C$. Il est facile de définir la fonction $\ln$ sur le disque ouvert de centre $1$ et de rayon 1 par la série entière
-%%\[
-%%\ln(1+z) = \sum_{n\geq 0} \frac{(-1)^n}{n} z^n.
-%%\]
-%%Il faut ensuite vérifier que c'est bien la réciproque de $\exp$ définie sur $\ln(D(1,1))$, qui est ouvert contenant 0 donc contenant $-\sigma^2 \xi^2/2$ si $\eta$ est suffisamment petit.
-%%Le fait que $\ln(1+z) = z + o(z)$ quand $z \to 0$ découle du fait que la série entière ci-dessus a bien un rayon de convergence $>0$.
-%%%
-%On sait que $X_1$ admet un moment d'ordre 2, donc $\phi_{X_1}$ est 2 fois dérivable en 0 et $\phi_{X_1}'(0) = i \E[X_1] = 0$ et $\phi_{X_1}''(0) = - \E[X_1^2] = -\sigma^2$.
-%Avec un développement de Taylor-Young en 0, on obtient
-%\[
-%\phi_{X_1} (\xi) 
-%= 1 - \frac{\sigma^2 \xi^2}{2} + \petito{\xi^2}
-%= \exp \left( - \frac{\sigma^2 \xi^2}{2} \right) \left(1 + \petito{\xi^2}\right),
-%\]
-%quand $\xi \to 0$. Cela correspond au résultat demandé.
-%%%
-%\item 
-%%Soit $\xi \in \R$, on a
-%%\[
-%%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%%= \Ec{\exp \left( i \sum_{k=1}^n \frac{X_k \xi}{k^{1/2} \sqrt{\ln n}} \right)}
-%%= \prod_{k=1}^n \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right).
-%%\]
-%%Soit $\varepsilon > 0$ et $\eta >0$ donné par la question précédente (entre autre $\eta$ est suffisamment petit pour que $\lvert \phi_{X_1} (\xi) -1 \rvert < 1$ pour $\abs{\xi} \leq \eta$ et donc que $\ln \phi_{X_1} (\xi)$ soit bien défini).
-%%
-%%On voudrait passer au logarithme, mais on ne sait pas si $\ln (\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi))$ est bien défini.
-%%On considère plutôt
-%%\begin{align*}
-%%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%%\exp \left( \sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n} \right)
-%%& = \prod_{k=1}^n \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right)
-%%	\exp \left( \frac{\sigma^2 \xi^2}{2 k \ln n} \right) \\
-%%& = \prod_{k=1}^n e^{z_k},
-%%\quad \text{avec} \quad
-%%z_k \coloneqq \ln \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right) + \frac{\sigma^2 \xi^2}{2 k \ln n},
-%%\end{align*}
-%%où $z_k$ est bien défini pour $n$ suffisamment grand tel que $\lvert \xi / \sqrt{\ln n} \rvert \leq \eta$ (car alors $\lvert \xi / \sqrt{k\ln n} \rvert \leq \eta$ pour tout $k \geq 1$).
-%%Cela nous dit aussi que $\lvert z_k \rvert \leq \varepsilon \xi^2 / (k \ln n)$ et donc
-%%\begin{align*}
-%%\limsup_{n\to \infty} \abs{\sum_{k=1}^n z_k}
-%%\leq \limsup_{n\to \infty} \sum_{k=1}^n \frac{\varepsilon \xi^2}{k \ln n}
-%%= \varepsilon \xi^2
-%%\end{align*}
-%%ce qui nous donne
-%%\begin{align*}
-%%\limsup_{n\to \infty} \abs{ \phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%%\exp \left( \sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n} \right)
-%%- 1}
-%%& = \limsup_{n\to \infty}  \abs{\exp \left( \sum_{k=1}^n z_k \right) -1} \\
-%%& \leq \max \left( e^{\varepsilon \xi^2} - 1, 1-e^{-\varepsilon \xi^2} \right).
-%%\end{align*}
-%%En faisant tendre $\varepsilon \to 0$, on obtient 
-%%\begin{align*}
-%%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%%\exp \left( \sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n} \right)
-%%\xrightarrow[n\to\infty]{} 1.
-%%\end{align*}
-%%Et comme $\exp (\sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n}) \to \exp(\sigma^2 \xi^2 / 2)$, on a finalement
-%%\begin{align*}
-%%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%%\xrightarrow[n\to\infty]{} e^{-\sigma^2 \xi^2/2}
-%%\end{align*}
-%%donc, par le théorème de Lévy faible, $S_n^{(1/2)}/\sqrt{\ln n}$ converge en loi vers $\cN(0,\sigma^2)$.
-%
-%Soit $\xi \in \R$ fixé dans la suite, on a
-%\[
-%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%= \Ec{\exp \left( i \sum_{k=1}^n \frac{X_k \xi}{k^{1/2} \sqrt{\ln n}} \right)}
-%= \prod_{k=1}^n \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right).
-%\]
-%On écrit
-%\begin{align*}
-%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%\exp \left( \sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n} \right)
-%& = \prod_{k=1}^n \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right)
-%\exp \left( \frac{\sigma^2 \xi^2}{2 k \ln n} \right) \\
-%& = \prod_{k=1}^n (1+z_{k,n}),
-%\quad \text{avec} \quad
-%z_{k,n} \coloneqq \phi_{X_1} \left( \frac{\xi}{\sqrt{k \ln n}} \right)
-%\exp \left( \frac{\sigma^2 \xi^2}{2 k \ln n} \right) - 1.
-%\end{align*}
-%Montrons que $\prod_{k=1}^n (1+z_{k,n}) \to 1$.
-%Pour cela, soit $\varepsilon > 0$ et $\eta >0$ donné par la question précédente.
-%Pour $n$ suffisamment grand tel que $\lvert \xi / \sqrt{\ln n} \rvert \leq \eta$, on a $\lvert \xi / \sqrt{k\ln n} \rvert \leq \eta$ pour tout $k \geq 1$ et donc $\abs{z_{k,n}} \leq \varepsilon \xi^2 / (k\ln n)$.
-%En développant le produit, en appliquant l'inégalité triangulaire puis en refactorisant le produit on a
-%\[
-%\abs{ \prod_{k=1}^n (1+z_{k,n}) - 1}
-%\leq \prod_{k=1}^n \left(1+\abs{z_{k,n}} \right) - 1
-%= \exp \left( \sum_{k=1}^n \ln\left(1+\abs{z_{k,n}} \right) \right) - 1.
-%\]
-%Comme $\ln (1+x) \leq x$ pour $x \geq 0$, on en déduit
-%\[
-%\abs{ \prod_{k=1}^n (1+z_{k,n}) - 1}
-%\leq \exp \left( \sum_{k=1}^n \abs{z_{k,n}} \right) - 1
-%\leq \exp \left( \frac{\varepsilon \xi^2}{\ln n} 
-%\sum_{k=1}^n \frac{1}{k} \right) - 1.
-%\]
-%On a donc 
-%\begin{align*}
-%\limsup_{n\to \infty} \abs{ \prod_{k=1}^n (1+z_{k,n}) - 1}
-%\leq e^{\varepsilon \xi^2} - 1,
-%\end{align*}
-%qui est aussi petit que l'on veut pour $\varepsilon$ petit.
-%Donc $\prod_{k=1}^n (1+z_{k,n}) \to 1$ et ainsi 
-%\begin{align*}
-%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%\exp \left( \sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n} \right)
-%\xrightarrow[n\to\infty]{} 1.
-%\end{align*}
-%Mais, d'autre part, on a $\exp (\sum_{k=1}^n \frac{\sigma^2 \xi^2}{2 k \ln n}) \to \exp(\sigma^2 \xi^2 / 2)$, donc finalement
-%\begin{align*}
-%\phi_{S_n^{(1/2)}/\sqrt{\ln n}} (\xi) 
-%\xrightarrow[n\to\infty]{} e^{-\sigma^2 \xi^2/2}.
-%\end{align*}
-%Par le théorème de Lévy faible, cela montre que $S_n^{(1/2)}/\sqrt{\ln n}$ converge en loi vers $\cN(0,\sigma^2)$.
-%
-%\emph{Remarque}. Dans la solution ci-dessus, on se passe du logarithme complexe, qui n'a pas encore été vu en cours. Son utilisation rendrait le calcul plus naturel, même si elle oblige à vérifier que l'on est bien sur son domaine de définition.
-%\end{enumerate}
-%\end{enumerate}
-%\end{comment}
-%
-%
-%
-%%%%%%%
-%\separationexos
-%%%%%%%
-%
-%
-%
-%
-%
-%\begin{exo}[Théorème de Portmanteau]
-%	Soit $X, X_0, X_1, \dots$ des variables al\'eatoires à valeurs dans un espace métrique $(E,d)$ muni de sa tribu borélienne, définies sur $(\Omega,\cA,\P)$.
-%	On veut montrer que les propriétés suivantes sont équivalentes :
-%	\begin{enumerate}[label=(\roman*)]
-%		\item la suite $(X_n)_{n\in \N}$ converge en loi vers $X$ ;
-%		%%
-%		\item pour tout $f \colon E \to \R$ lipschitzienne bornée, on a $\Ec{f(X_n)} \to \Ec{f(X)}$ quand $n \to \infty$ ;
-%		%%
-%		\item pour tout fermé $F \subset E$, on a $\limsup_{n\to\infty} \Pp{X_n \in F} \leq \Pp{X \in F}$ ;
-%		%%
-%		\item pour tout ouvert $G \subset E$, on a $\liminf_{n\to\infty} \Pp{X_n \in G} \geq \Pp{X \in F}$ ;
-%		%%
-%		\item pour tout borélien $A \subset E$ tel que $\Pp{X \in \partial A} = 0$, on a $\Pp{X_n \in A} \to \Pp{X \in A}$ quand $n \to \infty$.
-%	\end{enumerate}
-%	Ce résultat est appelé \emph{théorème de Portmanteau}, mais il n'y a pas de mathématicien portant le nom de Portmanteau : il s'agit d'un canular possiblement initié par Billingsley qui, dans l'un de ses livres, attribue le théorème à Jean-Pierre Portmanteau, 
-%	en faisant référence à un article de 1915 des Annales de l'Université Felletin ayant pour titre « Espoir pour l'ensemble vide? ».
-%	%qui l'aurait publié en 1915 dans les Annales de l'Université Felletin, sous le titre « Espoir pour l'ensemble vide? ».
-%	%%
-%	\begin{enumerate}
-%		\item Montrer les implications faciles : (i) $\Rightarrow$ (ii), (iii) $\Leftrightarrow$ (iv) puis (iii) + (iv) $\Rightarrow$ (v).
-%		%%
-%		\item Montrer que (ii) $\Rightarrow$ (iii).
-%		%%
-%		\item En considérant tout d'abord $f \in \cC_b(E)$ positive et en utilisant que $\E[f(X_n)] = \int_0^\infty \Pp{f(X_n) > y} \diff y$, montrer que (v) $\Rightarrow$ (i).
-%	\end{enumerate}
-%\end{exo}
-%
-%\begin{comment}
-%\begin{enumerate} 
-%\item (i) $\Rightarrow$ (ii) : la convergence en loi implique la convergence $\Ec{f(X_n)} \to \Ec{f(X)}$ si $f$ est continue bornée donc en particulier si $f$ est lipschitzienne bornée.
-%
-%(iii) $\Leftrightarrow$ (iv) : il suffit de passer au complémentaire.
-%
-%(iii) + (iv) $\Rightarrow$ (v) : on rappelle que $\partial A = \overline{A} \setminus \mathring{A}$ et donc, si $\Pp{X \in \partial A} = 0$, on a
-%\[
-%\Pp{X \in A} = \Pp{X \in \overline{A}} = \Pp{X \in \mathring{A}}.
-%\]
-%On a ainsi, par (iv),
-%\[
-%\liminf_{n\to\infty} \Pp{X_n \in A}
-%\geq \liminf_{n\to\infty} \Pp{X_n \in \mathring{A}}
-%\geq \Pp{X \in \mathring{A}} 
-%= \Pp{X \in A}
-%\]
-%et, par (iii),
-%\[
-%\limsup_{n\to\infty} \Pp{X_n \in A}
-%\leq \limsup_{n\to\infty} \Pp{X_n \in \overline{A}}
-%\leq \Pp{X \in \overline{A}}
-%= \Pp{X \in A},
-%\]
-%ce qui montre que $\Pp{X_n \in A} \to \Pp{X \in A}$.
-%%%
-%\item Supposons (ii). Soit $F$ un fermé.
-%On pose, pour $k \geq 1$,
-%\[
-%f_k \colon x \in E \mapsto 0 \vee (1 - k d(x,F)),
-%\]
-%qui est bornée par $1$ et $k$-lipschitzienne.
-%Donc, par (ii), on a $\Ec{f_k(X_n)} \to \Ec{f_k(X)}$ pour tout $k \geq 1$.
-%Soit $k \geq 1$, on a $f_k \geq \1_F$, donc 
-%\[
-%\limsup_{n\to\infty} \Pp{X_n \in F} 
-%\leq \limsup_{n\to\infty} \Ec{f_k(X_n)}
-%= \Ec{f_k(X)}
-%\]
-%Or $f_k \downarrow \1_F$ quand $k \to \infty$, donc, par convergence dominée, $\Ec{f_k(X)} \to \Pp{X \in F}$.
-%donc en prenant $k \to \infty$ dans l'inégalité ci-dessus, on obtient
-%\[
-%\limsup_{n\to\infty} \Pp{X_n \in F} 
-%\leq \Pp{X \in F}.
-%\]
-%%%
-%\item Soit $f \in \cC_b(E)$, on peut supposer $f$ positive (quitte à considérer $f^+$ puis $f^-$).
-%On a donc, pour $n \in \N$, 
-%\[
-%\E[f(X_n)] 
-%= \int_0^\infty \Pp{f(X_n) > y} \diff y
-%= \int_0^M \Pp{X_n \in \{f> y\}} \diff y,
-%\]
-%en posant $M \coloneqq \norme{f}_\infty$. On a aussi la même relation avec $X$ au lieu de $X_n$.
-%
-%Montrons que $\Pp{X \in \partial\{f> y\}} = 0$ pour presque tout $y\in\R$.
-%Comme $f$ est continue, $\{f> y\}$ est ouvert et $\{f \geq y\}$ est un fermé contenant $\{f> y\}$ donc $\partial \{f> y\} \subset \{f= y\}$.
-%En outre, on a, par Fubini-Tonelli,
-%\begin{align*}
-%\int_\R \Pp{X \in \{f = y\}} \diff y
-%& = \int_\R \int_\R \1_{x \in \{f = y\}} \diff P_X (x) \diff y
-%= \int_\R \int_\R \1_{f(x) = y} \diff y \diff P_X (x) \\
-%& = \int_\R \lambda(\{f(x)\}) \diff P_X (x) 
-%= 0,
-%\end{align*}
-%où $\lambda$ est la mesure de Lebesgue sur $\R$.
-%Ainsi $y \mapsto \Pp{X \in \{f = y\}}$ est une fonction positive d'intégrale nulle, donc elle est nulle presque partout.
-%
-%Pour presque tout $y\in\R$, on a $\Pp{X \in \partial\{f> y\}} = 0$ donc, par (v), on a
-%\[
-%\Pp{X_n \in \{f> y\}} \xrightarrow[n\to\infty]{} \Pp{X \in \{f> y\}}.
-%\]
-%En outre, on peut dominer par $1$ qui est intégrable sur $[0,M]$ et on obtient par convergence dominée
-%\[
-%\E[f(X_n)] 
-%= \int_0^M \Pp{X_n \in \{f> y\}} \diff y
-%\xrightarrow[n\to\infty]{} \int_0^M \Pp{X \in \{f> y\}} \diff y
-%= \E[f(X)].
-%\]
-%\end{enumerate}
-%\end{comment}
-
-
-%\begin{exo}[Convergence en loi de couples de v.a.]
-%	Soient $(X_n)_{n\geq1}$, $(Y_n)_{n\geq1}$ deux suites de v.a. réelles convergeant en loi vers des v.a. $X$ et $Y$.
-%	\begin{enumerate}
-%		\item On suppose que les variables $X_n$ et $Y_n$ sont indépendantes pour tout $n\geq1$ et que les variables $X$ et $Y$ sont indépendantes. Montrer que $(X_n,Y_n)\to(X,Y)$ en loi.
-%		%%
-%		\item On suppose à présent que $Y$ est constante p.s. Montrer que $(X_n,Y_n)\to(X,Y)$ en loi.
-%	\end{enumerate}
-%\end{exo}
-%
-%\begin{comment}
-%\begin{enumerate}
-%\item D'après le théorème de Lévy, il suffit de montrer que $\phi_{(X_n,Y_n)}(t,t')\to \phi_{(X,Y)}(t,t')$ pour tout $(t,t')\in\R^2$. Et l'on a par indépendance, 
-%\[
-%\phi_{(X_n,Y_n)}(t,t')
-%=\phi_{X_n}(t)\phi_{Y_n}(t')\to\phi_{X}(t)\phi_{Y}(t')
-%=\phi_{(X,Y)}(t,t').
-%\] 
-%%%
-%\item Il n'est pas vrai en général que $(X_n,Y_n)\to(X,Y)$ en loi. En effet, considérons les variables aléatoires $X_n=Z=Y_n$ pour tout $n\geq1$, avec $Z$ gaussienne centrée. 
-%La variable $Z$ étant symétrique, on a $X_n\to -Z$ en loi. Si $(X_n,Y_n)\to(-Z,Z)$ en loi, alors $X_n+Y_n\to -Z+Z$ en loi (car la fonction $(x,y)\mapsto x+y$ est continue), c'est-\`a-dire $2Z=0$ en loi, ce qui est absurde. 
-%%%
-%\item Il suffit de montrer que $\E[F(X_n,Y_n)]\to\E[F(X,Y)]$ pour une fonction $F$ continue \`a support compact. Soit $a\in\R$ tel que $Y=a$ p.s. 
-%On a alors $Y_n\to a$ en probabilité (résultat important \`a savoir prouver). 
-%Et 
-%\begin{align*}
-%|\E[F(X_n,Y_n)]-\E[F(X,a)]|
-%& \leq |\E[F(X_n,Y_n)]-\E[F(X_n,a)]| + |\E[F(X_n,a)]-\E[F(X,a)]|.
-%\end{align*}
-%La fonction $x\in\R\mapsto F(x,a)$ est continue et bornée donc $|\E[F(X_n,a))-\E[F(X,a))|\to0$. De plus, la fonction $F$ est uniformément continue. Pour $\varepsilon>0$, on peut trouver $\delta$ tel que $|F(x,y)-F(x',y')|\leq\varepsilon$ pour $|x-x'|+|y-y'|\leq\delta$. Alors, on a 
-%\begin{align*}
-%|\E[F(X_n,Y_n)]-\E[F(X_n,a)]|
-%& \leq \E[|F(X_n,Y_n)-F(X_n,a)|] \\ 
-%& \leq \E[|F(X_n,Y_n)-F(X_n,a)|\1_{\{|Y_n-a|\geq\delta\}}]
-%+\E[|F(X_n,Y_n)-F(X_n,a)|\1_{\{|Y_n-a|<\delta\}}] \\ 
-%& \leq 2 \norme{F}_\infty \P(|Y_n-a|\geq\delta) + \varepsilon. 
-%\end{align*} 
-%Ainsi, on a
-%\[
-%\limsup_{n\to\infty} |\E[F(X_n,Y_n)]-\E[F(X_n,a)]|
-%\leq \varepsilon
-%\] 
-%et ceci étant vrai pour tout $\varepsilon$, on en déduit que $|\E[F(X_n,Y_n)]-\E[F(X_n,a)]| \to 0$, puis le résultat.  
-%\end{enumerate}
-%\end{comment}
-
-
-
-
-%\begin{exo} 
-%	Soit $\lambda >1$ fixé et soit $(X_t)_{t \geq 0}$ une famille de variables aléatoires telle que, pour tout $t \geq 0$, $X_t$ suit une loi géométrique de paramètre $ 1-e^{-t}$, c'est-\`a-dire que
-%	\[ \forall k \geq 1, \quad 
-%	\Pp{X_t=k}= e^{-t} (1- e^{-t})^{k-1}.
-%	\]
-%	%%
-%	Soit $(U_n)_{n \geq 1}$ une suite de variables aléatoires telle que $ \lambda U_n- \ln(n)$ converge en probabilité vers $-\ln(\mathcal{E})$ lorsque $n \to \infty$, o\`u $\mathcal{E}$ est une variable aléatoire exponentielle de paramètre $1$. 
-%	On suppose de plus que les deux familles $(X_t)_{t \geq 0}$ et $(U_n)_{n \geq 1}$ sont indépendantes.
-%	
-%	Montrer que $X_{U_n}/n^{1/\lambda}$ converge en loi quand $n \to \infty$ vers une variable aléatoire exponentielle, dont le paramètre est aléatoire et vaut $\mathcal{E}^{1/\lambda}$.
-%\end{exo}
-%
-%\begin{comment}
-%On va utiliser les fonctions caractéristiques. Pour cela, calculons d'abord la fonction caractéristique de $X_t$:
-%\[ 
-%\Ec{e^{i u X_t}}=  \frac{1}{1-e^t (1- e^{-iu})}, \quad u \in \R.
-%\]
-%Par indépendence de $(X_t)_{t \geq 0}$ et $U_n$, on a donc
-%\[ 
-%\Ec{e^{i u X_{U_n}/ n^{1/  \lambda} }} 
-%= \Ec{\frac{1}{1-e^{U_n} (1- e^{- i u / n^{1/ \lambda}})}}.
-%\]
-%En faisant un développant limité, on voit que, presque s\^urement, 
-%\[
-%\frac{1}{1-e^{U_n} (1- e^{- i u / n^{1/ \lambda}})} 
-%\xrightarrow[n \rightarrow \infty]{} 
-%\frac{\mathcal{E}^{1/ \lambda}}{\mathcal{E}^{1/ \lambda} - i u}.\]
-%Or
-%\[
-%\forall s \geq 0, \quad \forall t \in \R, \quad 
-%\abs{\frac{1}{1-e^s(1-e^{-it})}} \leq 1.
-%\]
-%D'après le théorème de convergence dominé, on en déduit que 
-%\[ 
-%\Ec {e^{i u X_{U_n}/ n ^{1/\lambda} }} 
-%\xrightarrow[n\to\infty]{} 
-%\Ec{\frac{\mathcal{E}^{1/\lambda}}{\mathcal{E}^{1/ \lambda}-iu}}.
-%\]
-%Le résultat en découle car, on a $x/(x-iu)= \Ec{e^{iu\textsf{Exp}(x)}}$, o\`u \textsf{Exp}$(x)$ est une variable aléatoire exponentielle de paramètre $x$.
-%\end{comment}
-
 
 
 \end{document}
