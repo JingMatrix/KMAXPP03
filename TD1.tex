@@ -32,7 +32,7 @@
 %%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
 \setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
 \setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
-\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
 %\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
 %\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
 
@@ -99,6 +99,7 @@
 
 \newcommand{\NB}[1]{{\color{NavyBlue}#1}}
 \newcommand{\DSB}[1]{{\color{DarkSlateBlue}#1}}
+\newcommand{\emphb}[1]{\emph{{\color{DarkSlateBlue}#1}}}
 
 %%%%%%%% Theorems styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \theoremstyle{plain}
@@ -148,7 +149,7 @@
 }
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -158,7 +159,7 @@
 	\hfill {\small Université Paul Sabatier}
 
 	{\small KMAXPP03}
-	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\hfill {\small Licence 3, Printemps 2024}\medskip
 	\begin{center}
 		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
 	\end{center}
@@ -175,9 +176,21 @@
 \partie{Théorie de la mesure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\textbf{\DSB{Définition~:}}
+\begin{itemize}
+	\item Un \emphb{espace de probabilité} $(\Omega,\cA,\P)$ est un ensemble $\Omega$ muni d'une tribu $\cA$ sur laquelle est définie une mesure de probabilité $\P$ (c'est-à-dire une mesure telle que $\P(\Omega) = 1$).
+	\item Soit $(\Omega,\cA,\P)$ un espace de probabilité et $(E,\cE)$ un espace mesurable.
+	Une \emphb{variable aléatoire} à valeurs dans $E$ est une fonction mesurable de $(\Omega,\cA)$ dans $(E,\cE)$.
+\end{itemize}
+	
+
+%%%%%%
+\separationexos
+%%%%%%
+
 \begin{exo}[Mesure image]
-	Soit $(\Omega,\cA,\P)$ un espace de probabilité, $(E,\cE)$ un espace mesurable et $X$ une v.a. à valeurs dans $E$.
-	Rappelons que $P_X$ est définie par $P_X(B) = \P(X^{-1}(B))$ pour tout $B \in \cE$. Montrer que $P_X$ est une mesure de probabilité sur $(E,\cE)$.
+	Soit $(\Omega,\cA,\P)$ un espace de probabilité, $(E,\cE)$ un espace mesurable et $X$ une variable aléatoire à valeurs dans $E$.
+	Pour $B \in \cE$, on pose $\mu(B) = \P(X^{-1}(B))$. Montrer que $\mu$ est une mesure de probabilité sur $(E,\cE)$. On l'appelle la \emphb{mesure image de $\P$ par $f$}.
 \end{exo}
 
 
@@ -185,67 +198,76 @@
 \separationexos
 %%%%%%
 
+
+
 \begin{exo}[Fonction de répartition]
-    Soit $(\Omega,\cA,\P)$ un espace de probabilité.
-	Soit $X$ une v.a. réelle et $F$ sa fonction de répartition, i.e. $F(x) = \P(X \leq x)$ pour tout $x \in \R$.
+	Soit $(\Omega,\cA,\P)$ un espace de probabilité.
+	Soit $X$ une variable aléatoire à valeurs dans $\R$ (muni des boréliens). 
+	Pour $x \in \R$, on définit 
+	\[
+	F(x) = \P(X\leq x) = \P(\{ \omega \in \Omega : X(\omega) \leq x \}).
+	\]
 	\begin{enumerate}
 		\item Montrer que $F$ est croissante.
-		      %%
+		%%
 		\item Montrer que $F$ est continue à droite.
-		      %%
+		%%
 		\item Montrer que $\displaystyle \lim_{x \to -\infty} F(x) = 0$
-		      et $\displaystyle \lim_{x \to \infty} F(x) = 1$.
+		et $\displaystyle \lim_{x \to \infty} F(x) = 1$.
 	\end{enumerate}
 \end{exo}
 
+
 \begin{comment}
 \begin{enumerate}
-	\item Si $x \leq y$, alors $\{ X \leq x \} \subset \{X \leq y\}$ et donc $F(x) = \P(X \leq x) \leq \P(X \leq y) = F(y)$.
-	      %%
-	\item Pour $x \in \R$ et $(y_n)_{n\geq0}$ une suite décroissante convergeant vers $x$, on a
-	\[
-		F(x)
-		= \P(X \leq x)
-		= \P \Biggl( \bigcap_{n\geq0} \{ X \leq y_n \} \Biggr)
-		= \lim_{n\to\infty} \P(X \leq y_n)
-		= \lim_{n\to\infty} F(y_n),
-	\]
-	car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est continue à droite.
-	
-	\emph{Remarque.} On utilise ici l'implication suivante : si pour toute suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$, $F(y_n) \to F(x)$, alors 
-	\begin{equation}\label{eq:lim_droite}
-	F(y) \xrightarrow[\substack{y \to x\\y\geq x}]{} F(x).
-	\end{equation}
-	Cela se montre par contraposée. Supposons que la convergence \eqref{eq:lim_droite} est fausse. Cela signifie : 
-	\[
-	\exists \varepsilon > 0, \forall \delta > 0, \exists y \in \,]x,x+\delta], \abs{F(x) - F(y)} > \varepsilon.
-	\]
-	On fixe un tel $\varepsilon > 0$.
-	On construit par récurrence une suite $(y_n)_{n\geq0}$ décroissante telle que $y_n \to 0$ et $\abs{F(x) - F(y_n)} > \varepsilon$ pour tout $n \geq 0$. On initie en considérant $\delta =1$ : il existe alors $y_0 \in \,]x,x+1]$ telle que $\abs{F(x) - F(y_0)} > \varepsilon$. Supposons que $y_n$ est définie, on considère alors $\delta = \min(n^{-1},y_n-x) > 0$ : on en déduit qu'il existe $y_{n+1} \in \,]x,x+\delta]$ tel que $\abs{F(x) - F(y_{n+1})} > \varepsilon$ et on a à la fois $y_{n+1} \leq y_n$ et $x < y_{n+1} \leq x + n^{-1}$.
-	Ainsi la suite construite est bien décroissante et converge vers $x$.
-	On a donc montré : il existe une suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$ telle que $F(y_n)$ ne converge pas vers $F(x)$.
-	On a donc montré la contraposée du résultat désiré.
-	%%
-	\item Soit $(y_n)_{n\geq0}$ une suite décroissante tendant vers $-\infty$. Alors
-	      \[
-		      \lim_{n\to\infty} F(y_n)
-		      = \lim_{n\to\infty} \P(X \leq y_n)
-		      = \P \Biggl( \bigcap_{n\geq0} ]-\infty,y_n] \Biggr)
-		      = \P(\varnothing)
-		      =0,
-	      \]
-	      en utilisant de nouveau la continuité décroissante de $\P$.
-	      D'autre part, si $(y_n)_{n\geq0}$ est une suite croissante tendant vers $\infty$, alors
-	      \[
-		      \lim_{n\to\infty} F(y_n)
-		      = \lim_{n\to\infty} \P(X \leq y_n)
-		      = \P \Biggl( \bigcup_{n\geq0} \{ X \leq y_n \} \Biggr)
-		      = \P(X < \infty)
-		      = 1,
-	      \]
-	      en utilisant que la suite d'événements $\{ X \leq y_n \}$ est croissante.
+\item Si $x \leq y$, alors $\{ X \leq x \} \subset \{X \leq y\}$ et donc $F(x) = \P(X \leq x) \leq \P(X \leq y) = F(y)$.
+%%
+\item Pour $x \in \R$ et $(y_n)_{n\geq0}$ une suite décroissante convergeant vers $x$, on a
+\[
+F(x)
+= \P(X \leq x)
+= \P \Biggl( \bigcap_{n\geq0} \{ X \leq y_n \} \Biggr)
+= \lim_{n\to\infty} \P(X \leq y_n)
+= \lim_{n\to\infty} F(y_n),
+\]
+car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est continue à droite.
+
+\emph{Remarque.} On utilise ici l'implication suivante : si pour toute suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$, $F(y_n) \to F(x)$, alors 
+\begin{equation}\label{eq:lim_droite}
+F(y) \xrightarrow[\substack{y \to x\\y\geq x}]{} F(x).
+\end{equation}
+Cela se montre par contraposée. Supposons que la convergence \eqref{eq:lim_droite} est fausse. Cela signifie : 
+\[
+\exists \varepsilon > 0, \forall \delta > 0, \exists y \in \,]x,x+\delta], \abs{F(x) - F(y)} > \varepsilon.
+\]
+On fixe un tel $\varepsilon > 0$.
+On construit par récurrence une suite $(y_n)_{n\geq0}$ décroissante telle que $y_n \to 0$ et $\abs{F(x) - F(y_n)} > \varepsilon$ pour tout $n \geq 0$. On initie en considérant $\delta =1$ : il existe alors $y_0 \in \,]x,x+1]$ telle que $\abs{F(x) - F(y_0)} > \varepsilon$. Supposons que $y_n$ est définie, on considère alors $\delta = \min(n^{-1},y_n-x) > 0$ : on en déduit qu'il existe $y_{n+1} \in \,]x,x+\delta]$ tel que $\abs{F(x) - F(y_{n+1})} > \varepsilon$ et on a à la fois $y_{n+1} \leq y_n$ et $x < y_{n+1} \leq x + n^{-1}$.
+Ainsi la suite construite est bien décroissante et converge vers $x$.
+On a donc montré : il existe une suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$ telle que $F(y_n)$ ne converge pas vers $F(x)$.
+On a donc montré la contraposée du résultat désiré.
+%%
+\item Soit $(y_n)_{n\geq0}$ une suite décroissante tendant vers $-\infty$. Alors
+\[
+\lim_{n\to\infty} F(y_n)
+= \lim_{n\to\infty} \P(X \leq y_n)
+= \P \Biggl( \bigcap_{n\geq0} ]-\infty,y_n] \Biggr)
+= \P(\varnothing)
+=0,
+\]
+en utilisant de nouveau la continuité décroissante de $\P$.
+D'autre part, si $(y_n)_{n\geq0}$ est une suite croissante tendant vers $\infty$, alors
+\[
+\lim_{n\to\infty} F(y_n)
+= \lim_{n\to\infty} \P(X \leq y_n)
+= \P \Biggl( \bigcup_{n\geq0} \{ X \leq y_n \} \Biggr)
+= \P(X < \infty)
+= 1,
+\]
+en utilisant que la suite d'événements $\{ X \leq y_n \}$ est croissante.
 \end{enumerate}
 \end{comment}
+
+
 
 %%%%%%
 \separationexos
@@ -267,7 +289,6 @@
 			      \item $\displaystyle \liminf_{n \to \infty} A_n \subset \limsup_{n \to \infty} A_n$.
 			      \item $\displaystyle \bigl(\limsup_{n \to \infty} A_n \bigr)^c= \liminf_{n \to \infty} (A_n)^c$
 			      \item $\displaystyle \limsup_{n \to \infty} (A_n \cup B_n) = \limsup_{n \to \infty} A_n \cup \limsup_{n \to \infty} B_n$.
-			      \item $\displaystyle \limsup_{n \to \infty} (A_n \cap B_n) \subset \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Y a-t-il toujours égalité ?
 		      \end{enumerate}
 		      %%
 		\item Calculer $\liminf_{n\to\infty} A_n$ et $\limsup_{n\to\infty} A_n$  dans les cas suivants.
@@ -279,7 +300,7 @@
 			            %			\item $A_n= [ \sin(n)-1, \sin(n)+1]$.
 		      \end{enumerate}
 		      %%
-		\item Supposons à présent que $\Omega$ est muni d'une tribu $\cA$ et d'une mesure de probabilité $\P$ et que $(A_n)_{n\geq 1} \in \cA^{\N^*}$.
+		\item Supposons à présent que $(\Omega,\cA,\P)$ est un espace de probabilité et que $(A_n)_{n\geq 1} \in \cA^{\N^*}$.
 		      Montrer que les propriétés suivantes sont vérifiées.
 		      \begin{enumerate}
 			      \item $\displaystyle \P\bigl(\liminf_{n\to\infty}A_n\bigr) \leq \liminf_{n\to\infty}\P(A_n)$.
@@ -313,11 +334,6 @@
 		            \]
 		            %%
 		      \item Cette égalité provient du fait qu'un élément appartient à une infinité de $A_n \cup B_n$ si et seulement si il appartienent à une infinité de $A_n$ ou bien à une infinité de $B_n$.
-		            %%
-		      \item Si $x \in \limsup_{n \to \infty} (A_n \cap B_n)$, alors $x$ appartient à une infinité de $A_n \cap B_n$. Alors $x$ appartient à une infinité de $A_n$ et une infinité de $B_n$ donc $x \in \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Cela montre l'inclusion.
-
-		            Il n'y a pas forcément égalité. Par exemple on peut considérer $A_{2n} = B_{2n+1} = \Omega$ et $B_{2n} = A_{2n+1} =\varnothing$. Alors $\limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n = \Omega$, mais $\limsup_{n \to \infty} (A_n \cap B_n) = \varnothing$.
-
 	      \end{enumerate}
 	      %%
 	\item
@@ -371,6 +387,21 @@
 \end{enumerate}
 \end{comment}
 
+%%%%%%%
+%\separationexos
+%%%%%%%
+%
+%\begin{exo}[Mesure discrète]
+%	On définit la mesure \[\mu = \frac{1}{6} \delta_{-1} + \frac{1}{3} \delta_0 + \frac{1}{2} \delta_2.\]
+%	\begin{enumerate}
+%		\item Que valent $\mu([-2,2[)$ et $\mu([0,\infty[)$?
+%		\item Calculer $\int_\R x^2 \diff \mu(x)$.
+%	\end{enumerate}
+%\end{exo}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Probabilités discrètes}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -404,88 +435,40 @@
 \separationexos
 %%%%%%
 
-\begin{exo}
-	Pierre et Mathilde parlent de leur progéniture. Vous arrivez au moment où Mathilde apprend à Pierre qu'elle a deux enfants dont un prénommé Xavier.
-
-	Pierre : \textit{Tu as donc également une fille et, en disant cela, je n'ai qu'une chance sur 3 de me tromper.}
-
-	Mathilde : \textit{Sais-tu également que Xavier est mon aîné ?}
-
-	Pierre : \textit{Alors là, je ne peux plus rien dire.}
-
-	Pouvez-vous expliquer le contenu de cette conversation à l'aide d'un modèle probabiliste.
+\begin{exo}[Famille aléatoire]
+	\begin{enumerate}
+		\item Mathilde vous apprend qu'elle a deux enfants dont un prénommé Xavier. Quelle est la probabilité qu'elle ait une fille ?
+		\item Mathilde ajoute que Xavier est son aîné. Quelle est la probabilité qu'elle ait une fille ?
+	\end{enumerate}
 \end{exo}
 
 \begin{comment}
-Expliquons d'abord la discussion avec des mots. Dans sa première réponse, Pierre tente d'évaluer la probabilité que Mathilde ait une fille, sachant qu'elle a deux enfants dont un garçon, et il dit que cette probabilité vaut $2/3$. Il apprend ensuite que le garçon de Mathilde est son aîné. Il réévalue la probabilité que Mathilde ait une fille, sachant cette nouvelle information, et obtient $1/2$ (il ne peut plus parier sur une option plus probable que l'autre, donc ``il ne peut plus rien dire'').
-
-
-L'expérience peut être modélisée par
+Dans les deux cas l'expérience peut être modélisée par
 $\Omega = \{ F,G \}^2$ (où la première coordonnée correspond au premier enfant et la deuxième au deuxième, avec $F$ pour fille et $G$ pour garçon), $\cA = \cP(\Omega)$ et
 \[
-	\P = \frac{1}{4} \delta_{(F,F)} + \frac{1}{4} \delta_{(F,G)} + \frac{1}{4} \delta_{(G,F)} + \frac{1}{4} \delta_{(G,G)}.
+\P = \frac{1}{4} \delta_{(F,F)} + \frac{1}{4} \delta_{(F,G)} + \frac{1}{4} \delta_{(G,F)} + \frac{1}{4} \delta_{(G,G)}.
 \]
-Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a une fille}' et $B = \{ (G,G), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a un garçon}'.
-La première chose que calcule Pierre est
+Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a une fille}'.
+\begin{enumerate}
+\item Ici on travaille sachant $B = \{ (G,G), (F,G), (G,F) \}$ qui est l'événement `\textit{Mathilde a un garçon}'. On doit donc calculer
 \[
-	\Ppsq{A}{B} = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(\{ (F,G), (G,F) \})}{\P(\{ (G,G), (F,G), (G,F) \})} = \frac{2/4}{3/4} = \frac{2}{3}.
+\Ppsq{A}{B} = \frac{\P(A\cap B)}{\P(B)} = \frac{\P(\{ (F,G), (G,F) \})}{\P(\{ (G,G), (F,G), (G,F) \})} = \frac{2/4}{3/4} = \frac{2}{3}.
 \]
-Soit $C = \{ (G,G), (G,F) \}$ l'événement `\textit{l'aîné de Mathilde est un garçon}'. La deuxième chose que calcule Pierre est
+%%
+\item On travaille à présent sachant $C = \{ (G,G), (G,F) \}$ qui est l'événement `\textit{l'aîné de Mathilde est un garçon}'. On a alors
 \[
-	\Ppsq{A}{C} = \frac{\P(A\cap C)}{\P(C)} = \frac{\P(\{ (G,F) \})}{\P(\{ (G,G), (G,F) \})} = \frac{1/4}{2/4} = \frac{1}{2},
+\Ppsq{A}{C} = \frac{\P(A\cap C)}{\P(C)} = \frac{\P(\{ (G,F) \})}{\P(\{ (G,G), (G,F) \})} = \frac{1/4}{2/4} = \frac{1}{2}.
 \]
-ce qui ne permet plus à Pierre de parier avantageusement sur le fait que le deuxième enfant de Mathilde est une fille ou un garçon.
+\end{enumerate}
 \end{comment}
 
-%%%%%%
-\separationexos
-%%%%%%
 
-\begin{exo}[Les pièges du conditionnement]
-	Un test de dépistage d'une maladie est mis au point par un laboratoire pharmaceutique qui se propose d'en déterminer l'efficacité.
-	Il estime pour cela la probabilité $\alpha$ (resp. $\beta)$ que le test soit positif (resp. négatif) alors que la personne considérée est malade (resp. saine) en testant un échantillon de personnes malades (resp. saines) au sein d'une population donnée.
-	%	On suppose $\alpha$ et $\beta$ proche de 1 (par exemple $\alpha=\beta=0{,}99$). 
-	Le résultat de cette d'étude donne $\alpha=\beta=0{,}99$.
-	En outre, on sait que la proportion de personnes malades dans la population est de $p=1/1000$.
-	Proposer des indicateurs d'efficacité du test et les évaluer.
-\end{exo}
-
-\begin{comment}
-On modélise l'expérience aléatoire d'un individu aléatoirement choisi qui prend le test pour savoir s'il est malade ou non.
-Les deux indicateurs d'efficacité sont la probabilité que l'individu soit malade sachant que le test est positif et la probabilité que l'individu soit sain sachant que le test est négatif. On aimerait que ces deux quantités soit aussi proche de 1 que possible.
-
-Deux caractéristiques de l'individu nous intéressent : le fait qu'il soit sain (noté $S$) ou malade (noté $M$) et le fait que son test soit positif (noté $P$) ou négatif (noté $N$).
-Ainsi on considère l'espace $\Omega = \{ (M,P),(M,N),(S,P),(S,N) \}$ muni de $\cA = \cP(\Omega)$ et
-\[
-	\P = p \alpha \delta_{(M,P)} + p (1-\alpha) \delta_{(M,N)} + (1-p) (1-\beta) \delta_{(S,P)} + (1-p) \beta \delta_{(S,N)} .
-\]
-On pose $A = $ `\textit{l'individu est malade}' et $B = $ `\textit{le test est positif}', de sorte que nos indicateurs sont  $\Ppsq{A}{B}$ et $\Ppsq{A^c}{B^c}$.
-
-On peut les évaluer avec la formule de Bayes par exemple :
-\[
-	\Ppsq{A}{B} = \frac{\P(A) \Ppsq{B}{A}}{\P(B)}
-	= \frac{p \alpha}{\P(\{ (M,P), (S,P)\})}
-	= \frac{p \alpha}{p \alpha + (1-p)(1-\beta)}
-	\simeq 0.09
-\]
-et
-\[
-	\Ppsq{A^c}{B^c} = \frac{\P(A^c) \Ppsq{B^c}{A^c}}{\P(B^c)}
-	= \frac{(1-p) \beta}{\P(\{ (M,N), (S,N)\})}
-	= \frac{(1-p) \beta}{(1-p) \beta + p(1-\alpha)}
-	\simeq 0.99999.
-\]
-Tel quel, ce test de dépistage produit énormément de faux positif : quand on reçoit un test positif, on a 91\% de chance d'être en fait en bonne santé.
-Cependant le test détecte efficacement les malades car il y a très peu de faux négatif : quand on reçoit un test négatif, on a seulement 0.001\% de chance d'être en fait malade.
-
-On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de vue sanitaire il est important de réduire au maximum le nombre de faux négatifs pour isoler les personne malades, ce qui est le cas ici. Le problème est juste qu'on isolera en grande majorité des personnes saines, mais peu de personnes malades passeront à travers les mailles.
-\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Compléments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{exo} On consdère un ensemble de familles ayant $0,$ $1$ ou 2 enfants. La probabilité pour une famille d'avoir $0,$ $1$ ou 2 enfants est supposée égale à $1/4,$ $1/2,$ $1/4.$ Vous rencontrez le petit Luc dans la rue, qui appartient à l'une de ces famille. Calculez la probabilité qu'il soit fils unique s'il vous dit :
+\begin{exo} On considère un ensemble de familles ayant $0,$ $1$ ou 2 enfants. La probabilité pour une famille d'avoir $0,$ $1$ ou 2 enfants est supposée égale à $1/4,$ $1/2,$ $1/4.$ Vous rencontrez le petit Luc dans la rue, qui appartient à l'une de ces familles. Calculez la probabilité qu'il soit fils unique s'il vous dit :
 	\begin{enumerate}
 		\item qu'il n'a pas de frère.
 		\item qu'il n'a pas de s\oe ur.
@@ -506,11 +489,12 @@ On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de v
 		\item Montrer que les propriétés suivantes sont vérifiées.
 		      \begin{enumerate}
 			      \item $\displaystyle \limsup_{n \to \infty} A_n=  \Big\{ \sum_{n \geq 0} \1_{A_n}= \infty \Big\}
-				            \quad \text{et} \quad
-				            \liminf_{n \to \infty} A_n=  \Big\{ \sum_{n \geq 0} \1_{ (A_n)^c}< \infty \Big\}$.
+				  \quad \text{et} \quad
+				  \liminf_{n \to \infty} A_n=  \Big\{ \sum_{n \geq 0} \1_{ (A_n)^c}< \infty \Big\}$.
+				  \item $\displaystyle \limsup_{n \to \infty} (A_n \cap B_n) \subset \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Y a-t-il toujours égalité ?
 			      \item $\displaystyle \limsup_{n\to\infty} A_n \cap \liminf_{n\to\infty} B_n
-				            \subset \limsup_{n\to\infty} (A_n \cap B_n)$.
-			            Y a-t-il toujours égalité ?
+				  \subset \limsup_{n\to\infty} (A_n \cap B_n)$.
+			      Y a-t-il toujours égalité ?
 		      \end{enumerate}
 		      %%
 		\item Calculer $\liminf_{n\to\infty} A_n$ et $\limsup_{n\to\infty} A_n$  dans les cas suivants.
@@ -553,10 +537,12 @@ On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de v
 		      \item L'ensemble $\{ \sum_{n \geq 0} \1_{A_n}= \infty\}$ est l'ensemble des éléments  appartenant à une infinité de $A_n$, c'est donc $\limsup_{n\to\infty} A_n$.
 
 		            L'ensemble $\{ \sum_{n \geq 0} \1_{ (A_n)^c}< \infty\}$ est l'ensemble des éléments qui n'appartiennent à tous les $A_n$ sauf un nombre fini, c'est donc $\liminf_{n\to\infty} A_n$.
-		            %%
-		      \item $\displaystyle \limsup_{n\to\infty} A_n \cap \liminf_{n\to\infty} B_n
-			            \subset \limsup_{n\to\infty} (A_n \cap B_n)$.
-		            Y a-t-il toujours égalité ?
+		      %%
+		      \item Si $x \in \limsup_{n \to \infty} (A_n \cap B_n)$, alors $x$ appartient à une infinité de $A_n \cap B_n$. Alors $x$ appartient à une infinité de $A_n$ et une infinité de $B_n$ donc $x \in \limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n$. Cela montre l'inclusion.
+		      
+		      Il n'y a pas forcément égalité. Par exemple on peut considérer $A_{2n} = B_{2n+1} = \Omega$ et $B_{2n} = A_{2n+1} =\varnothing$. Alors $\limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n = \Omega$, mais $\limsup_{n \to \infty} (A_n \cap B_n) = \varnothing$.
+		      %%
+		      \item 
 	      \end{enumerate}
 	      %%
 	\item
@@ -620,42 +606,44 @@ On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de v
 \separationexos
 %%%%%%
 
-\begin{exo} Un article du journal Le Monde était consacré au suicide dans les prisons. On y apprenait notamment que le taux de suicide y est d'environ $1/1000$ par an et que, parmi les détenus s'étant suicidés, on trouvait une population ayant déja fait une tentative de suicide au cours des années précédentes 15 fois plus importante que des détenus n'ayant jamais attenté à leur vie. Le Monde concluait à la nécessité de surveiller de près les détenus ayant déjà fait une tentative de suicide.
-	\begin{enumerate}
-		\item Donner un modèle probabiliste prenant en compte les éventualités précisées plus haut (tentative de suicide, suicide). 
-		%%
-		\item Exprimer dans ce modèle la conclusion du quotidien et évaluer la justesse de cette conclusion en fonction de la proportion de personnes ayant déja fait une tentative de suicide.
-	\end{enumerate}
+\begin{exo}[Les pièges du conditionnement]
+	Un test de dépistage d'une maladie est mis au point par un laboratoire pharmaceutique qui se propose d'en déterminer l'efficacité.
+	Il estime pour cela la probabilité $\alpha$ (resp. $\beta)$ que le test soit positif (resp. négatif) alors que la personne considérée est malade (resp. saine) en testant un échantillon de personnes malades (resp. saines) au sein d'une population donnée.
+	%	On suppose $\alpha$ et $\beta$ proche de 1 (par exemple $\alpha=\beta=0{,}99$). 
+	Le résultat de cette d'étude donne $\alpha=\beta=0{,}99$.
+	En outre, on sait que la proportion de personnes malades dans la population est de $p=1/1000$.
+	Proposer des indicateurs d'efficacité du test et les évaluer.
 \end{exo}
 
 \begin{comment}
-\begin{enumerate}
-	\item Chaque individu à deux caractéristiques: le fait qu'il soit décédé d'un suicide cette année (noté $S$) ou pas (noté $\overline{S}$) et le fait qu'au cours des années précédentes, il ait déjà fait une tentative (noté $T$) ou pas (noté $\overline{T}$). 
-    Alors on prend $\Omega = \{ (S,T),(S,\overline{T}),(\overline{S},T),(\overline{S},\overline{T}) \}$ muni de $\cA = \cP(\Omega)$ et d'une mesure de probabilité $\P$ à déterminer.
-    On note $A_S = \{ (S,T),(S,\overline{T})\}$ l'évenement `\textit{l'individu s'est suicidé}' et $A_T = \{ (S,T),(\overline{S},T)\}$ l'évenement `\textit{l'individu a fait une tentative de suicide au cours des années précédentes}'.
-    Le texte nous permet de dire que
-    \[
-        \P(A_S) = \frac{1}{1000}
-        \qquad \text{et} \qquad 
-        \Ppsq{A_T}{A_S} = 15 \cdot \Ppsq{A_T^c}{A_S}.
-    \]
-    %%
-	\item Dans ce modèle, la conclusion du quotidien se formule $\Ppsq{A_S}{A_T} > \Ppsq{A_S}{A_T^c}$. 
-    Notons $p = \P(A_T)$ la proportion de personnes ayant déja fait une tentative de suicide.
-    On a
-    \begin{align*}
-    \Ppsq{A_S}{A_T} > \Ppsq{A_S}{A_T^c}
-    & \quad \Leftrightarrow \quad 
-    \frac{\Ppsq{A_T}{A_S} \P(A_S)}{\P(A_T)} > \frac{\Ppsq{A_T^c}{A_S} \P(A_S)}{\P(A_T^c)} \\
-    & \quad \Leftrightarrow \quad 
-    \frac{15 \cdot \Ppsq{A_T}{A_S}}{\P(A_T)} > \frac{\Ppsq{A_T^c}{A_S}}{\P(A_T^c)} \\
-    & \quad \Leftrightarrow \quad 
-    \frac{15}{p} > \frac{1}{1-p} \\
-    & \quad \Leftrightarrow \quad 
-    p < \frac{15}{16}.
-    \end{align*}
-    Dès que la proportion $p$ est inférieure à $15/16$ (ce qui est probablement le cas), la conclusion du journal est correcte.
-    \end{enumerate}
+On modélise l'expérience aléatoire d'un individu aléatoirement choisi qui prend le test pour savoir s'il est malade ou non.
+Les deux indicateurs d'efficacité sont la probabilité que l'individu soit malade sachant que le test est positif et la probabilité que l'individu soit sain sachant que le test est négatif. On aimerait que ces deux quantités soit aussi proche de 1 que possible.
+
+Deux caractéristiques de l'individu nous intéressent : le fait qu'il soit sain (noté $S$) ou malade (noté $M$) et le fait que son test soit positif (noté $P$) ou négatif (noté $N$).
+Ainsi on considère l'espace $\Omega = \{ (M,P),(M,N),(S,P),(S,N) \}$ muni de $\cA = \cP(\Omega)$ et
+\[
+\P = p \alpha \delta_{(M,P)} + p (1-\alpha) \delta_{(M,N)} + (1-p) (1-\beta) \delta_{(S,P)} + (1-p) \beta \delta_{(S,N)} .
+\]
+On pose $A = $ `\textit{l'individu est malade}' et $B = $ `\textit{le test est positif}', de sorte que nos indicateurs sont  $\Ppsq{A}{B}$ et $\Ppsq{A^c}{B^c}$.
+
+On peut les évaluer avec la formule de Bayes par exemple :
+\[
+\Ppsq{A}{B} = \frac{\P(A) \Ppsq{B}{A}}{\P(B)}
+= \frac{p \alpha}{\P(\{ (M,P), (S,P)\})}
+= \frac{p \alpha}{p \alpha + (1-p)(1-\beta)}
+\simeq 0.09
+\]
+et
+\[
+\Ppsq{A^c}{B^c} = \frac{\P(A^c) \Ppsq{B^c}{A^c}}{\P(B^c)}
+= \frac{(1-p) \beta}{\P(\{ (M,N), (S,N)\})}
+= \frac{(1-p) \beta}{(1-p) \beta + p(1-\alpha)}
+\simeq 0.99999.
+\]
+Tel quel, ce test de dépistage produit énormément de faux positif : quand on reçoit un test positif, on a 91\% de chance d'être en fait en bonne santé.
+Cependant le test détecte efficacement les malades car il y a très peu de faux négatif : quand on reçoit un test négatif, on a seulement 0.001\% de chance d'être en fait malade.
+
+On peut donc dire que le test n'est pas très satisfaisant. Mais d'un point de vue sanitaire il est important de réduire au maximum le nombre de faux négatifs pour isoler les personne malades, ce qui est le cas ici. Le problème est juste qu'on isolera en grande majorité des personnes saines, mais peu de personnes malades passeront à travers les mailles.
 \end{comment}
 
 \end{document}
