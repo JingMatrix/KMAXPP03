@@ -149,7 +149,7 @@
 }
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -234,14 +234,14 @@ car la suite d'événements $\{ X \leq y_n \}$ est décroissante. Ainsi $F$ est 
 
 \emph{Remarque.} On utilise ici l'implication suivante : si pour toute suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$, $F(y_n) \to F(x)$, alors 
 \begin{equation}\label{eq:lim_droite}
-F(y) \xrightarrow[\substack{y \to x\\y\geq x}]{} F(x).
+F(y) \xrightarrow[\substack{y \to x\\y> x}]{} F(x).
 \end{equation}
 Cela se montre par contraposée. Supposons que la convergence \eqref{eq:lim_droite} est fausse. Cela signifie : 
 \[
-\exists \varepsilon > 0, \forall \delta > 0, \exists y \in \,]x,x+\delta], \abs{F(x) - F(y)} > \varepsilon.
+\exists \varepsilon > 0, \forall \delta > 0, \exists y \in {]}x,x+\delta], \abs{F(x) - F(y)} > \varepsilon.
 \]
 On fixe un tel $\varepsilon > 0$.
-On construit par récurrence une suite $(y_n)_{n\geq0}$ décroissante telle que $y_n \to 0$ et $\abs{F(x) - F(y_n)} > \varepsilon$ pour tout $n \geq 0$. On initie en considérant $\delta =1$ : il existe alors $y_0 \in \,]x,x+1]$ telle que $\abs{F(x) - F(y_0)} > \varepsilon$. Supposons que $y_n$ est définie, on considère alors $\delta = \min(n^{-1},y_n-x) > 0$ : on en déduit qu'il existe $y_{n+1} \in \,]x,x+\delta]$ tel que $\abs{F(x) - F(y_{n+1})} > \varepsilon$ et on a à la fois $y_{n+1} \leq y_n$ et $x < y_{n+1} \leq x + n^{-1}$.
+On construit par récurrence une suite $(y_n)_{n\geq0}$ décroissante telle que $y_n \to x$ et $\abs{F(x) - F(y_n)} > \varepsilon$ pour tout $n \geq 0$. On initie en considérant $\delta =1$ : il existe alors $y_0 \in {]}x,x+1]$ telle que $\abs{F(x) - F(y_0)} > \varepsilon$. Supposons que $y_n$ est définie, on considère alors $\delta = \min(n^{-1},y_n-x) > 0$ : on en déduit qu'il existe $y_{n+1} \in {]}x,x+\delta]$ tel que $\abs{F(x) - F(y_{n+1})} > \varepsilon$ et on a à la fois $y_{n+1} \leq y_n$ et $x < y_{n+1} \leq x + n^{-1}$.
 Ainsi la suite construite est bien décroissante et converge vers $x$.
 On a donc montré : il existe une suite $(y_n)_{n\geq0}$ décroissante convergeant vers $x$ telle que $F(y_n)$ ne converge pas vers $F(x)$.
 On a donc montré la contraposée du résultat désiré.
@@ -333,7 +333,7 @@ en utilisant que la suite d'événements $\{ X \leq y_n \}$ est croissante.
 			            = \liminf_{n \to \infty} (A_n)^c.
 		            \]
 		            %%
-		      \item Cette égalité provient du fait qu'un élément appartient à une infinité de $A_n \cup B_n$ si et seulement si il appartienent à une infinité de $A_n$ ou bien à une infinité de $B_n$.
+		      \item Cette égalité provient du fait qu'un élément appartient à une infinité de $A_n \cup B_n$ si et seulement si il appartient à une infinité de $A_n$ ou bien à une infinité de $B_n$.
 	      \end{enumerate}
 	      %%
 	\item
@@ -542,7 +542,9 @@ Soit $A = \{ (F,F), (F,G), (G,F) \}$ l'événement `\textit{Mathilde a une fille
 		      
 		      Il n'y a pas forcément égalité. Par exemple on peut considérer $A_{2n} = B_{2n+1} = \Omega$ et $B_{2n} = A_{2n+1} =\varnothing$. Alors $\limsup_{n \to \infty} A_n \cap \limsup_{n \to \infty} B_n = \Omega$, mais $\limsup_{n \to \infty} (A_n \cap B_n) = \varnothing$.
 		      %%
-		      \item 
+		      \item Soit $x \in \limsup_{n\to\infty} A_n \cap \liminf_{n\to\infty} B_n$. Alors $x \in \liminf_{n\to\infty} B_n$ donc $x$ est dans tous les $B_n$ à partir d'un certain rang $n_0$. Mais $x \in \limsup_{n\to\infty} A_n$ donc il existe une infinité de $n \geq n_0$ tel que $x \in A_n$ (sinon $x$ ne serait que dans un nombre fini de $A_n$ pour $n \geq 1$). Comme pour chaque $n \geq n_0$ on a $x \in B_n$, on en déduit qu'il existe une infinité de $n \geq n_0$ tel que $x \in A_n$. Et donc $x \in \limsup_{n\to\infty} (A_n \cap B_n)$.
+		      
+		      Il n'y a pas forcément égalité. Par exemple on peut considérer $A_{2n} = B_{2n} = \Omega$ et $B_{2n+1} = A_{2n+1} =\varnothing$. Alors $\limsup_{n \to \infty} A_n \cap \liminf_{n \to \infty} B_n = \varnothing$, mais $\limsup_{n \to \infty} (A_n \cap B_n) = \Omega$.
 	      \end{enumerate}
 	      %%
 	\item
