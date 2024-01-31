@@ -32,7 +32,7 @@
 %%%%%%%% Numeration des enumerates en romain et chgt de l'espace %%%%%%%
 \setitemize[1]{label=$\rhd$, font=\color{NavyBlue},leftmargin=0.8cm}
 \setenumerate[1]{font=\color{NavyBlue},leftmargin=0.8cm}
-\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.47cm}
+\setenumerate[2]{font=\color{NavyBlue},leftmargin=0.49cm}
 %\setlist[enumerate,1]{label=(\roman*), font = \normalfont,itemsep=4pt,topsep=4pt} 
 %\setlist[itemize,1]{label=\textbullet, font = \normalfont,itemsep=4pt,topsep=4pt} 
 
@@ -148,7 +148,7 @@
 	}
 
 %%%%%%%%%%%% Corrige %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
+%\renewenvironment{comment}{\medskip\noindent \textcolor{BrickRed}{\textbf{Corrigé.}}}{}
 
 %%%%%%%%%%%% Titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\titre[1]{\ \vspace{-1cm}
@@ -158,7 +158,7 @@
 	\hfill {\small Université Paul Sabatier}
 	
 	{\small KMAXPP03}
-	\hfill {\small Licence 3, Printemps 2023}\medskip
+	\hfill {\small Licence 3, Printemps 2024}\medskip
 	\begin{center}
 		{\Large\textbf{\DSB{#1}}}\vspace{-.2cm}
 	\end{center}
@@ -175,6 +175,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Variables aléatoires}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \begin{exo} Soient $X$, $Y$ et $Z$ des v.a. réelles définies sur un espace de probabilité $(\Omega,\cA,\P)$.
 	\begin{enumerate}
@@ -266,40 +269,40 @@ Soit $p \geq 0$. Par le théorème de transfert,
 \end{comment}
 
 
-%%%%%%
-\separationexos
-%%%%%%
-
-\begin{exo}
-	Rappelons que $\int_\R e^{-x^2/2} \diff x = \sqrt{2\pi}$, voir l'exercice \ref{exo:gaussienne} pour se rappeler la démonstration.
-	Soit $X$ une v.a. de loi gaussienne standard, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. 
-	Calculer $\E[X]$ et $\E[X^2]$.
-\end{exo}
-
-\begin{comment}
-Notons que $x \in \R \mapsto x$ est intégrable par rapport à $P_X$ (car $\abs{x} e^{-x^2/2}$ décroit plus vite que $e^{-\abs{x}}$ quand $x \to \infty$), donc, par le théorème de transfert, 
-\[
-\E[X] = \int_\R x \cdot \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x = 0,
-\]
-car c'est une fonction impaire.
-
-Comme $x^2 \geq 0$, par le théorème de transfert, 
-\begin{align*}
-\E[X^2] 
-& = \int_\R x^2 \cdot \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x \\
-& = - \frac{1}{\sqrt{2\pi}} \int_\R x \cdot \left( \frac{\diff}{\diff x} e^{-x^2/2} \right) \diff x \\
-& = - \frac{1}{\sqrt{2\pi}} 
-\left( \left[ x e^{-x^2/2}\right]_{-\infty}^\infty - \int_\R e^{-x^2/2} \diff x \right) & (\text{intégration par parties})\\
-& = - \frac{1}{\sqrt{2\pi}} \left( 0 - \sqrt{2\pi} \right) = 1.
-\end{align*}
-\end{comment}
+%%%%%%%
+%\separationexos
+%%%%%%%
+%
+%\begin{exo}
+%	Rappelons que $\int_\R e^{-x^2/2} \diff x = \sqrt{2\pi}$, voir l'exercice \ref{exo:gaussienne} pour se rappeler la démonstration.
+%	Soit $X$ une v.a. de loi gaussienne standard, i.e. de loi $\frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x$. 
+%	Calculer $\E[X]$ et $\E[X^2]$.
+%\end{exo}
+%
+%\begin{comment}
+%Notons que $x \in \R \mapsto x$ est intégrable par rapport à $P_X$ (car $\abs{x} e^{-x^2/2}$ décroit plus vite que $e^{-\abs{x}}$ quand $x \to \infty$), donc, par le théorème de transfert, 
+%\[
+%\E[X] = \int_\R x \cdot \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x = 0,
+%\]
+%car c'est une fonction impaire.
+%
+%Comme $x^2 \geq 0$, par le théorème de transfert, 
+%\begin{align*}
+%\E[X^2] 
+%& = \int_\R x^2 \cdot \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \diff x \\
+%& = - \frac{1}{\sqrt{2\pi}} \int_\R x \cdot \left( \frac{\diff}{\diff x} e^{-x^2/2} \right) \diff x \\
+%& = - \frac{1}{\sqrt{2\pi}} 
+%\left( \left[ x e^{-x^2/2}\right]_{-\infty}^\infty - \int_\R e^{-x^2/2} \diff x \right) & (\text{intégration par parties})\\
+%& = - \frac{1}{\sqrt{2\pi}} \left( 0 - \sqrt{2\pi} \right) = 1.
+%\end{align*}
+%\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \partie{Calcul de loi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\emphb{Méthode.} Pour déterminer la loi d'une v.a. $Y$, on pourra utiliser la méthode suivante, présentée plus en détails en Section 1.3.3 des notes de cours : considérer une fonction $f \colon \R \to \R_+$ mesurable quelconque et écrire $\E[f(Y)]$ sous la forme $\int_\R f(y) \diff \mu(y)$. Alors on peut en conclure que $P_Y = \mu$.
+\emphb{Méthode.} Pour déterminer la loi d'une v.a. réelle $Y$, on pourra utiliser la méthode suivante, présentée plus en détails en Section 1.3.3 des notes de cours : considérer une fonction $f \colon \R \to \R_+$ mesurable quelconque et écrire $\E[f(Y)]$ sous la forme $\int_\R f(y) \diff \mu(y)$. Alors on peut en conclure que $P_Y = \mu$.
 
 %%%%%%
 \separationexos
@@ -388,49 +391,10 @@ On a donc
 \] 
 Donc la loi de $Y$ est 
 \[
-P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,\infty[}(y) \diff y.
+P_Y(\diff y) = \left( e^{-y} + e^{-1/y} \frac{1}{y^2} \right) \1_{[0,1[}(y) \diff y.
 \]
 \end{comment}
 
-%%%%%%
-\separationexos
-%%%%%%
-
-\begin{exo}[Transformation de loi discrète]
-	Soit $X$ une v.a. réelle de loi discrète $\sum_{i\in \cI} p_i \delta_{x_i}$, avec $\cI \subset \N$, %$p_i > 0$ et $x_i \in \R$ pour $i \in \cI$.
-	$(p_i)_{i\in\cI} \in (\R_+^*)^\cI$ et $(x_i)_{i\in\cI} \in \R^\cI$.
-	Soit $f \colon \R \to \R$ mesurable.
-	Quelle est la loi de $f(X)$ ?
-\end{exo}
-
-\begin{comment}
-    On pose $Y = f(X)$.
-    
-    \emph{Méthode 1.} Soit $g \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
-    \[
-    \Ec{g(Y)}
-    = \Ec{g(f(X))}
-    = \int_\R g(f(x)) \diff P_X(x)
-    = \sum_{i\in \cI} p_i g(f(x_i))
-    = \int_\R g(y) \diff \left( \sum_{i\in \cI} p_i \delta_{f(x_i)} \right)(y),
-    \] 
-    en réécrivant la somme comme une intégrale par rapport à une autre mesure discrète.
-    Cela montre que
-    \[
-    P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)}.
-    \]
-    
-    
-    \emph{Méthode 2.} La v.a. $Y$ est à valeurs dans l'ensemble dénombrable $\{f(x_i), i\in\cI\}$, donc sa loi est discrète et est caractérisée par sa valeur sur les singletons. On calcule donc, pour tout $i \in \cI$,
-    \[
-    \Pp{Y = f(x_i)} = \Pp{f(X) = f(x_i)} = \Pp{ X \in \{ x_j : j\in\cI, f(x_j) = f(x_i) \}} = \sum_{j \in \cI \text{ tq } f(x_j) = f(x_i)} p_j
-    \] 
-    et cela montre que
-    \[
-    P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)},
-    \]
-    car ces mesure coïncident sur les singletons $\{f(x_i)\}$.
-\end{comment}
 
 
 
@@ -632,48 +596,94 @@ On peut alors calculer
 	\end{enumerate}
 \end{exo}
 
+\begin{comment}
+\begin{enumerate}
+\item Si $Y < X$, alors il existe un rationnel $q \in \Q$ tel que $Y < q \leq X$, par densité de $\Q$ dans $\R$. Donc, on a l'inclusion (c'est en fait une égalité !)
+\[
+	\{ Y < X \} \subset \bigcup_{q\in\Q} \{Y < q \leq X\}.
+\]
+Donc
+\[
+	\P(Y < X) \leq \sum_{q\in\Q} \P(Y < q \leq X) = 0,
+\]
+en utilisant l'hypothèse de l'énoncé.
+On a donc montré que $\mathbb{P}(Y < X)=0$.
+%%
+\item Supposons que $X$ et $Y$ ont m\^eme loi et que $X \geq Y$ p.s.
+Alors, avec $\Omega' = \{X \geq Y\}$, on a $\P(\Omega'^c) = 0$.
+Soit $t \in \R$, on a
+\[
+\{ Y < t \leq X \}
+= \{X \geq t\} \setminus \{Y \geq t\}.
+\]
+Puis on a l'union disjointe
+\[
+\{X \geq t\} \setminus \{Y \geq t\}
+= \left( \{X \geq t\} \cap \Omega'] \setminus [\{Y \geq t\}\cap \Omega'] \right)
+\sqcup \left( \{X \geq t\} \cap \Omega'^c] \setminus [\{Y \geq t\}\cap \Omega'^c] \right),
+\]
+où le 2ème événement de cet union disjointe est inclus dans $\Omega'^c$, donc a probabilité 0. On en déduit que
+\[
+\P(Y < t \leq X)
+= \P([\{X \geq t\} \cap \Omega'] \setminus [\{Y \geq t\}\cap \Omega']).
+\]
+Notons maintenant que $\{Y \geq t\}\cap \Omega' \subset \{X \geq t\}\cap \Omega'$, donc
+\[
+\P(Y < t \leq X)
+= \P(\{X \geq t\} \cap \Omega') - \P(\{Y \geq t\}\cap \Omega').
+\]
+Mais $\P(\{X \geq t\} \cap \Omega') = \P(X \geq t) - \P(\{X \geq t\} \cap \Omega'^c) = \P(X \geq t)$ car $\P(\Omega'^c) = 0$.
+En procédant de même avec $\P(\{Y \geq t\}\cap \Omega')$, on obtient
+\[
+\P(Y < t \leq X)
+= \P(X \geq t) - \P(Y \geq t) = 0,
+\]
+car $X$ et $Y$ on la même loi. Par la question 1, on en déduit que $\P(Y < X) = 0$, c'est-à-dire $Y \geq X$ p.s. Mais comme on a aussi $X \geq Y$ p.s., on a donc montré que $X = Y$ p.s.
+\end{enumerate}
+\end{comment}
+
 %%%%%%
 \separationexos
 %%%%%%
 
-\begin{exo}
-	Soit $X$ une v.a. de loi de Cauchy, i.e. de loi $\frac{1}{\pi (1+x^2)} \diff x$.
-	\begin{enumerate}
-		\item Montrer que $\mathbb{P}(X=0)=0$ et $\mathbb{P}(X<0)= \frac{1}{2}$.
-		\item On pose $Y=1/X$ (qui est bien définie p.s.). Déterminer la loi de $Y$.
-		\item Que dire de $\mathbb{E}[Y]$ ?
-	\end{enumerate}
-\end{exo}
-
-%%%%%%
-\separationexos
-%%%%%%
-
-\begin{exo}
-	Soit $X$ une v.a. de loi exponentielle de paramètre $1$, i.e. de loi 
-	$e^{-x} \1_{[0,\infty)}(x) \diff x$. Déterminer la loi de $\lfloor X \rfloor$ (la partie entière de $X$).
+\begin{exo}[Transformation de loi discrète]
+	Soit $X$ une v.a. réelle de loi discrète $\sum_{i\in \cI} p_i \delta_{x_i}$, avec $\cI \subset \N$, %$p_i > 0$ et $x_i \in \R$ pour $i \in \cI$.
+	$(p_i)_{i\in\cI} \in (\R_+^*)^\cI$ et $(x_i)_{i\in\cI} \in \R^\cI$.
+	Soit $f \colon \R \to \R$ mesurable.
+	Quelle est la loi de $f(X)$ ?
 \end{exo}
 
 \begin{comment}
-    Soit $Y = \lfloor X \rfloor$.
-    Soit $f \colon \R \to \R_+$ une fonction mesurable.
-    Par le théorème de transfert,
-    \[
-    \Ec{f(Y)} = \Ec{f(\lfloor X \rfloor)}
-    = \int_0^\infty f(\lfloor x \rfloor) e^{-x} \diff x
-    = \sum_{k=0}^\infty \int_k^{k+1} f(k) e^{-x} \diff x
-    = \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) f(k).
-    \]
-    On peut y reconnaître l'intégrale suivante
-    \[
-    \Ec{f(Y)} 
-    = \int_\R f(y) \diff \left( \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k \right) (y)
-    \]
-    et donc
-    \[
-    P_Y = \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k.
-    \]
+On pose $Y = f(X)$.
+
+\emph{Méthode 1.} Soit $g \colon \R \to\R_+$ une fonction mesurable. On a, par théorème de transfert,
+\[
+\Ec{g(Y)}
+= \Ec{g(f(X))}
+= \int_\R g(f(x)) \diff P_X(x)
+= \sum_{i\in \cI} p_i g(f(x_i))
+= \int_\R g(y) \diff \left( \sum_{i\in \cI} p_i \delta_{f(x_i)} \right)(y),
+\] 
+en réécrivant la somme comme une intégrale par rapport à une autre mesure discrète.
+Cela montre que
+\[
+P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)}.
+\]
+
+
+\emph{Méthode 2.} La v.a. $Y$ est à valeurs dans l'ensemble dénombrable $\{f(x_i), i\in\cI\}$, donc sa loi est discrète et est caractérisée par sa valeur sur les singletons. On calcule donc, pour tout $i \in \cI$,
+\[
+\Pp{Y = f(x_i)} = \Pp{f(X) = f(x_i)} = \Pp{ X \in \{ x_j : j\in\cI, f(x_j) = f(x_i) \}} = \sum_{j \in \cI \text{ tq } f(x_j) = f(x_i)} p_j
+\] 
+et cela montre que
+\[
+P_Y = \sum_{i\in \cI} p_i \delta_{f(x_i)},
+\]
+car ces mesure coïncident sur les singletons $\{f(x_i)\}$.
 \end{comment}
+
+
+
 
 %%%%%%
 \separationexos
@@ -712,6 +722,49 @@ On peut alors calculer
 		\]
 	\end{enumerate}
 \end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi de Cauchy, i.e. de loi $\frac{1}{\pi (1+x^2)} \diff x$.
+	\begin{enumerate}
+		\item Montrer que $\mathbb{P}(X=0)=0$ et $\mathbb{P}(X<0)= \frac{1}{2}$.
+		\item On pose $Y=1/X$ (qui est bien définie p.s.). Déterminer la loi de $Y$.
+		\item Que dire de $\mathbb{E}[Y]$ ?
+	\end{enumerate}
+\end{exo}
+
+%%%%%%
+\separationexos
+%%%%%%
+
+\begin{exo}
+	Soit $X$ une v.a. de loi exponentielle de paramètre $1$, i.e. de loi 
+	$e^{-x} \1_{[0,\infty)}(x) \diff x$. Déterminer la loi de $\lfloor X \rfloor$ (la partie entière de $X$).
+\end{exo}
+
+\begin{comment}
+Soit $Y = \lfloor X \rfloor$.
+Soit $f \colon \R \to \R_+$ une fonction mesurable.
+Par le théorème de transfert,
+\[
+\Ec{f(Y)} = \Ec{f(\lfloor X \rfloor)}
+= \int_0^\infty f(\lfloor x \rfloor) e^{-x} \diff x
+= \sum_{k=0}^\infty \int_k^{k+1} f(k) e^{-x} \diff x
+= \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) f(k).
+\]
+On peut y reconnaître l'intégrale suivante
+\[
+\Ec{f(Y)} 
+= \int_\R f(y) \diff \left( \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k \right) (y)
+\]
+et donc
+\[
+P_Y = \sum_{k=0}^\infty \left( e^{-k}-e^{-(k+1)} \right) \delta_k.
+\]
+\end{comment}
 
 
 %%%%%%
